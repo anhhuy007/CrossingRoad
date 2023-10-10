@@ -5,11 +5,20 @@
 using namespace std;
 
 int main() {
+	GameEngine gameEngine;
 
-	std::string a = "Hello world, this is a test for colorful.h, which is a library used for printing colorful text";
-	COLORREF color = RGB(146, 54, 98);
+	gameEngine.BuildConsole();
 
-	//colorful::Write(a, color, colorful::Alignment::Middle);
+	SMALL_RECT box = { 20, 20, 50, 50 };
+	
+	gameEngine.displayObject(
+		gameEngine.createWrappedObject(10, 10),
+		10,
+		10,
+		Alignment(ALIGNMENT_GRAVITY::CENTRALLY_ALIGNED, 0, 0, 0, 0, box)
+	);
 
+	system("pause>nul");
+	
 	return 0;
 }
