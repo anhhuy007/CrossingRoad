@@ -131,12 +131,14 @@
     <ClCompile Include="CrossingRoad.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Graphic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="Values.h" />
   </ItemGroup>

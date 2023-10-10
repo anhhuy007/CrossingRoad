@@ -43,7 +43,6 @@ public:
 	SMALL_RECT GetWindowSize();
 	
 	// ----- Graphic funtions -----
-
 	PCHAR_INFO createWrappedObject(	 // contain all the information of the object
 		int width,					
 		int height
@@ -58,7 +57,6 @@ public:
 
 	void gotoXY(short x, short y);
 
-	
 	// ----- Sound funtions -----
 
 protected:
