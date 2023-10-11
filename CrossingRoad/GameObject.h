@@ -40,7 +40,7 @@ public:
 
 	void setPixel(
 		COORD pixelCoordinate,
-		int color
+		string colorHex
 	);
 };
 

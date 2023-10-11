@@ -5,7 +5,7 @@
 
 /*
 
-This class include all the functions that are used in the game, such as: Graphic, Sound funtions, etc.
+This class include all the functions that are used in the game, such as: manage Graphic - screen buffer, Sound funtions, etc.
 
 */
 
@@ -27,6 +27,7 @@ using namespace std;
 #include "Colors.h"
 #include "TextStrings.h"
 #include "Alignment.h"
+#include "GameObject.h"
 
 class GameEngine {
 private: 
@@ -41,21 +42,9 @@ public:
 	// ----- Window console funtions -----
 	void BuildConsole();
 	SMALL_RECT GetWindowSize();
-	
-	// ----- Graphic funtions -----
-	PCHAR_INFO createWrappedObject(	 // contain all the information of the object
-		int width,					
-		int height
-	);   
 
-	void displayObject(			// display the object on the screen
-		PCHAR_INFO object,
-		short objectWidth, 
-		short objectHeight,
-		Alignment alignment
-	);
-
-	void gotoXY(short x, short y);
+	// ----- Screen buffer funtions -----
+	void bindObjectToScreenBuffer(GameObject object);
 
 	// ----- Sound funtions -----
 

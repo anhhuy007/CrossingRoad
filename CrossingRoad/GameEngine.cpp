@@ -44,6 +44,10 @@ SMALL_RECT GameEngine::GetWindowSize() {
 	return window;
 }
 
+void GameEngine::bindObjectToScreenBuffer(GameObject object)
+{
+}
+
 GameEngine::GameEngine() {
 	fontSize = 16;
 	windowScope = GetWindowSize();
@@ -66,60 +70,10 @@ void GameEngine::BuildConsole() {
 	CONSOLE_FONT_INFOEX cfi;
 	cfi.cbSize = sizeof(cfi);
 	cfi.nFont = 0;
-	cfi.dwFontSize.X = 0;              // Width of each character in the font
+	cfi.dwFontSize.X = 0;					// Width of each character in the font
 	cfi.dwFontSize.Y = fontSize;            // Height
 	cfi.FontFamily = FF_DONTCARE;
 	cfi.FontWeight = FW_NORMAL;
 	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
-}
-
-PCHAR_INFO GameEngine::createWrappedObject(int width, int height) {
-	PCHAR_INFO object = new CHAR_INFO[width * height];
-
-	for (int i = 0; i < width * height; i++) {
-		object[i].Char.AsciiChar = '0';
-		object[i].Attributes = 1;
-	}
-
-	return object;
-}
-
-void GameEngine::gotoXY(short x, short y) {
-	static HANDLE h = NULL;
-	if (!h) h = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD coord = { x, y };
-	SetConsoleCursorPosition(h, coord);
-}
-
-void GameEngine::displayObject(
-	PCHAR_INFO object,
-	short objectWidth,
-	short objectHeight,
-	Alignment alignment
-) {
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	SMALL_RECT displayRegion = alignment.getDisplayRegion(objectWidth, objectHeight);
-
-	gotoXY(0, 0);
-	cout << "displayRegion: " << displayRegion.Left << " " << displayRegion.Top << " " << displayRegion.Right << " " << displayRegion.Bottom << endl;
-	cout << "left top: " << displayRegion.Left << " " << displayRegion.Top << endl;
-
-	gotoXY(alignment.boxScope.Left, alignment.boxScope.Top);
-	cout << "0";
-	gotoXY(alignment.boxScope.Right, alignment.boxScope.Top);
-	cout << "1";
-	gotoXY(alignment.boxScope.Left, alignment.boxScope.Bottom);
-	cout << "2";
-	gotoXY(alignment.boxScope.Right, alignment.boxScope.Bottom);
-	cout << "3";
-	
-	WriteConsoleOutput(
-		hOut, 
-		object, 
-		{ objectWidth, objectHeight },
-		{0, 0},
-		//{ displayRegion.Left, displayRegion.Top },
-		&displayRegion
-	);
 }

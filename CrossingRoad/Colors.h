@@ -3,6 +3,11 @@
 #ifndef COLOR_CONSTANTS
 #define COLOR_CONSTANTS
 
+#include <Windows.h>
+#include <string>
+
+using namespace std;
+
 // some basic colors
 enum class COLOR {
 	LIGHT_RED = 0xFF474C,
@@ -23,6 +28,12 @@ enum class COLOR {
 	DARK_BROWN = 0x5C4033,
 	BLACK = 0x000000,
 	WHITE = 0xFFFFFF,
+};
+
+namespace RGB_COLOR {
+	COLORREF convertHexToRGB(string colorHex);
+	COLORREF ColorRGB(COLOR color);
+	COLORREF getAttributeColor(COLORREF color);		// return color's attribute value
 };
 
 #endif // !COLOR_CONSTANTS

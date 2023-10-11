@@ -26,48 +26,6 @@ int GameObject::get1DPosition(COORD pixelCoordinate) {
 	return pixelCoordinate.X * height + pixelCoordinate.Y;
 }
 
-bool Values[16] = { true,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false };
-int SetColor(COLORREF color)
-{
-	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(info);
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfoEx(hConsole, &info);
-
-
-
-	int i, chosen = 17;
-	for (i = 0; i < 16; i++) {
-
-		COLORREF a = info.ColorTable[i];
-
-		if (info.ColorTable[i] == color) {
-			chosen = i;
-
-			return chosen;
-		}
-
-	}
-	for (i = 0; i < 16; i++) {
-
-		if (!Values[i]) {
-			chosen = i;
-			Values[i] = true;
-			break;
-		}
-
-
-	}
-	if (chosen == 17) {
-		throw;
-	}
-	else {
-		info.ColorTable[chosen] = color;
-		SetConsoleScreenBufferInfoEx(hConsole, &info);
-		return chosen;
-	}
-}
-
 void GameObject::setPixelWithCharacter(
 	COORD pixelCoordinate,
 	wchar_t character,
@@ -83,12 +41,12 @@ void GameObject::setPixelWithCharacter(
 
 void GameObject::setPixel(
 	COORD pixelCoordinate,
-	int color
+	string colorHex
 ) {
 	int i = get1DPosition(pixelCoordinate);
+	COLORREF color = RGB_COLOR::convertHexToRGB(colorHex);
 	
-	buffer[i].Attributes = SetColor(color);
-	// square character
-	buffer[i].Char.UnicodeChar = 0x2588;
+	buffer[i].Attributes = RGB_COLOR::getAttributeColor(color);
+	buffer[i].Char.UnicodeChar = 0x2588;	// Full block
 }
 
