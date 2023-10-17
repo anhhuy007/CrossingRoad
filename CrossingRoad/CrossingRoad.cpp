@@ -7,41 +7,18 @@
 using namespace std;
 
 int main() {
-	GameEngine gameEngine;
-
+	GameEngine gameEngine = GameEngine();
 	gameEngine.BuildConsole();
 
-	SMALL_RECT box = { 20, 20, 50, 50 };
+	Graphic::Sprite sprite = Graphic::Sprite("image.txt");
+	GameObject object = GameObject(sprite);
+	object.setPosition({ 10, 10 });	
+	
+	gameEngine.bindObjectToScreenBuffer(object);
+	gameEngine.updateConsole();
 
-	string colors[10] = {
-		"#f6e807",
-		"#f9ec1e",
-		"#f9ee37",
-		"#faf050",
-		"#fbf269",
-		"#fbf482",
-		"#fcf69a",
-		"#afa838",
-		"#969030",
-		"#c6bf4d"
-	};
-
-	GameObject object = GameObject(10, 10);
-	for (int i = 0; i < 10; i++) {
-		string color = colors[i];
-		for (int j = 0; j < 10; j++) {
-			object.setPixel(
-				{ short(i), short(j) },
-				colors[i]
-			);
-		}
-	}
-	Graphic::displayObject(
-		object,
-		box,
-		Alignment(ALIGNMENT_GRAVITY::BOTTOM_LEFT, 0, 0, 0, 0, box)
-	);
-
+	Graphic::gotoXY(10, 10);
+	
 	system("pause>nul");
 	
 	return 0;

@@ -6,42 +6,36 @@
 // ----- STANDARD INCLUDES -----
 #include <Windows.h>
 #include <wchar.h>
+#include <fstream>
 
 // ----- MY CLASS INCLUDES -----
 #include "Colors.h"
+#include "Graphic.h"
 
 using namespace std;
 
 class GameObject {
 	
 protected: 
-	PCHAR_INFO buffer;
+	Graphic::Sprite sprite;
 	short width;
 	short height;
-	COORD position; // top left corner
-
-private:
-	int get1DPosition(COORD pixelCoordinate);
+	SMALL_RECT wrappedBox;	// real object position wrapped by rectangle box
 
 public:
 	GameObject(short _width, short _height);
+	GameObject(Graphic::Sprite _sprite);
 	~GameObject();
 
+	// ----- Getters -----
 	short getWidth();
 	short getHeight();
-	PCHAR_INFO getBuffer();
+	SMALL_RECT getWrappedBox();
+	COORD getPosition();
+	Graphic::Sprite getSprite();
 
-	void setPixelWithCharacter(
-		COORD pixelCoordinate, 
-		wchar_t character,
-		COLOR charColor,
-		COLOR backgroundColor
-	);
-
-	void setPixel(
-		COORD pixelCoordinate,
-		string colorHex
-	);
+	// ----- Setters -----
+	void setPosition(COORD coord);
 };
 
 #endif // !GAME_OBJECT
