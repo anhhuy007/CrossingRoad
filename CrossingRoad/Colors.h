@@ -3,26 +3,34 @@
 #ifndef COLOR_CONSTANTS
 #define COLOR_CONSTANTS
 
-// some basic colors
-enum class COLOR {
-	LIGHT_RED = 0xFF474C,
-	DARK_RED = 0x7F1D1F,
-	LIGHT_GREEN = 0x6BFF6B,
-	DARK_GREEN = 0x1F7F1F,
-	LIGHT_BLUE = 0x6B6BFF,
-	DARK_BLUE = 0x1F1F7F,
-	LIGHT_YELLOW = 0xFFFF6B,
-	DARK_YELLOW = 0x7F7F1F,
-	LIGHT_MAGENTA = 0xFF6BFF,
-	DARK_MAGENTA = 0x7F1F7F,
-	LIGHT_CYAN = 0x6BFFFF,
-	DARK_CYAN = 0x1F7F7F,
-	LIGHT_GRAY = 0xBFBFBF,
-	DARK_GRAY = 0x7F7F7F,
-	LIGHT_BROWN = 0xBFBF7F,
-	DARK_BROWN = 0x5C4033,
-	BLACK = 0x000000,
-	WHITE = 0xFFFFFF,
+#include <Windows.h>
+#include <string>
+
+namespace COLOR {
+	enum class COLOR {
+		TRANSPARENT_ = -1,
+		BLACK = 0,
+		BLUE = 1,
+		GREEN = 2,
+		YELLOW = 3,
+		RED = 4,
+		PURPLE = 5,
+		BROWN = 6,
+		LIGHT_GRAY = 7,
+		ORANGE = 8,
+		LIGHT_BLUE = 9,
+		LIGHT_GREEN = 10,
+		LIGHT_YELLOW = 11,
+		LIGHT_RED = 12,
+		PINK = 13,
+		LIGHT_BROWN = 14,
+		WHITE = 15
+	};
+
+	int GetColor(
+		COLOR foregroundColor,
+		COLOR backgroundColor
+	);
 };
 
 #endif // !COLOR_CONSTANTS
