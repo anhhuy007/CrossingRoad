@@ -135,6 +135,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="InputHandle.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="Values.h" />

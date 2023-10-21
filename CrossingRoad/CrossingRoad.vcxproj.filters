@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{0d65ad00-cb80-479d-81c3-49f88211d0d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Player">
+      <UniqueIdentifier>{66fb84e3-191b-4dc4-ab85-f3bd3f156f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Player">
+      <UniqueIdentifier>{a2b71c74-67bb-41ff-a63b-93a5dd087165}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrossingRoad.cpp">
@@ -62,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="InputHandle.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="InputHandle.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,6 @@
 using namespace std;
 
 class GameObject {
-	
 protected: 
 	Graphic::Sprite sprite;
 	short width;
@@ -36,6 +35,10 @@ public:
 
 	// ----- Setters -----
 	void setPosition(COORD coord);
+
+	// ----- Methods -----
+	/*virtual void Update();
+	virtual void Render();*/
 };
 
 #endif // !GAME_OBJECT

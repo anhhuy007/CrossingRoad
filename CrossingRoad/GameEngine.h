@@ -23,6 +23,8 @@ This class include all the functions that are used in the game, such as: manage 
 #include <WinUser.h>
 #include <format>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -31,7 +33,7 @@ using namespace std;
 #include "TextStrings.h"
 #include "Alignment.h"
 #include "GameObject.h"
-//#include "InputHandle.h"
+#include "InputHandle.h"
 
 struct PAIR{
 	WORD x;
@@ -59,21 +61,24 @@ public:
 	void updateConsole();
 	
 	// ----- Must be overrided functions -----
-	//virtual bool OnGameStart() = 0;
-	//virtual bool OnGameUpdate(float elapsedTime) = 0;
+	bool GameCreate();
+	bool GameUpdate(float elapsedTime);
 
 	//// ----- Optional funtions -----
-	//virtual bool OnGameDestroy();
+	//virtual bool GameDestroy();
+
+private:
+	void GameThread();
 
 protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	PAIR windowSize = PAIR(0, 0);
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	//InputHandle inputHandle;
+	InputHandle inputHandle;
 	
 public: 
-	static atomic<bool> isRunning;
+	static atomic<bool> atomActive;  // true if game is running
  };
 
 #endif // _GAME_ENGINE_H_
