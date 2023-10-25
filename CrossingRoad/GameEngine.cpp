@@ -1,7 +1,20 @@
 #include "GameEngine.h"
 
-void GameEngine::GameThread() {
-	if (0) {
+void GameEngine::Start() {
+	// ----- Start game -----
+	atomActive = true;
+	std::thread thread1 = std::thread(&GameEngine::GameLoop, this);
+
+	thread1.join();
+}
+
+bool GameEngine::GameCreate() {
+	// ----- Create game -----
+	return true;
+}
+
+void GameEngine::GameLoop() {
+	if (!GameCreate()) {
 		atomActive = false;
 	}
 
@@ -39,27 +52,32 @@ void GameEngine::GameThread() {
 			}
 
 			// ----- Handle frame update -----
-			/*if (!GameUpdate(elapsedTime)) {
+			if (!GameUpdate(elapsedTime)) {
 				atomActive = false;
-			}*/
+			}
 
 			// ----- Update game title and FPS -----
 			wstring title = L"CROSSING ROAD GAME OF GROUP 11 CLC01 - FPS: " + to_wstring(1.0f / elapsedTime);
 			SetConsoleTitle(title.c_str());
 
 			// ----- Update console screen buffer -----
-			updateConsole();
+			UpdateConsole();
 		}
 	}
 }
 
-void GameEngine::bindObjectToScreenBuffer(GameObject object) {
-	Graphic::Sprite objectSprite = object.getSprite();
+void GameEngine::ClearConsole() {
+	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
+		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
+		screenBuffer[i].Attributes = 0;
+	}
+}
 
-	for (short i = 0; i < object.getHeight(); i += 2) {
-		for (short j = 0; j < object.getWidth(); j++) {
-			int screenX = i / 2 + object.getPosition().Y;
-			int screenY = j + object.getPosition().X;
+void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
+	for (short i = 0; i < sprite.getHeight(); i += 2) {
+		for (short j = 0; j < sprite.getWidth(); j++) {
+			int screenX = i / 2 + position.Y;
+			int screenY = j + position.X;
 
 
 			// check if object is still inside the screen
@@ -67,13 +85,13 @@ void GameEngine::bindObjectToScreenBuffer(GameObject object) {
 
 			//CHAR_INFO pixel = object.getBuffer()[object.get1DPosition({ i, j })];
 
-			Graphic::Pixel abovePixel = objectSprite.getPixel(i, j);
-			Graphic::Pixel belowPixel = objectSprite.getPixel(i + 1, j);
+			Graphic::Pixel abovePixel = sprite.getPixel(i, j);
+			Graphic::Pixel belowPixel = sprite.getPixel(i + 1, j);
 			CHAR_INFO currentSreenBuff = screenBuffer[screenX * windowSize.x + screenY];
 			int buffColor = currentSreenBuff.Attributes;
 			COLOR::COLOR belowAttribute = static_cast<COLOR::COLOR>(buffColor % 16);
 			COLOR::COLOR aboveAttribute = static_cast<COLOR::COLOR>((buffColor - static_cast<int>(belowAttribute)) / 16);
-			
+
 			if (abovePixel.color != COLOR::COLOR::TRANSPARENT_) {
 				aboveAttribute = abovePixel.color;
 			}
@@ -95,7 +113,7 @@ void GameEngine::bindObjectToScreenBuffer(GameObject object) {
 	}
 }
 
-void GameEngine::updateConsole() {
+void GameEngine::UpdateConsole() {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	WriteConsoleOutput(
@@ -109,15 +127,17 @@ void GameEngine::updateConsole() {
 
 GameEngine::GameEngine() {
 	fontSize = 6;
-	windowSize = { 460, 120 };
+	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM / 2 };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
-	//inputHandle = InputHandle();
+	inputHandle = InputHandle();
+	collistion = new int[windowSize.x * windowSize.y];
 	
 	// allocate memory for screen buffer
 	screenBuffer = new CHAR_INFO[windowSize.x * windowSize.y];	
 	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
+		collistion[i] = 0;
 	}
 }
 

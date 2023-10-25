@@ -1,49 +1,23 @@
-#include <iostream>
-#include "GameEngine.h"
-#include "Colors.h"
-#include "Graphic.h"
-#include "GameObject.h"
-#include "Colors.h"
+#include "CrossingRoad.h"
 
-using namespace std;
+void CrossingRoad::Init() {
+	// ----- Init game -----
+	// Init game engine
+	GameEngine::BuildConsole();
 
-int main() {
-	GameEngine gameEngine = GameEngine();
+	// Init game state
+	this->gameState = new GameState(this);
+	this->SetState(this->gameState);
+}
 
-	// set console color
-	vector<int> colors = {
-		COLOR::BLACK,
-		COLOR::BLUE,
-		COLOR::GREEN,
-		COLOR::YELLOW,
-		COLOR::RED,
-		COLOR::PURPLE,
-		COLOR::BROWN,
-		COLOR::LIGHT_GRAY,
-		COLOR::ORANGE,
-		COLOR::LIGHT_BLUE,
-		COLOR::LIGHT_GREEN,
-		COLOR::LIGHT_YELLOW,
-		COLOR::LIGHT_RED,
-		COLOR::PINK,
-		COLOR::LIGHT_BROWN,
-		COLOR::WHITE
-	};
+bool CrossingRoad::GameUpdate(float elapsedTime) {
+	// ----- Update game -----
+	if (inputHandle.arrKeyState[Keyboard::ESCAPE_KEY].isPressed) return false;
 
-	COLOR::SetConsoleColor(colors);
-	
-	gameEngine.BuildConsole();
+	// game loop
+	if (gameState != nullptr) {
+		return gameState->Update(elapsedTime);
+	}
 
-	Graphic::Sprite sprite = Graphic::Sprite("image.sprite");
-	GameObject object = GameObject(sprite);
-	object.setPosition({ 10, 10 });	
-	
-	gameEngine.bindObjectToScreenBuffer(object);
-	gameEngine.updateConsole();
-
-	Graphic::gotoXY(100, 20);
-	
-	system("pause>nul");
-	
-	return 0;
+	return true;
 }

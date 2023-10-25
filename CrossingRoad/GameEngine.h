@@ -31,9 +31,10 @@ using namespace std;
 // MY CLASS INCLUDES
 #include "Colors.h"
 #include "TextStrings.h"
-#include "Alignment.h"
-#include "GameObject.h"
 #include "InputHandle.h"
+#include "Graphic.h"
+#include "Values.h"
+
 
 struct PAIR{
 	WORD x;
@@ -56,26 +57,31 @@ public:
 	// ----- Window console funtions -----
 	void BuildConsole();
 
-	// ----- Gracphic manager funtions -----
-	void bindObjectToScreenBuffer(GameObject object);
-	void updateConsole();
+	// ----- Gracphic funtions -----
+	void UpdateConsole();
+	void ClearConsole();
+	void RenderSprite(Graphic::Sprite sprite, COORD position);
 	
 	// ----- Must be overrided functions -----
 	bool GameCreate();
-	bool GameUpdate(float elapsedTime);
+	virtual bool GameUpdate(float elapsedTime) = 0;
 
 	//// ----- Optional funtions -----
 	//virtual bool GameDestroy();
 
-private:
-	void GameThread();
 
+	// ----- Properties -----
+	InputHandle inputHandle;
+	void Start();
+private:
+	void GameLoop();
+	
 protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	PAIR windowSize = PAIR(0, 0);
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	InputHandle inputHandle;
+	int* collistion;
 	
 public: 
 	static atomic<bool> atomActive;  // true if game is running
