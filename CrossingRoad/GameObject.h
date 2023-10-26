@@ -9,33 +9,43 @@
 #include <fstream>
 
 // ----- MY CLASS INCLUDES -----
-#include "Colors.h"
 #include "Graphic.h"
+#include "CrossingRoad.h"
+#include "GameEngine.h"
 
-using namespace std;
+using namespace std;	
 
 class GameObject {
-	
 protected: 
-	Graphic::Sprite sprite;
 	short width;
 	short height;
-	SMALL_RECT wrappedBox;	// real object position wrapped by rectangle box
+	COORD position;	// real object position in console (top left coordinate)
+	CrossingRoad* game = nullptr;
 
 public:
-	GameObject(short _width, short _height);
-	GameObject(Graphic::Sprite _sprite);
-	~GameObject();
-
+	GameObject(
+		short _width, 
+		short _height, 
+		COORD _position,
+		CrossingRoad* _game
+	) {
+		this->width = _width;
+		this->height = _height;
+		this->position = _position;
+		this->game = game;
+	}
+	
 	// ----- Getters -----
 	short getWidth();
 	short getHeight();
-	SMALL_RECT getWrappedBox();
 	COORD getPosition();
-	Graphic::Sprite getSprite();
 
 	// ----- Setters -----
-	void setPosition(COORD coord);
+	void setPosition(COORD _position);
+
+	// ----- Methods -----
+	virtual void Update(float elapsedTime) = 0; 
+	virtual void Render() = 0;		// render object in a current state to console
 };
 
 #endif // !GAME_OBJECT

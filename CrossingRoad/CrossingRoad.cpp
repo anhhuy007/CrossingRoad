@@ -1,25 +1,23 @@
-#include <iostream>
-#include "GameEngine.h"
-#include "Colors.h"
-#include "Graphic.h"
-#include "GameObject.h"
+#include "CrossingRoad.h"
 
-using namespace std;
+void CrossingRoad::Init() {
+	// ----- Init game -----
+	// Init game engine
+	GameEngine::BuildConsole();
 
-int main() {
-	GameEngine gameEngine = GameEngine();
-	gameEngine.BuildConsole();
+	// Init game state
+	this->gameState = new GameState(this);
+	this->SetState(this->gameState);
+}
 
-	Graphic::Sprite sprite = Graphic::Sprite("image.txt");
-	GameObject object = GameObject(sprite);
-	object.setPosition({ 10, 10 });	
-	
-	gameEngine.bindObjectToScreenBuffer(object);
-	gameEngine.updateConsole();
+bool CrossingRoad::GameUpdate(float elapsedTime) {
+	// ----- Update game -----
+	if (inputHandle.arrKeyState[Keyboard::ESCAPE_KEY].isPressed) return false;
 
-	Graphic::gotoXY(10, 10);
-	
-	system("pause>nul");
-	
-	return 0;
+	// game loop
+	if (gameState != nullptr) {
+		return gameState->Update(elapsedTime);
+	}
+
+	return true;
 }

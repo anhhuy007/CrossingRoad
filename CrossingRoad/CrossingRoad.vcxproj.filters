@@ -43,6 +43,18 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{0d65ad00-cb80-479d-81c3-49f88211d0d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Player">
+      <UniqueIdentifier>{66fb84e3-191b-4dc4-ab85-f3bd3f156f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Player">
+      <UniqueIdentifier>{a2b71c74-67bb-41ff-a63b-93a5dd087165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Maps">
+      <UniqueIdentifier>{5b791892-e73c-48c4-8bbc-972cd704a35e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Maps">
+      <UniqueIdentifier>{954ef45f-bc1e-4ed9-b137-2da8eece2f1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrossingRoad.cpp">
@@ -62,6 +74,15 @@
     </ClCompile>
     <ClCompile Include="InputHandle.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayer.cpp">
+      <Filter>Source Files\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Source Files\Objects\Maps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="InputHandle.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossingRoad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayer.h">
+      <Filter>Header Files\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Header Files\Objects\Maps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

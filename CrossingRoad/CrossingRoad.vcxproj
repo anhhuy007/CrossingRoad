@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -132,15 +132,21 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CrossingRoad.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GamePlayer.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="InputHandle.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
     <ClInclude Include="Colors.h" />
+    <ClInclude Include="CrossingRoad.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GamePlayer.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="TextStrings.h" />

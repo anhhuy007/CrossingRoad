@@ -23,15 +23,18 @@ This class include all the functions that are used in the game, such as: manage 
 #include <WinUser.h>
 #include <format>
 #include <vector>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
 // MY CLASS INCLUDES
 #include "Colors.h"
 #include "TextStrings.h"
-#include "Alignment.h"
-#include "GameObject.h"
-//#include "InputHandle.h"
+#include "InputHandle.h"
+#include "Graphic.h"
+#include "Values.h"
+
 
 struct PAIR{
 	WORD x;
@@ -54,26 +57,34 @@ public:
 	// ----- Window console funtions -----
 	void BuildConsole();
 
-	// ----- Gracphic manager funtions -----
-	void bindObjectToScreenBuffer(GameObject object);
-	void updateConsole();
+	// ----- Gracphic funtions -----
+	void UpdateConsole();
+	void ClearConsole();
+	void RenderSprite(Graphic::Sprite sprite, COORD position);
 	
 	// ----- Must be overrided functions -----
-	//virtual bool OnGameStart() = 0;
-	//virtual bool OnGameUpdate(float elapsedTime) = 0;
+	bool GameCreate();
+	virtual bool GameUpdate(float elapsedTime) = 0;
 
 	//// ----- Optional funtions -----
-	//virtual bool OnGameDestroy();
+	//virtual bool GameDestroy();
 
+
+	// ----- Properties -----
+	InputHandle inputHandle;
+	void Start();
+private:
+	void GameLoop();
+	
 protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	PAIR windowSize = PAIR(0, 0);
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	//InputHandle inputHandle;
+	int* collistion;
 	
 public: 
-	static atomic<bool> isRunning;
+	static atomic<bool> atomActive;  // true if game is running
  };
 
 #endif // _GAME_ENGINE_H_
