@@ -63,7 +63,7 @@ public:
 	void RenderSprite(Graphic::Sprite sprite, COORD position);
 	
 	// ----- Must be overrided functions -----
-	bool GameCreate();
+	virtual bool GameCreate() = 0;
 	virtual bool GameUpdate(float elapsedTime) = 0;
 
 	//// ----- Optional funtions -----

@@ -7,37 +7,36 @@
 #include <Windows.h>
 #include <wchar.h>
 #include <fstream>
+#include <string>
 
 // ----- MY CLASS INCLUDES -----
 #include "Graphic.h"
 #include "CrossingRoad.h"
 #include "GameEngine.h"
 
-using namespace std;	
-
 class GameObject {
 protected: 
-	short width;
-	short height;
+	int width;
+	int height;
 	COORD position;	// real object position in console (top left coordinate)
 	CrossingRoad* game = nullptr;
 
 public:
 	GameObject(
-		short _width, 
-		short _height, 
+		int _width, 
+		int _height, 
 		COORD _position,
 		CrossingRoad* _game
 	) {
 		this->width = _width;
 		this->height = _height;
 		this->position = _position;
-		this->game = game;
+		this->game = _game;
 	}
 	
 	// ----- Getters -----
-	short getWidth();
-	short getHeight();
+	int getWidth();
+	int getHeight();
 	COORD getPosition();
 
 	// ----- Setters -----

@@ -7,6 +7,8 @@
 
 class CrossingRoad : public GameEngine {	
 public: 
+	CrossingRoad() : GameEngine() {};
+	
 	class GameState {
 	protected:
 		CrossingRoad* game = nullptr;
@@ -17,21 +19,22 @@ public:
 		}
 		GameState() = default;
 
-		virtual bool Update(float elapsedTime) { return false; }
-		virtual bool OnStateEnter() { return true; }
-		virtual bool OnStateExit() { return true; }
+		virtual bool Update(float elapsedTime) { return true; }
+		virtual bool Create() { return true; }
+		virtual bool Exit() { return true; }
 	};
 
 	void SetState(GameState* state) {
 		if (this->gameState != nullptr) {
-			this->gameState->OnStateExit();
+			this->gameState->Exit();
 		}
 		this->gameState = state;
-		this->gameState->OnStateEnter();
+		this->gameState->Create();
 	}
 
 	GameState* gameState = nullptr;
 	void Init();
+	virtual bool GameCreate();
 	virtual bool GameUpdate(float elapsedTime);
 };
 

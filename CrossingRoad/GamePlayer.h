@@ -3,6 +3,9 @@
 #ifndef GAME_PLAYER_H
 #define GAME_PLAYER_H
 
+#define X_AXIS first
+#define Y_AXIS second
+
 // ----- STANDARD LIB INCLUDES -----
 #include <vector>
 #include <iostream>
@@ -22,7 +25,18 @@ public:
 		const int& width,
 		const int& height,
 		CrossingRoad* game
-	) : GameObject(width, height, coord, game) {}
+	) : GameObject(width, height, coord, game) {};
+
+	GamePlayer(
+		const char* spritePath,		// path to sprite folder 
+		int width,
+		int height,
+		const COORD& coord,
+		CrossingRoad* game
+	) : GameObject(width, height, coord, game) {
+		this->sprite = Graphic::Sprite(spritePath);
+		speed = { 5, 2 };
+	}
 
 	virtual void Update(float elapsedTime);
 	virtual void Render();
@@ -41,8 +55,10 @@ protected:
 	AnimationState animationState = AnimationState::NORMAL;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	PlayerState state = PlayerState::STATE_ALIVE;
-	std::vector<pair<AnimationState, Graphic::Sprite>> sprites;
+	Graphic::Sprite sprite;
+	//std::vector<pair<AnimationState, Graphic::Sprite>> sprites;
 	bool isAnimated = false;
+	pair<float, float> speed;
 
 	/*virtual void OnDied();
 	virtual void Move(int x, int y) final;*/

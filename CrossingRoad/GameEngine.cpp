@@ -8,15 +8,10 @@ void GameEngine::Start() {
 	thread1.join();
 }
 
-bool GameEngine::GameCreate() {
-	// ----- Create game -----
-	return true;
-}
-
 void GameEngine::GameLoop() {
-	if (!GameCreate()) {
+	/*if (!GameCreate()) {
 		atomActive = false;
-	}
+	}*/
 
 	// timer
 	auto time1 = chrono::system_clock::now();
@@ -27,6 +22,7 @@ void GameEngine::GameLoop() {
 		while (atomActive) {
 			time2 = chrono::system_clock::now();
 			auto duration = time2 - time1;
+			time1 = time2;
 			float elapsedTime = duration.count();  // in seconds
 
 			// ----- Handle keyboard input -----
@@ -39,12 +35,12 @@ void GameEngine::GameLoop() {
 
 				if (inputHandle.keyNewState[i] != inputHandle.keyOldState[i]) {
 					if (inputHandle.keyNewState[i] & 0x8000) {	// if key is pressed
+						inputHandle.arrKeyState[i].isPressed = !inputHandle.arrKeyState[i].isHeld;
 						inputHandle.arrKeyState[i].isHeld = true;
-						inputHandle.arrKeyState[i].isReleased = false;
 					}
 					else {
-						inputHandle.arrKeyState[i].isHeld = false;
 						inputHandle.arrKeyState[i].isReleased = true;
+						inputHandle.arrKeyState[i].isHeld = false;
 					}
 				}
 
@@ -57,11 +53,13 @@ void GameEngine::GameLoop() {
 			}
 
 			// ----- Update game title and FPS -----
-			wstring title = L"CROSSING ROAD GAME OF GROUP 11 CLC01 - FPS: " + to_wstring(1.0f / elapsedTime);
-			SetConsoleTitle(title.c_str());
-
+			wchar_t s[256];
+			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime);
+			SetConsoleTitle(s);
+			
 			// ----- Update console screen buffer -----
 			UpdateConsole();
+			ClearConsole();
 		}
 	}
 }

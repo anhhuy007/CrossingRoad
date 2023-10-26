@@ -1,4 +1,5 @@
 #include "CrossingRoad.h"
+#include "GameMap.h"
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
@@ -6,8 +7,15 @@ void CrossingRoad::Init() {
 	GameEngine::BuildConsole();
 
 	// Init game state
-	this->gameState = new GameState(this);
+	this->gameState = new GameMap(this);
 	this->SetState(this->gameState);
+}
+
+bool CrossingRoad::GameCreate() {
+	// ----- Create new game -----
+	SetState(new GameMap(this));
+	
+	return true;
 }
 
 bool CrossingRoad::GameUpdate(float elapsedTime) {

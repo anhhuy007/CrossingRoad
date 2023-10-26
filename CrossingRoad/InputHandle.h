@@ -5,8 +5,8 @@
 
 class InputHandle {
 public:
-	bool keyOldState[256];
-	bool keyNewState[256];
+	short keyOldState[256];
+	short keyNewState[256];
 
 	struct KeyState {
 		bool isPressed;

@@ -22,7 +22,7 @@ Graphic::Pixel::Pixel() {
 	color = COLOR::COLOR::TRANSPARENT_;
 }
 
-Graphic::Sprite::Sprite(short _width, short _height) {
+Graphic::Sprite::Sprite(int _width, int _height) {
 	width = _width;
 	height = _height;
 
@@ -50,9 +50,8 @@ Graphic::Sprite::Sprite(const char* filename) {
 	}
 
 	ifs >> width >> height;
-
+	
 	int x, y, color;
-
 	// allocate memory
 	pixels = new Pixel[width * height + width];
 
@@ -68,12 +67,12 @@ Graphic::Sprite::Sprite(const char* filename) {
 	ifs.close();
 }
 
-short Graphic::Sprite::getWidth()
+int Graphic::Sprite::getWidth()
 {
 	return width;
 }
 
-short Graphic::Sprite::getHeight()
+int Graphic::Sprite::getHeight()
 {
 	return height;
 }
@@ -82,12 +81,12 @@ Graphic::Pixel Graphic::Sprite::getPixel(int i, int j) {
 	return pixels[i * width + j];
 }
 
-void Graphic::Sprite::setHeight(short _height)
+void Graphic::Sprite::setHeight(int _height)
 {
 	height = _height;
 }
 
-void Graphic::Sprite::setWidth(short _width)
+void Graphic::Sprite::setWidth(int _width)
 {
 	width = _width;
 }

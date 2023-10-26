@@ -24,23 +24,23 @@ namespace Graphic {
 	class Sprite {
 	private:
 		Pixel* pixels;
-		short width;
-		short height;
+		int width;
+		int height;
 
 	public:
 		// ----- Constructors -----
-		Sprite(short _width, short _height);
+		Sprite(int _width, int _height);
 		Sprite();
 		Sprite(const char* filename);
 
 		// ----- Getters -----
-		short getWidth();
-		short getHeight();
+		int getWidth();
+		int getHeight();
 		Pixel getPixel(int i, int j);
 
 		// ----- Setters -----
-		void setWidth(short _width);
-		void setHeight(short _height);
+		void setWidth(int _width);
+		void setHeight(int _height);
 	};
 };
 

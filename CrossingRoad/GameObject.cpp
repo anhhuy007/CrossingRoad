@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-short GameObject::getWidth() {
+int GameObject::getWidth() {
 	return width;
 }
 
-short GameObject::getHeight() {
+int GameObject::getHeight() {
 	return height;
 }
 
