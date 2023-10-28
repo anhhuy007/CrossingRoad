@@ -54,7 +54,7 @@ void GameEngine::GameLoop() {
 
 			// ----- Update game title and FPS -----
 			wchar_t s[256];
-			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime);
+			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime / 1000);
 			SetConsoleTitle(s);
 			
 			// ----- Update console screen buffer -----
@@ -72,38 +72,17 @@ void GameEngine::ClearConsole() {
 }
 
 void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
-	for (short i = 0; i < sprite.getHeight(); i += 2) {
+	for (short i = 0; i < sprite.getHeight(); i++) {
 		for (short j = 0; j < sprite.getWidth(); j++) {
-			int screenX = i / 2 + position.Y;
+			int screenX = i + position.Y;
 			int screenY = j + position.X;
 
-
 			// check if object is still inside the screen
-			//if (screenX < 0 || screenX >= windowSize.x || screenY < 0 || screenY / 2 >= windowSize.y) continue;
-
-			//CHAR_INFO pixel = object.getBuffer()[object.get1DPosition({ i, j })];
-
-			Graphic::Pixel abovePixel = sprite.getPixel(i, j);
-			Graphic::Pixel belowPixel = sprite.getPixel(i + 1, j);
-			CHAR_INFO currentSreenBuff = screenBuffer[screenX * windowSize.x + screenY];
-			int buffColor = currentSreenBuff.Attributes;
-			COLOR::COLOR belowAttribute = static_cast<COLOR::COLOR>(buffColor % 16);
-			COLOR::COLOR aboveAttribute = static_cast<COLOR::COLOR>((buffColor - static_cast<int>(belowAttribute)) / 16);
-
-			if (abovePixel.color != COLOR::COLOR::TRANSPARENT_) {
-				aboveAttribute = abovePixel.color;
-			}
-
-			if (belowPixel.color != COLOR::COLOR::TRANSPARENT_) {
-				belowAttribute = belowPixel.color;
-			}
+			if (screenX < 0 || screenX >= windowSize.y || screenY < 0 || screenY >= windowSize.x) continue;
 
 			CHAR_INFO buffer;
-			//buffer.Attributes = COLOR::GetColor(belowPixel.color, abovePixel.color);
-			buffer.Attributes = COLOR::GetColor(belowAttribute, aboveAttribute);
-			buffer.Char.UnicodeChar = 0x2584;
-
-			//cout << screenX << " " << screenY << " " << (int)aboveAttribute << " " << (int)belowAttribute << endl;
+			buffer.Attributes = static_cast<WORD>(sprite.getPixel(i, j).color);
+			buffer.Char.UnicodeChar = 0x2588;
 
 			screenBuffer[screenX * windowSize.x + screenY] = buffer;
 		}
@@ -113,19 +92,34 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 
 void GameEngine::UpdateConsole() {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	CHAR_INFO* consoleBuffer = new CHAR_INFO[windowSize.x * (windowSize.y / 2)];
+
+	// ----- Compress screen buffer height -----
+	for (int i = 0; i < windowSize.y; i += 2) {
+		for (int j = 0; j < windowSize.x; j++) {
+			CHAR_INFO aboveBlock = screenBuffer[i * windowSize.x + j];
+			CHAR_INFO belowBlock = screenBuffer[(i + 1) * windowSize.x + j];
+
+			int buffColor = belowBlock.Attributes + aboveBlock.Attributes * 16;
+			
+			consoleBuffer[(i / 2) * windowSize.x + j] = { 0x2584, (unsigned short)buffColor };
+		}
+	}
 
 	WriteConsoleOutput(
 		hStdout,
-		screenBuffer,
-		{ short(windowSize.x), short(windowSize.y) },
+		consoleBuffer,
+		{ short(windowSize.x), short(windowSize.y / 2) },
 		{ 0, 0 },
 		& windowScope
 	);
+
+	delete[] consoleBuffer;
 }
 
 GameEngine::GameEngine() {
 	fontSize = 6;
-	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM / 2 };
+	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
 	inputHandle = InputHandle();
 	collistion = new int[windowSize.x * windowSize.y];
@@ -145,7 +139,7 @@ GameEngine::~GameEngine() {
 
 void GameEngine::BuildConsole() {
 	// set the console window size
-	system(format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y).c_str());
+	system(format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
 
 	// set window position
 	SetWindowPos(

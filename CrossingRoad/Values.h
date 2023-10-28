@@ -8,6 +8,9 @@
 const int keyNumber = 256;
 const int characterSize = 16;
 
+// Lane coordinator and size
+const COORD lanePos[15] = { {} };
+
 enum GameScreenLimit : int {
 	LEFT = 0,
 	TOP = 0,
@@ -45,6 +48,12 @@ enum Keyboard : int {
 enum class PlayerState {
 	STATE_ALIVE,
 	STATE_DEAD
+};
+
+enum OVERLLAPED : int {
+	LAND = 0,
+	OBSTACLE = 1,
+	PLAYER = 10000
 };
 
 #endif // !VALUES_H

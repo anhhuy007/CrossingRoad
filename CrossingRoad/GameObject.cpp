@@ -18,5 +18,13 @@ void GameObject::setPosition(COORD _position) {
 	position = _position;
 }
 
+void GameObject::setHeight(int _height) {
+	height = _height;
+}
+
+void GameObject::setWidth(int _width) {
+	width = _width;
+}
+
 
 

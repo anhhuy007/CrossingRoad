@@ -137,7 +137,9 @@
     <ClCompile Include="GamePlayer.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="InputHandle.cpp" />
+    <ClCompile Include="Lane.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StreetMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
@@ -149,6 +151,8 @@
     <ClInclude Include="GamePlayer.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandle.h" />
+    <ClInclude Include="Lane.h" />
+    <ClInclude Include="StreetMap.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="Values.h" />

@@ -26,8 +26,8 @@ bool GameMap::Create() {
 	this->totalTime = 0.0;
 
 	// create new player
-	this->player = new GamePlayer("image.sprite", 16, 16, { 10, 10 }, this->game);
-
+	this->player = new GamePlayer("image.sprite", { 0, 0 }, OVERLLAPED::LAND, this->game);
+	
 	return true;
 }
 

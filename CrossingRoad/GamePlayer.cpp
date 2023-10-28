@@ -26,7 +26,8 @@ void GamePlayer::Update(float elapsedTime) {
 		cout << "UP_KEY";
 		if (this->moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
-			position.Y -= speed.Y_AXIS;
+			position.X -= speed.X_VERTICAL;
+			position.Y -= speed.Y_VERTICAL;
 			OnMove();
 		}
 	}
@@ -35,21 +36,24 @@ void GamePlayer::Update(float elapsedTime) {
 			Graphic::gotoXY(1, 1);
 			cout << "DOWN_KEY";
 			movingDirection = MovingDirection::DOWN;
-			position.Y += speed.Y_AXIS;
+			position.X += speed.X_VERTICAL;
+			position.Y += speed.Y_VERTICAL;
 			OnMove();
 		}
 	}
 	if (game->inputHandle.arrKeyState[Keyboard::LEFT_KEY].isPressed) {
 		if (this->moveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
-			position.X -= speed.X_AXIS;
+			position.X -= speed.X_HORIZONTAL;
+			position.Y -= speed.Y_HORIZONTAL;
 			OnMove();
 		}
 	}
 	if (game->inputHandle.arrKeyState[Keyboard::RIGHT_KEY].isPressed) {
 		if (this->moveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
-			position.X += speed.X_AXIS;
+			position.X += speed.X_HORIZONTAL;
+			position.Y += speed.Y_HORIZONTAL;
 			OnMove();
 		}
 	}
@@ -74,7 +78,7 @@ bool GamePlayer::moveUp() {
 }
 
 bool GamePlayer::moveDown() {
-	if (position.Y >= GameScreenLimit::BOTTOM) return false;
+	if (position.Y + height >= GameScreenLimit::BOTTOM) return false;
 
 	// check obstacle ahead
 	// if (appearObstacle(position.X, position.Y + 1) return false;
@@ -92,7 +96,7 @@ bool GamePlayer::moveLeft() {
 }
 
 bool GamePlayer::moveRight() {
-	if (position.X >= GameScreenLimit::RIGHT) return false;
+	if (position.X + width >= GameScreenLimit::RIGHT) return false;
 
 	// check obstacle ahead
 	// if (appearObstacle(position.X + 1, position.Y) return false;

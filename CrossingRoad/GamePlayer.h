@@ -24,18 +24,20 @@ public:
 		const COORD& coord,
 		const int& width,
 		const int& height,
+		const int& overlapped,
 		CrossingRoad* game
-	) : GameObject(width, height, coord, game) {};
+	) : GameObject(width, height, coord, overlapped, game) {};
 
 	GamePlayer(
 		const char* spritePath,		// path to sprite folder 
-		int width,
-		int height,
 		const COORD& coord,
+		const int& overlapped,
 		CrossingRoad* game
-	) : GameObject(width, height, coord, game) {
+	) : GameObject(coord, overlapped, game) {
 		this->sprite = Graphic::Sprite(spritePath);
-		speed = { 5, 2 };
+		width = sprite.getWidth();
+		height = sprite.getHeight();
+		speed = GameSpeed(4, 1, -1, 2);
 	}
 
 	virtual void Update(float elapsedTime);
@@ -58,7 +60,7 @@ protected:
 	Graphic::Sprite sprite;
 	//std::vector<pair<AnimationState, Graphic::Sprite>> sprites;
 	bool isAnimated = false;
-	pair<float, float> speed;
+	GameSpeed speed;
 
 	/*virtual void OnDied();
 	virtual void Move(int x, int y) final;*/

@@ -43,23 +43,32 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{0d65ad00-cb80-479d-81c3-49f88211d0d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Objects\Player">
-      <UniqueIdentifier>{66fb84e3-191b-4dc4-ab85-f3bd3f156f6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Objects\Player">
-      <UniqueIdentifier>{a2b71c74-67bb-41ff-a63b-93a5dd087165}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Objects\Maps">
       <UniqueIdentifier>{5b791892-e73c-48c4-8bbc-972cd704a35e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Objects\Maps">
       <UniqueIdentifier>{954ef45f-bc1e-4ed9-b137-2da8eece2f1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Vehicles">
+      <UniqueIdentifier>{b606ed3d-9eba-4c5b-9912-e83f176ad8c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Lanes">
+      <UniqueIdentifier>{9f67c3b2-9fbc-4ffc-aad2-496705873f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Players">
+      <UniqueIdentifier>{a2b71c74-67bb-41ff-a63b-93a5dd087165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Players">
+      <UniqueIdentifier>{66fb84e3-191b-4dc4-ab85-f3bd3f156f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Lanes">
+      <UniqueIdentifier>{cd80be8d-db2a-4de8-912c-f72a00817cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Vehicles">
+      <UniqueIdentifier>{645d3d8b-bbf0-424b-8f34-0f1da1944471}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CrossingRoad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameEngine.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
@@ -79,10 +88,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GamePlayer.cpp">
-      <Filter>Source Files\Objects\Player</Filter>
+      <Filter>Source Files\Objects\Players</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Objects\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="StreetMap.cpp">
+      <Filter>Source Files\Objects\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossingRoad.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Lane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,14 +131,20 @@
     <ClInclude Include="InputHandle.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="CrossingRoad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GamePlayer.h">
-      <Filter>Header Files\Objects\Player</Filter>
+      <Filter>Header Files\Objects\Players</Filter>
     </ClInclude>
     <ClInclude Include="GameMap.h">
       <Filter>Header Files\Objects\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="StreetMap.h">
+      <Filter>Header Files\Objects\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossingRoad.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Lane.h">
+      <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
