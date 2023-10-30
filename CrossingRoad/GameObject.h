@@ -63,6 +63,8 @@ public:
 		int _overlapped,
 		CrossingRoad* _game
 	) {
+		this->height = 0;
+		this->width = 0;
 		this->position = _position;
 		this->overlapped = _overlapped;
 		this->game = _game;

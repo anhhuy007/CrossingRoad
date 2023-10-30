@@ -26,7 +26,8 @@ bool GameMap::Create() {
 	this->totalTime = 0.0;
 
 	// create new player
-	this->player = new GamePlayer("image.sprite", { 0, 0 }, OVERLLAPED::LAND, this->game);
+	this->player = new GamePlayer("player.sprite", { 100, 100 }, Overlapped::PLAYER, this->game);
+	CreateLanes();
 	
 	return true;
 }
@@ -38,6 +39,10 @@ bool GameMap::Update(float elapsedTime) {
 	cout << "GameUpdate: " << 1.0f / elapsedTime;*/
 
 	player->Update(elapsedTime);
+	/*for (int i = 3; i < 7; i++) {
+		lanes[i]->Update(elapsedTime);
+	}*/
+	
 	Render();
 
 	return true;
@@ -45,4 +50,7 @@ bool GameMap::Update(float elapsedTime) {
 
 void GameMap::Render() {
 	player->Render();
+	for (int i = 0; i < 5; i++) {
+		lanes[i]->Render();
+	}
 }

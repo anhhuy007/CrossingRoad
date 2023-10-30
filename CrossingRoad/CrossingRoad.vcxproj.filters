@@ -67,6 +67,12 @@
     <Filter Include="Header Files\Objects\Vehicles">
       <UniqueIdentifier>{645d3d8b-bbf0-424b-8f34-0f1da1944471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects\Obstacle">
+      <UniqueIdentifier>{3391ed9b-c672-4c1d-aa9d-2a57b0e87c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Obstacle">
+      <UniqueIdentifier>{12f28759-5831-4b31-a0ec-118c03cf98f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Lane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Source Files\Objects\Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="Lane.h">
       <Filter>Header Files\Objects\Lanes</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Header Files\Objects\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

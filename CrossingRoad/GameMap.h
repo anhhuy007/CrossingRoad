@@ -6,6 +6,7 @@
 // ----- my libs include -----
 #include "CrossingRoad.h"
 #include "GamePlayer.h"
+#include "Lane.h"
 
 // ----- standard libs include -----
 #include <vector>
@@ -19,6 +20,7 @@ protected:
 	int collectedCoins;
 	int playerIndex;
 	float totalTime;
+	vector<Lane*> lanes;
 	
 	GamePlayer* player;
 
@@ -27,6 +29,7 @@ public:
 	GameMap(CrossingRoad* game);
 
 	virtual bool Create();
+	virtual void CreateLanes() = 0;
 	virtual bool Update(float elapsedTime);
 	virtual void Render();
 };

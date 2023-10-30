@@ -140,6 +140,7 @@
     <ClCompile Include="Lane.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StreetMap.cpp" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="StreetMap.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="TileObject.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Values.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

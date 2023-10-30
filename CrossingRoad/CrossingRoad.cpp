@@ -1,13 +1,12 @@
 #include "CrossingRoad.h"
 #include "GameMap.h"
+#include "StreetMap.h"
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
 	// Init game engine
 	GameEngine::BuildConsole();
 
-
-	
 	vector<int> colors = {
 		RGB(0, 0, 0), 
 		RGB(255, 255, 255), 
@@ -30,13 +29,13 @@ void CrossingRoad::Init() {
 	COLOR::SetConsoleColor(colors);
 
 	// Init game state
-	this->gameState = new GameMap(this);
+	this->gameState = new StreetMap(this);
 	this->SetState(this->gameState);
 }
 
 bool CrossingRoad::GameCreate() {
 	// ----- Create new game -----
-	SetState(new GameMap(this));
+	SetState(new StreetMap(this));
 	
 	return true;
 }

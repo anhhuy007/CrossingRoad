@@ -79,12 +79,12 @@ private:
 protected:
 	int fontSize;
 	SMALL_RECT windowScope;
-	PAIR windowSize = PAIR(0, 0);
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
 	int* collistion;
 	
 public: 
 	static atomic<bool> atomActive;  // true if game is running
+	PAIR windowSize = PAIR(0, 0);
  };
 
 #endif // _GAME_ENGINE_H_

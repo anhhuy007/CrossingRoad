@@ -80,8 +80,18 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 			// check if object is still inside the screen
 			if (screenX < 0 || screenX >= windowSize.y || screenY < 0 || screenY >= windowSize.x) continue;
 
-			CHAR_INFO buffer;
-			buffer.Attributes = static_cast<WORD>(sprite.getPixel(i, j).color);
+			// get current buffer
+			CHAR_INFO buffer = screenBuffer[screenX * windowSize.x + screenY];
+			
+			// get current pixel
+			Graphic::Pixel pixel = sprite.getPixel(i, j);
+			int color = static_cast<int>(pixel.color);
+
+			if (static_cast<COLOR::COLOR>(color) == COLOR::COLOR::TRANSPARENT_) {
+				color = buffer.Attributes;
+			}
+
+			buffer.Attributes = color;
 			buffer.Char.UnicodeChar = 0x2588;
 
 			screenBuffer[screenX * windowSize.x + screenY] = buffer;
