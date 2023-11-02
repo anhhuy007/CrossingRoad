@@ -35,6 +35,7 @@ public:
 		CrossingRoad* game
 	) : GameObject(coord, overlapped, game) {
 		this->sprite = Graphic::Sprite(spritePath);
+		sprite.setOverlapped(overlapped);
 		width = sprite.getWidth();
 		height = sprite.getHeight();
 		speed = GameSpeed(4, 1, -1, 2);

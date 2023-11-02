@@ -35,7 +35,7 @@ void GameEngine::GameLoop() {
 
 				if (inputHandle.keyNewState[i] != inputHandle.keyOldState[i]) {
 					if (inputHandle.keyNewState[i] & 0x8000) {	// if key is pressed
-						inputHandle.arrKeyState[i].isPressed = !inputHandle.arrKeyState[i].isHeld;
+						inputHandle.arrKeyState[i].isPressed = true;
 						inputHandle.arrKeyState[i].isHeld = true;
 					}
 					else {
@@ -68,6 +68,8 @@ void GameEngine::ClearConsole() {
 	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
+		overlappedBuffer[i] = 0;
+		collistionMatrix[i] = 0;
 	}
 }
 
@@ -76,6 +78,7 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 		for (short j = 0; j < sprite.getWidth(); j++) {
 			int screenX = i + position.Y;
 			int screenY = j + position.X;
+			int index = screenX * windowSize.x + screenY;
 
 			// check if object is still inside the screen
 			if (screenX < 0 || screenX >= windowSize.y || screenY < 0 || screenY >= windowSize.x) continue;
@@ -86,15 +89,16 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 			// get current pixel
 			Graphic::Pixel pixel = sprite.getPixel(i, j);
 			int color = static_cast<int>(pixel.color);
+			int overlapped = pixel.overlapped;
 
-			if (static_cast<COLOR::COLOR>(color) == COLOR::COLOR::TRANSPARENT_) {
-				color = buffer.Attributes;
-			}
+			if (overlapped < overlappedBuffer[index]) continue;
+
+			if (static_cast<COLOR::COLOR>(color) == COLOR::COLOR::TRANSPARENT_) color = buffer.Attributes;
 
 			buffer.Attributes = color;
 			buffer.Char.UnicodeChar = 0x2588;
-
-			screenBuffer[screenX * windowSize.x + screenY] = buffer;
+			screenBuffer[index] = buffer;
+			overlappedBuffer[index] = overlapped;
 		}
 		//system("pause");
 	}
@@ -132,19 +136,24 @@ GameEngine::GameEngine() {
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
 	inputHandle = InputHandle();
-	collistion = new int[windowSize.x * windowSize.y];
 	
-	// allocate memory for screen buffer
-	screenBuffer = new CHAR_INFO[windowSize.x * windowSize.y];	
+	// allocate memory 
+	collistionMatrix = new int[windowSize.x * windowSize.y];
+	overlappedBuffer = new int[windowSize.x * windowSize.y];
+	screenBuffer = new CHAR_INFO[windowSize.x * windowSize.y];
+	
 	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
-		collistion[i] = 0;
+		collistionMatrix[i] = 0;
+		overlappedBuffer[i] = 0;
 	}
 }
 
 GameEngine::~GameEngine() {
 	delete[] screenBuffer;
+	/*delete[] overlappedBuffer;*/
+	delete[] collistionMatrix;
 }
 
 void GameEngine::BuildConsole() {

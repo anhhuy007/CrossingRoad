@@ -80,7 +80,8 @@ protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	int* collistion;
+	int* collistionMatrix = nullptr;
+	int* overlappedBuffer = nullptr;
 	
 public: 
 	static atomic<bool> atomActive;  // true if game is running

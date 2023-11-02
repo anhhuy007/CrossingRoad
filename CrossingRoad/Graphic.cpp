@@ -5,6 +5,8 @@
 #include "Graphic.h"
 #include <fstream>
 
+const char* folder = "images/";
+
 void Graphic::gotoXY(short x, short y) {
 	static HANDLE h = NULL;
 	if (!h) h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -15,11 +17,13 @@ void Graphic::gotoXY(short x, short y) {
 Graphic::Pixel::Pixel(COORD _coordinate, COLOR::COLOR _color) {
 	coordinate = _coordinate;
 	color = _color;
+	overlapped = 0;
 }
 
 Graphic::Pixel::Pixel() {
 	coordinate = { 0, 0 };
 	color = COLOR::COLOR::TRANSPARENT_;
+	overlapped = 0;
 }
 
 Graphic::Sprite::Sprite(int _width, int _height) {
@@ -42,7 +46,10 @@ Graphic::Sprite::Sprite() {
 }
 
 Graphic::Sprite::Sprite(const char* filename) {
-	ifstream ifs(filename, ios::beg);
+	char* path = new char[strlen(folder) + strlen(filename) + 1];
+	path = strcpy(path, folder);
+	path = strcat(path, filename);
+	ifstream ifs(path, ios::beg);
 
 	if (ifs.fail()) {
 		cout << "Cannot open file " << filename << endl;
@@ -81,13 +88,21 @@ Graphic::Pixel Graphic::Sprite::getPixel(int i, int j) {
 	return pixels[i * width + j];
 }
 
-void Graphic::Sprite::setHeight(int _height)
-{
+void Graphic::Sprite::setHeight(int _height) {
 	height = _height;
 }
 
-void Graphic::Sprite::setWidth(int _width)
-{
+void Graphic::Sprite::setOverlapped(int _overlapped) {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			if (pixels[i * width + j].color != COLOR::COLOR::TRANSPARENT_) {
+				pixels[i * width + j].overlapped = _overlapped;
+			}
+		}
+	}
+}
+
+void Graphic::Sprite::setWidth(int _width) {
 	width = _width;
 }
 

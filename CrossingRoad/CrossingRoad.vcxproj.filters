@@ -67,10 +67,10 @@
     <Filter Include="Header Files\Objects\Vehicles">
       <UniqueIdentifier>{645d3d8b-bbf0-424b-8f34-0f1da1944471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Objects\Obstacle">
+    <Filter Include="Header Files\Objects\Obstacles">
       <UniqueIdentifier>{3391ed9b-c672-4c1d-aa9d-2a57b0e87c6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Objects\Obstacle">
+    <Filter Include="Source Files\Objects\Obstacles">
       <UniqueIdentifier>{12f28759-5831-4b31-a0ec-118c03cf98f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -109,7 +109,13 @@
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
     <ClCompile Include="Tree.cpp">
-      <Filter>Source Files\Objects\Obstacle</Filter>
+      <Filter>Source Files\Objects\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="RoadLane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>Source Files\Objects\Vehicles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +162,13 @@
       <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
     <ClInclude Include="Tree.h">
-      <Filter>Header Files\Objects\Obstacle</Filter>
+      <Filter>Header Files\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadLane.h">
+      <Filter>Header Files\Objects\Lanes</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>Header Files\Objects\Vehicles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

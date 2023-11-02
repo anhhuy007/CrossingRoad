@@ -16,6 +16,7 @@ namespace Graphic {
 	public:
 		COORD coordinate;
 		COLOR::COLOR color;
+		int overlapped;
 
 		Pixel(COORD _coordinate, COLOR::COLOR _color);
 		Pixel();
@@ -41,6 +42,7 @@ namespace Graphic {
 		// ----- Setters -----
 		void setWidth(int _width);
 		void setHeight(int _height);
+		void setOverlapped(int _overlapped);
 	};
 };
 

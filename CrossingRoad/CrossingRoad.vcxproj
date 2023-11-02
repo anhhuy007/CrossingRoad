@@ -139,8 +139,10 @@
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Lane.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="StreetMap.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
@@ -153,11 +155,13 @@
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
+    <ClInclude Include="RoadLane.h" />
     <ClInclude Include="StreetMap.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Values.h" />
+    <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

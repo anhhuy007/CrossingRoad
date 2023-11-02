@@ -26,7 +26,7 @@ bool GameMap::Create() {
 	this->totalTime = 0.0;
 
 	// create new player
-	this->player = new GamePlayer("player.sprite", { 100, 100 }, Overlapped::PLAYER, this->game);
+	this->player = new GamePlayer("RedCar.sprite", { 100, 100 }, Overlapped::PLAYER, this->game);
 	CreateLanes();
 	
 	return true;
@@ -50,7 +50,7 @@ bool GameMap::Update(float elapsedTime) {
 
 void GameMap::Render() {
 	player->Render();
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < 16; i++) {
 		lanes[i]->Render();
 	}
 }
