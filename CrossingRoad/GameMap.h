@@ -30,8 +30,8 @@ public:
 
 	virtual bool Create();
 	virtual void CreateLanes() = 0;
-	virtual bool Update(float elapsedTime);
-	virtual void Render();
+	bool Update(float elapsedTime);
+	void Render();
 };
 
 

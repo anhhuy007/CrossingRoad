@@ -7,43 +7,32 @@
 
 class Vehicle : public GameObject {
 public:
-	Vehicle();
-
+	Vehicle() : GameObject({ 0, 0 }, Overlapped::VEHICLE, game) {};
 	Vehicle(
-		const COORD& coord,
-		const int& width,
-		const int& height,
-		const int& overlapped,
-		CrossingRoad* game
-	) : GameObject(width, height, coord, overlapped, game) {};
+		CrossingRoad* game, 
+		int _id, 
+		MovingDirection _direction = MovingDirection::LEFT
+	);
 
-	Vehicle(
-		Graphic::Sprite vehicleSprite,	
-		const COORD& coord,
-		const int& overlapped,
-		MovingDirection direction,
-		CrossingRoad* game
-	) : GameObject(coord, overlapped, game) {
-		this->sprite = vehicleSprite;
-		sprite.setOverlapped(overlapped);
-		width = sprite.getWidth();
-		height = sprite.getHeight();
-		axisSpeed = GameSpeed(4, 1, 0, 0);
-		movingDirection = direction;
-	}
+	void setSprite(Graphic::Sprite _sprite);
+	void setInitPosition();
 
-	virtual void Update(float elapsedTime);
-	virtual void Render();
-	//void Move();
+	void Update(float elapsedTime);
+	void Render();
 
 	short getX() { return position.X; }
 	short getY() { return position.Y; }
 
-protected:
-	MovingDirection movingDirection = MovingDirection::NONE;
-	Graphic::Sprite sprite;
-	GameSpeed axisSpeed;
 	bool endOfRoad = false;
+	Graphic::Sprite vehicleSprite;
+
+protected:
+	int id;
+	MovingDirection movingDirection = MovingDirection::NONE;
+	GameSpeed axisSpeed;
+	VehicleType type;
+	float vehicleSpeed = 0.01f;
+	float time = 0.0f;
 };
 
 #endif // !VEHICLE_H

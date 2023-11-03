@@ -33,6 +33,7 @@ namespace Graphic {
 		Sprite(int _width, int _height);
 		Sprite();
 		Sprite(const char* filename);
+		//Sprite(const Sprite& other);
 
 		// ----- Getters -----
 		int getWidth();
@@ -43,6 +44,8 @@ namespace Graphic {
 		void setWidth(int _width);
 		void setHeight(int _height);
 		void setOverlapped(int _overlapped);
+
+		//Sprite operator=(const Sprite& other);
 	};
 };
 

@@ -7,26 +7,22 @@
 #include "Vehicle.h"
 
 class RoadLane : public Lane {
-	Vehicle* vehicle;
+	Vehicle vehicle;
+	MovingDirection direction;
+
 public: 
 	RoadLane(
 		int id,
 		CrossingRoad* game,
 		Graphic::Sprite roadSprite = Graphic::Sprite()
 	) : Lane(id, game, roadSprite) {
-		Graphic::Sprite car = Graphic::Sprite("RedCar.sprite");
-
 		// generate random vehicle
-		srand(time(NULL));
-		int randomVehicle = rand() % 3;
-		MovingDirection randomDirection = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
-
-		if (randomVehicle <= 2) {
-			vehicle = new Vehicle(car, { 0, short(id * 24 - 144) }, Overlapped::LAND, randomDirection, game);
-		}
+		direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
+		vehicle = Vehicle(game, id, direction);
 	};
 
 	virtual void Update(float elapsedTime);
+	virtual void Render();
 };
 
 #endif // !ROAD_LANE_H

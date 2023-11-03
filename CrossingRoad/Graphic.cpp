@@ -7,6 +7,8 @@
 
 const char* folder = "images/";
 
+using namespace Graphic;
+
 void Graphic::gotoXY(short x, short y) {
 	static HANDLE h = NULL;
 	if (!h) h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -74,6 +76,18 @@ Graphic::Sprite::Sprite(const char* filename) {
 	ifs.close();
 }
 
+//Graphic::Sprite::Sprite(const Sprite& other) {
+//	pixels = new Pixel[other.height * other.width];
+//	for (int i = 0; i < other.height; i++) {
+//		for (int j = 0; j < other.width; j++) {
+//			pixels[i * other.width + j] = other.pixels[i * other.width + j];
+//		}
+//	}
+//
+//	width = other.width;
+//	height = other.height;
+//}
+
 int Graphic::Sprite::getWidth()
 {
 	return width;
@@ -105,4 +119,5 @@ void Graphic::Sprite::setOverlapped(int _overlapped) {
 void Graphic::Sprite::setWidth(int _width) {
 	width = _width;
 }
+
 

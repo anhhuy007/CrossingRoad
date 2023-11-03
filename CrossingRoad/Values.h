@@ -50,7 +50,34 @@ enum class PlayerState {
 enum Overlapped : int {
 	LAND = 1,
 	OBSTACLE = 2,
+	VEHICLE = 3, 
 	PLAYER = 10000
+};
+
+enum VehicleType {
+	CAR = 1,
+	TRUCK = 2
+};
+
+struct GameSpeed {
+	int X_HORIZONTAL = 0;
+	int Y_HORIZONTAL = 0;
+	int X_VERTICAL = 0;
+	int Y_VERTICAL = 0;
+
+	GameSpeed() {
+		X_HORIZONTAL = 0;
+		Y_HORIZONTAL = 0;
+		X_VERTICAL = 0;
+		Y_VERTICAL = 0;
+	}
+
+	GameSpeed(int xh, int yh, int xv, int yv) {
+		X_HORIZONTAL = xh;
+		Y_HORIZONTAL = yh;
+		X_VERTICAL = xv;
+		Y_VERTICAL = yv;
+	}
 };
 
 #endif // !VALUES_H

@@ -7,6 +7,7 @@
 #include "Values.h"
 #include "Vehicle.h"
 
+
 class Lane : public GameObject {
 public:
 	int id;
@@ -19,15 +20,17 @@ public:
 	) : GameObject(460, 138, { 0, short(id * 24 - 144) }, Overlapped::LAND, game) {
 		this->id = id;
 		this->laneSprite = laneSprite;
+		this->game = game;
 	};
 	
 	Lane(const Lane& lane) : GameObject(lane) {
 		this->id = lane.id;
 		this->laneSprite = lane.laneSprite;
+		this->game = lane.game;
 	}
 
-	virtual void Update(float elapsedTime);
-	virtual void Render();
+	virtual void Update(float elapsedTime) = 0;
+	virtual void Render() = 0;
 };
 
 
