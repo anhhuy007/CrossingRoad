@@ -4,10 +4,9 @@
 #define ALIGNMENT
 
 #include <Windows.h>
+#include "GameObject.h"
 
-using namespace std;
-
-enum class ALIGNMENT_GRAVITY {
+enum class Gravity {
 	CENTRALLY_ALIGNED, 
 	CENTER_HORIZONTAL,
 	CENTER_VERTICAL,
@@ -21,80 +20,44 @@ enum class ALIGNMENT_GRAVITY {
 };
 
 
-struct Alignment {
-	ALIGNMENT_GRAVITY alignment;
-	short top, bottom, left, right;
-	SMALL_RECT boxScope;
-
-	Alignment(
-		ALIGNMENT_GRAVITY alignment,
-		short left = 0,
-		short top = 0,
-		short bottom = 0,
-		short right = 0,
-		SMALL_RECT boxScope = { 0, 0, 0, 0 }
+class Alignment {
+public: 
+	static COORD getAlignedPosition(
+		int laneId,
+		int blockId,
+		COORD objectCenterCoord,
+		Gravity gravity
 	) {
-		this->alignment = alignment;
-		this->top = top;
-		this->bottom = bottom;
-		this->left = left;
-		this->right = right;
-		this->boxScope = boxScope;
-	}
+		// block: 30x24
+		COORD blockCoord = getBlockPositionById(laneId, blockId);
+		COORD position = { 0, 0 };
 
-	COORD getPosition(
-		short objectWidth, 
-		short objectHeight
-	) {
-		switch (alignment) {
-	
-		case ALIGNMENT_GRAVITY::TOP_LEFT:
-			return { boxScope.Left, boxScope.Top };
+		/*cout << blockCoord.X << " " << blockCoord.Y;
+		system("pause");*/
 
-		case ALIGNMENT_GRAVITY::TOP_RIGHT:
-			return { short(boxScope.Right - objectWidth), boxScope.Top };
-
-		case ALIGNMENT_GRAVITY::BOTTOM_LEFT:
-			return { boxScope.Left, short(boxScope.Bottom - objectHeight) };
-			
-		case ALIGNMENT_GRAVITY::BOTTOM_RIGHT:
-			return { short(boxScope.Right - objectWidth), short(boxScope.Bottom - objectHeight) };
-
-		case ALIGNMENT_GRAVITY::TOP_CENTER:
-			return { short((boxScope.Right + boxScope.Left) / 2 - objectWidth / 2), boxScope.Top };
-
-		case ALIGNMENT_GRAVITY::BOTTOM_CENTER:
-			return { short((boxScope.Right + boxScope.Left) / 2 - objectWidth / 2), short(boxScope.Bottom - objectHeight) };
-
-		case ALIGNMENT_GRAVITY::CENTER_HORIZONTAL:
-			return { short((boxScope.Right + boxScope.Left) / 2 - objectWidth / 2), boxScope.Top };
-			
-		case ALIGNMENT_GRAVITY::CENTER_VERTICAL:
-			return { boxScope.Left, short((boxScope.Bottom + boxScope.Top) / 2 - objectHeight / 2) };
-
-		case ALIGNMENT_GRAVITY::CENTRALLY_ALIGNED:
-			return { short((boxScope.Right + boxScope.Left) / 2 - objectWidth / 2), 
-					 short((boxScope.Bottom + boxScope.Top) / 2 - objectHeight / 2) };
-			
-		case ALIGNMENT_GRAVITY::DEFAULT:
-			return { boxScope.Left, boxScope.Top };
-
-		default:
-			return { boxScope.Left, boxScope.Top };
-		}
-
-		return { 0, 0 };
-	}
-
-	SMALL_RECT getDisplayRegion(
-		short objectWidth, 
-		short objectHeight
-	) {
-		COORD topLeft = getPosition(objectWidth, objectHeight);
-		SMALL_RECT displayRegion = { topLeft.X, topLeft.Y, short(topLeft.X + objectWidth), short(topLeft.Y + objectHeight) };
+		switch (gravity) {
+		case Gravity::TOP_LEFT:
+			position = { short(blockCoord.X), short(blockCoord.Y) };
+			break;
 		
-		return displayRegion;
+		case Gravity::CENTRALLY_ALIGNED:
+			position = { short(blockCoord.X + 6), short(blockCoord.Y + 12) };
+			break;
+		
+		case Gravity::BOTTOM_CENTER:
+			return { short(blockCoord.X + 2), short(blockCoord.Y + 24) };
+		};
+
+		return { short(position.X - objectCenterCoord.X), short(position.Y - objectCenterCoord.Y) };
 	}
+
+	static COORD getBlockPositionById(
+		int laneId,
+		int blockId
+	) {
+		return { short(blockId * 24), short((laneId * 24 - 144) + 6 * blockId) };
+	}
+
 };
 
 

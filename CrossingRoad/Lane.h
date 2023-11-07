@@ -7,7 +7,6 @@
 #include "Values.h"
 #include "Vehicle.h"
 
-
 class Lane : public GameObject {
 public:
 	int id;

@@ -80,4 +80,9 @@ struct GameSpeed {
 	}
 };
 
+enum class TreeType {
+	SMALL_TREE,
+	BIG_TREE
+};
+
 #endif // !VALUES_H

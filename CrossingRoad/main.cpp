@@ -4,6 +4,7 @@
 int main() {
 	CrossingRoad game;
 	srand(time(NULL));
+
 	game.Init();
 	game.Start();
 

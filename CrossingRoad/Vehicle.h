@@ -25,13 +25,12 @@ public:
 
 	bool endOfRoad = false;
 	Graphic::Sprite vehicleSprite;
-
+	float vehicleSpeed = 0.01f;
 protected:
 	int id;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;
 	VehicleType type;
-	float vehicleSpeed = 0.01f;
 	float time = 0.0f;
 };
 

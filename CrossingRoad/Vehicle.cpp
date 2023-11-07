@@ -20,7 +20,7 @@ Vehicle::Vehicle(
 	id = _id;
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, 0, 0);
-	vehicleSpeed = float((rand() % 3) + 1) * 0.008;
+	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
 	vehicleSprite.setOverlapped(Overlapped::VEHICLE);

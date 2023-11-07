@@ -8,6 +8,7 @@
 const char* folder = "images/";
 
 using namespace Graphic;
+using namespace std;
 
 void Graphic::gotoXY(short x, short y) {
 	static HANDLE h = NULL;

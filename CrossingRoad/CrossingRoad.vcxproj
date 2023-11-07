@@ -136,13 +136,16 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePlayer.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="GrassLane.cpp" />
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Lane.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RoadLane.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="StreetMap.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Vehicle.cpp" />
+    <ClCompile Include="WaterLane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
@@ -153,15 +156,18 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePlayer.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="GrassLane.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
     <ClInclude Include="RoadLane.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="StreetMap.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="TileObject.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Values.h" />
     <ClInclude Include="Vehicle.h" />
+    <ClInclude Include="WaterLane.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

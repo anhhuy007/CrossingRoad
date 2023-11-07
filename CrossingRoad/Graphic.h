@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "Alignment.h" 
+//#include "Alignment.h" 
 #include "Colors.h"
 	
 #ifndef GRAPHIC_H

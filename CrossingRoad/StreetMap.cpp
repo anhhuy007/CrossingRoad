@@ -9,19 +9,21 @@ void StreetMap::CreateLanes() {
 	waterlane.setOverlapped(Overlapped::LAND);
 	roadlane.setOverlapped(Overlapped::LAND);
 
+	/*Lane* lane = new GrassLane(7, game, grasslane);
+	lanes.push_back(lane);*/
+
 	for (int i = 0; i < 16; i++) {
 		int randomLane = rand() % 3;
 
-		/*if (randomLane == 0) {
-			Lane* lane = new Lane(i, game, grasslane);
+		if (randomLane == 0) {
+			Lane* lane = new GrassLane(i, game, grasslane);
 			lanes.push_back(lane);
 		} 
-		else if (randomLane == 1) {
+		/*else if (randomLane == 1) {
 			Lane* lane = new Lane(i, game, waterlane);
 			lanes.push_back(lane);
-		}
-		else */
-		if (randomLane == 2) {
+		}*/
+		else if (randomLane == 2) {
 			Lane* lane = new RoadLane(i, game, roadlane);
 			lanes.push_back(lane);
 		}
