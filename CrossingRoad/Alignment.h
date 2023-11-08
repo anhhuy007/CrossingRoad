@@ -32,7 +32,7 @@ public:
 		COORD blockCoord = getBlockPositionById(laneId, blockId);
 		COORD position = { 0, 0 };
 
-		/*cout << blockCoord.X << " " << blockCoord.Y;
+		/*cout << blockCoord.X << " " << blockCoord.Y << endl;
 		system("pause");*/
 
 		switch (gravity) {
@@ -41,21 +41,30 @@ public:
 			break;
 		
 		case Gravity::CENTRALLY_ALIGNED:
-			position = { short(blockCoord.X + 6), short(blockCoord.Y + 12) };
+			position = { short(blockCoord.X + 7), short(blockCoord.Y + 14) };
 			break;
 		
 		case Gravity::BOTTOM_CENTER:
-			return { short(blockCoord.X + 2), short(blockCoord.Y + 24) };
+			position = { short(blockCoord.X + 2), short(blockCoord.Y + 24) };
+			break;
 		};
 
-		return { short(position.X - objectCenterCoord.X), short(position.Y - objectCenterCoord.Y) };
+		position.X -= objectCenterCoord.X + 13;
+		position.Y -= objectCenterCoord.Y + 25;
+
+		return position;
 	}
 
 	static COORD getBlockPositionById(
 		int laneId,
 		int blockId
 	) {
-		return { short(blockId * 24), short((laneId * 24 - 144) + 6 * blockId) };
+		COORD pos;
+
+		pos.X = FIRSTBLOCK.X - 11 * laneId + floor((laneId + 2) / 3) + 24 * blockId;
+		pos.Y = FIRSTBLOCK.Y + 21 * laneId + floor((laneId + 2) / 3) + 6 * blockId;
+
+		return pos;
 	}
 
 };

@@ -7,6 +7,7 @@
 
 const int keyNumber = 256;
 const int characterSize = 16;
+const COORD FIRSTBLOCK = { 66, -103 }; 
 
 enum GameScreenLimit : int {
 	LEFT = 0,

@@ -23,6 +23,7 @@ protected:
 	vector<Lane*> lanes;
 	
 	GamePlayer* player;
+	Graphic::Sprite grid;
 
 public: 
 	GameMap();

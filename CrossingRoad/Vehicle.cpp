@@ -63,11 +63,11 @@ void Vehicle::setSprite(Graphic::Sprite _sprite) {
 
 void Vehicle::setInitPosition() {
 	if (type == VehicleType::CAR) {
-		position.X =  movingDirection == MovingDirection::LEFT ? 460 : 0;
+		position.X =  movingDirection == MovingDirection::LEFT ? 460 : -10;
 		position.Y = movingDirection == MovingDirection::LEFT ? id * 24 - 44 : id * 24 - 158;
 	}
 	else if (type == VehicleType::TRUCK) {
-		position.X = movingDirection == MovingDirection::LEFT ? 460 : 0;
+		position.X = movingDirection == MovingDirection::LEFT ? 460 : -10;
 		position.Y = movingDirection == MovingDirection::LEFT ? id * 24 - 56 : id * 24 - 170;
 	}
 }

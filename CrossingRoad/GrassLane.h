@@ -17,7 +17,6 @@ public:
 	) : Lane(id, game, _grassSprite) {
 		// generate random tree
 		int numberOfTree = rand() % 10 + 3;
-
 		for (int i = 2; i < numberOfTree; i++) {
 			trees.push_back(Tree(game, id));
 		}

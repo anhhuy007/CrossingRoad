@@ -26,7 +26,9 @@ bool GameMap::Create() {
 	this->totalTime = 0.0;
 
 	// create new player
-	this->player = new GamePlayer("Truck.sprite", { 100, 100 }, Overlapped::PLAYER, this->game);
+	this->player = new GamePlayer("Player.sprite", { 100, 100 }, Overlapped::VEHICLE, this->game);
+	this->grid = Graphic::Sprite("Grid.sprite");
+	grid.setOverlapped(Overlapped::PLAYER);
 	CreateLanes();
 	
 	return true;
@@ -46,6 +48,7 @@ bool GameMap::Update(float elapsedTime) {
 
 void GameMap::Render() {
 	player->Render();
+	game->RenderSprite(grid, {0, 0});
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
 	}
