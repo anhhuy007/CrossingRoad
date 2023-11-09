@@ -126,6 +126,9 @@
     <ClCompile Include="Rock.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files\Objects\Obstacles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
     <ClInclude Include="Rock.h">
+      <Filter>Header Files\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
       <Filter>Header Files\Objects\Obstacles</Filter>
     </ClInclude>
   </ItemGroup>

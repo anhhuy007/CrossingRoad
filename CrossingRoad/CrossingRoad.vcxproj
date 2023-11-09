@@ -139,6 +139,7 @@
     <ClCompile Include="GrassLane.cpp" />
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Lane.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="Rock.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="GrassLane.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
+    <ClInclude Include="Log.h" />
     <ClInclude Include="RoadLane.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="StreetMap.h" />

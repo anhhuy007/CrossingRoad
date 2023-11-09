@@ -7,6 +7,7 @@
 #include "GameMap.h"
 #include "RoadLane.h"
 #include "GrassLane.h"
+#include "WaterLane.h"
 
 class StreetMap : public GameMap {
 public:

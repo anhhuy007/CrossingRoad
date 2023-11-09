@@ -13,17 +13,17 @@ void StreetMap::CreateLanes() {
 	lanes.push_back(lane);*/
 
 	for (int i = 0; i < 16; i++) {
-		int randomLane = rand() % 3;
+		int randomLane = rand() % 4;
 
 		if (randomLane == 0) {
 			Lane* lane = new GrassLane(i, game, grasslane);
 			lanes.push_back(lane);
 		} 
-		/*else if (randomLane == 1) {
-			Lane* lane = new Lane(i, game, waterlane);
+		else if (randomLane == 1) {
+			Lane* lane = new WaterLane(i, game, waterlane);
 			lanes.push_back(lane);
-		}*/
-		else if (randomLane == 2) {
+		}
+		else if (randomLane >= 2) {
 			Lane* lane = new RoadLane(i, game, roadlane);
 			lanes.push_back(lane);
 		}

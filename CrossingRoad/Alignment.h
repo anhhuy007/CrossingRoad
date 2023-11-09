@@ -16,6 +16,7 @@ enum class Gravity {
 	BOTTOM_RIGHT,
 	TOP_CENTER,
 	BOTTOM_CENTER,
+	LEFT_CENTER,
 	DEFAULT,
 };
 
@@ -47,6 +48,11 @@ public:
 		case Gravity::BOTTOM_CENTER:
 			position = { short(blockCoord.X + 2), short(blockCoord.Y + 24) };
 			break;
+
+		case Gravity::LEFT_CENTER:
+			position = { short(blockCoord.X - 7), short(blockCoord.Y + 14) };
+			break;
+
 		};
 
 		position.X -= objectCenterCoord.X + 13;

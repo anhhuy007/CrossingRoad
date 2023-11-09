@@ -60,6 +60,11 @@ enum VehicleType {
 	TRUCK = 2
 };
 
+enum LogType {
+	SMALL_LOG,
+	BIG_LOG
+};
+
 struct GameSpeed {
 	int X_HORIZONTAL = 0;
 	int Y_HORIZONTAL = 0;
