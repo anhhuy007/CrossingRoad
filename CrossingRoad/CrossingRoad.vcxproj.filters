@@ -129,6 +129,9 @@
     <ClCompile Include="Log.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Log.h">
       <Filter>Header Files\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

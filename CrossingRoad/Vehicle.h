@@ -8,7 +8,7 @@
 
 class Vehicle : public GameObject {
 public:
-	Vehicle() : GameObject({ 0, 0 }, Overlapped::VEHICLE, game) {};
+	Vehicle() : GameObject({ 0, 0 }, game) {};
 	Vehicle(
 		CrossingRoad* game, 
 		int _id, 

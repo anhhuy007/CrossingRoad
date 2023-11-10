@@ -9,11 +9,13 @@ Vehicle::Vehicle(
 
 	if (random % 2) {
 		type = VehicleType::CAR;
-		vehicleSprite = Graphic::Sprite("Car.sprite");
+		vehicleSprite = _direction == MovingDirection::LEFT 
+			? Graphic::Sprite("Car2_Left.sprite")
+			: Graphic::Sprite("Car1_Right.sprite");
 	}
 	else {
 		type = VehicleType::TRUCK;
-		vehicleSprite = Graphic::Sprite("Truck.sprite");
+		vehicleSprite = Graphic::Sprite("Truck_Right.sprite");
 	}
 
 	setInitPosition();
@@ -23,7 +25,7 @@ Vehicle::Vehicle(
 	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
-	vehicleSprite.setOverlapped(Overlapped::VEHICLE);
+	vehicleSprite.setOverlapped(Overlapped::OBSTACLE);
 }
 
 void Vehicle::Update(float elapsedTime) {
@@ -58,7 +60,6 @@ void Vehicle::setSprite(Graphic::Sprite _sprite) {
 	width = _sprite.getWidth();
 	height = _sprite.getHeight();
 	vehicleSprite = _sprite;
-	overlapped = Overlapped::VEHICLE;
 }
 
 void Vehicle::setInitPosition() {

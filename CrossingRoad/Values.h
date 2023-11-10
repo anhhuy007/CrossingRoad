@@ -4,6 +4,7 @@
 #define VALUES_H
 
 #include <windows.h>
+#include "Graphic.h"
 
 const int keyNumber = 256;
 const int characterSize = 16;
@@ -20,7 +21,7 @@ enum GameScreenLimit : int {
 
 enum class AnimationState {
 	NORMAL = 0,
-	JUMP = 1,
+	JUMP_AHEAD = 1,
 	TURN_LEFT = 2,
 	TURN_RIGHT = 3, 
 	TURN_BACK = 4,
@@ -53,19 +54,33 @@ enum class PlayerState {
 enum Overlapped : int {
 	LAND = 1,
 	DECORATOR = 2, 
-	OBSTACLE = 3,
-	VEHICLE = 4, 
+	LOG = 3,
+	OBSTACLE = 4,
+	VEHICLE = 5, 
 	PLAYER = 10000
 };
 
-enum VehicleType {
+enum class VehicleType {
 	CAR = 1,
 	TRUCK = 2
 };
 
-enum LogType {
+enum class LogType {
 	SMALL_LOG,
 	BIG_LOG
+};
+
+enum class TreeType {
+	SMALL_TREE,
+	BIG_TREE
+};
+
+enum class Player {
+	CHICKCHUK,
+	DUCKY,
+	DOGGO,
+	MEOW, 
+	DINO
 };
 
 struct GameSpeed {
@@ -89,9 +104,14 @@ struct GameSpeed {
 	}
 };
 
-enum class TreeType {
-	SMALL_TREE,
-	BIG_TREE
+struct AnimationSprite {
+	Graphic::Sprite sprite;
+	AnimationState state;
+
+	AnimationSprite(Graphic::Sprite _sprite, AnimationState _state) {
+		sprite = _sprite;
+		state = _state;
+	}
 };
 
 #endif // !VALUES_H

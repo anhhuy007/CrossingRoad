@@ -12,8 +12,12 @@ using namespace std;
 #include <wchar.h>
 #include <string>
 
-const wstring const GAME_TITLE = L"Crossing Road";
-const wstring const GAME_VERSION = L"1.0.0";
-const wstring const INSTRUCTOR = L"Mr. Truong Toan Thing";
+namespace StringRes {
+	const wstring const GAME_TITLE = L"Crossing Road";
+	const wstring const GAME_VERSION = L"1.0.0";
+	const wstring const INSTRUCTOR = L"Mr. Truong Toan Thing";
+}
+
+
 
 #endif // !TEXT_STRING

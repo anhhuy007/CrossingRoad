@@ -1,5 +1,21 @@
 #include "GamePlayer.h"
 
+GamePlayer::GamePlayer(
+	Player player,
+	CrossingRoad* game
+) : GameObject({ 0, 0 }, game) {
+	// initial player position
+	lanePos = 11;
+	blockPos = 8;
+
+	// get the animation sprites
+	animationSprite = Factory::GetAnimationSprites(player);
+
+	for (auto& sprite : animationSprite) {
+		animationSprite.push_back(sprite);
+	}
+}
+
 void GamePlayer::Render() {
 	// get appropriate sprite by animation state: normal, left, right, back, jump
 	Graphic::Sprite sprite = getSpriteByAnimation(animationState);
@@ -9,15 +25,13 @@ void GamePlayer::Render() {
 }
 
 Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
-	/*for (auto sprite : sprites) {
-		if (sprite.first == state) {
-			return sprite.second;
+	for (auto playerSprite : animationSprite) {
+		if (playerSprite.state == state) {
+			return playerSprite.sprite;
 		}
 	}
 
-	return Graphic::Sprite();*/
-
-	return sprite;
+	return animationSprite[0].sprite;
 }
 
 void GamePlayer::Update(float elapsedTime) {

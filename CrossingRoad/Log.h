@@ -8,7 +8,7 @@
 
 class Log : public GameObject { 
 public:
-	Log() : GameObject({ 0, 0 }, Overlapped::OBSTACLE, game) {};
+	Log() : GameObject({ 0, 0 }, game) {};
 	Log(
 		CrossingRoad* game,
 		int _id,

@@ -19,7 +19,6 @@ protected:
 	int width;
 	int height;
 	COORD position;	// real object position in console (top left coordinate)
-	int overlapped;
 	CrossingRoad* game = nullptr;
 
 public:
@@ -27,25 +26,21 @@ public:
 		int _width,
 		int _height,
 		COORD _position,
-		int _overlapped,
 		CrossingRoad* _game
 	) {
 		this->width = _width;
 		this->height = _height;
 		this->position = _position;
-		this->overlapped = _overlapped;
 		this->game = _game;
 	}
 
 	GameObject(
 		COORD _position,
-		int _overlapped,
 		CrossingRoad* _game
 	) {
 		this->height = 0;
 		this->width = 0;
 		this->position = _position;
-		this->overlapped = _overlapped;
 		this->game = _game;
 	}
 
@@ -53,7 +48,6 @@ public:
 		this->height = 0;
 		this->width = 0;
 		this->position = { 0, 0 };
-		this->overlapped = Overlapped::LAND;
 		this->game = _game;
 	}
 	

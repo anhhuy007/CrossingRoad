@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CrossingRoad.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Alignment.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="CrossingRoad.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />

@@ -16,7 +16,7 @@ public:
 		int id, 
 		CrossingRoad* game,
 		Graphic::Sprite laneSprite = Graphic::Sprite()
-	) : GameObject(460, 138, { 0, short(id * 24 - 144) }, Overlapped::LAND, game) {
+	) : GameObject(460, 138, { 0, short(id * 24 - 144) }, game) {
 		this->id = id;
 		this->laneSprite = laneSprite;
 		this->game = game;
