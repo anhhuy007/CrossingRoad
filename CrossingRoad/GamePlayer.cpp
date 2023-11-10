@@ -26,8 +26,7 @@ void GamePlayer::Update(float elapsedTime) {
 		cout << "UP_KEY";
 		if (this->moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
-			position.X -= speed.X_VERTICAL;
-			position.Y -= speed.Y_VERTICAL;
+			lanePos -= 1;
 			OnMove();
 		}
 	}
@@ -36,24 +35,21 @@ void GamePlayer::Update(float elapsedTime) {
 			Graphic::gotoXY(1, 1);
 			cout << "DOWN_KEY";
 			movingDirection = MovingDirection::DOWN;
-			position.X += speed.X_VERTICAL;
-			position.Y += speed.Y_VERTICAL;
+			lanePos += 1;
 			OnMove();
 		}
 	}
 	if (game->inputHandle.arrKeyState[Keyboard::LEFT_KEY].isPressed) {
 		if (this->moveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
-			position.X -= speed.X_HORIZONTAL;
-			position.Y -= speed.Y_HORIZONTAL;
+			blockPos -= 1;
 			OnMove();
 		}
 	}
 	if (game->inputHandle.arrKeyState[Keyboard::RIGHT_KEY].isPressed) {
 		if (this->moveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
-			position.X += speed.X_HORIZONTAL;
-			position.Y += speed.Y_HORIZONTAL;
+			blockPos += 1;
 			OnMove();
 		}
 	}
@@ -61,7 +57,7 @@ void GamePlayer::Update(float elapsedTime) {
 
 void GamePlayer::OnMove() {
 	isAnimated = true;
-
+	position = Alignment::getAlignedPosition(lanePos, blockPos, { 0, -2 }, Gravity::CENTRALLY_ALIGNED);
 	/*animationState = AnimationState::JUMP;
 	Render();*/
 

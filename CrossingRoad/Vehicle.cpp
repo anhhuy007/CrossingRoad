@@ -62,12 +62,8 @@ void Vehicle::setSprite(Graphic::Sprite _sprite) {
 }
 
 void Vehicle::setInitPosition() {
-	if (type == VehicleType::CAR) {
-		position.X =  movingDirection == MovingDirection::LEFT ? 460 : -10;
-		position.Y = movingDirection == MovingDirection::LEFT ? id * 24 - 44 : id * 24 - 158;
-	}
-	else if (type == VehicleType::TRUCK) {
-		position.X = movingDirection == MovingDirection::LEFT ? 460 : -10;
-		position.Y = movingDirection == MovingDirection::LEFT ? id * 24 - 56 : id * 24 - 170;
-	}
+	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
+	int startBlock = movingDirection == MovingDirection::LEFT ? 17 : -2;
+
+	position = Alignment::getAlignedPosition(id, startBlock, centerSpot, Gravity::TOP_LEFT);
 }

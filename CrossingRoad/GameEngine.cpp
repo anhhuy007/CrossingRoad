@@ -35,7 +35,7 @@ void GameEngine::GameLoop() {
 
 				if (inputHandle.keyNewState[i] != inputHandle.keyOldState[i]) {
 					if (inputHandle.keyNewState[i] & 0x8000) {	// if key is pressed
-						inputHandle.arrKeyState[i].isPressed = true;
+						inputHandle.arrKeyState[i].isPressed = !inputHandle.arrKeyState[i].isHeld;
 						inputHandle.arrKeyState[i].isHeld = true;
 					}
 					else {

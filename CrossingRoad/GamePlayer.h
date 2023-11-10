@@ -14,6 +14,7 @@
 #include "Values.h"
 #include "GameObject.h";
 #include "Graphic.h"
+#include "Alignment.h"
 
 class GamePlayer : public GameObject {
 
@@ -30,15 +31,17 @@ public:
 
 	GamePlayer(
 		const char* spritePath,		// path to sprite folder 
-		const COORD& coord,
 		const int& overlapped,
 		CrossingRoad* game
-	) : GameObject(coord, overlapped, game) {
+	) : GameObject({0, 0}, overlapped, game) {
 		this->sprite = Graphic::Sprite(spritePath);
 		sprite.setOverlapped(overlapped);
 		width = sprite.getWidth();
 		height = sprite.getHeight();
 		speed = GameSpeed(4, 1, -1, 2);
+		lanePos = 11;
+		blockPos = 8;
+		position = Alignment::getAlignedPosition(lanePos, blockPos, { 0,-2 }, Gravity::CENTRALLY_ALIGNED);
 	}
 
 	virtual void Update(float elapsedTime);
@@ -54,6 +57,9 @@ public:
 	short getX() { return position.X; }
 	short getY() { return position.Y; }
 
+	int lanePos;
+	int blockPos;
+
 protected:
 	AnimationState animationState = AnimationState::NORMAL;
 	MovingDirection movingDirection = MovingDirection::NONE;
@@ -62,7 +68,7 @@ protected:
 	//std::vector<pair<AnimationState, Graphic::Sprite>> sprites;
 	bool isAnimated = false;
 	GameSpeed speed;
-
+	
 	/*virtual void OnDied();
 	virtual void Move(int x, int y) final;*/
 };

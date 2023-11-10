@@ -9,7 +9,13 @@
 #include "GrassLane.h"
 #include "WaterLane.h"
 
+#include <vector>
+#include <string>
+
 class StreetMap : public GameMap {
+	std::vector<std::string> mapLanes;
+
+	void DrawRoadMarking(int laneId);
 public:
 	StreetMap(CrossingRoad* game) : GameMap(game) {}
 	

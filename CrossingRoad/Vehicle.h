@@ -4,6 +4,7 @@
 #define VEHICLE_H
 
 #include "GameObject.h"
+#include "Alignment.h"
 
 class Vehicle : public GameObject {
 public:

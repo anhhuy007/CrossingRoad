@@ -8,6 +8,8 @@
 const int keyNumber = 256;
 const int characterSize = 16;
 const COORD FIRSTBLOCK = { 66, -103 }; 
+const int MAXBLOCK = 16;
+const int MAXLANE = 16;
 
 enum GameScreenLimit : int {
 	LEFT = 0,
@@ -50,8 +52,9 @@ enum class PlayerState {
 
 enum Overlapped : int {
 	LAND = 1,
-	OBSTACLE = 2,
-	VEHICLE = 3, 
+	DECORATOR = 2, 
+	OBSTACLE = 3,
+	VEHICLE = 4, 
 	PLAYER = 10000
 };
 

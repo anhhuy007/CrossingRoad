@@ -13,4 +13,12 @@ void RoadLane::Update(float elapsedTime) {
 void RoadLane::Render() {
 	game->RenderSprite(laneSprite, position);
 	game->RenderSprite(vehicle.vehicleSprite, vehicle.getPosition());
+	if (hasRoadMarking) {
+		for (int i = 0; i < MAXBLOCK + 5; i+=4) {
+			game->RenderSprite(
+				roadMarkingSprite,
+				Alignment::getAlignedPosition(id, i, { 0, 4 }, Gravity::TOP_LEFT)
+			);
+		}
+	}
 }

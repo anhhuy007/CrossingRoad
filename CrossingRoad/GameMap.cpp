@@ -1,33 +1,27 @@
 #include "GameMap.h"
 
 GameMap::GameMap() {
-	this->level = 0;
-	this->score = 0;
-	this->collectedCoins = 0;
-	this->playerIndex = 0;
-	this->totalTime = 0.0;
-	this->player = nullptr;
+	level = 0;
+	score = 0;
+	collectedCoins = 0;
+	playerIndex = 0;
+	totalTime = 0.0;
+	player = nullptr;
 }
 
 GameMap::GameMap(CrossingRoad* game) : GameState(game) {
-	this->level = 0;
-	this->score = 0;
-	this->collectedCoins = 0;
-	this->playerIndex = 0;
-	this->totalTime = 0.0;
-	this->player = nullptr;
+	level = 0;
+	score = 0;
+	collectedCoins = 0;
+	playerIndex = 0;
+	totalTime = 0.0;
+	nullptr;
 }
 
 bool GameMap::Create() {
-	this->level = 1;
-	this->score = 0;
-	this->collectedCoins = 0;
-	this->playerIndex = 0;
-	this->totalTime = 0.0;
-
 	// create new player
-	this->player = new GamePlayer("Player.sprite", { 100, 100 }, Overlapped::VEHICLE, this->game);
-	this->grid = Graphic::Sprite("Grid.sprite");
+	player = new GamePlayer("Player.sprite", Overlapped::VEHICLE, this->game);
+	//this->grid = Graphic::Sprite("Grid.sprite");
 	grid.setOverlapped(Overlapped::PLAYER);
 	CreateLanes();
 	
