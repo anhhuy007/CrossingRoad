@@ -45,7 +45,7 @@ public:
 
 protected:
 	AnimationState animationState = AnimationState::NORMAL;
-	MovingDirection movingDirection = MovingDirection::NONE;
+	MovingDirection movingDirection = MovingDirection::UP;
 	PlayerState state = PlayerState::STATE_ALIVE;
 	vector<AnimationSprite> animationSprite;
 	bool isAnimated = false;

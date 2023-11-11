@@ -6,16 +6,24 @@
 #ifndef TEXT_STRING
 #define TEXT_STRING
 
-using namespace std;
-
 #include <windows.h>
 #include <wchar.h>
 #include <string>
 
 namespace StringRes {
-	const wstring const GAME_TITLE = L"Crossing Road";
-	const wstring const GAME_VERSION = L"1.0.0";
-	const wstring const INSTRUCTOR = L"Mr. Truong Toan Thing";
+	const std::wstring const GAME_TITLE = L"Crossing Road";
+	const std::wstring const GAME_VERSION = L"1.0.0";
+	const std::wstring const INSTRUCTOR = L"Mr. Truong Toan Thing";
+
+	// sprite files
+	const std::string animationSprite1 = "Animation1.sprite";
+	const std::string animationSprite2 = "Animation2.sprite";
+	const std::string animationSprite3 = "Animation3.sprite";
+	const std::string animationSprite4 = "Animation4.sprite";
+	const std::string animationSprite5 = "Animation5.sprite";
+
+
+
 }
 
 

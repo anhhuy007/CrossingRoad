@@ -56,8 +56,8 @@ enum Overlapped : int {
 	DECORATOR = 2, 
 	LOG = 3,
 	OBSTACLE = 4,
-	VEHICLE = 5, 
-	PLAYER = 10000
+	VEHICLE = 4, 
+	PLAYER = 4
 };
 
 enum class VehicleType {
@@ -76,7 +76,7 @@ enum class TreeType {
 };
 
 enum class Player {
-	CHICKCHUK,
+	CHICK,
 	DUCKY,
 	DOGGO,
 	MEOW, 

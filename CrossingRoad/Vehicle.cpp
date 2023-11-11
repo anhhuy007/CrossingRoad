@@ -5,13 +5,19 @@ Vehicle::Vehicle(
 	int _id, 
 	MovingDirection _direction
 ) : GameObject(game) {
-	int random = rand() % 10;
+	int random = rand() % 3;
 
-	if (random % 2) {
+	if (random == 0) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT 
-			? Graphic::Sprite("Car2_Left.sprite")
+			? Graphic::Sprite("Car1_Left.sprite")
 			: Graphic::Sprite("Car1_Right.sprite");
+	}
+	else if (random == 1) {
+		type = VehicleType::CAR;
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite("Car2_Left.sprite")
+			: Graphic::Sprite("Car2_Right.sprite");
 	}
 	else {
 		type = VehicleType::TRUCK;
@@ -64,7 +70,7 @@ void Vehicle::setSprite(Graphic::Sprite _sprite) {
 
 void Vehicle::setInitPosition() {
 	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
-	int startBlock = movingDirection == MovingDirection::LEFT ? 17 : -2;
+	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
 
 	position = Alignment::getAlignedPosition(id, startBlock, centerSpot, Gravity::TOP_LEFT);
 }

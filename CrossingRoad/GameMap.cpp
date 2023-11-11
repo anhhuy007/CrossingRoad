@@ -21,7 +21,7 @@ GameMap::GameMap(CrossingRoad* game) : GameState(game) {
 bool GameMap::Create() {
 	// create new player
 	vector<AnimationSprite> spriteList;
-	//player = new GamePlayer(Player::CHICKCHUK, this->game);
+	player = new GamePlayer(Player::CHICK, this->game);
 	//this->grid = Graphic::Sprite("Grid.sprite");
 	grid.setOverlapped(Overlapped::PLAYER);
 	CreateLanes();
@@ -32,7 +32,7 @@ bool GameMap::Create() {
 bool GameMap::Update(float elapsedTime) {
 	totalTime += elapsedTime;
 
-	//player->Update(elapsedTime);
+	player->Update(elapsedTime);
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Update(elapsedTime);
 	}
@@ -45,6 +45,6 @@ void GameMap::Render() {
 	game->RenderSprite(grid, {0, 0});
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
-		//if (player->lanePos == i) player->Render();
+		if (player->lanePos == i) player->Render();
 	}
 }
