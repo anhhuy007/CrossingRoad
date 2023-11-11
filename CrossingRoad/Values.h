@@ -6,6 +6,7 @@
 #include <windows.h>
 #include "Graphic.h"
 
+const float FPS = 60;
 const int keyNumber = 256;
 const int characterSize = 16;
 const COORD FIRSTBLOCK = { 66, -103 }; 
@@ -21,11 +22,14 @@ enum GameScreenLimit : int {
 
 enum class AnimationState {
 	NORMAL = 0,
-	JUMP_AHEAD = 1,
-	TURN_LEFT = 2,
-	TURN_RIGHT = 3, 
-	TURN_BACK = 4,
-	DIED = 5
+	TURN_LEFT = 1,
+	TURN_RIGHT = 2, 
+	TURN_BACK = 3,
+	JUMP_AHEAD = 4,
+	JUMP_LEFT = 5,
+	JUMP_RIGHT = 6,
+	JUMP_BACK = 7,
+	DIED = 8
 };
 
 enum class MovingDirection {

@@ -20,7 +20,6 @@ This class include all the functions that are used in the game, such as: manage 
 #include <Windows.h>
 #include <iostream>
 #include <string>
-#include <WinUser.h>
 #include <format>
 #include <vector>
 #include <chrono>
@@ -34,7 +33,6 @@ using namespace std;
 #include "InputHandle.h"
 #include "Graphic.h"
 #include "Values.h"
-
 
 struct PAIR{
 	WORD x;
@@ -71,7 +69,7 @@ public:
 
 
 	// ----- Properties -----
-	InputHandle inputHandle;
+	InputHandle* inputHandle;
 	void Start();
 private:
 	void GameLoop();

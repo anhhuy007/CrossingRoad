@@ -17,35 +17,17 @@ void GameEngine::GameLoop() {
 	auto time1 = chrono::system_clock::now();
 	auto time2 = chrono::system_clock::now();
 
+
 	// ----- Game loop -----
 	while (atomActive) {
 		while (atomActive) {
 			time2 = chrono::system_clock::now();
 			auto duration = time2 - time1;
 			time1 = time2;
-			float elapsedTime = duration.count();  // in seconds
+			float elapsedTime = (float)duration.count();  // in milliseconds * 10000
 
 			// ----- Handle keyboard input -----
-			for (int i = 0; i < 256; i++) {
-				inputHandle.keyNewState[i] = GetAsyncKeyState(i);
-
-				// ----- Update input state -----
-				inputHandle.arrKeyState[i].isPressed = false;
-				inputHandle.arrKeyState[i].isReleased = false;
-
-				if (inputHandle.keyNewState[i] != inputHandle.keyOldState[i]) {
-					if (inputHandle.keyNewState[i] & 0x8000) {	// if key is pressed
-						inputHandle.arrKeyState[i].isPressed = !inputHandle.arrKeyState[i].isHeld;
-						inputHandle.arrKeyState[i].isHeld = true;
-					}
-					else {
-						inputHandle.arrKeyState[i].isReleased = true;
-						inputHandle.arrKeyState[i].isHeld = false;
-					}
-				}
-
-				inputHandle.keyOldState[i] = inputHandle.keyNewState[i];
-			}
+			inputHandle = InputHandle::GetKeyBoardState();
 
 			// ----- Handle frame update -----
 			if (!GameUpdate(elapsedTime)) {
@@ -54,7 +36,7 @@ void GameEngine::GameLoop() {
 
 			// ----- Update game title and FPS -----
 			wchar_t s[256];
-			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime / 1000);
+			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", 1 / float(elapsedTime / (float)10000000));
 			SetConsoleTitle(s);
 			
 			// ----- Update console screen buffer -----
@@ -135,7 +117,7 @@ GameEngine::GameEngine() {
 	fontSize = 6;
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
-	inputHandle = InputHandle();
+	inputHandle = InputHandle::GetKeyBoardState();
 	
 	// allocate memory 
 	collistionMatrix = new int[windowSize.x * windowSize.y];

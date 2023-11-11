@@ -42,7 +42,7 @@ bool CrossingRoad::GameCreate() {
 
 bool CrossingRoad::GameUpdate(float elapsedTime) {
 	// ----- Update game -----
-	if (inputHandle.arrKeyState[Keyboard::ESCAPE_KEY].isPressed) return false;
+	if (inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) return false;
 
 	// game loop
 	if (gameState != nullptr) {

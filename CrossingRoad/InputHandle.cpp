@@ -1,13 +1,45 @@
 #include "InputHandle.h"
 
-InputHandle::KeyState InputHandle::GetKey(int keyId) {
-	return arrKeyState[keyId];
-}
+InputHandle* InputHandle::inputHandle_ = nullptr;
 
 InputHandle::InputHandle() {
 	for (int i = 0; i < 256; i++) {
-		keyOldState[i] = false;
-		keyNewState[i] = false;
-		arrKeyState[i] = { false, false, false };
+		keyOldState_[i] = false;
+		keyNewState_[i] = false;
+		keyState_[i] = { false, false, false };
 	}
 }
+
+InputHandle::KeyState InputHandle::GetKey(int keyId) {
+	return keyState_[keyId];
+}
+
+InputHandle* InputHandle::GetKeyBoardState() {
+	if (inputHandle_ == nullptr) {
+		inputHandle_ = new InputHandle();
+	}
+
+	// ----- Update input state -----
+	for (int i = 0; i < 256; i++) {
+		inputHandle_->keyNewState_[i] = GetAsyncKeyState(i);
+
+		inputHandle_->keyState_[i].isPressed = false;
+		inputHandle_->keyState_[i].isReleased = false;
+
+		if (inputHandle_->keyNewState_[i] != inputHandle_->keyOldState_[i]) {
+			if (inputHandle_->keyNewState_[i] & 0x8000) {	// if key is pressed
+				inputHandle_->keyState_[i].isPressed = !inputHandle_->keyState_[i].isHeld; // avoid keyboard holding
+				inputHandle_->keyState_[i].isHeld = true;
+			}
+			else {
+				inputHandle_->keyState_[i].isReleased = true;
+				inputHandle_->keyState_[i].isHeld = false;
+			}
+		}
+
+		inputHandle_->keyOldState_[i] = inputHandle_->keyNewState_[i];
+	}
+
+	return inputHandle_;
+}
+

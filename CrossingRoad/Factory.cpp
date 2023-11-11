@@ -12,14 +12,17 @@ char* Factory::GetSpritePath(char* folder, char* fileName) {
 
 std::vector<AnimationSprite> Factory::GetAnimationSprite(Player player) {
 	std::vector<AnimationSprite> ans;
-	int numberOfAnimations = 5;
+	int numberOfAnimations = 8;
 
 	std::vector<AnimationState> animations = {
 		AnimationState::NORMAL,
 		AnimationState::TURN_LEFT,
 		AnimationState::TURN_RIGHT,
 		AnimationState::TURN_BACK,
-		AnimationState::JUMP_AHEAD
+		AnimationState::JUMP_AHEAD,
+		AnimationState::JUMP_LEFT,
+		AnimationState::JUMP_RIGHT,
+		AnimationState::JUMP_BACK,
 	};
 
 	std::vector<std::string> spriteFiles = {
@@ -28,6 +31,9 @@ std::vector<AnimationSprite> Factory::GetAnimationSprite(Player player) {
 			StringRes::animationSprite3,
 			StringRes::animationSprite4,
 			StringRes::animationSprite5,
+			StringRes::animationSprite6,
+			StringRes::animationSprite7,
+			StringRes::animationSprite8,
 	};
 
 	switch (player) {
