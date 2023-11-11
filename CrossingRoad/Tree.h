@@ -15,7 +15,7 @@ public:
 		int randomNumber = rand() % 20;
 
 		if (randomNumber % 2) {
-			treeSprite = Graphic::Sprite("Tree1.sprite");
+			treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
 			position = Alignment::getAlignedPosition(
 				laneId, 
 				randomNumber, 
@@ -29,7 +29,7 @@ public:
 			height = 42;
 		}
 		else {
-			treeSprite = Graphic::Sprite("Tree2.sprite");
+			treeSprite = Graphic::Sprite(DrawableRes::BigTree);
 			position = Alignment::getAlignedPosition(
 				laneId, 
 				randomNumber, 

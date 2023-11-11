@@ -10,18 +10,18 @@ Vehicle::Vehicle(
 	if (random == 0) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT 
-			? Graphic::Sprite("Car1_Left.sprite")
-			: Graphic::Sprite("Car1_Right.sprite");
+			? Graphic::Sprite(DrawableRes::CarLeft)
+			: Graphic::Sprite(DrawableRes::CarRight);
 	}
 	else if (random == 1) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
-			? Graphic::Sprite("Car2_Left.sprite")
-			: Graphic::Sprite("Car2_Right.sprite");
+			? Graphic::Sprite(DrawableRes::RaceCarLeft)
+			: Graphic::Sprite(DrawableRes::RaceCarRight);
 	}
 	else {
 		type = VehicleType::TRUCK;
-		vehicleSprite = Graphic::Sprite("Truck_Right.sprite");
+		vehicleSprite = Graphic::Sprite(DrawableRes::TruckRight);
 	}
 
 	setInitPosition();

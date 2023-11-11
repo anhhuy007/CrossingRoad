@@ -5,6 +5,7 @@
 
 #include "Lane.h"
 #include "Log.h"
+
 #include <vector>
 
 class WaterLane : public Lane {
@@ -17,13 +18,13 @@ public:
 		CrossingRoad* game,
 		Graphic::Sprite waterSprite = Graphic::Sprite()
 	) : Lane(id, game, waterSprite) {
-		// generate random vehicle
+		// generate random log
 		direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
 		log = Log(game, id, direction);
 	};
 
-	virtual void Update(float elapsedTime);
-	virtual void Render();
+	void Update(float elapsedTime);
+	void Render();
 };
 
 #endif // !WATER_LANE_H

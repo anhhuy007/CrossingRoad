@@ -1,25 +1,23 @@
 #pragma once
 
-#include <Windows.h>
-#include <iostream>
-
-//#include "Alignment.h" 
-#include "Colors.h"
-	
 #ifndef GRAPHIC_H
 #define GRAPHIC_H
 
-namespace Graphic {
-	void gotoXY(short x, short y);
+#include <Windows.h>
+#include <iostream>
+#include <fstream>
 
+#include "Colors.h"
+
+namespace Graphic {
 	class Pixel {
 	public:
 		COORD coordinate;
 		COLOR::COLOR color;
 		int overlapped;
 
-		Pixel(COORD _coordinate, COLOR::COLOR _color);
 		Pixel();
+		Pixel(COORD _coordinate, COLOR::COLOR _color);
 	};
 
 	class Sprite {
@@ -30,10 +28,9 @@ namespace Graphic {
 
 	public:
 		// ----- Constructors -----
-		Sprite(int _width, int _height);
 		Sprite();
 		Sprite(const char* filename);
-		//Sprite(const Sprite& other);
+		Sprite(std::string filename) : Sprite(filename.c_str()) {};
 
 		// ----- Getters -----
 		int getWidth();
@@ -44,8 +41,6 @@ namespace Graphic {
 		void setWidth(int _width);
 		void setHeight(int _height);
 		void setOverlapped(int _overlapped);
-
-		//Sprite operator=(const Sprite& other);
 	};
 };
 

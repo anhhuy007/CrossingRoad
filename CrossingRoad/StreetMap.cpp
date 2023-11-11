@@ -1,10 +1,10 @@
 #include "StreetMap.h"
 
 void StreetMap::CreateLanes() {
-	Graphic::Sprite grasslane = Graphic::Sprite("GrassLane.sprite");
-	Graphic::Sprite waterlane = Graphic::Sprite("WaterLane.sprite");
-	Graphic::Sprite roadlane = Graphic::Sprite("RoadLane.sprite");
-	Graphic::Sprite roadMarking = Graphic::Sprite("RoadMarking.sprite");
+	Graphic::Sprite grasslane = Graphic::Sprite(DrawableRes::GrassLane);
+	Graphic::Sprite waterlane = Graphic::Sprite(DrawableRes::WaterLane);
+	Graphic::Sprite roadlane = Graphic::Sprite(DrawableRes::RoadLane);
+	Graphic::Sprite roadMarking = Graphic::Sprite(DrawableRes::RoadMarking);
 
 	grasslane.setOverlapped(Overlapped::LAND);
 	waterlane.setOverlapped(Overlapped::LAND);

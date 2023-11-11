@@ -8,8 +8,8 @@
 #include "Graphic.h"
 
 class GrassLane : public Lane {
-public: 
 	vector<Tree> trees;
+public: 
 	GrassLane(
 		int id,
 		CrossingRoad* game,
@@ -22,13 +22,7 @@ public:
 		}
 	};
 
-	void Render() {
-		game->RenderSprite(laneSprite, position);
-		for (int i = 0; i < trees.size(); i++) {
-			game->RenderSprite(trees[i].treeSprite, trees[i].getPosition());
-		}
-	}
-
+	void Render();
 	void Update(float elapsedTime) {};
 };
 

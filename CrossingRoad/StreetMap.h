@@ -8,6 +8,7 @@
 #include "RoadLane.h"
 #include "GrassLane.h"
 #include "WaterLane.h"
+#include "TextStrings.h"
 
 #include <vector>
 #include <string>
@@ -19,7 +20,7 @@ class StreetMap : public GameMap {
 public:
 	StreetMap(CrossingRoad* game) : GameMap(game) {}
 	
-	virtual void CreateLanes();
+	void CreateLanes();
 };
 
 #endif // !STREET_MAP_H

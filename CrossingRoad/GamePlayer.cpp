@@ -37,7 +37,6 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 
 void GamePlayer::Update(float elapsedTime) {
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-		Graphic::gotoXY(1, 1);
 		if (this->moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
@@ -47,7 +46,6 @@ void GamePlayer::Update(float elapsedTime) {
 	}
 	if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
 		if (this->moveDown()) {		// if GamePlayer can move down
-			Graphic::gotoXY(1, 1);
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
 			lanePos += 1;

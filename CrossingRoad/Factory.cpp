@@ -26,14 +26,14 @@ std::vector<AnimationSprite> Factory::GetAnimationSprite(Player player) {
 	};
 
 	std::vector<std::string> spriteFiles = {
-			StringRes::animationSprite1,
-			StringRes::animationSprite2,
-			StringRes::animationSprite3,
-			StringRes::animationSprite4,
-			StringRes::animationSprite5,
-			StringRes::animationSprite6,
-			StringRes::animationSprite7,
-			StringRes::animationSprite8,
+			DrawableRes::animationSprite1,
+			DrawableRes::animationSprite2,
+			DrawableRes::animationSprite3,
+			DrawableRes::animationSprite4,
+			DrawableRes::animationSprite5,
+			DrawableRes::animationSprite6,
+			DrawableRes::animationSprite7,
+			DrawableRes::animationSprite8,
 	};
 
 	switch (player) {

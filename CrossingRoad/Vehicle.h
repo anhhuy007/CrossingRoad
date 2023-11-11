@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "Alignment.h"
+#include "TextStrings.h"
 
 class Vehicle : public GameObject {
 public:

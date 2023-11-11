@@ -27,18 +27,13 @@ public:
 		CrossingRoad* game
 	);
 
-	virtual void Update(float elapsedTime);
-	virtual void Render();
-	
+	void Update(float elapsedTime);
+	void Render();
 	void OnMove();
-
 	bool moveUp();
 	bool moveDown();
 	bool moveLeft();
 	bool moveRight();
-
-	short getX() { return position.X; }
-	short getY() { return position.Y; }
 
 	int lanePos;
 	int blockPos;

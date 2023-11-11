@@ -26,7 +26,6 @@ protected:
 	Graphic::Sprite grid;
 
 public: 
-	GameMap();
 	GameMap(CrossingRoad* game);
 
 	virtual bool Create();

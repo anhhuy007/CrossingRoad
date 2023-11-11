@@ -139,7 +139,6 @@
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="GrassLane.cpp" />
     <ClCompile Include="InputHandle.cpp" />
-    <ClCompile Include="Lane.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RoadLane.cpp" />

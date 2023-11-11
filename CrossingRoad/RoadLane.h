@@ -28,8 +28,8 @@ public:
 		roadMarkingSprite = _roadMarkingSprite;
 	};
 
-	virtual void Update(float elapsedTime);
-	virtual void Render();
+	void Update(float elapsedTime);
+	void Render();
 };
 
 #endif // !ROAD_LANE_H

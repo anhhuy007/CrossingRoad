@@ -8,10 +8,11 @@
 #include "Vehicle.h"
 
 class Lane : public GameObject {
-public:
+protected:
 	int id;
 	Graphic::Sprite laneSprite;
-	
+
+public:
 	Lane(
 		int id, 
 		CrossingRoad* game,

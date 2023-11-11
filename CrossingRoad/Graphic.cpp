@@ -3,19 +3,10 @@
 #endif
 
 #include "Graphic.h"
-#include <fstream>
-
-const char* folder = "images/";
+#include "TextStrings.h"
 
 using namespace Graphic;
-using namespace std;
-
-void Graphic::gotoXY(short x, short y) {
-	static HANDLE h = NULL;
-	if (!h) h = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD coord = { x, y };
-	SetConsoleCursorPosition(h, coord);
-}
+const char* folder = "images/";
 
 Graphic::Pixel::Pixel(COORD _coordinate, COLOR::COLOR _color) {
 	coordinate = _coordinate;
@@ -29,19 +20,6 @@ Graphic::Pixel::Pixel() {
 	overlapped = 0;
 }
 
-Graphic::Sprite::Sprite(int _width, int _height) {
-	width = _width;
-	height = _height;
-
-	// create transparent pixels
-	pixels = new Pixel[width * height];
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			pixels[i * width + j] = Pixel();
-		}
-	}
-}
-
 Graphic::Sprite::Sprite() {
 	pixels = NULL;
 	width = 0;
@@ -52,10 +30,10 @@ Graphic::Sprite::Sprite(const char* filename) {
 	char* path = new char[strlen(folder) + strlen(filename) + 1];
 	path = strcpy(path, folder);
 	path = strcat(path, filename);
-	ifstream ifs(path, ios::beg);
+	std::ifstream ifs(path, std::ios::beg);
 
 	if (ifs.fail()) {
-		cout << "Cannot open file " << filename << endl;
+		std::cerr << "Cannot open file " << filename;
 		return;
 	}
 
@@ -63,7 +41,7 @@ Graphic::Sprite::Sprite(const char* filename) {
 	
 	int x, y, color;
 	// allocate memory
-	pixels = new Pixel[width * height + width];
+	pixels = new Pixel[width * height];
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -77,25 +55,12 @@ Graphic::Sprite::Sprite(const char* filename) {
 	ifs.close();
 }
 
-//Graphic::Sprite::Sprite(const Sprite& other) {
-//	pixels = new Pixel[other.height * other.width];
-//	for (int i = 0; i < other.height; i++) {
-//		for (int j = 0; j < other.width; j++) {
-//			pixels[i * other.width + j] = other.pixels[i * other.width + j];
-//		}
-//	}
-//
-//	width = other.width;
-//	height = other.height;
-//}
 
-int Graphic::Sprite::getWidth()
-{
+int Graphic::Sprite::getWidth() {
 	return width;
 }
 
-int Graphic::Sprite::getHeight()
-{
+int Graphic::Sprite::getHeight() {
 	return height;
 }
 

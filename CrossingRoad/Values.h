@@ -4,6 +4,7 @@
 #define VALUES_H
 
 #include <windows.h>
+
 #include "Graphic.h"
 
 const float FPS = 60;
