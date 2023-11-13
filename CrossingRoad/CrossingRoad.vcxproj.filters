@@ -132,6 +132,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -154,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="Graphic.h">
       <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="TileObject.h">
-      <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="InputHandle.h">
       <Filter>Header Files\Utils</Filter>
@@ -202,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

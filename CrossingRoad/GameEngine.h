@@ -84,6 +84,7 @@ protected:
 public: 
 	static atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
+	int fps;
  };
 
 #endif // _GAME_ENGINE_H_

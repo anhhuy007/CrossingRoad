@@ -40,6 +40,7 @@ void GameEngine::GameLoop() {
 
 		// ----- Update console screen buffer -----
 		UpdateConsole();
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
 	}
 }

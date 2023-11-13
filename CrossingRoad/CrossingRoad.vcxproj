@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CrossingRoad.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alignment.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="CrossingRoad.h" />
     <ClInclude Include="Factory.h" />
@@ -168,7 +170,6 @@
     <ClInclude Include="Rock.h" />
     <ClInclude Include="StreetMap.h" />
     <ClInclude Include="TextStrings.h" />
-    <ClInclude Include="TileObject.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Values.h" />
     <ClInclude Include="Vehicle.h" />

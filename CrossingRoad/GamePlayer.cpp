@@ -9,7 +9,7 @@ GamePlayer::GamePlayer(
 	blockPos = 8;
 
 	// get the animation sprites
-	animationSprite = Factory::GetAnimationSprite(player);
+	animationSprite = Factory::GetPlayerSprite(player);
 	for (auto& sprite : animationSprite) {
 		sprite.sprite.setOverlapped(Overlapped::PLAYER);
 	}

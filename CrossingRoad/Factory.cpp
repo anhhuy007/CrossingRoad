@@ -10,7 +10,7 @@ char* Factory::GetSpritePath(char* folder, char* fileName) {
 	return ans;
 }
 
-std::vector<AnimationSprite> Factory::GetAnimationSprite(Player player) {
+std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 	std::vector<AnimationSprite> ans;
 	int numberOfAnimations = 8;
 

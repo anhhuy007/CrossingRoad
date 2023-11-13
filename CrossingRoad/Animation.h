@@ -3,30 +3,40 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
+#include "CrossingRoad.h"
+#include "Graphic.h"
+
 #include <chrono>
 #include <thread>
 #include <vector>
 
-#include "Graphic.h"
-#include "CrossingRoad.h"
-
-#define Image Sprite
-
-using namespace Graphic;
+#define Image Graphic::Sprite
 
 class Animation {
+	CrossingRoad* game = nullptr;
 	std::vector<Image> images;
+	COORD position;
 	int delay;	// delay each frame in milliseconds
+	bool isPause = false;
+	int frameId = 0;
 
 	// methods
-	void PlayAnimation(CrossingRoad* game, COORD position);	// play animation
+	void PlayAnimation();	// play animation
 
-public: 
+public:
 	Animation() = default;
-	Animation(std::vector<Image> pimages, int pdelay);
+	Animation(
+		CrossingRoad* pgame,
+		std::vector<Image> pimages,
+		COORD pposition,
+		int pdelay
+	);
 
 	// methods
-	void Play(CrossingRoad* game, COORD position);	// join animation to new thread
+	void OnPlay();	// join animation to new thread
+	void OnPause();
+	void OnResume();
 };
 
 #endif // !ANIMATION_H
+
