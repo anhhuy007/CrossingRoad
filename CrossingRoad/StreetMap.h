@@ -18,9 +18,10 @@ class StreetMap : public GameMap {
 
 	void DrawRoadMarking(int laneId);
 public:
-	StreetMap(CrossingRoad* game) : GameMap(game) {}
+	StreetMap(CrossingRoad* game) : GameMap(game) {};
 	
 	void CreateLanes();
+	void SetScreenColor();
 };
 
 #endif // !STREET_MAP_H

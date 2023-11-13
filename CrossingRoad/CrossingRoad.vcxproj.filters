@@ -22,12 +22,6 @@
     <Filter Include="Header Files\Objects">
       <UniqueIdentifier>{0eceda76-c08e-4f0c-850e-d2badd67a540}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Animations">
-      <UniqueIdentifier>{d3ea588f-4e88-402b-bfeb-07d033b4823b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Animations">
-      <UniqueIdentifier>{352be565-829b-4497-ba34-dada9e64afd9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Constants">
       <UniqueIdentifier>{2c4d9b43-d126-4886-8945-b9126b3d5e9b}</UniqueIdentifier>
     </Filter>
@@ -72,6 +66,12 @@
     </Filter>
     <Filter Include="Source Files\Objects\Obstacles">
       <UniqueIdentifier>{12f28759-5831-4b31-a0ec-118c03cf98f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menu">
+      <UniqueIdentifier>{df73de2e-afd8-42da-80f2-69d12fb78e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{b463ed12-dcfe-404e-a1dd-ff258ffc9c60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="GrassLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="Factory.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

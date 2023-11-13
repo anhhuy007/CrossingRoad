@@ -2,11 +2,11 @@
 #include "CrossingRoad.h"
 
 int main() {
-	CrossingRoad game;
+	CrossingRoad CrossyRoad;
 	srand(time(NULL));
 
-	game.Init();
-	game.Start();
+	CrossyRoad.Init();
+	CrossyRoad.Start();
 
 	return 0;
 }

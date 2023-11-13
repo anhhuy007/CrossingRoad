@@ -18,10 +18,18 @@
 #include "Factory.h"
 
 class GamePlayer : public GameObject {
-
+	// methods
 	Graphic::Sprite getSpriteByAnimation(AnimationState state);
 
+	// attributes
+	AnimationState animationState = AnimationState::NORMAL;
+	MovingDirection movingDirection = MovingDirection::UP;
+	PlayerState state = PlayerState::STATE_ALIVE;
+	vector<AnimationSprite> animationSprite;
+	GameSpeed speed;
+
 public:
+	// methods
 	GamePlayer(
 		Player player, 
 		CrossingRoad* game
@@ -35,18 +43,9 @@ public:
 	bool moveLeft();
 	bool moveRight();
 
+	// attributes
 	int lanePos;
-	int blockPos;
-
-protected:
-	AnimationState animationState = AnimationState::NORMAL;
-	MovingDirection movingDirection = MovingDirection::UP;
-	PlayerState state = PlayerState::STATE_ALIVE;
-	vector<AnimationSprite> animationSprite;
-	bool isAnimated = false;
-	GameSpeed speed;
-	
-	/*virtual void OnDied();*/
+	int blockPos;	
 };
 
 #endif // !GAME_PLAYER_H

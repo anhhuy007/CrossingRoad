@@ -1,15 +1,6 @@
 #include "GameMap.h"
 
-GameMap::GameMap(CrossingRoad* game) : GameState(game) {
-	level = 0;
-	score = 0;
-	collectedCoins = 0;
-	playerIndex = 0;
-	totalTime = 0.0;
-	player = nullptr;
-}
-
-bool GameMap::Create() {
+bool GameMap::OnCreate() {
 	vector<AnimationSprite> spriteList;
 	player = new GamePlayer(Player::CHICK, this->game);
 
@@ -18,11 +9,12 @@ bool GameMap::Create() {
 	
 	// create game lanes
 	CreateLanes();
+	SetScreenColor();
 	
 	return true;
 }
 
-bool GameMap::Update(float elapsedTime) {
+bool GameMap::OnUpdate(float elapsedTime) {
 	totalTime += elapsedTime;
 
 	player->Update(elapsedTime);

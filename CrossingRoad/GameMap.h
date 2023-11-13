@@ -12,25 +12,32 @@
 #include <vector>
 #include <string>
 
-class GameMap : public CrossingRoad::GameState {
+class GameMap : public CrossingRoad::GameScreen {
 
 protected: 
-	int level;
-	int score;
-	int collectedCoins;
-	int playerIndex;
-	float totalTime;
+	int level = 0;
+	int score = 0;
+	int collectedCoins = 0;
+	int playerIndex = 0;
+	float totalTime = 0.0f;
 	vector<Lane*> lanes;
 	
-	GamePlayer* player;
+	GamePlayer* player = nullptr;
 	Graphic::Sprite grid;
 
 public: 
-	GameMap(CrossingRoad* game);
+	GameMap(CrossingRoad* game) : GameScreen(game) {};
 
-	virtual bool Create();
+	// overrided functions 
+	bool OnCreate();
+	bool OnUpdate(float elapsedTime);
+	bool OnDestroy() { return false; };
+
+	// must override functions
 	virtual void CreateLanes() = 0;
-	bool Update(float elapsedTime);
+	virtual void SetScreenColor() = 0;
+
+	// methods
 	void Render();
 };
 

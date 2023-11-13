@@ -20,29 +20,27 @@ void GameEngine::GameLoop() {
 
 	// ----- Game loop -----
 	while (atomActive) {
-		while (atomActive) {
-			time2 = chrono::system_clock::now();
-			auto duration = time2 - time1;
-			time1 = time2;
-			float elapsedTime = (float)duration.count();  // in milliseconds * 10000
+		time2 = chrono::system_clock::now();
+		auto duration = time2 - time1;
+		time1 = time2;
+		float elapsedTime = duration.count();  // in milliseconds * 10000
 
-			// ----- Handle keyboard input -----
-			inputHandle = InputHandle::GetKeyBoardState();
+		// ----- Handle keyboard input -----
+		inputHandle = InputHandle::GetKeyBoardState();
 
-			// ----- Handle frame update -----
-			if (!GameUpdate(elapsedTime)) {
-				atomActive = false;
-			}
-
-			// ----- Update game title and FPS -----
-			wchar_t s[256];
-			swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", 1 / float(elapsedTime / (float)10000000));
-			SetConsoleTitle(s);
-			
-			// ----- Update console screen buffer -----
-			UpdateConsole();
-			ClearConsole();
+		// ----- Handle frame update -----
+		if (!GameUpdate(elapsedTime)) {
+			atomActive = false;
 		}
+
+		// ----- Update game title and FPS -----
+		wchar_t s[256];
+		swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", 1 / float(elapsedTime / (float)10000000));
+		SetConsoleTitle(s);
+
+		// ----- Update console screen buffer -----
+		UpdateConsole();
+		ClearConsole();
 	}
 }
 

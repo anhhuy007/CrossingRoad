@@ -48,14 +48,13 @@ struct PAIR{
 
 class GameEngine {
 public: 
-	// class funtions
 	GameEngine();
 	~GameEngine();
 	
 	// ----- Window console funtions -----
 	void BuildConsole();
 
-	// ----- Gracphic funtions -----
+	// ----- Graphic funtions -----
 	void UpdateConsole();
 	void ClearConsole();
 	void RenderSprite(Graphic::Sprite sprite, COORD position);
@@ -64,13 +63,14 @@ public:
 	virtual bool GameCreate() = 0;
 	virtual bool GameUpdate(float elapsedTime) = 0;
 
-	//// ----- Optional funtions -----
+	//// ----- Optional overrided funtions -----
 	//virtual bool GameDestroy();
 
+	void Start();
 
 	// ----- Properties -----
 	InputHandle* inputHandle;
-	void Start();
+
 private:
 	void GameLoop();
 	
