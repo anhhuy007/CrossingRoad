@@ -1,15 +1,5 @@
 #include "Factory.h"
 
-char* Factory::GetSpritePath(char* folder, char* fileName) {
-	char* ans;
-
-	ans = new char[sizeof(folder) + sizeof(fileName)];
-	strcpy(ans, folder);
-	strcat(ans, fileName);
-
-	return ans;
-}
-
 std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 	std::vector<AnimationSprite> ans;
 	int numberOfAnimations = 8;
@@ -36,22 +26,26 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 			DrawableRes::animationSprite8,
 	};
 
+	std::string folder = "";
+
+	// get player sprite folder
 	switch (player) {
 	case Player::CHICK:
-		for (int i = 0; i < numberOfAnimations; i++) {
-			const char* folder = "Chick\\";
-			char* spritePath = GetSpritePath(const_cast<char*>(folder), spriteFiles[i].data());
-
-			ans.push_back(
-				AnimationSprite(
-					Graphic::Sprite(spritePath),
-					animations[i]
-				)
-			);
-		}
-
+		folder = "Chick\\";
+		break;
+	default:
+		break;
 	}
 
+	for (int i = 0; i < numberOfAnimations; i++) {
+		std::string spritePath = DrawableRes::spriteFolder + folder + spriteFiles[i];
+		ans.push_back(
+			AnimationSprite(
+				Graphic::Sprite(spritePath),
+				animations[i]
+			)
+		);
+	}
 
 	return ans;
 }

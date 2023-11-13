@@ -88,6 +88,11 @@ enum class Player {
 	DINO
 };
 
+enum class TextFont {
+	TITLE,
+	NORMAL
+};
+
 struct GameSpeed {
 	int X_HORIZONTAL = 0;
 	int Y_HORIZONTAL = 0;

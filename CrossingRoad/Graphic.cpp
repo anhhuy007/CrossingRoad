@@ -6,7 +6,6 @@
 #include "TextStrings.h"
 
 using namespace Graphic;
-const char* folder = "images/";
 
 Graphic::Pixel::Pixel(COORD _coordinate, COLOR::COLOR _color) {
 	coordinate = _coordinate;
@@ -26,14 +25,11 @@ Graphic::Sprite::Sprite() {
 	height = 0;
 }
 
-Graphic::Sprite::Sprite(const char* filename) {
-	char* path = new char[strlen(folder) + strlen(filename) + 1];
-	path = strcpy(path, folder);
-	path = strcat(path, filename);
-	std::ifstream ifs(path, std::ios::beg);
+Graphic::Sprite::Sprite(const char* filePath) {
+	std::ifstream ifs(filePath, std::ios::beg);
 
 	if (ifs.fail()) {
-		std::cerr << "Cannot open file " << filename;
+		std::cerr << "Cannot open file " << filePath;
 		return;
 	}
 

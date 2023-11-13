@@ -13,21 +13,22 @@ namespace StringRes {
 }
 
 namespace DrawableRes {
+	const std::string spriteFolder = "sprites\\";
 	// lane sprites	
-	const std::string GrassLane = "GrassLane.sprite";
-	const std::string RoadLane = "RoadLane.sprite";
-	const std::string WaterLane = "WaterLane.sprite";
-	const std::string RoadMarking = "RoadMarking.sprite";
+	const std::string GrassLane = spriteFolder + "GrassLane.sprite";
+	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
+	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
+	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 
 	// obstacle sprites
-	const std::string SmallTree = "Tree1.sprite";
-	const std::string BigTree = "Tree2.sprite";
-	const std::string RaceCarLeft = "Car2_Left.sprite";
-	const std::string RaceCarRight = "Car2_Right.sprite";
-	const std::string CarLeft = "Car1_Left.sprite";
-	const std::string CarRight = "Car1_Right.sprite";
-	const std::string TruckLeft = "Truck_Left.sprite";
-	const std::string TruckRight = "Truck_Right.sprite";
+	const std::string SmallTree = spriteFolder + "Tree1.sprite";
+	const std::string BigTree = spriteFolder + "Tree2.sprite";
+	const std::string RaceCarLeft = spriteFolder + "Car2_Left.sprite";
+	const std::string RaceCarRight = spriteFolder + "Car2_Right.sprite";
+	const std::string CarLeft = spriteFolder + "Car1_Left.sprite";
+	const std::string CarRight = spriteFolder + "Car1_Right.sprite";
+	const std::string TruckLeft = spriteFolder + "Truck_Left.sprite";
+	const std::string TruckRight = spriteFolder + "Truck_Right.sprite";
 	// animation sprites
 	const std::string animationSprite1 = "Animation1.sprite";
 	const std::string animationSprite2 = "Animation2.sprite";

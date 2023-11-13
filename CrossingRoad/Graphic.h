@@ -29,8 +29,8 @@ namespace Graphic {
 	public:
 		// ----- Constructors -----
 		Sprite();
-		Sprite(const char* filename);
-		Sprite(std::string filename) : Sprite(filename.c_str()) {};
+		Sprite(const char* filePath);
+		Sprite(std::string filePath) : Sprite(filePath.c_str()) {};
 
 		// ----- Getters -----
 		int getWidth();

@@ -30,6 +30,7 @@ bool Menu::OnCreate() {
 	};
 	COLOR::SetConsoleColor(colors);
 
+	Widget::Text text = Widget::Text(game, "CROSSING ROAD", { 50, 10 }, TextFont::NORMAL);
 
 	return true;
 }
@@ -38,7 +39,6 @@ bool Menu::OnUpdate(float elapsedTime) {
 	chick->Update(elapsedTime);
 	chick->Render();
 	meow.OnPlay();
-
 
 	return true;
 }

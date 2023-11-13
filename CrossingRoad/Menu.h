@@ -5,7 +5,7 @@
 
 #include "Animation.h"
 #include "GamePlayer.h"
-
+#include "Widget.h"
 
 class Menu : public CrossingRoad::GameScreen {
 public: 

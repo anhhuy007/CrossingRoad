@@ -15,10 +15,8 @@
 #include <string.h>
 
 class Factory {
-	static char* GetSpritePath(char* folder, char* fileName);
 public: 
 	static std::vector<AnimationSprite> GetPlayerSprite(Player player);
-
 };
 
 #endif // !FACTORY_H
