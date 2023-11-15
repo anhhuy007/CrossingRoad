@@ -14,14 +14,19 @@
 #include <string>
 
 class StreetMap : public GameMap {
-	std::vector<std::string> mapLanes;
+	Graphic::Sprite grasslane;
+	Graphic::Sprite waterlane;
+	Graphic::Sprite roadlane;
+	Graphic::Sprite roadMarking;
 
-	void DrawRoadMarking(int laneId);
 public:
 	StreetMap(CrossingRoad* game) : GameMap(game) {};
 	
 	void CreateLanes();
+	void ScrollUp();
 	void SetScreenColor();
+
+	Lane* GetNewLane(int laneId, LaneType previousLane); // genarate random lane
 };
 
 #endif // !STREET_MAP_H

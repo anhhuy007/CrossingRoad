@@ -14,7 +14,7 @@ Log::Log(
 		logSprite = Graphic::Sprite(DrawableRes::Log2);
 	}
 
-	id = _id;
+	lanePos = _id;
 	setInitPosition();
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, 0, 0);
@@ -60,6 +60,6 @@ void Log::setSprite(Graphic::Sprite _sprite) {
 
 void Log::setInitPosition() {
 	int blockPos = movingDirection == MovingDirection::LEFT ? 17 : 0;
-	position = Alignment::getAlignedPosition(id, blockPos, { 3, 15 }, Gravity::LEFT_CENTER);
+	position = Alignment::getAlignedPosition(lanePos, blockPos, { 3, 15 }, Gravity::LEFT_CENTER);
 }
 

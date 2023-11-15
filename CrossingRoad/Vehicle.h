@@ -28,10 +28,10 @@ public:
 	bool endOfRoad = false;
 	Graphic::Sprite vehicleSprite;
 	float vehicleSpeed = 0.01f;
-protected:
-	int id;
+	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;
+protected:
 	VehicleType type;
 	float time = 0.0f;
 };

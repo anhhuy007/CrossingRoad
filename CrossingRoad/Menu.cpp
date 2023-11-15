@@ -13,8 +13,9 @@ bool Menu::OnCreate() {
 		Graphic::Sprite("animations\\chickensplashscreen\\frame9.sprite"),*/
 	};
 
-	meow = Animation(game, gifs, { 100, 10 }, 100);
-	chick = new GamePlayer(Player::CHICK, game);
+	
+
+	// set console color
 	vector<int> colors = {
 			RGB(0, 0, 0),
 			RGB(255, 255, 255),
@@ -35,13 +36,17 @@ bool Menu::OnCreate() {
 	};
 	COLOR::SetConsoleColor(colors);
 
+	// declaration
 	Widget::Text text(game, "CROSSING ROAD", { 50, 10 }, TextFont::NORMAL);
+	meow = Animation(game, gifs, { 100, 10 }, 100);
+	chick = new GamePlayer(Player::CHICK, game);
 
 	return true;
 }
 
 bool Menu::OnUpdate(float elapsedTime) {
 	chick->Update(elapsedTime);
+	
 	chick->Render();
 	meow.OnPlay(elapsedTime);
 

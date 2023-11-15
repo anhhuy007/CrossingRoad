@@ -10,20 +10,23 @@ class Tree : public GameObject {
 public: 
 	Graphic::Sprite treeSprite;
 	TreeType treeType;
+	int lanePos;
+	int blockPos;
 
 	Tree(CrossingRoad* game, int laneId) : GameObject(game) {
 		int randomNumber = rand() % 20;
+
+		lanePos = laneId;
+		blockPos = randomNumber;
 
 		if (randomNumber % 2) {
 			treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
 			position = Alignment::getAlignedPosition(
 				laneId, 
 				randomNumber, 
-				{ 11, 41 }, 
+				{ 10, 40 }, 
 				Gravity::CENTRALLY_ALIGNED
 			);
-			position.X += 1;
-			position.Y += 1;
 			treeType = TreeType::SMALL_TREE;
 			width = 25;
 			height = 42;
@@ -33,11 +36,9 @@ public:
 			position = Alignment::getAlignedPosition(
 				laneId, 
 				randomNumber, 
-				{ 19, 56 }, 
+				{ 26, 63 }, 
 				Gravity::BOTTOM_CENTER
 			);
-			position.X -= 8;
-			position.Y -= 7;
 			treeType = TreeType::BIG_TREE;
 			width = 45;
 			height = 57;

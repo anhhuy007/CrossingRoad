@@ -6,8 +6,6 @@
 #include "CrossingRoad.h"
 #include "Graphic.h"
 
-#include <chrono>
-#include <thread>
 #include <vector>
 
 #define Image Graphic::Sprite

@@ -35,8 +35,8 @@ void GameEngine::GameLoop() {
 
 		// ----- Update game title and FPS -----
 		wchar_t s[256];
-		//swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", (float) 1 / elapsedTime * 10000);
-		swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime);
+		swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", (float) 1 / elapsedTime * 10000);
+		//swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime);
 		SetConsoleTitle(s);
 
 		// ----- Update console screen buffer -----

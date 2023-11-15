@@ -36,6 +36,7 @@ public:
 	// must override functions
 	virtual void CreateLanes() = 0;
 	virtual void SetScreenColor() = 0;
+	virtual void ScrollUp() = 0;
 
 	// methods
 	void Render();

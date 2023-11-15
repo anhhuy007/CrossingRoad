@@ -14,7 +14,7 @@ public:
 		int id,
 		CrossingRoad* game,
 		Graphic::Sprite _grassSprite
-	) : Lane(id, game, _grassSprite) {
+	) : Lane(id, game, _grassSprite, LaneType::GRASS) {
 		// generate random tree
 		int numberOfTree = rand() % 5 + 1;
 		for (int i = 2; i < numberOfTree; i++) {
@@ -24,6 +24,7 @@ public:
 
 	void Render();
 	void Update(float elapsedTime) {};
+	void ScrollUp();
 };
 
 #endif // !GRASS_LANE_H

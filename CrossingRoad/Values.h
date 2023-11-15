@@ -79,6 +79,12 @@ enum class TreeType {
 	BIG_TREE
 };
 
+enum class LaneType {
+	GRASS,
+	WATER,
+	ROAD
+};
+
 enum class Player {
 	CHICK,
 	DUCKY,
@@ -96,6 +102,16 @@ enum class ButtonState {
 	NORMAL,
 	ON_CHOSEN,
 	ON_ENTER
+};
+
+enum ObjectCollis : int {
+	NORMAL_LANE = 0,
+	VEHICLE_COLLIS = 1,
+	TREE = 2,
+	BUSH = 2, 
+	ROCK = 2,
+	WATER = 3, 
+	FLOATING_LOG = 4
 };
 
 struct GameSpeed {

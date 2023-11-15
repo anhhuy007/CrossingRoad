@@ -21,7 +21,7 @@ Vehicle::Vehicle(
 	}
 
 	setInitPosition();
-	id = _id;
+	lanePos = _id;
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, 0, 0);
 	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
@@ -68,5 +68,5 @@ void Vehicle::setInitPosition() {
 	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
 	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
 
-	position = Alignment::getAlignedPosition(id, startBlock, centerSpot, Gravity::TOP_LEFT);
+	position = Alignment::getAlignedPosition(lanePos, startBlock, centerSpot, Gravity::TOP_LEFT);
 }

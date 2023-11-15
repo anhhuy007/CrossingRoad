@@ -17,7 +17,7 @@ public:
 		int id,
 		CrossingRoad* game,
 		Graphic::Sprite waterSprite = Graphic::Sprite()
-	) : Lane(id, game, waterSprite) {
+	) : Lane(id, game, waterSprite, LaneType::WATER) {
 		// generate random log
 		direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
 		log = Log(game, id, direction);
@@ -25,6 +25,7 @@ public:
 
 	void Update(float elapsedTime);
 	void Render();
+	void ScrollUp();
 };
 
 #endif // !WATER_LANE_H

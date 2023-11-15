@@ -25,13 +25,14 @@ public:
 	short getX() { return position.X; }
 	short getY() { return position.Y; }
 
-	int id;
+	int lanePos;
 	bool endOfRoad = false;
 	Graphic::Sprite logSprite;
 	float logSpeed = 0.01f;
-protected:
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;
+
+protected:
 	LogType logType;
 	float time = 0.0f;
 };

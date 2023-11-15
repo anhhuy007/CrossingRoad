@@ -20,7 +20,7 @@ public:
 		Graphic::Sprite roadSprite,
 		Graphic::Sprite _roadMarkingSprite,
 		bool _hasRoadMarking
-	) : Lane(id, game, roadSprite) {
+	) : Lane(id, game, roadSprite, LaneType::ROAD) {
 		// generate random vehicle
 		direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
 		vehicle = Vehicle(game, id, direction);
@@ -30,6 +30,7 @@ public:
 
 	void Update(float elapsedTime);
 	void Render();
+	void ScrollUp();
 };
 
 #endif // !ROAD_LANE_H

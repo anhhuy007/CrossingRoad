@@ -7,7 +7,7 @@ void CrossingRoad::Init() {
 	// ----- Init game -----
 
 	GameEngine::BuildConsole();	
-	Navigation::To(new Menu(this));
+	Navigation::To(new StreetMap(this));
 }
 
 bool CrossingRoad::GameCreate() {
