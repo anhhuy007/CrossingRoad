@@ -4,7 +4,6 @@
 #define VALUES_H
 
 #include <windows.h>
-
 #include "Graphic.h"
 
 const float FPS = 60;
@@ -91,6 +90,12 @@ enum class Player {
 enum class TextFont {
 	TITLE,
 	NORMAL
+};
+
+enum class ButtonState {
+	NORMAL,
+	ON_CHOSEN,
+	ON_ENTER
 };
 
 struct GameSpeed {

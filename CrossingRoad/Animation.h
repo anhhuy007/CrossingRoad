@@ -19,9 +19,7 @@ class Animation {
 	int delay;	// delay each frame in milliseconds
 	bool isPause = false;
 	int frameId = 0;
-
-	// methods
-	void PlayAnimation();	// play animation
+	float totalTime = 0;
 
 public:
 	Animation() = default;
@@ -33,7 +31,7 @@ public:
 	);
 
 	// methods
-	void OnPlay();	// join animation to new thread
+	void OnPlay(float elapsedTime);	// join animation to new thread
 	void OnPause();
 	void OnResume();
 };

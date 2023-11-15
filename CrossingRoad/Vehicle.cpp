@@ -5,15 +5,9 @@ Vehicle::Vehicle(
 	int _id, 
 	MovingDirection _direction
 ) : GameObject(game) {
-	int random = rand() % 3;
+	int random = rand() % 2;
 
 	if (random == 0) {
-		type = VehicleType::CAR;
-		vehicleSprite = _direction == MovingDirection::LEFT 
-			? Graphic::Sprite(DrawableRes::CarLeft)
-			: Graphic::Sprite(DrawableRes::CarRight);
-	}
-	else if (random == 1) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::RaceCarLeft)
@@ -21,7 +15,9 @@ Vehicle::Vehicle(
 	}
 	else {
 		type = VehicleType::TRUCK;
-		vehicleSprite = Graphic::Sprite(DrawableRes::TruckRight);
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite(DrawableRes::TruckLeft)
+			: Graphic::Sprite(DrawableRes::TruckRight);
 	}
 
 	setInitPosition();
@@ -35,7 +31,7 @@ Vehicle::Vehicle(
 }
 
 void Vehicle::Update(float elapsedTime) {
-	time += (elapsedTime / 100000000);
+	time += (elapsedTime / 10000);
 
 	if (time > vehicleSpeed) {
 		if (movingDirection == MovingDirection::LEFT) {

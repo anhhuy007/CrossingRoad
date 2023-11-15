@@ -8,10 +8,10 @@ Log::Log(
 	int random = rand() % 2;
 
 	if (random) {
-		logSprite = Graphic::Sprite("Log1.sprite");
+		logSprite = Graphic::Sprite(DrawableRes::Log1);
 	}
 	else {
-		logSprite = Graphic::Sprite("Log2.sprite");
+		logSprite = Graphic::Sprite(DrawableRes::Log2);
 	}
 
 	id = _id;
@@ -25,7 +25,7 @@ Log::Log(
 }
 
 void Log::Update(float elapsedTime) {
-	time += (elapsedTime / 100000000);
+	time += (elapsedTime / 10000);
 
 	if (time > logSpeed) {
 		if (movingDirection == MovingDirection::LEFT) {

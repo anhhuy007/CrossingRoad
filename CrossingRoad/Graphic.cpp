@@ -37,7 +37,7 @@ Graphic::Sprite::Sprite(const char* filePath) {
 	
 	int x, y, color;
 	// allocate memory
-	pixels = new Pixel[width * height];
+	pixels = new Pixel[width * height + width];
 
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {

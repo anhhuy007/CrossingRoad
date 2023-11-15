@@ -6,6 +6,11 @@ bool Menu::OnCreate() {
 		Graphic::Sprite("animations\\meow\\frame2.sprite"),
 		Graphic::Sprite("animations\\meow\\frame3.sprite"),
 		Graphic::Sprite("animations\\meow\\frame4.sprite"),
+		/*Graphic::Sprite("animations\\chickensplashscreen\\frame5.sprite"),
+		Graphic::Sprite("animations\\chickensplashscreen\\frame6.sprite"),
+		Graphic::Sprite("animations\\chickensplashscreen\\frame7.sprite"),
+		Graphic::Sprite("animations\\chickensplashscreen\\frame8.sprite"),
+		Graphic::Sprite("animations\\chickensplashscreen\\frame9.sprite"),*/
 	};
 
 	meow = Animation(game, gifs, { 100, 10 }, 100);
@@ -30,7 +35,7 @@ bool Menu::OnCreate() {
 	};
 	COLOR::SetConsoleColor(colors);
 
-	Widget::Text text = Widget::Text(game, "CROSSING ROAD", { 50, 10 }, TextFont::NORMAL);
+	Widget::Text text(game, "CROSSING ROAD", { 50, 10 }, TextFont::NORMAL);
 
 	return true;
 }
@@ -38,7 +43,7 @@ bool Menu::OnCreate() {
 bool Menu::OnUpdate(float elapsedTime) {
 	chick->Update(elapsedTime);
 	chick->Render();
-	meow.OnPlay();
+	meow.OnPlay(elapsedTime);
 
 	return true;
 }

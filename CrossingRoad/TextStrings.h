@@ -29,6 +29,10 @@ namespace DrawableRes {
 	const std::string CarRight = spriteFolder + "Car1_Right.sprite";
 	const std::string TruckLeft = spriteFolder + "Truck_Left.sprite";
 	const std::string TruckRight = spriteFolder + "Truck_Right.sprite";
+	const std::string Log1 = spriteFolder + "Log1.sprite";
+	const std::string Log2 = spriteFolder + "Log2.sprite";
+	
+
 	// animation sprites
 	const std::string animationSprite1 = "Animation1.sprite";
 	const std::string animationSprite2 = "Animation2.sprite";

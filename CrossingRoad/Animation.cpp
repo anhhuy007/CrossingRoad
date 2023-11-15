@@ -14,22 +14,21 @@ Animation::Animation(
 	}
 }
 
-void Animation::PlayAnimation() {
-	game->RenderSprite(images[frameId], position);								// display image
-	//game->UpdateConsole();
+void Animation::OnPlay(float elapsedTime) {
+	if (isPause) return;
+
+	totalTime += elapsedTime;	
+	if (totalTime >= delay) {
+		totalTime = 0;
+		frameId = (frameId + 1) % images.size();
+	}
+
+	game->RenderSprite(images[frameId], position);	// display frames
 
 	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
 		isPause = true;
 		return;
 	}
-}
-
-void Animation::OnPlay() {
-	if (isPause) return;
-
-	std::thread animationThread(&Animation::PlayAnimation, this);
-	animationThread.join();
-	frameId = (frameId + 1) % images.size();
 }
 
 void Animation::OnPause() {

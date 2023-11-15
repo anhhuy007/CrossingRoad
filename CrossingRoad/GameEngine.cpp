@@ -23,7 +23,7 @@ void GameEngine::GameLoop() {
 		time2 = chrono::system_clock::now();
 		auto duration = time2 - time1;
 		time1 = time2;
-		float elapsedTime = duration.count();  // in milliseconds * 10000
+		float elapsedTime = duration.count() / (float) 10000;  // in milliseconds
 
 		// ----- Handle keyboard input -----
 		inputHandle = InputHandle::GetKeyBoardState();
@@ -35,12 +35,13 @@ void GameEngine::GameLoop() {
 
 		// ----- Update game title and FPS -----
 		wchar_t s[256];
-		swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", 1 / float(elapsedTime / (float)10000000));
+		//swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", (float) 1 / elapsedTime * 10000);
+		swprintf_s(s, 256, L"Crossing Road - FPS: %.2f", elapsedTime);
 		SetConsoleTitle(s);
 
 		// ----- Update console screen buffer -----
 		UpdateConsole();
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
 	}
 }

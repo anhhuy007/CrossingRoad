@@ -85,7 +85,7 @@ void GamePlayer::OnMove() {
 	switch (movingDirection) {
 	case MovingDirection::UP:
 		animationState = AnimationState::JUMP_AHEAD;
-		position.Y -= 10;
+		//position.Y -= 10;
 		break;
 
 	case MovingDirection::LEFT:

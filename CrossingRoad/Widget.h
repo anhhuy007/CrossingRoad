@@ -21,20 +21,27 @@ namespace Widget {
 		std::string GetLetterSpritePath(char letter, TextFont font);
 
 	public:
-		Text() = default;
+		//Text() = default;
 		Text(
-			CrossingRoad* game,
+			CrossingRoad* pgame,
 			std::string ptext,
 			COORD pposition,
 			TextFont pfont
-		);
+		) : GameObject(pgame) {
+			text = ptext;
+			font = pfont;
+			position = pposition;
+
+			// set appearance text 
+			//SetText(ptext);
+		};
 
 		// methods
 		void SetText(std::string ptext);
 
 		// overried methods
-		void Update(float ElapsedTime);
-		void Render();
+		void Update(float elapsedTime) {};
+		void Render() {};
 	};
 
 	//class Button : public GameObject {
@@ -57,4 +64,3 @@ namespace Widget {
 };
 
 #endif //!WIDGET_H
-
