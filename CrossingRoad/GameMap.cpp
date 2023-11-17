@@ -4,8 +4,8 @@ bool GameMap::OnCreate() {
 	vector<AnimationSprite> spriteList;
 	player = new GamePlayer(Player::CHICK, this->game);
 
-	//this->grid = Graphic::Sprite("Grid.sprite");
-	//grid.setOverlapped(Overlapped::PLAYER);
+	this->grid = Graphic::Sprite("Grid.sprite");
+	grid.setOverlapped(Overlapped::PLAYER);
 	
 	// create game lanes
 	CreateLanes();
@@ -17,15 +17,15 @@ bool GameMap::OnCreate() {
 bool GameMap::OnUpdate(float elapsedTime) {
 	totalTime += elapsedTime;
 
-	player->Update(elapsedTime);
+	/*player->Update(elapsedTime);
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Update(elapsedTime);
-	}
+	}*/
 
-	if (player->lanePos == 8) {
+	/*if (player->lanePos == 8) {
 		ScrollUp();
 		player->lanePos += 1;
-	}
+	}*/
 
 	Render();
 
@@ -33,7 +33,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 }
 
 void GameMap::Render() {
-	//game->RenderSprite(grid, {0, 0});
+	game->RenderSprite(grid, {0, 0});
 
 	player->Render();
 	for (int i = 0; i < lanes.size(); i++) {

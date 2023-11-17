@@ -13,7 +13,7 @@ GamePlayer::GamePlayer(
 	for (auto& sprite : animationSprite) {
 		sprite.sprite.setOverlapped(Overlapped::PLAYER);
 	}
-
+	speed = GameSpeed(4, 1, -1, 2);
 	OnMove();
 }
 
@@ -40,6 +40,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
+			/*position.X -= speed.X_VERTICAL;
+			position.Y -= speed.Y_VERTICAL;*/
 			lanePos -= 1;
 			OnMove();
 		}
@@ -48,6 +50,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
+			/*position.X += speed.X_VERTICAL;
+			position.Y += speed.Y_VERTICAL;*/
 			lanePos += 1;
 			OnMove();
 		}
@@ -56,6 +60,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
+			/*position.X -= speed.X_HORIZONTAL;
+			position.Y -= speed.Y_HORIZONTAL;*/
 			blockPos -= 1;
 			OnMove();
 		}
@@ -64,6 +70,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
+			/*position.X += speed.X_HORIZONTAL;
+			position.Y += speed.Y_HORIZONTAL;*/
 			blockPos += 1;
 			OnMove();
 		}
@@ -79,31 +87,31 @@ void GamePlayer::OnMove() {
 	);
 	
 	// get jumping direction
-	AnimationState tempAnimation = animationState; 
-	COORD tempPosition = position;
+	/*AnimationState tempAnimation = animationState; 
+	COORD tempPosition = position;*/
 
-	switch (movingDirection) {
-	case MovingDirection::UP:
-		animationState = AnimationState::JUMP_AHEAD;
-		//position.Y -= 10;
-		break;
+	//switch (movingDirection) {
+	//case MovingDirection::UP:
+	//	animationState = AnimationState::JUMP_AHEAD;
+	//	//position.Y -= 10;
+	//	break;
 
-	case MovingDirection::LEFT:
-		animationState = AnimationState::JUMP_LEFT;
-		break;
+	//case MovingDirection::LEFT:
+	//	animationState = AnimationState::JUMP_LEFT;
+	//	break;
 
-	case MovingDirection::RIGHT:
-		animationState = AnimationState::JUMP_RIGHT;
-		break;
+	//case MovingDirection::RIGHT:
+	//	animationState = AnimationState::JUMP_RIGHT;
+	//	break;
 
-	case MovingDirection::DOWN:
-		animationState = AnimationState::JUMP_BACK;
-		break;
-	}
+	//case MovingDirection::DOWN:
+	//	animationState = AnimationState::JUMP_BACK;
+	//	break;
+	//}
 
-	Render();
-	animationState = tempAnimation;
-	position = tempPosition;
+	//Render();
+	//animationState = tempAnimation;
+	//position = tempPosition;
 	Render();
 }
 

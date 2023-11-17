@@ -64,12 +64,12 @@ void StreetMap::CreateLanes() {
 	roadlane.setOverlapped(Overlapped::LAND);
 	roadMarking.setOverlapped(Overlapped::DECORATOR);
 
-	Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
-	lanes.push_back(lane);
+	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
+	lanes.push_back(lane);*/
 
-	/*for (int i = 0; i < MAXLANE; i++) {
+	for (int i = 0; i < MAXLANE; i++) {
 		lanes.push_back(GetNewLane(i, i == 0 ? LaneType::GRASS : lanes[i - 1]->laneType));
-	}*/
+	}
 }
 
 void StreetMap::ScrollUp() {
