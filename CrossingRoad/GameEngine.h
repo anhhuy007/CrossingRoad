@@ -70,7 +70,6 @@ public:
 
 	// ----- Properties -----
 	InputHandle* inputHandle;
-
 private:
 	void GameLoop();
 	

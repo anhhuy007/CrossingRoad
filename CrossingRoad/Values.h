@@ -58,7 +58,8 @@ enum class PlayerState {
 
 enum Overlapped : int {
 	LAND = 1,
-	DECORATOR = 2, 
+	DECORATOR = 2,
+	TEXT = 3,
 	LOG = 3,
 	OBSTACLE = 4,
 	VEHICLE = 4, 

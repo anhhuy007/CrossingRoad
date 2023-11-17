@@ -18,11 +18,12 @@ namespace Widget {
 		TextSequence appearance;
 		std::string text;
 		TextFont font;
-		std::vector<COORD> textPositions;
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 
 	public:
+		std::vector<COORD> textPositions;
+
 		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
@@ -37,7 +38,7 @@ namespace Widget {
 		void Update(float elapsedTime) {};
 		void Render();
 
-		// private functions
+	// private functions
 	private:
 		std::string GetNextWord(int index, std::string ptext);
 		int GetWordWidth(std::string word);
@@ -68,6 +69,8 @@ namespace Widget {
 		function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
 	};
+
+	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
 };
 
 #endif //!WIDGET_H

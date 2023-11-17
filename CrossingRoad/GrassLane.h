@@ -23,7 +23,7 @@ public:
 	};
 
 	void Render();
-	void Update(float elapsedTime) {};
+	void Update(float elapsedTime);
 	void ScrollUp();
 };
 

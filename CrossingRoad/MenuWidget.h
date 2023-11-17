@@ -12,12 +12,13 @@ class MenuWidget : public GameObject {
 	int currentButtonIndex = 0;
 	COORD position;
 	std::vector<COORD> buttonPositions;
+	bool enterClicked = false;
 
 public: 
 	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
 	MenuWidget(
 		CrossingRoad* pgame,
-		vector<Widget::Button> pbuttons,
+		vector<Widget::Button>& pbuttons,
 		COORD pposition
 	);
 

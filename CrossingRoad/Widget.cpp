@@ -20,8 +20,7 @@ Widget::Text::Text(
 		if (!isalpha(ch)) continue;
 
 		std::string spriteName = GetLetterSpritePath(ch, font);
-		Image letter = Image(spriteName);
-		letter.SetOverlapped(Overlapped::DECORATOR);
+		Image letter = Image(spriteName, Overlapped::TEXT);
 		appearance.push_back(letter);
 	}
 
@@ -106,7 +105,7 @@ Widget::Button::Button(
 	text = Text(
 		pgame, 
 		ptext, 
-		pposition, 
+		GetCenterTextPos(ptext, pposition, 112, 34),
 		112, 34,
 		TextFont::NORMAL
 	);
@@ -116,20 +115,27 @@ Widget::Button::Button(
 	state = ButtonState::NORMAL;
 
 	appearance.clear();
-	appearance.push_back(Graphic::Sprite(DrawableRes::normalButton, Overlapped::DECORATOR));
-	appearance.push_back(Graphic::Sprite(DrawableRes::onChosenButton, Overlapped::DECORATOR));
-	appearance.push_back(Graphic::Sprite(DrawableRes::onEnterButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::normalButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::onChosenButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::onEnterButton, Overlapped::DECORATOR));
 }
 
 void Widget::Button::OnEnter() {
 	state = ButtonState::ON_ENTER;
 
+	// move text down
+	COORD textPos = text.getPosition();
+	for (int i = 0; i < text.textPositions.size(); i++) {
+		text.textPositions[i].Y += 3;
+	}
+	
 	// play sfx 
-
+	// game->sound->PlaySfx(Sfx::BUTTON_HOVER);
 }
 
 void Widget::Button::OnChosen() {
 	state = ButtonState::ON_CHOSEN;
+	game->RenderSprite(appearance[2], position);
 }
 
 void Widget::Button::OnNormal() {
@@ -147,4 +153,19 @@ void Widget::Button::Render() {
 	else if (state == ButtonState::ON_ENTER) {
 		game->RenderSprite(appearance[2], position);
 	}
+}
+
+COORD Widget::GetCenterTextPos(
+	std::string text, 
+	COORD position, 
+	int width, 
+	int height
+) {
+	int textWidth = text.size() * 5;
+	int textHeight = 5;
+
+	int x = position.X + (width - textWidth) / 2;
+	int y = position.Y + (height - textHeight) / 2;
+
+	return { short(x + 20), short(y + 10) };
 }

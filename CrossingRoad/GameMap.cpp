@@ -4,7 +4,7 @@ bool GameMap::OnCreate() {
 	vector<AnimationSprite> spriteList;
 	player = new GamePlayer(Player::CHICK, this->game);
 
-	this->grid = Graphic::Sprite("Grid.sprite");
+	this->grid = Graphic::Sprite("sprites//Grid.sprite");
 	grid.SetOverlapped(Overlapped::PLAYER);
 	
 	// create game lanes
@@ -22,10 +22,10 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		lanes[i]->Update(elapsedTime);
 	}
 
-	/*if (player->lanePos == 8) {
+	if (player->lanePos == 8) {
 		ScrollUp();
 		player->lanePos += 1;
-	}*/
+	}
 
 	Render();
 

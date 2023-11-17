@@ -2,7 +2,7 @@
 
 MenuWidget::MenuWidget(
 	CrossingRoad* pgame,
-	vector<Widget::Button> pbuttons,
+	vector<Widget::Button>& pbuttons,
 	COORD pposition
 ) : GameObject(pgame) {
 	position = pposition;
@@ -24,16 +24,34 @@ void MenuWidget::Update(float elapsedTime) {
 		currentButtonIndex++;
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-		buttons[currentButtonIndex].OnChosen();
+		enterClicked = true;
 	}
 
 	// update button state
-	for (int i = 0; i < buttons.size(); i++) {
-		if (i == currentButtonIndex) {
-			buttons[i].OnChosen();
-		}
-		else {
-			buttons[i].OnNormal();
+	if (enterClicked) {
+		buttons[currentButtonIndex].OnEnter();
+		Render();
+		game->UpdateConsole();
+
+		// play sfx
+		//game->sound->PlaySfx(Sfx::BUTTON_CLICK);
+
+		// delay 0.5s
+		Sleep(500);
+
+		// execute button action
+		buttons[currentButtonIndex].action();
+	}
+	else {
+		for (int i = 0; i < buttons.size(); i++) {
+			if (i == currentButtonIndex) {
+				buttons[i].OnChosen();
+			}
+			else {
+				buttons[i].OnNormal();
+			}
 		}
 	}
+
+	Render();
 }
