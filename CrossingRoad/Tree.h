@@ -44,7 +44,7 @@ public:
 			height = 57;
 		}
 
-		treeSprite.setOverlapped(Overlapped::OBSTACLE);
+		treeSprite.SetOverlapped(Overlapped::OBSTACLE);
 	};
 	
 	void Update(float elapsedTime) {};

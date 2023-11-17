@@ -12,6 +12,7 @@ const int characterSize = 16;
 const COORD FIRSTBLOCK = { 66, -103 }; 
 const int MAXBLOCK = 16;
 const int MAXLANE = 16;
+const int LETTER_SPACE = 2;
 
 enum GameScreenLimit : int {
 	LEFT = 0,

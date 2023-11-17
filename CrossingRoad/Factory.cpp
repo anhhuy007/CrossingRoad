@@ -41,7 +41,7 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 		std::string spritePath = DrawableRes::spriteFolder + folder + spriteFiles[i];
 		ans.push_back(
 			AnimationSprite(
-				Graphic::Sprite(spritePath),
+				Graphic::Sprite(spritePath, Overlapped::PLAYER),
 				animations[i]
 			)
 		);

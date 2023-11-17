@@ -30,7 +30,13 @@ namespace Graphic {
 		// ----- Constructors -----
 		Sprite();
 		Sprite(const char* filePath);
-		Sprite(std::string filePath) : Sprite(filePath.c_str()) {};
+		//Sprite(std::string filePath) : Sprite(filePath.c_str()) {};
+		Sprite(
+			std::string filePath, 
+			int poverlapped = 1
+		) : Sprite(filePath.c_str()) {
+			SetOverlapped(poverlapped);
+		};
 
 		// ----- Getters -----
 		int getWidth();
@@ -40,7 +46,7 @@ namespace Graphic {
 		// ----- Setters -----
 		void setWidth(int _width);
 		void setHeight(int _height);
-		void setOverlapped(int _overlapped);
+		void SetOverlapped(int _overlapped);
 	};
 };
 

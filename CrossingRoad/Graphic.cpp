@@ -68,7 +68,7 @@ void Graphic::Sprite::setHeight(int _height) {
 	height = _height;
 }
 
-void Graphic::Sprite::setOverlapped(int _overlapped) {
+void Graphic::Sprite::SetOverlapped(int _overlapped) {
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			if (pixels[i * width + j].color != COLOR::COLOR::TRANSPARENT_) {

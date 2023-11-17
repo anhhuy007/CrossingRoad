@@ -13,8 +13,6 @@ bool Menu::OnCreate() {
 		Graphic::Sprite("animations\\chickensplashscreen\\frame9.sprite"),*/
 	};
 
-	
-
 	// set console color
 	vector<int> colors = {
 			RGB(0, 0, 0),
@@ -37,7 +35,26 @@ bool Menu::OnCreate() {
 	COLOR::SetConsoleColor(colors);
 
 	// declaration
-	Widget::Text text(game, "CROSSING ROAD", { 50, 10 }, TextFont::NORMAL);
+	
+	text = Widget::Text(
+		game, 
+		"It was developed and published by Australian video game developer Hipster Whale", 
+		{ 10, 10 }, 
+		100, 
+		100,
+		TextFont::NORMAL
+	);
+
+	button = Widget::Button(
+		game,
+		"Play",
+		[]() { cout << "Play" << endl; },
+		{ 100, 100 }
+	);
+
+	image = Image(DrawableRes::WhiteBG);
+	image.SetOverlapped(Overlapped::LAND);
+
 	meow = Animation(game, gifs, { 100, 10 }, 100);
 	chick = new GamePlayer(Player::CHICK, game);
 
@@ -47,8 +64,10 @@ bool Menu::OnCreate() {
 bool Menu::OnUpdate(float elapsedTime) {
 	chick->Update(elapsedTime);
 	
-	chick->Render();
-	meow.OnPlay(elapsedTime);
+	text.Render();
+	button.Render();
+	game->RenderSprite(image, { 0, 0 });
+	//meow.OnPlay(elapsedTime);
 
 	return true;
 }

@@ -27,7 +27,7 @@ Vehicle::Vehicle(
 	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
-	vehicleSprite.setOverlapped(Overlapped::OBSTACLE);
+	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
 void Vehicle::Update(float elapsedTime) {

@@ -10,9 +10,6 @@ GamePlayer::GamePlayer(
 
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
-	for (auto& sprite : animationSprite) {
-		sprite.sprite.setOverlapped(Overlapped::PLAYER);
-	}
 	speed = GameSpeed(4, 1, -1, 2);
 	OnMove();
 }

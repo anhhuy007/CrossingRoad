@@ -18,6 +18,9 @@ public:
 
 	Animation meow;
 	GamePlayer* chick = nullptr;
+	Widget::Text text = Widget::Text(game);
+	Image image;
+	Widget::Button button = Widget::Button(game);
 };
 
 #endif // !MENU_H

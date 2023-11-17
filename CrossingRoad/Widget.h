@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "Values.h"
+#include "TextStrings.h"
 
 #include <functional>
 #include <string>
@@ -17,50 +18,56 @@ namespace Widget {
 		TextSequence appearance;
 		std::string text;
 		TextFont font;
+		std::vector<COORD> textPositions;
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 
 	public:
-		//Text() = default;
+		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
 			std::string ptext,
 			COORD pposition,
+			int pwidth,
+			int pheight,
 			TextFont pfont
-		) : GameObject(pgame) {
-			text = ptext;
-			font = pfont;
-			position = pposition;
-
-			// set appearance text 
-			//SetText(ptext);
-		};
-
-		// methods
-		void SetText(std::string ptext);
+		);
 
 		// overried methods
 		void Update(float elapsedTime) {};
-		void Render() {};
+		void Render();
+
+		// private functions
+	private:
+		std::string GetNextWord(int index, std::string ptext);
+		int GetWordWidth(std::string word);
 	};
 
-	//class Button : public GameObject {
-	//	Image appearance;
-	//	Text text;
+	class Button : public GameObject {
+	public:
+		Button(CrossingRoad* game) : GameObject(game) {};
+		Button(
+			CrossingRoad* pgame,
+			std::string ptext,
+			function<void()> paction,
+			COORD pposition
+		);
 
-	//public: 
-	//	Button(CrossingRoad* game) : GameObject(game) {};
+		// behaviours
+		void OnEnter();
+		void OnChosen();
+		void OnNormal();
 
-	//	// behaviours
-	//	void OnEnter(function<void()> action);
-	//	void OnChosen();
-	//	void OnNormal();
+		// overried methods
+		void Update(float ElapsedTime) {};
+		void Render();
 
-
-	//	// overried methods
-	//	void Update(float ElapsedTime);
-	//	void Render();
-	//};
+		// attributes
+		std::vector<Image> appearance; // 0: normal, 1: chosen, 2: enter
+		Text text = Text(game);
+		function<void()> action = nullptr;	// on clicked action
+		ButtonState state = ButtonState::NORMAL;
+	};
 };
 
 #endif //!WIDGET_H

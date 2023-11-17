@@ -21,7 +21,7 @@ Log::Log(
 	logSpeed = float((rand() % 3) + 1) * 0.004;
 	width = logSprite.getWidth();
 	height = logSprite.getHeight();
-	logSprite.setOverlapped(Overlapped::LOG);
+	logSprite.SetOverlapped(Overlapped::LOG);
 }
 
 void Log::Update(float elapsedTime) {

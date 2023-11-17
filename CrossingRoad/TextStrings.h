@@ -19,6 +19,8 @@ namespace DrawableRes {
 	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
 	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
+	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
+	
 
 	// obstacle sprites
 	const std::string SmallTree = spriteFolder + "Tree1.sprite";
@@ -42,6 +44,11 @@ namespace DrawableRes {
 	const std::string animationSprite6 = "Animation6.sprite";
 	const std::string animationSprite7 = "Animation7.sprite";
 	const std::string animationSprite8 = "Animation8.sprite";
+
+	// button sprites
+	const std::string normalButton = "widgets\\NormalButton.sprite";
+	const std::string onChosenButton = "widgets\\OnChosenButton.sprite";
+	const std::string onEnterButton = "widgets\\OnEnterButton.sprite";
 }
 
 #endif // !TEXT_STRING
