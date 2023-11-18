@@ -60,27 +60,24 @@ bool Menu::OnCreate() {
 			"Play",
 			[&]() {
 				CrossingRoad::Navigation::To(new StreetMap(game));
-			},
-			{ 100, 10 }
+			}
 		),
 		Widget::Button(
 			game,
 			"Setting",
-			[]() { },
-			{ 100, 40 }
+			[]() { }
 		),
 		Widget::Button(
 			game,
 			"About",
-			[]() { },
-			{ 100, 70 }
+			[]() { }
 		),
 	};
 
 	menuWidget = MenuWidget(
 		game,
 		buttons,
-		{ 100, 100 }
+		{ 100, 50 }
 	);
 
 	image = Image(DrawableRes::WhiteBG, Overlapped::LAND);

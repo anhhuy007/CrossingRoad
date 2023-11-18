@@ -7,6 +7,23 @@ MenuWidget::MenuWidget(
 ) : GameObject(pgame) {
 	position = pposition;
 	buttons = pbuttons;
+
+	// set button positions
+	COORD pos = pposition;
+	for (auto& button : buttons) {
+		button.setPosition(pos);
+
+		// set button text positions
+		button.text.setTextPosition(
+			button.text.text,
+			Widget::GetCenterTextPos(button.text.text, pos, 120, 34),
+			112,
+			34
+		);
+
+		pos.Y += 30;
+
+	}
 }
 
 void MenuWidget::Render() {

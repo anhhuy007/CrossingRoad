@@ -25,33 +25,7 @@ Widget::Text::Text(
 	}
 
 	// set text positions
-	int wordHeight = appearance[0].getHeight();
-	int maxX = pposition.X + pwidth;
-	int maxY = pposition.Y + pheight;
-	COORD currentPos = pposition;
-	int index = 0;
-	while (index < ptext.size()) {
-		std::string word = GetNextWord(index, ptext);
-		int wordWidth = GetWordWidth(word);
-
-		if (currentPos.X + wordWidth > maxX) {
-			// if text box is full then stop writing text
-			if (currentPos.Y + wordHeight > maxY) continue; 
-			
-			// go to the begin of new line
-			currentPos.X = pposition.X;
-			currentPos.Y += wordHeight + 3;
-		}
-
-		// set each character positions
-		for (int i = 0; i < word.size(); i++) {
-			textPositions.push_back(currentPos);
-			currentPos.X += appearance[i].getWidth();
-		}
-		currentPos.X += 2; // 2 pixels is space between 2 words
-
-		index += word.size() + 1;
-	}
+	setTextPosition(ptext, pposition, pwidth, pheight);
 };
 
 std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
@@ -96,12 +70,45 @@ void Widget::Text::Render() {
 	}
 }
 
+void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidth, int pheight) {
+	textPositions.clear();
+
+	int wordHeight = appearance[0].getHeight();
+	int maxX = pposition.X + pwidth;
+	int maxY = pposition.Y + pheight;
+	COORD currentPos = pposition;
+	int index = 0;
+	while (index < ptext.size()) {
+		std::string word = GetNextWord(index, ptext);
+		int wordWidth = GetWordWidth(word);
+
+		if (currentPos.X + wordWidth > maxX) {
+			// if text box is full then stop writing text
+			if (currentPos.Y + wordHeight > maxY) continue;
+
+			// go to the begin of new line
+			currentPos.X = pposition.X;
+			currentPos.Y += wordHeight + 3;
+		}
+
+		// set each character positions
+		for (int i = 0; i < word.size(); i++) {
+			textPositions.push_back(currentPos);
+			currentPos.X += appearance[i].getWidth();
+		}
+		currentPos.X += 2; // 2 pixels is space between 2 words
+
+		index += word.size() + 1;
+	}
+}
+
 Widget::Button::Button(
 	CrossingRoad* pgame, 
 	std::string ptext, 
 	function<void()> paction, 
 	COORD pposition
 ) : GameObject(pgame) {
+	
 	text = Text(
 		pgame, 
 		ptext, 
