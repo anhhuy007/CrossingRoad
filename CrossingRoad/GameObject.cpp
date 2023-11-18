@@ -26,5 +26,9 @@ void GameObject::setWidth(int _width) {
 	width = _width;
 }
 
+void GameObject::setCollisionPoints(std::vector<COORD> _collisionPoints) {
+	collisionPoints = _collisionPoints;
+}
+
 
 

@@ -22,10 +22,10 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		lanes[i]->Update(elapsedTime);
 	}
 
-	if (player->lanePos == 8) {
+	/*if (player->lanePos == 8) {
 		ScrollUp();
 		player->lanePos += 1;
-	}
+	}*/
 
 	Render();
 

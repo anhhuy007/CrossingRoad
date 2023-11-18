@@ -13,6 +13,7 @@ class MenuWidget : public GameObject {
 	COORD position;
 	std::vector<COORD> buttonPositions;
 	bool enterClicked = false;
+	float totalTime = 0;
 
 public: 
 	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};

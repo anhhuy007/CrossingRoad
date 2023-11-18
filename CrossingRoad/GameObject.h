@@ -5,9 +5,7 @@
 
 // ----- STANDARD INCLUDES -----
 #include <Windows.h>
-#include <wchar.h>
-#include <fstream>
-#include <string>
+#include <vector>
 
 // ----- MY CLASS INCLUDES -----
 #include "Graphic.h"
@@ -20,6 +18,7 @@ protected:
 	int height;
 	COORD position;	// real object position in console (top left coordinate)
 	CrossingRoad* game = nullptr;
+	std::vector<COORD> collisionPoints;	// points of object collision
 
 public:
 	GameObject(
@@ -60,6 +59,7 @@ public:
 	void setPosition(COORD _position);
 	void setHeight(int _height);
 	void setWidth(int _width);
+	void setCollisionPoints(std::vector<COORD> _collisionPoints);
 
 	// ----- Methods -----
 	virtual void Update(float elapsedTime) = 0; 

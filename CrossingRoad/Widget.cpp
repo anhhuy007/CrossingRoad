@@ -150,17 +150,6 @@ void Widget::Button::OnNormal() {
 	state = ButtonState::NORMAL;
 }
 
-void Widget::Button::Update(float elapsedTime) {
-	Render();
-	if (state == ButtonState::ON_TRIGGER) {
-		// wait for 0.5s to show triggered animation and playing sfx
-		game->UpdateConsole();
-
-		action();
-	}
-	
-}
-
 void Widget::Button::Render() {
 	text.Render();
 	if (state == ButtonState::NORMAL) {

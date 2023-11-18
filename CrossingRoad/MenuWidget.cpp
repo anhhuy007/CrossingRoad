@@ -44,22 +44,36 @@ void MenuWidget::Update(float elapsedTime) {
 		enterClicked = true;
 	}
 
+	// check button index
+	currentButtonIndex = max(0, currentButtonIndex);
+	currentButtonIndex = min((int)buttons.size() - 1, currentButtonIndex);
+
 	// update button state
-	if (enterClicked) {
-		buttons[currentButtonIndex].OnTrigger();
-	}
-	else {
-		for (int i = 0; i < buttons.size(); i++) {
-			if (i == currentButtonIndex) {
-				buttons[i].OnHover();
+	for (int i = 0; i < buttons.size(); i++) {
+		if (i == currentButtonIndex) {
+			if (enterClicked) {
+				buttons[i].OnTrigger();
 			}
 			else {
-				buttons[i].OnNormal();
+				buttons[i].OnHover();
 			}
+		}
+		else {
+			buttons[i].OnNormal();
 		}
 	}
 
 	for (int i = 0; i < buttons.size(); i++) {
-		buttons[i].Update(elapsedTime);
+		buttons[i].Render();
+	}
+
+	// trigger button action
+	if (enterClicked) {
+		totalTime += elapsedTime;
+		if (totalTime > 500) {
+			enterClicked = false;
+			totalTime = 0;
+			buttons[currentButtonIndex].action();
+		}
 	}
 }

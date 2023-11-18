@@ -68,7 +68,7 @@ namespace Widget {
 		void OnNormal();
 
 		// overried methods
-		void Update(float elapsedTime);
+		void Update(float elapsedTime) {};
 		void Render();
 
 		// attributes
