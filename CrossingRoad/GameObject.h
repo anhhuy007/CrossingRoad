@@ -11,6 +11,9 @@
 #include "Graphic.h"
 #include "CrossingRoad.h"
 #include "GameEngine.h"
+#include "Factory.h"
+
+#define CollisionPoint std::pair<COORD, int>
 
 class GameObject {
 protected:
@@ -18,7 +21,7 @@ protected:
 	int height;
 	COORD position;	// real object position in console (top left coordinate)
 	CrossingRoad* game = nullptr;
-	std::vector<COORD> collisionPoints;	// points of object collision
+	std::vector<CollisionPoint> collisionPoints;	// points of object collision
 
 public:
 	GameObject(
@@ -59,7 +62,9 @@ public:
 	void setPosition(COORD _position);
 	void setHeight(int _height);
 	void setWidth(int _width);
-	void setCollisionPoints(std::vector<COORD> _collisionPoints);
+	void setCollisionPoints(std::vector<CollisionPoint> _collisionPoints);
+
+	void WriteCollisionPoints();
 
 	// ----- Methods -----
 	virtual void Update(float elapsedTime) = 0; 

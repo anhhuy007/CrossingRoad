@@ -25,8 +25,6 @@ This class include all the functions that are used in the game, such as: manage 
 #include <chrono>
 #include <thread>
 
-using namespace std;
-
 // MY CLASS INCLUDES
 #include "Colors.h"
 #include "TextStrings.h"
@@ -58,6 +56,10 @@ public:
 	void UpdateConsole();
 	void ClearConsole();
 	void RenderSprite(Graphic::Sprite sprite, COORD position);
+
+	// ----- Collision funtions -----
+	void AddCollisionPoint(COORD point, int type);
+	int CheckCollisionPoint(COORD point);
 	
 	// ----- Must be overrided functions -----
 	virtual bool GameCreate() = 0;
@@ -81,7 +83,7 @@ protected:
 	int* overlappedBuffer = nullptr;
 	
 public: 
-	static atomic<bool> atomActive;  // true if game is running
+	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
 	int fps;
  };

@@ -14,9 +14,23 @@
 #include <vector>
 #include <string.h>
 
+#define CollisionPoint std::pair<COORD, int>
+
 class Factory {
 public: 
 	static std::vector<AnimationSprite> GetPlayerSprite(Player player);
+	static std::vector<CollisionPoint> GetObjectCollisionPoints(ObjectType objType);
+	static std::vector<CollisionPoint> GetPointsOnLine(
+		COORD start,
+		COORD end,
+		int collisType,
+		bool horizontal
+	);
+
+	static void sum(
+		std::vector<CollisionPoint>& a,
+		std::vector<CollisionPoint> b
+	);
 };
 
 #endif // !FACTORY_H

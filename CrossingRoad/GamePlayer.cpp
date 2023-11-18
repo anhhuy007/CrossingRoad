@@ -12,6 +12,11 @@ GamePlayer::GamePlayer(
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(4, 1, -1, 2);
 	OnMove();
+
+	// set collision points
+	setCollisionPoints(
+		Factory::GetObjectCollisionPoints(ObjectType::PLAYER)
+	);
 }
 
 void GamePlayer::Render() {
@@ -33,8 +38,6 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
-	//if ()
-
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		if (moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
@@ -75,6 +78,9 @@ void GamePlayer::Update(float elapsedTime) {
 			OnMove();
 		}
 	}
+
+	// update collision points
+	WriteCollisionPoints();
 }
 
 void GamePlayer::OnMove() {
@@ -148,4 +154,18 @@ bool GamePlayer::moveRight() {
 	// if (appearObstacle(position.X + 1, position.Y) return false;
 
 	return true;
+}
+
+bool GamePlayer::CheckCollision() {
+	for (auto point : collisionPoints) {
+		point.first = {
+			short(point.first.X + position.X),
+			short(point.first.Y + position.Y)
+		};
+		if (game->CheckCollisionPoint(point.first) == 2) {
+			return true;
+		}
+	}
+
+	return false;
 }

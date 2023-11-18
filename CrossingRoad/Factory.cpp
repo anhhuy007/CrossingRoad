@@ -49,3 +49,128 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 
 	return ans;
 }
+
+std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType) {
+	/*
+		COLLISSION VALUES:
+		0: no collision
+		1: player 
+		2: car, truck, water 
+		3: tree, rock, bush
+		4: floating object
+		5: item
+	*/
+	std::vector<CollisionPoint> points;
+
+	switch (objType)
+	{
+	case ObjectType::PLAYER:
+		points = GetPointsOnLine(
+			{ 12, 14 },
+			{ 8, 23 },
+			1,
+			false
+		);
+
+		sum(points, GetPointsOnLine(
+			{ 12, 14 },
+			{ 23, 16 },
+			1,
+			true
+		));
+
+		sum(points, GetPointsOnLine(
+			{ 24, 16 },
+			{ 20, 25 },
+			1,
+			false
+		));
+
+		sum(points, points = GetPointsOnLine(
+			{ 8, 23 },
+			{ 19, 25 },
+			1,
+			true
+		));
+
+		break;
+	case ObjectType::CAR:
+		points =  GetPointsOnLine(
+			{ 1, 27 },
+			{ 72, 44 },
+			2,
+			true
+		);
+
+		break;
+	case ObjectType::TRUCK:
+		break;
+	case ObjectType::TREE_1:
+		break;
+	case ObjectType::TREE_2:
+		break;
+	case ObjectType::ROCK:
+		break;
+	case ObjectType::WATER:
+		break;
+	case ObjectType::FLOATING_OBJECT_1:
+		break;
+	case ObjectType::FLOATING_OBJECT_2:
+		break;
+	case ObjectType::ITEM:
+		break;
+	default:
+		break;
+	}
+
+	return points;
+}
+
+// from left to right
+std::vector<CollisionPoint> Factory::GetPointsOnLine(
+	COORD start,
+	COORD end,
+	int collisType,
+	bool horizontal
+) {
+	std::vector<CollisionPoint> points;
+	COORD pos = start;
+	points.push_back({ pos, collisType });
+
+	// horizontal line: left to right
+	if (horizontal) {
+		while (pos.X <= end.X && pos.Y <= end.Y) {
+			pos.X++;
+			// each for horizontal pixels, go down 1 pixel
+			if ((pos.X - start.X) % 4 == 0) {
+				pos.Y++;
+			}
+
+			points.push_back({ pos, collisType });
+		}
+	}
+	// vertical line: top to bottom
+	else {
+		while (pos.X <= end.X && pos.Y <= end.Y) {
+			pos.Y++;
+			// each for horizontal pixels, go down 1 pixel
+			if ((pos.Y - start.Y) % 2 == 0) {
+				pos.X--;
+			}
+
+			points.push_back({ pos, collisType });
+		}
+	}
+
+	return points;
+}
+
+void Factory::sum(
+	std::vector<CollisionPoint>& a, 
+	std::vector<CollisionPoint> b
+) {
+	for (auto point : b) {
+		a.push_back(point);
+	}
+}
+

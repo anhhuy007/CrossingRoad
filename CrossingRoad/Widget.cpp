@@ -105,7 +105,7 @@ void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidt
 Widget::Button::Button(
 	CrossingRoad* pgame, 
 	std::string ptext, 
-	function<void()> paction, 
+	std::function<void()> paction, 
 	COORD pposition
 ) : GameObject(pgame) {
 	

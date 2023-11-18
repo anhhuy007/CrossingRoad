@@ -1,7 +1,7 @@
 #include "StreetMap.h"
 
 void StreetMap::SetScreenColor() {
-	vector<int> colors = {
+	std::vector<int> colors = {
 		RGB(0, 0, 0),
 		RGB(255, 255, 255),
 		RGB(174, 222, 102),

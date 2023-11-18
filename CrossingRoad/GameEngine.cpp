@@ -14,13 +14,13 @@ void GameEngine::GameLoop() {
 	}*/
 
 	// timer
-	auto time1 = chrono::system_clock::now();
-	auto time2 = chrono::system_clock::now();
+	auto time1 = std::chrono::system_clock::now();
+	auto time2 = std::chrono::system_clock::now();
 
 
 	// ----- Game loop -----
 	while (atomActive) {
-		time2 = chrono::system_clock::now();
+		time2 = std::chrono::system_clock::now();
 		auto duration = time2 - time1;
 		time1 = time2;
 		float elapsedTime = duration.count() / (float) 10000;  // in milliseconds
@@ -86,6 +86,17 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 	}
 }
 
+void GameEngine::AddCollisionPoint(COORD point, int type) {
+	int index = point.Y * windowSize.x + point.X;
+	collistionMatrix[index] = type;
+}
+
+int GameEngine::CheckCollisionPoint(COORD point) {
+	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return 1;
+
+	return collistionMatrix[point.Y * windowSize.x + point.X];
+}
+
 void GameEngine::UpdateConsole() {
 	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	CHAR_INFO* consoleBuffer = new CHAR_INFO[windowSize.x * (windowSize.y / 2)];
@@ -140,7 +151,7 @@ GameEngine::~GameEngine() {
 
 void GameEngine::BuildConsole() {
 	// set the console window size
-	system(format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
+	system(std::format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
 
 	// set window position
 	SetWindowPos(
@@ -179,4 +190,4 @@ void GameEngine::BuildConsole() {
 }
 
 // ----- define static variables -----
-atomic<bool> GameEngine::atomActive(false);
+std::atomic<bool> GameEngine::atomActive(false);

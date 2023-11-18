@@ -58,7 +58,7 @@ namespace Widget {
 		Button(
 			CrossingRoad* pgame,
 			std::string ptext,
-			function<void()> paction,
+			std::function<void()> paction,
 			COORD pposition = { 0, 0 }
 		);
 
@@ -74,7 +74,7 @@ namespace Widget {
 		// attributes
 		std::vector<Image> appearance; // 0: normal, 1: chosen, 2: enter
 		Text text = Text(game);
-		function<void()> action = nullptr;	// on clicked action
+		std::function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
 	};
 

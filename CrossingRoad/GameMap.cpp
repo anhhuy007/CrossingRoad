@@ -1,7 +1,7 @@
 #include "GameMap.h"
 
 bool GameMap::OnCreate() {
-	vector<AnimationSprite> spriteList;
+	std::vector<AnimationSprite> spriteList;
 	player = new GamePlayer(Player::CHICK, this->game);
 
 	this->grid = Graphic::Sprite("sprites//Grid.sprite");
@@ -28,6 +28,11 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	}*/
 
 	Render();
+
+	// check collision
+	if (player->CheckCollision()) {
+		system("pause");
+	}
 
 	return true;
 }

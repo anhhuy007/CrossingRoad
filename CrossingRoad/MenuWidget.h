@@ -19,7 +19,7 @@ public:
 	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
 	MenuWidget(
 		CrossingRoad* pgame,
-		vector<Widget::Button>& pbuttons,
+		std::vector<Widget::Button>& pbuttons,
 		COORD pposition
 	);
 

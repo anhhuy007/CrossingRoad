@@ -50,7 +50,7 @@ bool Menu::OnCreate() {
 	button = Widget::Button(
 		game,
 		"Play",
-		[]() { cout << "NewGame" << endl; },
+		[]() {  },
 		{ 100, 100 }
 	);
 

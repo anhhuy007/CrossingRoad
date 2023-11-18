@@ -12,6 +12,11 @@ Vehicle::Vehicle(
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::RaceCarLeft)
 			: Graphic::Sprite(DrawableRes::RaceCarRight);
+
+		// set collision points
+		setCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::CAR)
+		);
 	}
 	else {
 		type = VehicleType::TRUCK;
@@ -53,6 +58,9 @@ void Vehicle::Update(float elapsedTime) {
 
 		time = 0;
 	}
+
+	// update collision points
+	WriteCollisionPoints();
 }
 
 void Vehicle::Render() {}

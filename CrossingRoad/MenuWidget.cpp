@@ -2,7 +2,7 @@
 
 MenuWidget::MenuWidget(
 	CrossingRoad* pgame,
-	vector<Widget::Button>& pbuttons,
+	std::vector<Widget::Button>& pbuttons,
 	COORD pposition
 ) : GameObject(pgame) {
 	position = pposition;
