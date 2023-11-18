@@ -33,12 +33,14 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
+	//if ()
+
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		if (moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
-			/*position.X -= speed.X_VERTICAL;
-			position.Y -= speed.Y_VERTICAL;*/
+			position.X -= speed.X_VERTICAL;
+			position.Y -= speed.Y_VERTICAL;
 			lanePos -= 1;
 			OnMove();
 		}
@@ -47,8 +49,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
-			/*position.X += speed.X_VERTICAL;
-			position.Y += speed.Y_VERTICAL;*/
+			position.X += speed.X_VERTICAL;
+			position.Y += speed.Y_VERTICAL;
 			lanePos += 1;
 			OnMove();
 		}
@@ -57,8 +59,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
-			/*position.X -= speed.X_HORIZONTAL;
-			position.Y -= speed.Y_HORIZONTAL;*/
+			position.X -= speed.X_HORIZONTAL;
+			position.Y -= speed.Y_HORIZONTAL;
 			blockPos -= 1;
 			OnMove();
 		}
@@ -67,8 +69,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
-			/*position.X += speed.X_HORIZONTAL;
-			position.Y += speed.Y_HORIZONTAL;*/
+			position.X += speed.X_HORIZONTAL;
+			position.Y += speed.Y_HORIZONTAL;
 			blockPos += 1;
 			OnMove();
 		}

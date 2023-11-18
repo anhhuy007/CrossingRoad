@@ -55,12 +55,12 @@ namespace Widget {
 		);
 
 		// behaviours
-		void OnEnter();
-		void OnChosen();
+		void OnTrigger();
+		void OnHover();
 		void OnNormal();
 
 		// overried methods
-		void Update(float ElapsedTime) {};
+		void Update(float elapsedTime);
 		void Render();
 
 		// attributes

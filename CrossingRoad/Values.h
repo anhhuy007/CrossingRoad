@@ -102,8 +102,8 @@ enum class TextFont {
 
 enum class ButtonState {
 	NORMAL,
-	ON_CHOSEN,
-	ON_ENTER
+	ON_HOVER,
+	ON_TRIGGER
 };
 
 enum ObjectCollis : int {

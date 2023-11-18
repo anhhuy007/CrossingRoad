@@ -120,8 +120,10 @@ Widget::Button::Button(
 	appearance.push_back(Image(DrawableRes::onEnterButton, Overlapped::DECORATOR));
 }
 
-void Widget::Button::OnEnter() {
-	state = ButtonState::ON_ENTER;
+void Widget::Button::OnTrigger() {
+	if (state == ButtonState::ON_TRIGGER) return;
+
+	state = ButtonState::ON_TRIGGER;
 
 	// move text down
 	COORD textPos = text.getPosition();
@@ -133,13 +135,23 @@ void Widget::Button::OnEnter() {
 	// game->sound->PlaySfx(Sfx::BUTTON_HOVER);
 }
 
-void Widget::Button::OnChosen() {
-	state = ButtonState::ON_CHOSEN;
-	game->RenderSprite(appearance[2], position);
+void Widget::Button::OnHover() {
+	state = ButtonState::ON_HOVER;
 }
 
 void Widget::Button::OnNormal() {
 	state = ButtonState::NORMAL;
+}
+
+void Widget::Button::Update(float elapsedTime) {
+	Render();
+	if (state == ButtonState::ON_TRIGGER) {
+		// wait for 0.5s to show triggered animation and playing sfx
+		game->UpdateConsole();
+
+		action();
+	}
+	
 }
 
 void Widget::Button::Render() {
@@ -147,10 +159,10 @@ void Widget::Button::Render() {
 	if (state == ButtonState::NORMAL) {
 		game->RenderSprite(appearance[0], position);
 	}
-	else if (state == ButtonState::ON_CHOSEN) {
+	else if (state == ButtonState::ON_HOVER) {
 		game->RenderSprite(appearance[1], position);
 	}
-	else if (state == ButtonState::ON_ENTER) {
+	else if (state == ButtonState::ON_TRIGGER) {
 		game->RenderSprite(appearance[2], position);
 	}
 }

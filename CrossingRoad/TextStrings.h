@@ -47,8 +47,8 @@ namespace DrawableRes {
 
 	// button sprites
 	const std::string normalButton = "widgets\\NormalButton.sprite";
-	const std::string onChosenButton = "widgets\\OnChosenButton.sprite";
-	const std::string onEnterButton = "widgets\\OnEnterButton.sprite";
+	const std::string onChosenButton = "widgets\\OnHoverButton.sprite";
+	const std::string onEnterButton = "widgets\\OnTriggerButton.sprite";
 }
 
 #endif // !TEXT_STRING

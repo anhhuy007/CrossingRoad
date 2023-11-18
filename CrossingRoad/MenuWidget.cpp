@@ -29,23 +29,12 @@ void MenuWidget::Update(float elapsedTime) {
 
 	// update button state
 	if (enterClicked) {
-		buttons[currentButtonIndex].OnEnter();
-		Render();
-		game->UpdateConsole();
-
-		// play sfx
-		//game->sound->PlaySfx(Sfx::BUTTON_CLICK);
-
-		// delay 0.5s
-		Sleep(500);
-
-		// execute button action
-		buttons[currentButtonIndex].action();
+		buttons[currentButtonIndex].OnTrigger();
 	}
 	else {
 		for (int i = 0; i < buttons.size(); i++) {
 			if (i == currentButtonIndex) {
-				buttons[i].OnChosen();
+				buttons[i].OnHover();
 			}
 			else {
 				buttons[i].OnNormal();
@@ -53,5 +42,7 @@ void MenuWidget::Update(float elapsedTime) {
 		}
 	}
 
-	Render();
+	for (int i = 0; i < buttons.size(); i++) {
+		buttons[i].Update(elapsedTime);
+	}
 }
