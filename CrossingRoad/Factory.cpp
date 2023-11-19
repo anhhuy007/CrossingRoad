@@ -86,7 +86,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 			false
 		));
 
-		sum(points, points = GetPointsOnLine(
+		sum(points, GetPointsOnLine(
 			{ 8, 23 },
 			{ 19, 25 },
 			1,
@@ -104,6 +104,13 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 
 		break;
 	case ObjectType::TRUCK:
+		points = GetPointsOnLine(
+			{ 1, 40 },
+			{ 112, 67 },
+			2,
+			true
+		);
+
 		break;
 	case ObjectType::TREE_1:
 		break;
@@ -139,7 +146,7 @@ std::vector<CollisionPoint> Factory::GetPointsOnLine(
 
 	// horizontal line: left to right
 	if (horizontal) {
-		while (pos.X <= end.X && pos.Y <= end.Y) {
+		while (pos.X != end.X || pos.Y != end.Y) {
 			pos.X++;
 			// each for horizontal pixels, go down 1 pixel
 			if ((pos.X - start.X) % 4 == 0) {
@@ -151,7 +158,7 @@ std::vector<CollisionPoint> Factory::GetPointsOnLine(
 	}
 	// vertical line: top to bottom
 	else {
-		while (pos.X <= end.X && pos.Y <= end.Y) {
+		while (pos.X != end.X || pos.Y != end.Y) {
 			pos.Y++;
 			// each for horizontal pixels, go down 1 pixel
 			if ((pos.Y - start.Y) % 2 == 0) {

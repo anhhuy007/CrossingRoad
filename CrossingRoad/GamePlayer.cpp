@@ -1,4 +1,5 @@
 #include "GamePlayer.h"
+#include <iostream>
 
 GamePlayer::GamePlayer(
 	Player player,
@@ -78,9 +79,6 @@ void GamePlayer::Update(float elapsedTime) {
 			OnMove();
 		}
 	}
-
-	// update collision points
-	WriteCollisionPoints();
 }
 
 void GamePlayer::OnMove() {
@@ -156,15 +154,16 @@ bool GamePlayer::moveRight() {
 	return true;
 }
 
-bool GamePlayer::CheckCollision() {
+int GamePlayer::CheckCollision() {
 	for (auto point : collisionPoints) {
 		point.first = {
 			short(point.first.X + position.X),
 			short(point.first.Y + position.Y)
 		};
-		if (game->CheckCollisionPoint(point.first) == 2) {
-			return true;
-		}
+
+		int collisType = game->CheckCollisionPoint(point.first);
+
+		if (collisType != 0) return collisType;
 	}
 
 	return false;

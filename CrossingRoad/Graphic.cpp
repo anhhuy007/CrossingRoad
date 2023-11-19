@@ -82,4 +82,7 @@ void Graphic::Sprite::setWidth(int _width) {
 	width = _width;
 }
 
-
+void Graphic::GotToXY(int x, int y) {
+	COORD coord = { (short)x, (short)y };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}

@@ -1,5 +1,16 @@
 #include "GameEngine.h"
 
+void GameEngine::DrawRectangle(COORD position, int width, int height, WORD color)
+{
+	for (int i = position.Y; i < position.Y + height;  i++) {
+		for (int j = position.X; j < position.X + width; j++) {
+			int index = i * windowSize.x + j;
+			screenBuffer[index].Attributes = color;
+			screenBuffer[index].Char.UnicodeChar = 0x2588;
+		}
+	}
+}
+
 void GameEngine::Start() {
 	// ----- Start game -----
 	atomActive = true;
@@ -41,6 +52,11 @@ void GameEngine::GameLoop() {
 
 		// ----- Update console screen buffer -----
 		UpdateConsole();
+		
+		// ----- Log text -----
+		/*Graphic::GotToXY(1, 1);
+		std::cout << logText;*/
+
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
 	}
@@ -88,6 +104,9 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 
 void GameEngine::AddCollisionPoint(COORD point, int type) {
 	int index = point.Y * windowSize.x + point.X;
+
+	if (collistionMatrix[index] > type) return;
+
 	collistionMatrix[index] = type;
 }
 
@@ -145,7 +164,7 @@ GameEngine::GameEngine() {
 
 GameEngine::~GameEngine() {
 	delete[] screenBuffer;
-	/*delete[] overlappedBuffer;*/
+	delete[] overlappedBuffer;
 	delete[] collistionMatrix;
 }
 

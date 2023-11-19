@@ -48,6 +48,8 @@ namespace Graphic {
 		void setHeight(int _height);
 		void SetOverlapped(int _overlapped);
 	};
+
+	void GotToXY(int x, int y);
 };
 
 #endif // !GRAPHIC_H

@@ -65,6 +65,9 @@ public:
 	virtual bool GameCreate() = 0;
 	virtual bool GameUpdate(float elapsedTime) = 0;
 
+	// ----- Additional functions -----
+	void DrawRectangle(COORD position, int width, int height, WORD color);
+
 	//// ----- Optional overrided funtions -----
 	//virtual bool GameDestroy();
 
@@ -81,11 +84,12 @@ protected:
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
 	int* collistionMatrix = nullptr;
 	int* overlappedBuffer = nullptr;
-	
+
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
 	int fps;
+	std::string logText;
  };
 
 #endif // _GAME_ENGINE_H_

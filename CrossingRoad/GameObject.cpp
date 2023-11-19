@@ -34,7 +34,7 @@ void GameObject::WriteCollisionPoints() {
 			short(collisionPoints[i].first.X + position.X),
 			short(collisionPoints[i].first.Y + position.Y)
 		};
-		int type = collisionPoints[i].second + position.Y;
+		int type = collisionPoints[i].second;
 		game->AddCollisionPoint(pos, type);
 	}
 }

@@ -23,6 +23,11 @@ Vehicle::Vehicle(
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::TruckLeft)
 			: Graphic::Sprite(DrawableRes::TruckRight);
+
+		// set collision points
+		setCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::TRUCK)
+		);
 	}
 
 	SetInitPosition();
@@ -63,7 +68,6 @@ void Vehicle::Update(float elapsedTime) {
 	WriteCollisionPoints();
 }
 
-void Vehicle::Render() {}
 void Vehicle::MoveAhead() {
 	if (movingDirection == MovingDirection::LEFT) {
 		position.X -= axisSpeed.X_HORIZONTAL;

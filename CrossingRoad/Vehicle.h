@@ -19,7 +19,7 @@ public:
 	void SetInitPosition();
 
 	void Update(float elapsedTime);
-	void Render();
+	void Render() {};
 	void MoveAhead();
 	void MoveDown(); // when scrolling up
 

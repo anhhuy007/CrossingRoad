@@ -44,7 +44,7 @@ public:
 	bool moveLeft();
 	bool moveRight();
 
-	bool CheckCollision();
+	int CheckCollision();
 
 	// attributes
 	int lanePos;

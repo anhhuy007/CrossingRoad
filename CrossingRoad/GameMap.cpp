@@ -40,7 +40,6 @@ bool GameMap::OnUpdate(float elapsedTime) {
 void GameMap::Render() {
 	game->RenderSprite(grid, {0, 0});
 
-	player->Render();
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();
