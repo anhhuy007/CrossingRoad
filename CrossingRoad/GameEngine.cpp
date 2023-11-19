@@ -67,8 +67,13 @@ void GameEngine::ClearConsole() {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
 		overlappedBuffer[i] = 0;
-		collistionMatrix[i] = 0;
+		collisMatrix[i] = 0;
 	}
+
+	/*for (int i = 0; i < 460; i++) {
+		for (int j = 0; j < 240; j++) {
+		}
+	}*/
 }
 
 void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
@@ -82,7 +87,7 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 			if (screenX < 0 || screenX >= windowSize.y || screenY < 0 || screenY >= windowSize.x) continue;
 
 			// get current buffer
-			CHAR_INFO buffer = screenBuffer[screenX * windowSize.x + screenY];
+			CHAR_INFO buffer = screenBuffer[index];
 			
 			// get current pixel
 			Graphic::Pixel pixel = sprite.getPixel(i, j);
@@ -103,17 +108,20 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 }
 
 void GameEngine::AddCollisionPoint(COORD point, int type) {
+	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return;
+
 	int index = point.Y * windowSize.x + point.X;
+	
+	if (collisMatrix[index] > type) return;
 
-	if (collistionMatrix[index] > type) return;
-
-	collistionMatrix[index] = type;
+	collisMatrix[index] = type;
 }
 
 int GameEngine::CheckCollisionPoint(COORD point) {
 	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return 1;
+	int index = point.Y * windowSize.x + point.X;
 
-	return collistionMatrix[point.Y * windowSize.x + point.X];
+	return collisMatrix[index];
 }
 
 void GameEngine::UpdateConsole() {
@@ -148,24 +156,24 @@ GameEngine::GameEngine() {
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
 	inputHandle = InputHandle::GetKeyBoardState();
-	
+
 	// allocate memory 
-	collistionMatrix = new int[windowSize.x * windowSize.y];
 	overlappedBuffer = new int[windowSize.x * windowSize.y];
 	screenBuffer = new CHAR_INFO[windowSize.x * windowSize.y];
-	
+	collisMatrix = new int[windowSize.x * windowSize.y];
+
 	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
-		collistionMatrix[i] = 0;
 		overlappedBuffer[i] = 0;
+		collisMatrix[i] = 0;
 	}
 }
 
 GameEngine::~GameEngine() {
 	delete[] screenBuffer;
 	delete[] overlappedBuffer;
-	delete[] collistionMatrix;
+	delete[] collisMatrix;
 }
 
 void GameEngine::BuildConsole() {

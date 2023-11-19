@@ -20,7 +20,7 @@ public:
 	void setInitPosition();
 
 	void Update(float elapsedTime);
-	void Render();
+	void Render() {};
 
 	short getX() { return position.X; }
 	short getY() { return position.Y; }

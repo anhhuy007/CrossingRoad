@@ -49,8 +49,6 @@ void Log::Update(float elapsedTime) {
 	}
 }
 
-void Log::Render() {};
-
 void Log::setSprite(Graphic::Sprite _sprite) {
 	// delete old sprite
 	width = _sprite.getWidth();

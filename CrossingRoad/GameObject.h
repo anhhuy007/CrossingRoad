@@ -62,7 +62,7 @@ public:
 	void setPosition(COORD _position);
 	void setHeight(int _height);
 	void setWidth(int _width);
-	void setCollisionPoints(std::vector<CollisionPoint> _collisionPoints);
+	void setCollisionPoints(std::vector<CollisionPoint>_collisionPoints);
 
 	void WriteCollisionPoints();
 

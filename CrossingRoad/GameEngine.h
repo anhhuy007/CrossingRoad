@@ -77,13 +77,11 @@ public:
 	InputHandle* inputHandle;
 private:
 	void GameLoop();
-	
-protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	int* collistionMatrix = nullptr;
 	int* overlappedBuffer = nullptr;
+	int* collisMatrix = nullptr;
 
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
