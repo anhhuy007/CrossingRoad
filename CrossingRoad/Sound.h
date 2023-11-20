@@ -2,23 +2,13 @@
 #pragma once
 #include <Windows.h>
 #include <string>
+#include <vector>
+#include <mmsystem.h>
+#include <iostream>
 
 
 class Sound {
-private:
-	std::wstring alias;
-
-	//Play and stop sound
-	void repeatSound();
-	void pauseSound();
-	void resumeSound();
-	void playSound();
-
-	//Open and close file
-	void openSound();
-	void closeSound();
-
-public:
+public: 
 	struct SoundSetting {
 		bool backgroundSound = true;
 		bool effectSound = true;
@@ -27,17 +17,46 @@ public:
 		int backgroundVolume = 100;
 		int effectVolume = 100;
 	};
+private:
+	//Play and stop sound
+	static void repeatSound(std::wstring alias);
+	static void playSound(std::wstring alias);
+	static void pauseSound(std::wstring alias);
+	static void resumeSound(std::wstring alias);
+	static void setAudio(std::wstring alias, int volume);
 
-	//Effect sound's path
-	std::wstring path;
-	const std::wstring CAR_CRASH = L"Sound\\CarCrash.wav";
-	const std::wstring BACKGROUND = L"Sound\\BackgroundMusic.mp3";
+	//Open and close file
+	static void openSound(std::wstring path);
+	static void closeSound(std::wstring alias);
 
-	void playBackgroundSound(SoundSetting& soundSetting);
-	void playEffectSound(SoundSetting soundSetting);
+	static std::wstring findAlias(std::wstring path);
 
-	//Set volume
-	void turnUpVolume(SoundSetting& sound);
-	void turnDownVolume(SoundSetting& sound);
+	static const std::vector <std::wstring> EFFECT;
+	static const std::vector <std::wstring> BACKGROUND;
+
+	Sound() {};
+
+public: 
+	//Path
+	static enum class Background : char {
+		BACKGROUND_MUSIC
+	};
+	static enum class Effect : char {
+		CAR_CRASH,
+		INVALID,
+		VALID
+	};
+	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
+	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
+
+	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
+	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
+	static void turnOffEffectSound(Sound::SoundSetting& soundSetting);
+	static void turnOnEffectSound(Sound::SoundSetting& soundSetting);
+
+	static bool turnUpBackgroundVolume(Sound::SoundSetting& soundSetting);
+	static bool turnDownBackgroundVolume(Sound::SoundSetting& soundSetting);
+	static bool turnUpEffectVolume(Sound::SoundSetting& soundSetting);
+	static bool turnDownEffectVolume(Sound::SoundSetting& soundSetting);
 };
 
