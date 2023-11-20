@@ -44,7 +44,9 @@ public:
 	static enum class Effect : char {
 		CAR_CRASH,
 		INVALID,
-		VALID
+		VALID,
+		ENTER,
+		CHANGE
 	};
 	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
 	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
@@ -59,4 +61,3 @@ public:
 	static bool turnUpEffectVolume(Sound::SoundSetting& soundSetting);
 	static bool turnDownEffectVolume(Sound::SoundSetting& soundSetting);
 };
-

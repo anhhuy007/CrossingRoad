@@ -35,18 +35,24 @@ void MenuWidget::Render() {
 void MenuWidget::Update(float elapsedTime) {
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::CHANGE));
 		currentButtonIndex--;
 	}
 	else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::CHANGE));
 		currentButtonIndex++;
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		enterClicked = true;
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
 	}
 
 	// check button index
-	currentButtonIndex = max(0, currentButtonIndex);
-	currentButtonIndex = min((int)buttons.size() - 1, currentButtonIndex);
+	if (currentButtonIndex < 0 || currentButtonIndex >(int)buttons.size() - 1) {
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::INVALID));
+		currentButtonIndex = max(0, currentButtonIndex);
+		currentButtonIndex = min((int)buttons.size() - 1, currentButtonIndex);
+	}
 
 	// update button state
 	for (int i = 0; i < buttons.size(); i++) {

@@ -31,6 +31,7 @@ This class include all the functions that are used in the game, such as: manage 
 #include "InputHandle.h"
 #include "Graphic.h"
 #include "Values.h"
+#include "Sound.h"
 
 struct PAIR{
 	WORD x;
@@ -75,6 +76,7 @@ public:
 
 	// ----- Properties -----
 	InputHandle* inputHandle;
+	Sound::SoundSetting soundSetting;
 private:
 	void GameLoop();
 	int fontSize;

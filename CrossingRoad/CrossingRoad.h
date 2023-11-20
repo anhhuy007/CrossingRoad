@@ -4,6 +4,7 @@
 #define _CROSSINGROAD_H_
 
 #include "GameEngine.h"
+#include "Sound.h"
 
 #include <string>
 

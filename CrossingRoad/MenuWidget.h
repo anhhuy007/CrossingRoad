@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Widget.h"
 #include "Values.h"
+#include "Sound.h"
 
 class MenuWidget : public GameObject {
 	std::vector<Widget::Button> buttons;

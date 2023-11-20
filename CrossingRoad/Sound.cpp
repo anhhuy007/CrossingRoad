@@ -10,7 +10,9 @@
 const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\CarCrash.wav",
 	L"Sound\\Invalid.wav",
-	L"Sound\\Valid.mp3"
+	L"Sound\\Valid.mp3",
+	L"Sound\\Enter.wav",
+	L"Sound\\Change.mp3"
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
 	L"Sound\\BackgroundMusic.mp3"
@@ -24,6 +26,10 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"2";
 	else if (path == L"Sound\\Valid.mp3")	
 		return L"3";
+	else if ( path == L"Sound\\Enter.wav")
+		return L"4";
+	else if (path == L"Sound\\Change.mp3")
+		return L"5";
 	return L"";
 }
 //--------------Open and close file--------------
