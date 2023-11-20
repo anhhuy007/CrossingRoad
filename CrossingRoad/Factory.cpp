@@ -55,10 +55,10 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		COLLISSION VALUES:
 		0: no collision
 		1: player 
-		2: car, truck, water 
+		2: item
 		3: tree, rock, bush
-		4: floating object
-		5: item
+		4: car, truck, water 
+		5: floating object	
 	*/
 	std::vector<CollisionPoint> points;
 
@@ -113,16 +113,65 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 
 		break;
 	case ObjectType::TREE_1:
+		points = GetPointsOnLine(
+			{ 2, 39 },
+			{ 21, 43 },
+			3,
+			true
+		);
+
+		sum(points, GetPointsOnLine(
+			{ 13, 33 },
+			{ 8, 44 },
+			3,
+			false
+		));
+
 		break;
 	case ObjectType::TREE_2:
+		points = GetPointsOnLine(
+			{ 2, 52 },
+			{ 33, 59 },
+			3,
+			true
+		);
+
+		sum(points, GetPointsOnLine(
+			{ 33, 48 },
+			{ 29, 57 },
+			3,
+			false
+		));
+
 		break;
 	case ObjectType::ROCK:
 		break;
 	case ObjectType::WATER:
+		points = GetPointsOnLine(
+			{ 1, 13 },
+			{ 461, 128 },
+			2,
+			true
+		);
+
 		break;
 	case ObjectType::FLOATING_OBJECT_1:
+		points = GetPointsOnLine(
+			{ 3, 6 },
+			{ 102, 30 },
+			5,
+			true
+		);
+
 		break;
 	case ObjectType::FLOATING_OBJECT_2:
+		points = GetPointsOnLine(
+			{ 3, 6 },
+			{ 71, 23 },
+			5,
+			true
+		);
+
 		break;
 	case ObjectType::ITEM:
 		break;

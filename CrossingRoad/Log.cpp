@@ -9,9 +9,11 @@ Log::Log(
 
 	if (random) {
 		logSprite = Graphic::Sprite(DrawableRes::Log1);
+		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_1));
 	}
 	else {
 		logSprite = Graphic::Sprite(DrawableRes::Log2);
+		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_2));
 	}
 
 	lanePos = _id;
@@ -47,6 +49,9 @@ void Log::Update(float elapsedTime) {
 
 		time = 0;
 	}
+
+	// update collision points
+	WriteCollisionPoints();
 }
 
 void Log::setSprite(Graphic::Sprite _sprite) {

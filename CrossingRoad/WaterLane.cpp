@@ -20,6 +20,9 @@ void WaterLane::Update(float elapsedTime) {
 			isScrolling = false;
 		}
 	}
+
+	// update collision points
+	WriteCollisionPoints();
 }
 
 void WaterLane::Render() {

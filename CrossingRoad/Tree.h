@@ -30,6 +30,7 @@ public:
 			treeType = TreeType::SMALL_TREE;
 			width = 25;
 			height = 42;
+			collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_1);
 		}
 		else {
 			treeSprite = Graphic::Sprite(DrawableRes::BigTree);
@@ -42,6 +43,7 @@ public:
 			treeType = TreeType::BIG_TREE;
 			width = 45;
 			height = 57;
+			collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_2);
 		}
 
 		treeSprite.SetOverlapped(Overlapped::OBSTACLE);

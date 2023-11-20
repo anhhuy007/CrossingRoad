@@ -53,6 +53,9 @@ void MenuWidget::Update(float elapsedTime) {
 		if (i == currentButtonIndex) {
 			if (enterClicked) {
 				buttons[i].OnTrigger();
+
+				// reset button state
+
 			}
 			else {
 				buttons[i].OnHover();
@@ -71,9 +74,17 @@ void MenuWidget::Update(float elapsedTime) {
 	if (enterClicked) {
 		totalTime += elapsedTime;
 		if (totalTime > 500) {
+			buttons[currentButtonIndex].action();
+
 			enterClicked = false;
 			totalTime = 0;
-			buttons[currentButtonIndex].action();
+			// reset button text position
+			buttons[currentButtonIndex].text.setTextPosition(
+				buttons[currentButtonIndex].text.text,
+				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 120, 34),
+				112,
+				34
+			);
 		}
 	}
 }

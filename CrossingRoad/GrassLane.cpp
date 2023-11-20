@@ -19,6 +19,10 @@ void GrassLane::Update(float elapsedTime) {
 			isScrolling = false;
 		}
 	}
+
+	for (auto& tree : trees) {
+		tree.WriteCollisionPoints();
+	}
 }
 
 void GrassLane::ScrollUp() {
