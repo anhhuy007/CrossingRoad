@@ -28,11 +28,7 @@ enum class AnimationState {
 	TURN_LEFT = 1,
 	TURN_RIGHT = 2, 
 	TURN_BACK = 3,
-	JUMP_AHEAD = 4,
-	JUMP_LEFT = 5,
-	JUMP_RIGHT = 6,
-	JUMP_BACK = 7,
-	DIED = 8
+	DEAD = 4
 };
 
 enum class MovingDirection {

@@ -22,15 +22,18 @@ class GamePlayer : public GameObject {
 	Graphic::Sprite getSpriteByAnimation(AnimationState state);
 
 	// attributes
-	AnimationState animationState = AnimationState::NORMAL;
 	MovingDirection movingDirection = MovingDirection::UP;
-	PlayerState state = PlayerState::STATE_ALIVE;
 	std::vector<AnimationSprite> animationSprite;
 	GameSpeed speed;
 	GameSpeed axisSpeed;
 	float totalTime = 0;
 
 public:
+	// attributes
+	int lanePos;
+	int blockPos;
+	AnimationState animationState = AnimationState::NORMAL;
+
 	// methods
 	GamePlayer(
 		Player player, 
@@ -53,10 +56,6 @@ public:
 		float timeSpeed,
 		MovingDirection direction
 	);
-
-	// attributes
-	int lanePos;
-	int blockPos;	
 };
 
 #endif // !GAME_PLAYER_H

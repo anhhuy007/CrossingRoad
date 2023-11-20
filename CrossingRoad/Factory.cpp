@@ -2,17 +2,14 @@
 
 std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 	std::vector<AnimationSprite> ans;
-	int numberOfAnimations = 8;
+	int numberOfAnimations = 5;
 
 	std::vector<AnimationState> animations = {
 		AnimationState::NORMAL,
 		AnimationState::TURN_LEFT,
 		AnimationState::TURN_RIGHT,
 		AnimationState::TURN_BACK,
-		AnimationState::JUMP_AHEAD,
-		AnimationState::JUMP_LEFT,
-		AnimationState::JUMP_RIGHT,
-		AnimationState::JUMP_BACK,
+		AnimationState::DEAD
 	};
 
 	std::vector<std::string> spriteFiles = {
@@ -20,10 +17,7 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 			DrawableRes::animationSprite2,
 			DrawableRes::animationSprite3,
 			DrawableRes::animationSprite4,
-			DrawableRes::animationSprite5,
-			DrawableRes::animationSprite6,
-			DrawableRes::animationSprite7,
-			DrawableRes::animationSprite8,
+			DrawableRes::animationSprite5
 	};
 
 	std::string folder = "";
@@ -98,7 +92,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points =  GetPointsOnLine(
 			{ 1, 27 },
 			{ 72, 44 },
-			2,
+			4,
 			true
 		);
 
@@ -107,7 +101,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points = GetPointsOnLine(
 			{ 1, 40 },
 			{ 112, 67 },
-			2,
+			4,
 			true
 		);
 

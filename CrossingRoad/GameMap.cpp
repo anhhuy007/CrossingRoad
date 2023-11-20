@@ -59,6 +59,16 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 			logDirection
 		);
 	}
+	else if (collisType == 4) {
+		// player is on water
+		if (lanes[player->lanePos]->laneType == LaneType::WATER) {
+
+		}
+		// player is hit by car
+		else {
+			player->animationState = AnimationState::DEAD;
+		}
+	}
 }
 
 Log GameMap::GetLogByLaneId(int laneId) {

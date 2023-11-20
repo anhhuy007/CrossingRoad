@@ -8,7 +8,7 @@ GamePlayer::GamePlayer(
 	// initial player position
 	lanePos = 11;
 	blockPos = 8;
-	position = { 135, 171 };
+	position = { 132, 173 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(24, 6, -11, 21);
@@ -40,6 +40,8 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
+	if (animationState == AnimationState::DEAD) return;
+
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		if (MoveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
@@ -171,6 +173,13 @@ bool GamePlayer::MoveRight() {
 }
 
 int GamePlayer::CheckCollision() {
+	/* COLLISSION VALUES:
+		0: no collision
+		1: player
+		2: item
+		3: tree, rock, bush
+		4: car, truck, water
+		5: floating object */
 	int collisType = 0;
 
 	for (auto point : collisionPoints) {
