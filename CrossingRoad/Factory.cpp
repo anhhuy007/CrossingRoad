@@ -114,33 +114,33 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		break;
 	case ObjectType::TREE_1:
 		points = GetPointsOnLine(
-			{ 2, 39 },
-			{ 21, 43 },
+			{ 1, 31 },
+			{ 20, 35 },
 			3,
 			true
 		);
 
 		sum(points, GetPointsOnLine(
-			{ 13, 33 },
-			{ 8, 44 },
+			{ 1, 42 },
+			{ 21, 47 },
 			3,
-			false
+			true
 		));
 
 		break;
 	case ObjectType::TREE_2:
 		points = GetPointsOnLine(
-			{ 2, 52 },
-			{ 33, 59 },
+			{ 1, 43 },
+			{ 41, 53 },
 			3,
 			true
 		);
 
 		sum(points, GetPointsOnLine(
-			{ 33, 48 },
-			{ 29, 57 },
+			{ 1, 51 },
+			{ 45, 62 },
 			3,
-			false
+			true
 		));
 
 		break;
@@ -157,8 +157,8 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		break;
 	case ObjectType::FLOATING_OBJECT_1:
 		points = GetPointsOnLine(
-			{ 3, 6 },
-			{ 102, 30 },
+			{ 11, 8 },
+			{ 90, 27 },
 			5,
 			true
 		);
@@ -166,8 +166,8 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		break;
 	case ObjectType::FLOATING_OBJECT_2:
 		points = GetPointsOnLine(
-			{ 3, 6 },
-			{ 71, 23 },
+			{ 11, 8 },
+			{ 61, 20 },
 			5,
 			true
 		);
