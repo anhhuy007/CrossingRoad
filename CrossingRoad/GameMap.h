@@ -20,7 +20,7 @@ protected:
 	int collectedCoins = 0;
 	int playerIndex = 0;
 	float totalTime = 0.0f;
-	vector<Lane*> lanes;
+	std::vector<Lane*> lanes;
 	
 	GamePlayer* player = nullptr;
 	Graphic::Sprite grid;

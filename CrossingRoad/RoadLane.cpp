@@ -4,8 +4,21 @@ void RoadLane::Update(float elapsedTime) {
 	vehicle.Update(elapsedTime);
 	if (vehicle.endOfRoad == true) {
 		vehicle.endOfRoad = false;
-		vehicle.setInitPosition();
+		vehicle.SetInitPosition();
 		vehicle.vehicleSpeed = float((rand() % 3) + 1) * 0.004;
+	}
+
+	if (isScrolling) {
+		// move lane down
+		position.Y += 2;
+		//vehicle.MoveAhead();
+		vehicle.MoveDown();
+		
+
+		if (position.Y >= expectedPosition.Y) {
+			position.Y = expectedPosition.Y;
+			isScrolling = false;
+		}
 	}
 }
 
@@ -26,6 +39,9 @@ void RoadLane::Render() {
 
 void RoadLane::ScrollUp() {
 	id++;
+	expectedPosition.Y += 24;
+	isScrolling = true;
+	/*id++;
 	position.Y += 24;
 	vehicle.lanePos++;
 
@@ -41,5 +57,5 @@ void RoadLane::ScrollUp() {
 	vehicle.setPosition({
 		short(pos.X + numMove * vehicle.axisSpeed.X_HORIZONTAL * sign),
 		short(pos.Y + numMove * vehicle.axisSpeed.Y_HORIZONTAL * sign)
-		});
+		});*/
 }

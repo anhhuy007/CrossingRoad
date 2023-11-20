@@ -4,6 +4,8 @@
 #define VALUES_H
 
 #include <windows.h>
+#include <map>
+#include <string>
 #include "Graphic.h"
 
 const float FPS = 60;
@@ -58,11 +60,12 @@ enum class PlayerState {
 
 enum Overlapped : int {
 	LAND = 1,
-	DECORATOR = 2, 
+	DECORATOR = 2,
+	TEXT = 3,
 	LOG = 3,
 	OBSTACLE = 4,
 	VEHICLE = 4, 
-	PLAYER = 4
+	PLAYER = 4,
 };
 
 enum class VehicleType {
@@ -101,8 +104,8 @@ enum class TextFont {
 
 enum class ButtonState {
 	NORMAL,
-	ON_CHOSEN,
-	ON_ENTER
+	ON_HOVER,
+	ON_TRIGGER
 };
 
 enum ObjectCollis : int {
@@ -113,6 +116,19 @@ enum ObjectCollis : int {
 	ROCK = 2,
 	WATER = 3, 
 	FLOATING_LOG = 4
+};
+
+enum class ObjectType {
+	PLAYER,
+	CAR,
+	TRUCK,
+	TREE_1, // small tree
+	TREE_2, // big tree
+	ROCK,
+	WATER,
+	FLOATING_OBJECT_1, // small log
+	FLOATING_OBJECT_2, // big log
+	ITEM
 };
 
 struct GameSpeed {

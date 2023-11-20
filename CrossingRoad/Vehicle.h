@@ -16,11 +16,12 @@ public:
 		MovingDirection _direction = MovingDirection::LEFT
 	);
 
-	void setSprite(Graphic::Sprite _sprite);
-	void setInitPosition();
+	void SetInitPosition();
 
 	void Update(float elapsedTime);
-	void Render();
+	void Render() {};
+	void MoveAhead();
+	void MoveDown(); // when scrolling up
 
 	short getX() { return position.X; }
 	short getY() { return position.Y; }

@@ -20,39 +20,12 @@ Widget::Text::Text(
 		if (!isalpha(ch)) continue;
 
 		std::string spriteName = GetLetterSpritePath(ch, font);
-		Image letter = Image(spriteName);
-		letter.SetOverlapped(Overlapped::DECORATOR);
+		Image letter = Image(spriteName, Overlapped::TEXT);
 		appearance.push_back(letter);
 	}
 
 	// set text positions
-	int wordHeight = appearance[0].getHeight();
-	int maxX = pposition.X + pwidth;
-	int maxY = pposition.Y + pheight;
-	COORD currentPos = pposition;
-	int index = 0;
-	while (index < ptext.size()) {
-		std::string word = GetNextWord(index, ptext);
-		int wordWidth = GetWordWidth(word);
-
-		if (currentPos.X + wordWidth > maxX) {
-			// if text box is full then stop writing text
-			if (currentPos.Y + wordHeight > maxY) continue; 
-			
-			// go to the begin of new line
-			currentPos.X = pposition.X;
-			currentPos.Y += wordHeight + 3;
-		}
-
-		// set each character positions
-		for (int i = 0; i < word.size(); i++) {
-			textPositions.push_back(currentPos);
-			currentPos.X += appearance[i].getWidth();
-		}
-		currentPos.X += 2; // 2 pixels is space between 2 words
-
-		index += word.size() + 1;
-	}
+	setTextPosition(ptext, pposition, pwidth, pheight);
 };
 
 std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
@@ -97,16 +70,49 @@ void Widget::Text::Render() {
 	}
 }
 
+void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidth, int pheight) {
+	textPositions.clear();
+
+	int wordHeight = appearance[0].getHeight();
+	int maxX = pposition.X + pwidth;
+	int maxY = pposition.Y + pheight;
+	COORD currentPos = pposition;
+	int index = 0;
+	while (index < ptext.size()) {
+		std::string word = GetNextWord(index, ptext);
+		int wordWidth = GetWordWidth(word);
+
+		if (currentPos.X + wordWidth > maxX) {
+			// if text box is full then stop writing text
+			if (currentPos.Y + wordHeight > maxY) continue;
+
+			// go to the begin of new line
+			currentPos.X = pposition.X;
+			currentPos.Y += wordHeight + 3;
+		}
+
+		// set each character positions
+		for (int i = 0; i < word.size(); i++) {
+			textPositions.push_back(currentPos);
+			currentPos.X += appearance[i].getWidth();
+		}
+		currentPos.X += 2; // 2 pixels is space between 2 words
+
+		index += word.size() + 1;
+	}
+}
+
 Widget::Button::Button(
 	CrossingRoad* pgame, 
 	std::string ptext, 
-	function<void()> paction, 
+	std::function<void()> paction, 
 	COORD pposition
 ) : GameObject(pgame) {
+	
 	text = Text(
 		pgame, 
 		ptext, 
-		pposition, 
+		GetCenterTextPos(ptext, pposition, 112, 34),
 		112, 34,
 		TextFont::NORMAL
 	);
@@ -116,20 +122,28 @@ Widget::Button::Button(
 	state = ButtonState::NORMAL;
 
 	appearance.clear();
-	appearance.push_back(Graphic::Sprite(DrawableRes::normalButton, Overlapped::DECORATOR));
-	appearance.push_back(Graphic::Sprite(DrawableRes::onChosenButton, Overlapped::DECORATOR));
-	appearance.push_back(Graphic::Sprite(DrawableRes::onEnterButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::normalButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::onChosenButton, Overlapped::DECORATOR));
+	appearance.push_back(Image(DrawableRes::onEnterButton, Overlapped::DECORATOR));
 }
 
-void Widget::Button::OnEnter() {
-	state = ButtonState::ON_ENTER;
+void Widget::Button::OnTrigger() {
+	if (state == ButtonState::ON_TRIGGER) return;
 
+	state = ButtonState::ON_TRIGGER;
+
+	// move text down
+	COORD textPos = text.getPosition();
+	for (int i = 0; i < text.textPositions.size(); i++) {
+		text.textPositions[i].Y += 3;
+	}
+	
 	// play sfx 
-
+	// game->sound->PlaySfx(Sfx::BUTTON_HOVER);
 }
 
-void Widget::Button::OnChosen() {
-	state = ButtonState::ON_CHOSEN;
+void Widget::Button::OnHover() {
+	state = ButtonState::ON_HOVER;
 }
 
 void Widget::Button::OnNormal() {
@@ -141,10 +155,25 @@ void Widget::Button::Render() {
 	if (state == ButtonState::NORMAL) {
 		game->RenderSprite(appearance[0], position);
 	}
-	else if (state == ButtonState::ON_CHOSEN) {
+	else if (state == ButtonState::ON_HOVER) {
 		game->RenderSprite(appearance[1], position);
 	}
-	else if (state == ButtonState::ON_ENTER) {
+	else if (state == ButtonState::ON_TRIGGER) {
 		game->RenderSprite(appearance[2], position);
 	}
+}
+
+COORD Widget::GetCenterTextPos(
+	std::string text, 
+	COORD position, 
+	int width, 
+	int height
+) {
+	int textWidth = text.size() * 5;
+	int textHeight = 5;
+
+	int x = position.X + (width - textWidth) / 2;
+	int y = position.Y + (height - textHeight) / 2;
+
+	return { short(x + 20), short(y + 10) };
 }

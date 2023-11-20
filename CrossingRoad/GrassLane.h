@@ -8,7 +8,7 @@
 #include "Graphic.h"
 
 class GrassLane : public Lane {
-	vector<Tree> trees;
+	std::vector<Tree> trees;
 public: 
 	GrassLane(
 		int id,
@@ -23,7 +23,7 @@ public:
 	};
 
 	void Render();
-	void Update(float elapsedTime) {};
+	void Update(float elapsedTime);
 	void ScrollUp();
 };
 

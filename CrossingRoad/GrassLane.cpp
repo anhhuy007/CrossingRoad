@@ -7,13 +7,27 @@ void GrassLane::Render() {
 	}
 }
 
+void GrassLane::Update(float elapsedTime) {
+	if (isScrolling) {
+		// move lane down
+		position.Y++;
+		/*vehicle.MoveAhead();
+		vehicle.MoveDown();*/
+
+		if (position.Y >= expectedPosition.Y) {
+			position.Y = expectedPosition.Y;
+			isScrolling = false;
+		}
+	}
+}
+
 void GrassLane::ScrollUp() {
 	id++;
-	// move lane down
-	position.Y += 24;
+	expectedPosition.Y += 24;
+	isScrolling = true;
 
 	// move trees down
-	for (auto& tree : trees) {
+	/*for (auto& tree : trees) {
 		tree.lanePos++;
 
 		if (tree.treeType == TreeType::SMALL_TREE) {
@@ -36,5 +50,5 @@ void GrassLane::ScrollUp() {
 				)
 			);
 		}
-	}
+	}*/
 }

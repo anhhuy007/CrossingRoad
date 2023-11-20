@@ -1,7 +1,7 @@
 #include "StreetMap.h"
 
 void StreetMap::SetScreenColor() {
-	vector<int> colors = {
+	std::vector<int> colors = {
 		RGB(0, 0, 0),
 		RGB(255, 255, 255),
 		RGB(174, 222, 102),
@@ -54,15 +54,10 @@ Lane* StreetMap::GetNewLane(int laneId, LaneType previousLane) {
 }
 
 void StreetMap::CreateLanes() {
-	grasslane = Graphic::Sprite(DrawableRes::GrassLane);
-	waterlane = Graphic::Sprite(DrawableRes::WaterLane);
-	roadlane = Graphic::Sprite(DrawableRes::RoadLane);
-	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking);
-
-	grasslane.SetOverlapped(Overlapped::LAND);
-	waterlane.SetOverlapped(Overlapped::LAND);
-	roadlane.SetOverlapped(Overlapped::LAND);
-	roadMarking.SetOverlapped(Overlapped::DECORATOR);
+	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
+	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
+	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
+	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
 	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
 	lanes.push_back(lane);*/

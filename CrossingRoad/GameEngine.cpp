@@ -1,5 +1,16 @@
 #include "GameEngine.h"
 
+void GameEngine::DrawRectangle(COORD position, int width, int height, WORD color)
+{
+	for (int i = position.Y; i < position.Y + height;  i++) {
+		for (int j = position.X; j < position.X + width; j++) {
+			int index = i * windowSize.x + j;
+			screenBuffer[index].Attributes = color;
+			screenBuffer[index].Char.UnicodeChar = 0x2588;
+		}
+	}
+}
+
 void GameEngine::Start() {
 	// ----- Start game -----
 	atomActive = true;
@@ -14,13 +25,13 @@ void GameEngine::GameLoop() {
 	}*/
 
 	// timer
-	auto time1 = chrono::system_clock::now();
-	auto time2 = chrono::system_clock::now();
+	auto time1 = std::chrono::system_clock::now();
+	auto time2 = std::chrono::system_clock::now();
 
 
 	// ----- Game loop -----
 	while (atomActive) {
-		time2 = chrono::system_clock::now();
+		time2 = std::chrono::system_clock::now();
 		auto duration = time2 - time1;
 		time1 = time2;
 		float elapsedTime = duration.count() / (float) 10000;  // in milliseconds
@@ -41,6 +52,11 @@ void GameEngine::GameLoop() {
 
 		// ----- Update console screen buffer -----
 		UpdateConsole();
+		
+		// ----- Log text -----
+		/*Graphic::GotToXY(1, 1);
+		std::cout << logText;*/
+
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
 	}
@@ -51,8 +67,13 @@ void GameEngine::ClearConsole() {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
 		overlappedBuffer[i] = 0;
-		collistionMatrix[i] = 0;
+		collisMatrix[i] = 0;
 	}
+
+	/*for (int i = 0; i < 460; i++) {
+		for (int j = 0; j < 240; j++) {
+		}
+	}*/
 }
 
 void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
@@ -66,7 +87,7 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 			if (screenX < 0 || screenX >= windowSize.y || screenY < 0 || screenY >= windowSize.x) continue;
 
 			// get current buffer
-			CHAR_INFO buffer = screenBuffer[screenX * windowSize.x + screenY];
+			CHAR_INFO buffer = screenBuffer[index];
 			
 			// get current pixel
 			Graphic::Pixel pixel = sprite.getPixel(i, j);
@@ -84,6 +105,23 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 		}
 		//system("pause");
 	}
+}
+
+void GameEngine::AddCollisionPoint(COORD point, int type) {
+	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return;
+
+	int index = point.Y * windowSize.x + point.X;
+	
+	if (collisMatrix[index] > type) return;
+
+	collisMatrix[index] = type;
+}
+
+int GameEngine::CheckCollisionPoint(COORD point) {
+	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return 1;
+	int index = point.Y * windowSize.x + point.X;
+
+	return collisMatrix[index];
 }
 
 void GameEngine::UpdateConsole() {
@@ -118,29 +156,29 @@ GameEngine::GameEngine() {
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
 	inputHandle = InputHandle::GetKeyBoardState();
-	
+
 	// allocate memory 
-	collistionMatrix = new int[windowSize.x * windowSize.y];
 	overlappedBuffer = new int[windowSize.x * windowSize.y];
 	screenBuffer = new CHAR_INFO[windowSize.x * windowSize.y];
-	
+	collisMatrix = new int[windowSize.x * windowSize.y];
+
 	for (int i = 0; i < windowSize.x * windowSize.y; i++) {
 		screenBuffer[i].Char.UnicodeChar = 0x2588;	// Full block
 		screenBuffer[i].Attributes = 0;
-		collistionMatrix[i] = 0;
 		overlappedBuffer[i] = 0;
+		collisMatrix[i] = 0;
 	}
 }
 
 GameEngine::~GameEngine() {
 	delete[] screenBuffer;
-	/*delete[] overlappedBuffer;*/
-	delete[] collistionMatrix;
+	delete[] overlappedBuffer;
+	delete[] collisMatrix;
 }
 
 void GameEngine::BuildConsole() {
 	// set the console window size
-	system(format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
+	system(std::format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
 
 	// set window position
 	SetWindowPos(
@@ -179,4 +217,4 @@ void GameEngine::BuildConsole() {
 }
 
 // ----- define static variables -----
-atomic<bool> GameEngine::atomActive(false);
+std::atomic<bool> GameEngine::atomActive(false);

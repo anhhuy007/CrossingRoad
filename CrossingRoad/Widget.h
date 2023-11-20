@@ -16,13 +16,14 @@
 namespace Widget {
 	class Text : public GameObject {
 		TextSequence appearance;
-		std::string text;
 		TextFont font;
-		std::vector<COORD> textPositions;
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 
 	public:
+		std::vector<COORD> textPositions;
+		std::string text;
+
 		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
@@ -37,7 +38,15 @@ namespace Widget {
 		void Update(float elapsedTime) {};
 		void Render();
 
-		// private functions
+		// behaviours
+		void setTextPosition(
+			std::string ptext, 
+			COORD pposition, 
+			int pwidth, 
+			int pheight
+		);
+
+	// private functions
 	private:
 		std::string GetNextWord(int index, std::string ptext);
 		int GetWordWidth(std::string word);
@@ -49,25 +58,27 @@ namespace Widget {
 		Button(
 			CrossingRoad* pgame,
 			std::string ptext,
-			function<void()> paction,
-			COORD pposition
+			std::function<void()> paction,
+			COORD pposition = { 0, 0 }
 		);
 
 		// behaviours
-		void OnEnter();
-		void OnChosen();
+		void OnTrigger();
+		void OnHover();
 		void OnNormal();
 
 		// overried methods
-		void Update(float ElapsedTime) {};
+		void Update(float elapsedTime) {};
 		void Render();
 
 		// attributes
 		std::vector<Image> appearance; // 0: normal, 1: chosen, 2: enter
 		Text text = Text(game);
-		function<void()> action = nullptr;	// on clicked action
+		std::function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
 	};
+
+	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
 };
 
 #endif //!WIDGET_H

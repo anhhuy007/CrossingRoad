@@ -12,6 +12,7 @@ class RoadLane : public Lane {
 	MovingDirection direction;
 	bool hasRoadMarking;
 	Graphic::Sprite roadMarkingSprite;
+	float time = 0.0f;
 
 public: 
 	RoadLane(

@@ -105,9 +105,6 @@
     <ClCompile Include="CrossingRoad.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>Source Files\Objects\Obstacles</Filter>
-    </ClCompile>
     <ClCompile Include="RoadLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
@@ -116,9 +113,6 @@
     </ClCompile>
     <ClCompile Include="WaterLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
-    </ClCompile>
-    <ClCompile Include="Rock.cpp">
-      <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>

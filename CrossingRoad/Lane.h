@@ -14,6 +14,8 @@ protected:
 public:
 	int id;
 	LaneType laneType;
+	bool isScrolling = false;
+	COORD expectedPosition;	// position after scrolling
 
 	Lane(
 		int id, 
@@ -25,6 +27,7 @@ public:
 		this->laneSprite = laneSprite;
 		this->game = game;
 		this->laneType = laneType;
+		this->expectedPosition = GetInitPosition(id);
 	};
 	
 	Lane(const Lane& lane) : GameObject(lane) {
@@ -37,6 +40,12 @@ public:
 	virtual void Update(float elapsedTime) = 0;
 	virtual void Render() = 0;
 	virtual void ScrollUp() = 0;
+	
+	// private methods
+private:
+	COORD GetInitPosition(int _id) {
+		return { 0, short(_id * 24 - 144) };
+	}
 };
 
 

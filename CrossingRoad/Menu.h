@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "GamePlayer.h"
 #include "Widget.h"
+#include "MenuWidget.h"
 
 class Menu : public CrossingRoad::GameScreen {
 public: 
@@ -21,6 +22,7 @@ public:
 	Widget::Text text = Widget::Text(game);
 	Image image;
 	Widget::Button button = Widget::Button(game);
+	MenuWidget menuWidget = MenuWidget(game);
 };
 
 #endif // !MENU_H

@@ -25,8 +25,6 @@ This class include all the functions that are used in the game, such as: manage 
 #include <chrono>
 #include <thread>
 
-using namespace std;
-
 // MY CLASS INCLUDES
 #include "Colors.h"
 #include "TextStrings.h"
@@ -58,10 +56,17 @@ public:
 	void UpdateConsole();
 	void ClearConsole();
 	void RenderSprite(Graphic::Sprite sprite, COORD position);
+
+	// ----- Collision funtions -----
+	void AddCollisionPoint(COORD point, int type);
+	int CheckCollisionPoint(COORD point);
 	
 	// ----- Must be overrided functions -----
 	virtual bool GameCreate() = 0;
 	virtual bool GameUpdate(float elapsedTime) = 0;
+
+	// ----- Additional functions -----
+	void DrawRectangle(COORD position, int width, int height, WORD color);
 
 	//// ----- Optional overrided funtions -----
 	//virtual bool GameDestroy();
@@ -70,21 +75,19 @@ public:
 
 	// ----- Properties -----
 	InputHandle* inputHandle;
-
 private:
 	void GameLoop();
-	
-protected:
 	int fontSize;
 	SMALL_RECT windowScope;
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
-	int* collistionMatrix = nullptr;
 	int* overlappedBuffer = nullptr;
-	
+	int* collisMatrix = nullptr;
+
 public: 
-	static atomic<bool> atomActive;  // true if game is running
+	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
 	int fps;
+	std::string logText;
  };
 
 #endif // _GAME_ENGINE_H_

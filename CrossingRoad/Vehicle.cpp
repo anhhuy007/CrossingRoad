@@ -12,18 +12,28 @@ Vehicle::Vehicle(
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::RaceCarLeft)
 			: Graphic::Sprite(DrawableRes::RaceCarRight);
+
+		// set collision points
+		setCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::CAR)
+		);
 	}
 	else {
 		type = VehicleType::TRUCK;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::TruckLeft)
 			: Graphic::Sprite(DrawableRes::TruckRight);
+
+		// set collision points
+		setCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::TRUCK)
+		);
 	}
 
-	setInitPosition();
+	SetInitPosition();
 	lanePos = _id;
 	movingDirection = _direction;
-	axisSpeed = GameSpeed(4, 1, 0, 0);
+	axisSpeed = GameSpeed(4, 1, -1, 2);
 	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
@@ -53,18 +63,28 @@ void Vehicle::Update(float elapsedTime) {
 
 		time = 0;
 	}
+
+	// update collision points
+	WriteCollisionPoints();
 }
 
-void Vehicle::Render() {};
-
-void Vehicle::setSprite(Graphic::Sprite _sprite) {
-	// delete old sprite
-	width = _sprite.getWidth();
-	height = _sprite.getHeight();
-	vehicleSprite = _sprite;
+void Vehicle::MoveAhead() {
+	if (movingDirection == MovingDirection::LEFT) {
+		position.X -= axisSpeed.X_HORIZONTAL;
+		position.Y -= axisSpeed.Y_HORIZONTAL;
+	}
+	else {
+		position.X += axisSpeed.X_HORIZONTAL;
+		position.Y += axisSpeed.Y_HORIZONTAL;
+	}
 }
+void Vehicle::MoveDown() {
+	position.X += axisSpeed.X_VERTICAL;
+	position.Y += axisSpeed.Y_VERTICAL;
+}
+;
 
-void Vehicle::setInitPosition() {
+void Vehicle::SetInitPosition() {
 	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
 	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
 

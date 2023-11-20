@@ -1,10 +1,10 @@
 #include "GameMap.h"
 
 bool GameMap::OnCreate() {
-	vector<AnimationSprite> spriteList;
+	std::vector<AnimationSprite> spriteList;
 	player = new GamePlayer(Player::CHICK, this->game);
 
-	this->grid = Graphic::Sprite("Grid.sprite");
+	this->grid = Graphic::Sprite("sprites//Grid.sprite");
 	grid.SetOverlapped(Overlapped::PLAYER);
 	
 	// create game lanes
@@ -29,13 +29,17 @@ bool GameMap::OnUpdate(float elapsedTime) {
 
 	Render();
 
+	// check collision
+	if (player->CheckCollision()) {
+		system("pause");
+	}
+
 	return true;
 }
 
 void GameMap::Render() {
 	game->RenderSprite(grid, {0, 0});
 
-	player->Render();
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();

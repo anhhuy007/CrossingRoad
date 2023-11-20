@@ -8,6 +8,18 @@ void WaterLane::Update(float elapsedTime) {
 		log.setInitPosition();
 		log.logSpeed = float((rand() % 3) + 1) * 0.004;	// reset new log speed
 	}
+
+	if (isScrolling) {
+		// move lane down
+		position.Y++;
+		/*vehicle.MoveAhead();
+		vehicle.MoveDown();*/
+
+		if (position.Y >= expectedPosition.Y) {
+			position.Y = expectedPosition.Y;
+			isScrolling = false;
+		}
+	}
 }
 
 void WaterLane::Render() {
@@ -16,8 +28,12 @@ void WaterLane::Render() {
 }
 
 void WaterLane::ScrollUp() {
+	/*id++;
+	position.Y += 24;*/
 	id++;
-	position.Y += 24;
+	expectedPosition.Y += 24;
+	isScrolling = true;
+
 	log.lanePos++;
 
 	int sign = log.movingDirection == MovingDirection::LEFT ? 1 : -1;

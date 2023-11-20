@@ -29,6 +29,7 @@ InputHandle* InputHandle::GetKeyBoardState() {
 		if (inputHandle_->keyNewState_[i] != inputHandle_->keyOldState_[i]) {
 			if (inputHandle_->keyNewState_[i] & 0x8000) {	// if key is pressed
 				inputHandle_->keyState_[i].isPressed = !inputHandle_->keyState_[i].isHeld; // avoid keyboard holding
+				//inputHandle_->keyState_[i].isPressed = true; // for keyboard holding
 				inputHandle_->keyState_[i].isHeld = true;
 			}
 			else {

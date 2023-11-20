@@ -1,4 +1,5 @@
 #include "GamePlayer.h"
+#include <iostream>
 
 GamePlayer::GamePlayer(
 	Player player,
@@ -12,6 +13,11 @@ GamePlayer::GamePlayer(
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(4, 1, -1, 2);
 	OnMove();
+
+	// set collision points
+	setCollisionPoints(
+		Factory::GetObjectCollisionPoints(ObjectType::PLAYER)
+	);
 }
 
 void GamePlayer::Render() {
@@ -37,8 +43,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
-			/*position.X -= speed.X_VERTICAL;
-			position.Y -= speed.Y_VERTICAL;*/
+			position.X -= speed.X_VERTICAL;
+			position.Y -= speed.Y_VERTICAL;
 			lanePos -= 1;
 			OnMove();
 		}
@@ -47,8 +53,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
-			/*position.X += speed.X_VERTICAL;
-			position.Y += speed.Y_VERTICAL;*/
+			position.X += speed.X_VERTICAL;
+			position.Y += speed.Y_VERTICAL;
 			lanePos += 1;
 			OnMove();
 		}
@@ -57,8 +63,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
-			/*position.X -= speed.X_HORIZONTAL;
-			position.Y -= speed.Y_HORIZONTAL;*/
+			position.X -= speed.X_HORIZONTAL;
+			position.Y -= speed.Y_HORIZONTAL;
 			blockPos -= 1;
 			OnMove();
 		}
@@ -67,8 +73,8 @@ void GamePlayer::Update(float elapsedTime) {
 		if (moveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
-			/*position.X += speed.X_HORIZONTAL;
-			position.Y += speed.Y_HORIZONTAL;*/
+			position.X += speed.X_HORIZONTAL;
+			position.Y += speed.Y_HORIZONTAL;
 			blockPos += 1;
 			OnMove();
 		}
@@ -146,4 +152,19 @@ bool GamePlayer::moveRight() {
 	// if (appearObstacle(position.X + 1, position.Y) return false;
 
 	return true;
+}
+
+int GamePlayer::CheckCollision() {
+	for (auto point : collisionPoints) {
+		point.first = {
+			short(point.first.X + position.X),
+			short(point.first.Y + position.Y)
+		};
+
+		int collisType = game->CheckCollisionPoint(point.first);
+
+		if (collisType != 0) return collisType;
+	}
+
+	return false;
 }
