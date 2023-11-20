@@ -33,9 +33,6 @@ public:
 		COORD blockCoord = getBlockPositionById(laneId, blockId);
 		COORD position = { 0, 0 };
 
-		/*cout << blockCoord.X << " " << blockCoord.Y << endl;
-		system("pause");*/
-
 		switch (gravity) {
 		case Gravity::TOP_LEFT:
 			position = { short(blockCoord.X), short(blockCoord.Y) };

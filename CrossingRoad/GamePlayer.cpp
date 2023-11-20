@@ -155,16 +155,16 @@ bool GamePlayer::moveRight() {
 }
 
 int GamePlayer::CheckCollision() {
+	int collisType = 0;
+
 	for (auto point : collisionPoints) {
 		point.first = {
 			short(point.first.X + position.X),
 			short(point.first.Y + position.Y)
 		};
 
-		int collisType = game->CheckCollisionPoint(point.first);
-
-		if (collisType != 0) return collisType;
+		collisType = max(collisType, game->CheckCollisionPoint(point.first));
 	}
 
-	return false;
+	return collisType;
 }

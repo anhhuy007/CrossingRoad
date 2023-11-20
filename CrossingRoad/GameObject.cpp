@@ -36,7 +36,10 @@ void GameObject::WriteCollisionPoints() {
 		};
 		int type = collisionPoints[i].second;
 		game->AddCollisionPoint(pos, type);
+
+		//std::cout << pos.X << " " << pos.Y << " " << type << std::endl;
 	}
+	//system("pause");
 }
 
 

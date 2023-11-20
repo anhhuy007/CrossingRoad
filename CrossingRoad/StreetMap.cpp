@@ -59,7 +59,7 @@ void StreetMap::CreateLanes() {
 	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
-	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
+	/*Lane* lane = new WaterLane(7, game, waterlane);
 	lanes.push_back(lane);*/
 
 	for (int i = 0; i < MAXLANE; i++) {

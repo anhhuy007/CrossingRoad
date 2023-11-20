@@ -30,7 +30,8 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	Render();
 
 	// check collision
-	if (player->CheckCollision()) {
+	int collisType = player->CheckCollision();
+	if (collisType != 0 && collisType != 5) {
 		system("pause");
 	}
 
