@@ -17,6 +17,7 @@ public:
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
 
+	// declare UI components
 	Animation meow;
 	GamePlayer* chick = nullptr;
 	Widget::Text text = Widget::Text(game);

@@ -33,7 +33,6 @@ bool Menu::OnCreate() {
 		RGB(101,166,255), 
 		RGB(153,152,154)
 	};
-
 	COLOR::SetConsoleColor(colors);
 
 	// declaration
@@ -95,6 +94,7 @@ bool Menu::OnUpdate(float elapsedTime) {
 	game->RenderSprite(image, { 0, 0 });
 	//meow.OnPlay(elapsedTime);
 
+	// render menu widget
 	menuWidget.Update(elapsedTime);
 
 	return true;

@@ -54,8 +54,8 @@ void GameEngine::GameLoop() {
 		UpdateConsole();
 		
 		// ----- Log text -----
-		/*Graphic::GotToXY(1, 1);
-		std::cout << logText;*/
+		Graphic::GotToXY(1, 1);
+		std::cout << logText << std::endl;;
 
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();

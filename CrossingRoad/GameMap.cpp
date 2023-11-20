@@ -17,10 +17,10 @@ bool GameMap::OnCreate() {
 bool GameMap::OnUpdate(float elapsedTime) {
 	totalTime += elapsedTime;
 
-	player->Update(elapsedTime);
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Update(elapsedTime);
 	}
+	player->Update(elapsedTime);
 
 	/*if (player->lanePos == 8) {
 		ScrollUp();
@@ -28,12 +28,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	}*/
 
 	Render();
-
-	// check collision
-	int collisType = player->CheckCollision();
-	if (collisType != 0 && collisType != 5) {
-		system("pause");
-	}
+	HandlePlayerCollision();
 
 	return true;
 }
@@ -45,4 +40,8 @@ void GameMap::Render() {
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();
 	}
+}
+
+void GameMap::HandlePlayerCollision() {
+
 }

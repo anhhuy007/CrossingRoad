@@ -122,36 +122,92 @@ bool GamePlayer::moveUp() {
 	if (position.Y <= GameScreenLimit::TOP) return false;
 
 	// check obstacle ahead
-	// if (appearObstacle(position.X, position.Y - 1) return false;
+	position = Alignment::getAlignedPosition(
+		lanePos - 1,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
 
-	return true;
+	int check = CheckCollision();
+
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
+
+	return (check != 3);
 }
 
 bool GamePlayer::moveDown() {
 	if (position.Y + height >= GameScreenLimit::BOTTOM) return false;
 
 	// check obstacle ahead
-	// if (appearObstacle(position.X, position.Y + 1) return false;
+	position = Alignment::getAlignedPosition(
+		lanePos + 1,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
 
-	return true;
+	int check = CheckCollision();
+
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
+
+	return (check != 3);
 }
 
 bool GamePlayer::moveLeft() {
 	if (position.X <= GameScreenLimit::LEFT) return false;
 
 	// check obstacle ahead
-	// if (appearObstacle(position.X - 1, position.Y) return false;
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos - 1,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
 
-	return true;
+	int check = CheckCollision();
+
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
+
+	return (check != 3);
 }
 
 bool GamePlayer::moveRight() {
 	if (position.X + width >= GameScreenLimit::RIGHT) return false;
 
 	// check obstacle ahead
-	// if (appearObstacle(position.X + 1, position.Y) return false;
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos + 1,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
 
-	return true;
+	int check = CheckCollision();
+
+	position = Alignment::getAlignedPosition(
+		lanePos,
+		blockPos,
+		{ 0, -2 },
+		Gravity::CENTRALLY_ALIGNED
+	);
+
+	return (check != 3);
 }
 
 int GamePlayer::CheckCollision() {
@@ -163,7 +219,8 @@ int GamePlayer::CheckCollision() {
 			short(point.first.Y + position.Y)
 		};
 
-		collisType = max(collisType, game->CheckCollisionPoint(point.first));
+		int temp = game->CheckCollisionPoint(point.first);
+		collisType = max(collisType, temp);
 	}
 
 	return collisType;

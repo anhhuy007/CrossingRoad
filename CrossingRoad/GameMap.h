@@ -40,6 +40,7 @@ public:
 
 	// methods
 	void Render();
+	void HandlePlayerCollision();
 };
 
 
