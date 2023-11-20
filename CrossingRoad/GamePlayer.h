@@ -27,6 +27,7 @@ class GamePlayer : public GameObject {
 	PlayerState state = PlayerState::STATE_ALIVE;
 	std::vector<AnimationSprite> animationSprite;
 	GameSpeed speed;
+	GameSpeed axisSpeed;
 	float totalTime = 0;
 
 public:
@@ -39,12 +40,19 @@ public:
 	void Update(float elapsedTime);
 	void Render();
 	void OnMove();
-	bool moveUp();
-	bool moveDown();
-	bool moveLeft();
-	bool moveRight();
+
+	// check collision
+	bool MoveUp();
+	bool MoveDown();
+	bool MoveLeft();
+	bool MoveRight();
 
 	int CheckCollision();
+	void MoveHorizontal(
+		float elapsedTime,
+		float timeSpeed,
+		MovingDirection direction
+	);
 
 	// attributes
 	int lanePos;

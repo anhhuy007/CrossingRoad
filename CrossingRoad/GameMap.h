@@ -7,6 +7,7 @@
 #include "CrossingRoad.h"
 #include "GamePlayer.h"
 #include "Lane.h"
+#include "Log.h"
 
 // ----- standard libs include -----
 #include <vector>
@@ -40,7 +41,8 @@ public:
 
 	// methods
 	void Render();
-	void HandlePlayerCollision();
+	void HandlePlayerCollision(float elapsedTime);
+	Log GetLogByLaneId(int laneId);
 };
 
 

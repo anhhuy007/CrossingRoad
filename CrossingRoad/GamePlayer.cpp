@@ -8,10 +8,11 @@ GamePlayer::GamePlayer(
 	// initial player position
 	lanePos = 11;
 	blockPos = 8;
-
+	position = { 135, 171 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
-	speed = GameSpeed(4, 1, -1, 2);
+	speed = GameSpeed(24, 6, -11, 21);
+	axisSpeed = GameSpeed(4, 1, -1, 2);
 	OnMove();
 
 	// set collision points
@@ -40,172 +41,131 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 
 void GamePlayer::Update(float elapsedTime) {
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-		if (moveUp()) {		// if GamePlayer can move up
+		if (MoveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
-			position.X -= speed.X_VERTICAL;
-			position.Y -= speed.Y_VERTICAL;
-			lanePos -= 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-		if (moveDown()) {		// if GamePlayer can move down
+		if (MoveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
-			position.X += speed.X_VERTICAL;
-			position.Y += speed.Y_VERTICAL;
-			lanePos += 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
-		if (moveLeft()) {		// if GamePlayer can move left
+		if (MoveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
-			position.X -= speed.X_HORIZONTAL;
-			position.Y -= speed.Y_HORIZONTAL;
-			blockPos -= 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
-		if (moveRight()) {	// if GamePlayer can move right
+		if (MoveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
-			position.X += speed.X_HORIZONTAL;
-			position.Y += speed.Y_HORIZONTAL;
-			blockPos += 1;
+
+			// animation
 			OnMove();
 		}
 	}
 }
 
 void GamePlayer::OnMove() {
-	position = Alignment::getAlignedPosition(
-		lanePos, 
-		blockPos, 
-		{ 0, -2 }, 
-		Gravity::CENTRALLY_ALIGNED
-	);
-	
-	// get jumping direction
-	/*AnimationState tempAnimation = animationState; 
-	COORD tempPosition = position;*/
+	switch (movingDirection) {
+	case MovingDirection::UP:
+		position.X -= speed.X_VERTICAL;
+		position.Y -= speed.Y_VERTICAL;
+		if (lanePos % 3 == 1) {
+			position.X -= 1;
+			position.Y -= 1;
+		}
+		lanePos -= 1;
 
-	//switch (movingDirection) {
-	//case MovingDirection::UP:
-	//	animationState = AnimationState::JUMP_AHEAD;
-	//	//position.Y -= 10;
-	//	break;
+		break;
 
-	//case MovingDirection::LEFT:
-	//	animationState = AnimationState::JUMP_LEFT;
-	//	break;
+	case MovingDirection::LEFT:
+		position.X -= speed.X_HORIZONTAL;
+		position.Y -= speed.Y_HORIZONTAL;
+		blockPos -= 1;
 
-	//case MovingDirection::RIGHT:
-	//	animationState = AnimationState::JUMP_RIGHT;
-	//	break;
+		break;
 
-	//case MovingDirection::DOWN:
-	//	animationState = AnimationState::JUMP_BACK;
-	//	break;
-	//}
+	case MovingDirection::RIGHT:
+		position.X += speed.X_HORIZONTAL;
+		position.Y += speed.Y_HORIZONTAL;
+		blockPos += 1;
 
-	//Render();
-	//animationState = tempAnimation;
-	//position = tempPosition;
-	Render();
+		break;
+
+	case MovingDirection::DOWN:
+		position.X += speed.X_VERTICAL;
+		position.Y += speed.Y_VERTICAL;
+		if (lanePos % 3 == 0) {
+			position.X += 1;
+			position.Y += 1;
+		}
+		lanePos += 1;
+
+		break;
+	}
 }
 
-bool GamePlayer::moveUp() {
+bool GamePlayer::MoveUp() {
 	if (position.Y <= GameScreenLimit::TOP) return false;
 
-	// check obstacle ahead
-	position = Alignment::getAlignedPosition(
-		lanePos - 1,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
-
+	movingDirection = MovingDirection::UP;
+	OnMove();
 	int check = CheckCollision();
 
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
+	movingDirection = MovingDirection::DOWN;
+	OnMove();
 
 	return (check != 3);
 }
 
-bool GamePlayer::moveDown() {
+bool GamePlayer::MoveDown() {
 	if (position.Y + height >= GameScreenLimit::BOTTOM) return false;
 
-	// check obstacle ahead
-	position = Alignment::getAlignedPosition(
-		lanePos + 1,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
-
+	movingDirection = MovingDirection::DOWN;
+	OnMove();
 	int check = CheckCollision();
 
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
+	movingDirection = MovingDirection::UP;
+	OnMove();
 
 	return (check != 3);
 }
 
-bool GamePlayer::moveLeft() {
+bool GamePlayer::MoveLeft() {
 	if (position.X <= GameScreenLimit::LEFT) return false;
 
-	// check obstacle ahead
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos - 1,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
-
+	movingDirection = MovingDirection::LEFT;
+	OnMove();
 	int check = CheckCollision();
 
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
+	movingDirection = MovingDirection::RIGHT;
+	OnMove();
 
 	return (check != 3);
 }
 
-bool GamePlayer::moveRight() {
+bool GamePlayer::MoveRight() {
 	if (position.X + width >= GameScreenLimit::RIGHT) return false;
 
-	// check obstacle ahead
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos + 1,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
-
+	movingDirection = MovingDirection::RIGHT;
+	OnMove();
 	int check = CheckCollision();
 
-	position = Alignment::getAlignedPosition(
-		lanePos,
-		blockPos,
-		{ 0, -2 },
-		Gravity::CENTRALLY_ALIGNED
-	);
+	movingDirection = MovingDirection::LEFT;
+	OnMove();
 
 	return (check != 3);
 }
@@ -224,4 +184,28 @@ int GamePlayer::CheckCollision() {
 	}
 
 	return collisType;
+}
+
+void GamePlayer::MoveHorizontal(
+	float elapsedTime, 
+	float timeSpeed, 
+	MovingDirection direction
+) {
+	totalTime += (elapsedTime / 10000);
+
+	if (totalTime > timeSpeed) {
+		totalTime = 0;
+		switch (direction) {
+		case MovingDirection::LEFT:
+			position.X -= axisSpeed.X_HORIZONTAL;
+			position.Y -= axisSpeed.Y_HORIZONTAL;
+
+			break;
+		case MovingDirection::RIGHT:
+			position.X += axisSpeed.X_HORIZONTAL;
+			position.Y += axisSpeed.Y_HORIZONTAL;
+
+			break;
+		}
+	}
 }

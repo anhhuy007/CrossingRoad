@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include "WaterLane.h"
 
 bool GameMap::OnCreate() {
 	std::vector<AnimationSprite> spriteList;
@@ -26,9 +27,8 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		ScrollUp();
 		player->lanePos += 1;
 	}*/
-
+	HandlePlayerCollision(elapsedTime);
 	Render();
-	HandlePlayerCollision();
 
 	return true;
 }
@@ -42,6 +42,31 @@ void GameMap::Render() {
 	}
 }
 
-void GameMap::HandlePlayerCollision() {
+void GameMap::HandlePlayerCollision(float elapsedTime) {
+	int collisType = player->CheckCollision();
 
+	COORD pos = player->getPosition();
+
+	if (collisType == 5) {
+		// player is on floating object
+		Log log = GetLogByLaneId(player->lanePos + 1);
+		float logSpeed = log.logSpeed;
+		MovingDirection logDirection = log.movingDirection;
+
+		player->MoveHorizontal(
+			elapsedTime, 
+			logSpeed, 
+			logDirection
+		);
+	}
+}
+
+Log GameMap::GetLogByLaneId(int laneId) {
+	if (laneId >= 0 && laneId < lanes.size()) {
+		WaterLane* lane = dynamic_cast<WaterLane*>(lanes[laneId]);
+
+		return lane->log;
+	}
+
+	return Log();
 }

@@ -15,6 +15,11 @@ public:
 		int _id,
 		MovingDirection _direction = MovingDirection::LEFT
 	);
+	Log(const Log& other) : GameObject(other.game) {
+		lanePos = other.lanePos;
+		logSpeed = other.logSpeed;
+		movingDirection = other.movingDirection;
+	};
 
 	void setSprite(Graphic::Sprite _sprite);
 	void setInitPosition();
