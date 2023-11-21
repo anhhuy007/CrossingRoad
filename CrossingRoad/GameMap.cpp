@@ -24,7 +24,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	HandlePlayerCollision(elapsedTime);
 	Render();
 
-	if (player->lanePos == 8) {
+	if (player->lanePos == 6) {
 		ScrollUp();
 		player->MoveDown();
 	}

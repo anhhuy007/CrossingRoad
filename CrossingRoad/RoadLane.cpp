@@ -7,6 +7,13 @@ void RoadLane::Update(float elapsedTime) {
 		vehicle.SetInitPosition();
 		vehicle.vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	}
+
+	//if (position.Y < expectedPosition.Y) {
+	//	position.Y += 2;
+
+	//	// move vehicle down
+	//	vehicle.MoveDown();
+	//}
 }
 
 void RoadLane::Render() {
@@ -27,5 +34,6 @@ void RoadLane::Render() {
 void RoadLane::ScrollUp() {
 	id++;
 	position.Y += 24;
+	expectedPosition.Y += 24;
 	vehicle.MoveDown();
 }

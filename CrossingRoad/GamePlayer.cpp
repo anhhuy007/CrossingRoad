@@ -212,6 +212,11 @@ void GamePlayer::MoveHorizontal(
 	totalTime += (elapsedTime / 10000);
 
 	if (totalTime > timeSpeed) {
+		if (!ValidPosition()) {
+			animationState = AnimationState::DROWN;
+			return;
+		}
+
 		totalTime = 0;
 		switch (direction) {
 		case MovingDirection::LEFT:

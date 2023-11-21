@@ -86,6 +86,20 @@ void Vehicle::MoveDown() {
 		position.Y += 1;
 	}
 	lanePos += 1;
+
+	/*position.X -= 1;
+	position.Y += 2;
+	
+	if (position.Y % 24 == 0) {
+		lanePos += 1;
+		position.X += 1;
+		position.Y -= 5;
+	}
+
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}*/
 }
 ;
 
