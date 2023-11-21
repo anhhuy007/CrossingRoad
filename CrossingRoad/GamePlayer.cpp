@@ -6,9 +6,9 @@ GamePlayer::GamePlayer(
 	CrossingRoad* game
 ) : GameObject({ 0, 0 }, game) {
 	// initial player position
-	lanePos = 11;
-	blockPos = 8;
-	position = { 135, 171 };
+	lanePos = 14;
+	blockPos = 5;
+	position = { 31, 217 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(24, 6, -11, 21);
