@@ -41,6 +41,7 @@ namespace DrawableRes {
 	const std::string animationSprite3 = "Animation3.sprite";
 	const std::string animationSprite4 = "Animation4.sprite";
 	const std::string animationSprite5 = "Animation5.sprite";
+	const std::string animationSprite6 = "Animation6.sprite";
 
 	// button sprites
 	const std::string normalButton = "widgets\\NormalButton.sprite";

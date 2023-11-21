@@ -28,7 +28,8 @@ enum class AnimationState {
 	TURN_LEFT = 1,
 	TURN_RIGHT = 2, 
 	TURN_BACK = 3,
-	DEAD = 4
+	DEAD = 4,
+	DROWN = 5
 };
 
 enum class MovingDirection {

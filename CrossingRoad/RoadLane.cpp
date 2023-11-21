@@ -5,7 +5,7 @@ void RoadLane::Update(float elapsedTime) {
 	if (vehicle.endOfRoad == true) {
 		vehicle.endOfRoad = false;
 		vehicle.SetInitPosition();
-		vehicle.vehicleSpeed = float((rand() % 3) + 1) * 0.004;
+		vehicle.vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	}
 
 	if (isScrolling) {

@@ -2,14 +2,15 @@
 
 std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 	std::vector<AnimationSprite> ans;
-	int numberOfAnimations = 5;
+	int numberOfAnimations = 6;
 
 	std::vector<AnimationState> animations = {
 		AnimationState::NORMAL,
 		AnimationState::TURN_LEFT,
 		AnimationState::TURN_RIGHT,
 		AnimationState::TURN_BACK,
-		AnimationState::DEAD
+		AnimationState::DEAD,
+		AnimationState::DROWN
 	};
 
 	std::vector<std::string> spriteFiles = {
@@ -17,21 +18,30 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 			DrawableRes::animationSprite2,
 			DrawableRes::animationSprite3,
 			DrawableRes::animationSprite4,
-			DrawableRes::animationSprite5
+			DrawableRes::animationSprite5,
+			DrawableRes::animationSprite6
 	};
 
 	std::string folder = "";
 
 	// get player sprite folder
 	switch (player) {
+
 	case Player::CHICK:
 		folder = "Chick\\";
+
 		break;
+
+	case Player::DUCKY:
+		folder = "Ducky\\";
+
+		break;
+
 	default:
 		break;
 	}
 
-	for (int i = 0; i < numberOfAnimations; i++) {
+	for (int i = 0; i < animations.size(); i++) {
 		std::string spritePath = DrawableRes::spriteFolder + folder + spriteFiles[i];
 		ans.push_back(
 			AnimationSprite(
@@ -144,7 +154,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points = GetPointsOnLine(
 			{ 1, 13 },
 			{ 461, 128 },
-			2,
+			4,
 			true
 		);
 

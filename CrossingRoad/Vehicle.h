@@ -28,7 +28,7 @@ public:
 
 	bool endOfRoad = false;
 	Graphic::Sprite vehicleSprite;
-	float vehicleSpeed = 0.01f;
+	float vehicleSpeed;
 	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;

@@ -34,7 +34,7 @@ Vehicle::Vehicle(
 	lanePos = _id;
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -1, 2);
-	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
+	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);

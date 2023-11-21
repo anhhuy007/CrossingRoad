@@ -8,7 +8,7 @@ GamePlayer::GamePlayer(
 	// initial player position
 	lanePos = 11;
 	blockPos = 8;
-	position = { 132, 173 };
+	position = { 135, 171 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(24, 6, -11, 21);
