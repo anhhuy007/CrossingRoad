@@ -3,7 +3,7 @@
 
 bool GameMap::OnCreate() {
 	player = new GamePlayer(Player::CHICK, game);
-	//portal = Graphic::Sprite(DrawableRes::Portal, Overlapped::OBSTACLE);
+	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
 	
 	// create game lanes
@@ -18,10 +18,21 @@ bool GameMap::OnCreate() {
 bool GameMap::OnUpdate(float elapsedTime) {
 	totalTime += elapsedTime;
 
+	// update lanes and player position
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Update(elapsedTime);
 	}
-	player->Update(elapsedTime);
+
+	// disable player moving above lane containing portal
+	if (portal.lanePos != 9 || 
+		player->lanePos != 7 || 
+		!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
+	) {
+		player->Update(elapsedTime);
+	}
+
+	// check for game collision
+	if (portal.lanePos == 9) portal.WriteCollisionPoints();
 	HandlePlayerCollision(elapsedTime);
 
 	// update score
@@ -34,9 +45,11 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	// display game 
 	Render();
 
-	if (player->lanePos == 6) {
+	// handle map scrolling up
+	if (playerPos == 6 && portal.lanePos != 9) {
 		ScrollUp();
 		player->MoveDown();
+		portal.MoveDown();
 		maxIndex++;
 	}
 
@@ -47,6 +60,7 @@ void GameMap::Render() {
 	//game->RenderSprite(grid, {0, 0});
 	//game->RenderSprite(portal, { 0, 0 });
 	for (int i = 0; i < lanes.size(); i++) {
+		if (portal.lanePos == i) portal.Render();
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();
 	}
@@ -92,6 +106,11 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 		else {
 			player->animationState = AnimationState::DEAD;
 		}
+	}
+	else if (collisType == 6) {
+		// player hit the portal
+		system("pause");
+		CrossingRoad::Navigation::To(new Menu(game));
 	}
 }
 

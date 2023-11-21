@@ -125,7 +125,8 @@ enum class ObjectType {
 	WATER,
 	FLOATING_OBJECT_1, // small log
 	FLOATING_OBJECT_2, // big log
-	ITEM
+	ITEM,
+	PORTAL
 };
 
 struct GameSpeed {

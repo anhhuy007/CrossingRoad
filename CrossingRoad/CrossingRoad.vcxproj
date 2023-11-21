@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StreetMap.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuWidget.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="RoadLane.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Sound.h" />

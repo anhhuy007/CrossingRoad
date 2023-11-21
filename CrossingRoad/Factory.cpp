@@ -66,6 +66,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		3: tree, rock, bush
 		4: car, truck, water 
 		5: floating object	
+		6: portal
 	*/
 	std::vector<CollisionPoint> points;
 
@@ -181,6 +182,16 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 
 		break;
 	case ObjectType::ITEM:
+		break;
+
+	case ObjectType::PORTAL:
+		points = GetPointsOnLine(
+			{ 18, 73 },
+			{ 49, 80 },
+			6,
+			true
+		);
+
 		break;
 	default:
 		break;
