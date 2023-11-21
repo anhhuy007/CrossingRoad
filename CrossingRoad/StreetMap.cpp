@@ -75,6 +75,11 @@ void StreetMap::ScrollUp() {
 		lanes[i]->ScrollUp();
 	}
 	lanes.insert(lanes.begin(), GetNewLane(0, LaneType::GRASS));
+
+	if (lanes[0]->laneType == LaneType::ROAD && lanes[1]->laneType == LaneType::ROAD) {
+		RoadLane* roadlane = dynamic_cast<RoadLane*>(lanes[1]);
+		roadlane->hasRoadMarking = true;
+	}
 }
 
 Graphic::Sprite grasslane = Graphic::Sprite(DrawableRes::GrassLane);

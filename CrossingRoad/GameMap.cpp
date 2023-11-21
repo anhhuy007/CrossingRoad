@@ -9,6 +9,8 @@ bool GameMap::OnCreate() {
 	// create game lanes
 	CreateLanes();
 	SetScreenColor();
+
+	maxIndex = 14;
 	
 	return true;
 }
@@ -20,13 +22,22 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		lanes[i]->Update(elapsedTime);
 	}
 	player->Update(elapsedTime);
-
 	HandlePlayerCollision(elapsedTime);
+
+	// update score
+	int playerPos = player->lanePos;
+	if (playerPos < maxIndex) {
+		maxIndex = playerPos;
+		score++;
+	}
+
+	// display game 
 	Render();
 
 	if (player->lanePos == 6) {
 		ScrollUp();
 		player->MoveDown();
+		maxIndex++;
 	}
 
 	return true;
@@ -39,6 +50,17 @@ void GameMap::Render() {
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();
 	}
+
+	std::string playerScore = std::to_string(score);
+	Widget::Text textScore = Widget::Text(
+		game,
+		playerScore,
+		{ 440, 9 },
+		30, 30,
+		TextFont::NORMAL
+	);
+
+	textScore.Render();
 }
 
 void GameMap::HandlePlayerCollision(float elapsedTime) {
