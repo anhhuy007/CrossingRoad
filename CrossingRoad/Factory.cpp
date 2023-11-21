@@ -162,7 +162,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::FLOATING_OBJECT_1:
 		points = GetPointsOnLine(
 			{ 11, 8 },
-			{ 90, 27 },
+			{ 94, 28 },
 			5,
 			true
 		);
@@ -171,7 +171,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::FLOATING_OBJECT_2:
 		points = GetPointsOnLine(
 			{ 11, 8 },
-			{ 61, 20 },
+			{ 69, 22 },
 			5,
 			true
 		);

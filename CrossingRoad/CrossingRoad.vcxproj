@@ -147,6 +147,7 @@
     <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StreetMap.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="WaterLane.cpp" />
     <ClCompile Include="Widget.cpp" />

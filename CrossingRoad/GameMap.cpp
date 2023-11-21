@@ -3,7 +3,7 @@
 
 bool GameMap::OnCreate() {
 	std::vector<AnimationSprite> spriteList;
-	player = new GamePlayer(Player::CHICK, this->game);
+	player = new GamePlayer(Player::DUCKY, this->game);
 
 	this->grid = Graphic::Sprite("sprites//Grid.sprite");
 	grid.SetOverlapped(Overlapped::PLAYER);
@@ -23,18 +23,19 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	}
 	player->Update(elapsedTime);
 
+	HandlePlayerCollision(elapsedTime);
+	Render();
+
 	/*if (player->lanePos == 8) {
 		ScrollUp();
 		player->lanePos += 1;
 	}*/
-	HandlePlayerCollision(elapsedTime);
-	Render();
 
 	return true;
 }
 
 void GameMap::Render() {
-	game->RenderSprite(grid, {0, 0});
+	//game->RenderSprite(grid, {0, 0});
 
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
@@ -62,13 +63,12 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	else if (collisType == 4) {
 		// player is on water
 		if (lanes[player->lanePos + 1]->laneType == LaneType::WATER) {
-			//player->animationState = AnimationState::DROWN;
-			system("pause");
+			player->animationState = AnimationState::DROWN;
+			//system("pause");
 		}
 		// player is hit by car
 		else {
 			player->animationState = AnimationState::DEAD;
-			//system("pause");
 		}
 	}
 }

@@ -8,49 +8,20 @@
 
 class Tree : public GameObject {
 public: 
+	// ----- behaviors -----
+	Tree(CrossingRoad* game, int laneId);
+	
+	void Update(float elapsedTime) {};
+	void Render() {};
+
+	void MoveDown();
+
+	// ----- properties -----
+	GameSpeed axisSpeed = GameSpeed(24, 6, -11, 21);
 	Graphic::Sprite treeSprite;
 	TreeType treeType;
 	int lanePos;
 	int blockPos;
-
-	Tree(CrossingRoad* game, int laneId) : GameObject(game) {
-		int randomNumber = rand() % 20;
-
-		lanePos = laneId;
-		blockPos = randomNumber;
-
-		if (randomNumber % 2) {
-			treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
-			position = Alignment::getAlignedPosition(
-				laneId, 
-				randomNumber, 
-				{ 10, 40 }, 
-				Gravity::CENTRALLY_ALIGNED
-			);
-			treeType = TreeType::SMALL_TREE;
-			width = 25;
-			height = 42;
-			collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_1);
-		}
-		else {
-			treeSprite = Graphic::Sprite(DrawableRes::BigTree);
-			position = Alignment::getAlignedPosition(
-				laneId, 
-				randomNumber, 
-				{ 26, 63 }, 
-				Gravity::BOTTOM_CENTER
-			);
-			treeType = TreeType::BIG_TREE;
-			width = 45;
-			height = 57;
-			collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_2);
-		}
-
-		treeSprite.SetOverlapped(Overlapped::OBSTACLE);
-	};
-	
-	void Update(float elapsedTime) {};
-	void Render() {};
 };
 
 #endif // !TREE_H

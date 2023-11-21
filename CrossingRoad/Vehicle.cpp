@@ -33,7 +33,7 @@ Vehicle::Vehicle(
 	SetInitPosition();
 	lanePos = _id;
 	movingDirection = _direction;
-	axisSpeed = GameSpeed(4, 1, -1, 2);
+	axisSpeed = GameSpeed(4, 1, -11, 21);
 	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
@@ -81,6 +81,11 @@ void Vehicle::MoveAhead() {
 void Vehicle::MoveDown() {
 	position.X += axisSpeed.X_VERTICAL;
 	position.Y += axisSpeed.Y_VERTICAL;
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}
+	lanePos += 1;
 }
 ;
 

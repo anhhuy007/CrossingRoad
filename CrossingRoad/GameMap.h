@@ -14,7 +14,6 @@
 #include <string>
 
 class GameMap : public CrossingRoad::GameScreen {
-
 protected: 
 	int level = 0;
 	int score = 0;
