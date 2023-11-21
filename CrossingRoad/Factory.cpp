@@ -51,6 +51,9 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 		);
 	}
 
+	// drown animation will be overlapped by log
+	ans[ans.size() - 1].sprite.SetOverlapped(Overlapped::DECORATOR);
+
 	return ans;
 }
 

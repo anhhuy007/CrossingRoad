@@ -49,6 +49,8 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	COORD pos = player->getPosition();
 
 	if (collisType == 5) {
+		if (player->animationState == AnimationState::DROWN) return;
+
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
 		float logSpeed = log.logSpeed;

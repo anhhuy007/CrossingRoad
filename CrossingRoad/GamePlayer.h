@@ -49,6 +49,7 @@ public:
 	bool MoveDown();
 	bool MoveLeft();
 	bool MoveRight();
+	bool ValidPosition();
 
 	int CheckCollision();
 	void MoveHorizontal(

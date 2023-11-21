@@ -40,7 +40,8 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
-	if (animationState == AnimationState::DEAD) return;
+	/*if (animationState == AnimationState::DEAD ||
+		animationState == AnimationState::DROWN) return;*/
 
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		if (MoveUp()) {		// if GamePlayer can move up
@@ -121,55 +122,63 @@ void GamePlayer::OnMove() {
 }
 
 bool GamePlayer::MoveUp() {
-	if (position.Y <= GameScreenLimit::TOP) return false;
-
 	movingDirection = MovingDirection::UP;
+
 	OnMove();
 	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
 	movingDirection = MovingDirection::DOWN;
 	OnMove();
 
-	return (check != 3);
+	return (check != 3 && validPos);
 }
 
 bool GamePlayer::MoveDown() {
-	if (position.Y + height >= GameScreenLimit::BOTTOM) return false;
-
 	movingDirection = MovingDirection::DOWN;
+
 	OnMove();
 	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
 	movingDirection = MovingDirection::UP;
 	OnMove();
 
-	return (check != 3);
+	return (check != 3 && validPos);
 }
 
 bool GamePlayer::MoveLeft() {
-	if (position.X <= GameScreenLimit::LEFT) return false;
-
 	movingDirection = MovingDirection::LEFT;
 	OnMove();
+
 	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
 	movingDirection = MovingDirection::RIGHT;
 	OnMove();
 
-	return (check != 3);
+	return (check != 3 && validPos);
 }
 
 bool GamePlayer::MoveRight() {
-	if (position.X + width >= GameScreenLimit::RIGHT) return false;
-
 	movingDirection = MovingDirection::RIGHT;
 	OnMove();
+
 	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
 	movingDirection = MovingDirection::LEFT;
 	OnMove();
 
-	return (check != 3);
+	return (check != 3 && validPos);
+}
+
+bool GamePlayer::ValidPosition() {
+	return (position.X >= GameScreenLimit::LEFT &&
+			position.X + width <= GameScreenLimit::RIGHT &&
+			position.Y >= GameScreenLimit::TOP &&
+			position.Y + height <= GameScreenLimit::BOTTOM
+		);
 }
 
 int GamePlayer::CheckCollision() {
