@@ -177,8 +177,7 @@ GameEngine::~GameEngine() {
 }
 
 void GameEngine::BuildConsole() {
-	// set the console window size
-	system(std::format("MODE CON COLS={} LINES={}", windowSize.x, windowSize.y / 2).c_str());
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	// set window position
 	SetWindowPos(
@@ -197,12 +196,27 @@ void GameEngine::BuildConsole() {
 		GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX
 	);
 
-	// lock buffer size
-	SetConsoleScreenBufferSize(
-		GetStdHandle(STD_OUTPUT_HANDLE), 
-		{ short(windowSize.x), short(windowSize.y) }
-	);
-	
+
+	// set the window size
+	SetConsoleWindowInfo(hOut, 1, &windowScope);
+
+	// set the screen buffer size
+	CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;
+    GetConsoleScreenBufferInfo(hOut, &scrBufferInfo);
+    short winHeight = scrBufferInfo.srWindow.Bottom - scrBufferInfo.srWindow.Top + 1;
+    short scrBufferWidth = scrBufferInfo.dwSize.X;
+	COORD newSize = { scrBufferWidth, winHeight };
+	SetConsoleScreenBufferSize(hOut, newSize);
+
+	// diable the cursor
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(hOut, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(hOut, &cursorInfo);
+
+	// diable selection
+	HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
+	SetConsoleMode(hIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
 
 	// set the font size
 	CONSOLE_FONT_INFOEX cfi;
