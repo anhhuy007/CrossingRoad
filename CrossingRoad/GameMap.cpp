@@ -2,11 +2,9 @@
 #include "WaterLane.h"
 
 bool GameMap::OnCreate() {
-	std::vector<AnimationSprite> spriteList;
-	player = new GamePlayer(Player::DUCKY, this->game);
-
-	this->grid = Graphic::Sprite("sprites//Grid.sprite");
-	grid.SetOverlapped(Overlapped::PLAYER);
+	player = new GamePlayer(Player::CHICK, game);
+	//portal = Graphic::Sprite(DrawableRes::Portal, Overlapped::OBSTACLE);
+	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
 	
 	// create game lanes
 	CreateLanes();
@@ -26,17 +24,17 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	HandlePlayerCollision(elapsedTime);
 	Render();
 
-	/*if (player->lanePos == 8) {
+	if (player->lanePos == 8) {
 		ScrollUp();
-		player->lanePos += 1;
-	}*/
+		player->MoveDown();
+	}
 
 	return true;
 }
 
 void GameMap::Render() {
 	//game->RenderSprite(grid, {0, 0});
-
+	//game->RenderSprite(portal, { 0, 0 });
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();

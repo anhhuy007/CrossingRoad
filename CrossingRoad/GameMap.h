@@ -21,6 +21,7 @@ protected:
 	int playerIndex = 0;
 	float totalTime = 0.0f;
 	std::vector<Lane*> lanes;
+	Graphic::Sprite portal;
 	
 	GamePlayer* player = nullptr;
 	Graphic::Sprite grid;

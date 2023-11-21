@@ -44,7 +44,7 @@ void GamePlayer::Update(float elapsedTime) {
 		animationState == AnimationState::DROWN) return;*/
 
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-		if (MoveUp()) {		// if GamePlayer can move up
+		if (CheckMoveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
 
@@ -53,7 +53,7 @@ void GamePlayer::Update(float elapsedTime) {
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-		if (MoveDown()) {		// if GamePlayer can move down
+		if (CheckMoveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
 
@@ -62,7 +62,7 @@ void GamePlayer::Update(float elapsedTime) {
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
-		if (MoveLeft()) {		// if GamePlayer can move left
+		if (CheckMoveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
 
@@ -71,7 +71,7 @@ void GamePlayer::Update(float elapsedTime) {
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
-		if (MoveRight()) {	// if GamePlayer can move right
+		if (CheckMoveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
 
@@ -121,7 +121,7 @@ void GamePlayer::OnMove() {
 	}
 }
 
-bool GamePlayer::MoveUp() {
+bool GamePlayer::CheckMoveUp() {
 	movingDirection = MovingDirection::UP;
 
 	OnMove();
@@ -134,7 +134,7 @@ bool GamePlayer::MoveUp() {
 	return (check != 3 && validPos);
 }
 
-bool GamePlayer::MoveDown() {
+bool GamePlayer::CheckMoveDown() {
 	movingDirection = MovingDirection::DOWN;
 
 	OnMove();
@@ -147,7 +147,7 @@ bool GamePlayer::MoveDown() {
 	return (check != 3 && validPos);
 }
 
-bool GamePlayer::MoveLeft() {
+bool GamePlayer::CheckMoveLeft() {
 	movingDirection = MovingDirection::LEFT;
 	OnMove();
 
@@ -160,7 +160,7 @@ bool GamePlayer::MoveLeft() {
 	return (check != 3 && validPos);
 }
 
-bool GamePlayer::MoveRight() {
+bool GamePlayer::CheckMoveRight() {
 	movingDirection = MovingDirection::RIGHT;
 	OnMove();
 
@@ -226,4 +226,14 @@ void GamePlayer::MoveHorizontal(
 			break;
 		}
 	}
+}
+
+void GamePlayer::MoveDown() {
+	position.X += speed.X_VERTICAL;
+	position.Y += speed.Y_VERTICAL;
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}
+	lanePos += 1;
 }

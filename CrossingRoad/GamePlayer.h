@@ -42,21 +42,28 @@ public:
 
 	void Update(float elapsedTime);
 	void Render();
+
+	// moving functions
 	void OnMove();
-
-	// check collision
-	bool MoveUp();
-	bool MoveDown();
-	bool MoveLeft();
-	bool MoveRight();
-	bool ValidPosition();
-
-	int CheckCollision();
 	void MoveHorizontal(
 		float elapsedTime,
 		float timeSpeed,
 		MovingDirection direction
 	);
+	void MoveUp();	
+	void MoveDown();
+	void MoveLeft();
+	void MoveRight();
+
+	// check collision
+	bool CheckMoveUp();
+	bool CheckMoveDown();
+	bool CheckMoveLeft();
+	bool CheckMoveRight();
+	bool ValidPosition();
+	int CheckCollision();
+
+	
 };
 
 #endif // !GAME_PLAYER_H

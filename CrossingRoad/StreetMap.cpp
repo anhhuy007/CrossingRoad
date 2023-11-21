@@ -61,9 +61,16 @@ void StreetMap::CreateLanes() {
 	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
 	lanes.push_back(lane);*/
 
-	for (int i = 0; i < MAXLANE; i++) {
+	lanes.push_back(new GrassLane(0, game, grasslane));
+	lanes.push_back(new GrassLane(1, game, grasslane));
+	lanes.push_back(new GrassLane(2, game, grasslane));
+
+	for (int i = 3; i < MAXLANE - 2; i++) {
 		lanes.push_back(GetNewLane(i, i == 0 ? LaneType::GRASS : lanes[i - 1]->laneType));
 	}
+
+	lanes.push_back(new GrassLane(MAXLANE - 2, game, grasslane));
+	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane));
 }
 
 void StreetMap::ScrollUp() {
