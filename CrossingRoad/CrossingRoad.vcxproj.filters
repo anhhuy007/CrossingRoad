@@ -156,17 +156,14 @@
     <ClCompile Include="PlayMenuWidget.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Tree.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
-    <ClCompile Include="SplashScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
-    <ClCompile Include="SavedGameScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,11 +251,8 @@
     <ClInclude Include="SettingWidget.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="SplashScreen.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
-    <ClInclude Include="SavedGameScreen.h">
-      <Filter>Header Files\Screen</Filter>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@
 namespace StringRes {
 	const std::wstring const GAME_TITLE = L"Crossing Road";
 	const std::wstring const GAME_VERSION = L"1.0.0";
-	const std::wstring const INSTRUCTOR = L"Mr. Truong Toan Thing";
+	const std::wstring const INSTRUCTOR = L"Mr. Truong Toan Thinh";
 }
 
 namespace DrawableRes {
@@ -25,16 +25,17 @@ namespace DrawableRes {
 	// obstacle sprites
 	const std::string SmallTree = spriteFolder + "Tree1.sprite";
 	const std::string BigTree = spriteFolder + "Tree2.sprite";
-	const std::string RaceCarLeft = spriteFolder + "Car2_Left.sprite";
-	const std::string RaceCarRight = spriteFolder + "Car2_Right.sprite";
-	const std::string CarLeft = spriteFolder + "Car1_Left.sprite";
-	const std::string CarRight = spriteFolder + "Car1_Right.sprite";
+	const std::string Car2Left = spriteFolder + "Car2_Left.sprite";
+	const std::string Car2Right = spriteFolder + "Car2_Right.sprite";
+	const std::string Car1Left = spriteFolder + "Car1_Left.sprite";
+	const std::string Car1Right = spriteFolder + "Car1_Right.sprite";
 	const std::string TruckLeft = spriteFolder + "Truck_Left.sprite";
 	const std::string TruckRight = spriteFolder + "Truck_Right.sprite";
 	const std::string Log1 = spriteFolder + "Log1.sprite";
 	const std::string Log2 = spriteFolder + "Log2.sprite";
 	const std::string Portal = spriteFolder + "Portal.sprite";
 	const std::string Grid = spriteFolder + "Grid.sprite";
+	const std::string Coin = spriteFolder + "Coin.sprite";
 	
 
 	// animation sprites

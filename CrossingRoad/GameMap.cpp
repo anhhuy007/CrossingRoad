@@ -1,5 +1,6 @@
 #include "GameMap.h"
 #include "WaterLane.h"
+#include "RoadLane.h"
 
 bool GameMap::OnCreate() {
 	player = new GamePlayer(Player::CHICK, game);
@@ -65,16 +66,28 @@ void GameMap::Render() {
 		if (player->lanePos == i) player->Render();
 	}
 
+	// display score
 	std::string playerScore = std::to_string(score);
 	Widget::Text textScore = Widget::Text(
 		game,
 		playerScore,
-		{ 440, 9 },
+		{ 440, 7 },
+		30, 30,
+		TextFont::NORMAL
+	);
+
+	// display collected coins
+	std::string playerCoins = std::to_string(collectedCoins);
+	Widget::Text textCoins = Widget::Text(
+		game,
+		playerCoins,
+		{ 440, 14 },
 		30, 30,
 		TextFont::NORMAL
 	);
 
 	textScore.Render();
+	textCoins.Render();
 }
 
 void GameMap::HandlePlayerCollision(float elapsedTime) {
@@ -111,6 +124,12 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 		// player hit the portal
 		system("pause");
 		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+	else if (collisType == 2) {
+		// player hit the coin
+		collectedCoins++;
+		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
+		lane->coin.isCollected = true;
 	}
 }
 

@@ -5,13 +5,24 @@ Vehicle::Vehicle(
 	int _id, 
 	MovingDirection _direction
 ) : GameObject(game) {
-	int random = rand() % 2;
+	int random = rand() % 3;
 
 	if (random == 0) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
-			? Graphic::Sprite(DrawableRes::RaceCarLeft)
-			: Graphic::Sprite(DrawableRes::RaceCarRight);
+			? Graphic::Sprite(DrawableRes::Car1Left)
+			: Graphic::Sprite(DrawableRes::Car1Right);
+
+		// set collision points
+		setCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::CAR)
+		);
+	}
+	else if (random == 1) {
+		type = VehicleType::CAR;
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite(DrawableRes::Car2Left)
+			: Graphic::Sprite(DrawableRes::Car2Right);
 
 		// set collision points
 		setCollisionPoints(
@@ -107,5 +118,5 @@ void Vehicle::SetInitPosition() {
 	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
 	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
 
-	position = Alignment::getAlignedPosition(lanePos, startBlock, centerSpot, Gravity::TOP_LEFT);
+	position = Alignment::GetAlignedPosition(lanePos, startBlock, centerSpot, Gravity::TOP_LEFT);
 }

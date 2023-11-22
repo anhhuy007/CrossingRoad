@@ -179,6 +179,17 @@ GameEngine::~GameEngine() {
 void GameEngine::BuildConsole() {
 	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
+	// set the window size
+	SetConsoleWindowInfo(hOut, 1, &windowScope);
+
+	// set the screen buffer size
+	CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;
+	GetConsoleScreenBufferInfo(hOut, &scrBufferInfo);
+	short winHeight = scrBufferInfo.srWindow.Bottom - scrBufferInfo.srWindow.Top + 1;
+	short scrBufferWidth = scrBufferInfo.dwSize.X;
+	COORD newSize = { scrBufferWidth, winHeight };
+	SetConsoleScreenBufferSize(hOut, newSize);
+
 	// set window position
 	SetWindowPos(
 		GetConsoleWindow(),
@@ -195,18 +206,6 @@ void GameEngine::BuildConsole() {
 		GetWindowLong(GetConsoleWindow(), 
 		GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX
 	);
-
-
-	// set the window size
-	SetConsoleWindowInfo(hOut, 1, &windowScope);
-
-	// set the screen buffer size
-	CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;
-    GetConsoleScreenBufferInfo(hOut, &scrBufferInfo);
-    short winHeight = scrBufferInfo.srWindow.Bottom - scrBufferInfo.srWindow.Top + 1;
-    short scrBufferWidth = scrBufferInfo.dwSize.X;
-	COORD newSize = { scrBufferWidth, winHeight };
-	SetConsoleScreenBufferSize(hOut, newSize);
 
 	// diable the cursor
 	CONSOLE_CURSOR_INFO cursorInfo;

@@ -73,6 +73,6 @@ void Log::setSprite(Graphic::Sprite _sprite) {
 
 void Log::setInitPosition() {
 	int blockPos = movingDirection == MovingDirection::LEFT ? 17 : 0;
-	position = Alignment::getAlignedPosition(lanePos, blockPos, { 3, 15 }, Gravity::LEFT_CENTER);
+	position = Alignment::GetAlignedPosition(lanePos, blockPos, { 3, 15 }, Gravity::LEFT_CENTER);
 }
 
