@@ -5,7 +5,7 @@ Vehicle::Vehicle(
 	int _id, 
 	MovingDirection _direction
 ) : GameObject(game) {
-	int random = rand() % 3;
+	int random = rand() % 5;
 
 	if (random == 0) {
 		type = VehicleType::CAR;
@@ -18,7 +18,7 @@ Vehicle::Vehicle(
 			Factory::GetObjectCollisionPoints(ObjectType::CAR)
 		);
 	}
-	else if (random == 1) {
+	else if (random <= 2) {
 		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::Car2Left)
