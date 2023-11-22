@@ -6,7 +6,7 @@
 #include "Animation.h"
 #include "GamePlayer.h"
 #include "Widget.h"
-#include "PlayMenuWidget.h"
+#include "MenuWidget.h"
 #include "PlayMenuScreen.h"
 
 class PlayMenuScreen : public CrossingRoad::GameScreen {
@@ -20,7 +20,8 @@ public:
 
 	Animation meow;
 	Image image;
-	PlayMenuWidget playMenuWidget = PlayMenuWidget(game);
+	MenuWidget playMenuWidget = MenuWidget(game);
 };
 
 #endif // !PLAY_MENU_SCREEN_H
+

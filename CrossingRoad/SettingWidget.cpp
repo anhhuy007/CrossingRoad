@@ -16,8 +16,8 @@ SettingWidget::SettingWidget(
 		// set button text positions
 		button.text.setTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 120, 34),
-			112,
+			Widget::GetCenterTextPos(button.text.text, pos, 130, 34),
+			130,
 			34
 		);
 
@@ -90,6 +90,7 @@ void SettingWidget::Update(float elapsedTime) {
 					Sound::turnDownBackgroundVolume(game->soundSetting);
 					if (game->soundSetting.backgroundVolume != 0) {
 						Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+						Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 					}
 				}
 			}
@@ -102,12 +103,12 @@ void SettingWidget::Update(float elapsedTime) {
 						Sound::turnOffEffectSound(game->soundSetting);
 					}
 				}
-				else {
-					if (game->soundSetting.effectVolume != 0) {
-						Sound::turnDownEffectVolume(game->soundSetting);
-						Sound::turnOnEffectSound(game->soundSetting);
-						Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
-					}
+			}
+			else {
+				Sound::turnDownEffectVolume(game->soundSetting);
+				if (game->soundSetting.effectVolume != 0) {
+					Sound::turnOnEffectSound(game->soundSetting);
+					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 				}
 			}
 		}
@@ -163,14 +164,13 @@ void SettingWidget::Update(float elapsedTime) {
 		totalTime += elapsedTime;
 		if (totalTime > 500) {
 			buttons[currentButtonIndex].action();
-
 			enterClicked = false;
 			totalTime = 0;
 			// reset button text position
 			buttons[currentButtonIndex].text.setTextPosition(
 				buttons[currentButtonIndex].text.text,
 				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 120, 34),
-				112,
+				130,
 				34
 			);
 		}

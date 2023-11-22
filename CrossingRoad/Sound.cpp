@@ -123,11 +123,10 @@ void Sound::turnOnEffectSound(Sound::SoundSetting& soundSetting) {
 
 //--------------Adjust volume--------------
 bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
-	int* volume = &soundSetting.backgroundVolume;
-	if (*volume < 100 && *volume >= 0) {
-		*volume += 20;
+	if (soundSetting.backgroundVolume < 100 && soundSetting.backgroundVolume >= 0) {
+		soundSetting.backgroundVolume += 20;
 		for (auto i: BACKGROUND) {
-			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(*volume * 10);
+			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
 			mciSendString(volumeUp.c_str(), NULL, 0, NULL);
 		}
 		return 1;
@@ -135,11 +134,10 @@ bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 	return 0;
 }
 bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
-	int* volume = &soundSetting.backgroundVolume;
-	if (*volume <= 100 && *volume > 0) {
-		*volume -= 20;
+	if (soundSetting.backgroundVolume <= 100 && soundSetting.backgroundVolume > 0) {
+		soundSetting.backgroundVolume -= 20;
 		for (auto i : BACKGROUND) {
-			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(*volume * 10);
+			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
 			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
 		}
 		return 1;
@@ -147,17 +145,19 @@ bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
 	return 0;
 }
 bool Sound::turnUpEffectVolume(SoundSetting& soundSetting) {
-	int* volume = &soundSetting.effectVolume;
-	if (*volume < 100 && *volume >= 0) {
-		*volume += 20;
+	if (soundSetting.effectVolume < 100 && soundSetting.effectVolume >= 0) {
+		soundSetting.effectVolume += 20;
 		return 1;
 	}
 	return 0;
 }
 bool Sound::turnDownEffectVolume(SoundSetting& soundSetting) {
-	int* volume = &soundSetting.effectVolume;
-	if (*volume <= 100 && *volume > 0) {
-		*volume -= 20;
+	if (soundSetting.effectVolume <= 100 && soundSetting.effectVolume > 0) {
+		soundSetting.effectVolume -= 20;
+		for (auto i : EFFECT) {
+			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.effectVolume * 10);
+			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
+		}
 		return 1;
 	}
 	return 0;

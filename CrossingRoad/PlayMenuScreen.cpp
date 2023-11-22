@@ -1,6 +1,5 @@
 #include "PlayMenuScreen.h"
 #include "StreetMap.h"
-#include "PlayMenuScreen.h"
 #include "MenuScreen.h"
 
 bool PlayMenuScreen::OnCreate() {
@@ -58,7 +57,7 @@ bool PlayMenuScreen::OnCreate() {
 		),
 	};
 
-	playMenuWidget = PlayMenuWidget(
+	playMenuWidget = MenuWidget(
 		game,
 		buttons,
 		{ 150, 50 }

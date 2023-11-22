@@ -145,7 +145,6 @@
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="PlayMenuScreen.cpp" />
-    <ClCompile Include="PlayMenuWidget.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
@@ -174,6 +173,7 @@
     <ClInclude Include="Log.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />
+    <ClInclude Include="PlayMenuScreen.h" />
     <ClInclude Include="RoadLane.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="SettingScreen.h" />
