@@ -5,6 +5,7 @@
 
 #include "Lane.h"
 #include "Vehicle.h"
+#include "Coin.h"
 #include "Alignment.h"
 
 class RoadLane : public Lane {
@@ -14,6 +15,7 @@ class RoadLane : public Lane {
 	float time = 0.0f;
 
 public: 
+	Coin coin;
 	bool hasRoadMarking;
 
 	RoadLane(

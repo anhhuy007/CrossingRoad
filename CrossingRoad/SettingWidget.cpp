@@ -16,8 +16,8 @@ SettingWidget::SettingWidget(
 		// set button text positions
 		button.text.setTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 130, 34),
-			130,
+			Widget::GetCenterTextPos(button.text.text, pos, 140, 34),
+			138,
 			34
 		);
 
@@ -169,8 +169,8 @@ void SettingWidget::Update(float elapsedTime) {
 			// reset button text position
 			buttons[currentButtonIndex].text.setTextPosition(
 				buttons[currentButtonIndex].text.text,
-				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 120, 34),
-				130,
+				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 140, 34),
+				138,
 				34
 			);
 		}

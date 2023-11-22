@@ -20,7 +20,7 @@ MenuWidget::MenuWidget(
 		button.text.setTextPosition(
 			button.text.text,
 			Widget::GetCenterTextPos(button.text.text, pos, 138, 34),
-			130,
+			138,
 			34
 		);
 
@@ -88,7 +88,7 @@ void MenuWidget::Update(float elapsedTime) {
 			buttons[currentButtonIndex].text.setTextPosition(
 				buttons[currentButtonIndex].text.text,
 				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 138, 34),
-				130,
+				138,
 				34
 			);
 		}

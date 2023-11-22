@@ -23,14 +23,14 @@ enum class Gravity {
 
 class Alignment {
 public: 
-	static COORD getAlignedPosition(
+	static COORD GetAlignedPosition(
 		int laneId,
 		int blockId,
 		COORD objectCenterCoord,
 		Gravity gravity
 	) {
 		// block: 30x24
-		COORD blockCoord = getBlockPositionById(laneId, blockId);
+		COORD blockCoord = GetBlockPositionById(laneId, blockId);
 		COORD position = { 0, 0 };
 
 		switch (gravity) {
@@ -58,7 +58,7 @@ public:
 		return position;
 	}
 
-	static COORD getBlockPositionById(
+	static COORD GetBlockPositionById(
 		int laneId,
 		int blockId
 	) {

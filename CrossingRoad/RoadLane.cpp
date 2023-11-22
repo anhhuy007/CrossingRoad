@@ -12,10 +12,16 @@ RoadLane::RoadLane(
 	vehicle = Vehicle(game, id, direction);
 	hasRoadMarking = _hasRoadMarking;
 	roadMarkingSprite = _roadMarkingSprite;
+
+	// create random coin
+	if (rand() % 3 == 0) {
+		coin = Coin(game, id);
+	}
 }
 
 void RoadLane::Update(float elapsedTime) {
 	vehicle.Update(elapsedTime);
+	coin.Update(elapsedTime);
 	if (vehicle.endOfRoad == true) {
 		vehicle.endOfRoad = false;
 		vehicle.SetInitPosition();
@@ -33,13 +39,14 @@ void RoadLane::Update(float elapsedTime) {
 void RoadLane::Render() {
 	game->RenderSprite(laneSprite, position);
 	game->RenderSprite(vehicle.vehicleSprite, vehicle.getPosition());
+	coin.Render();
 
 	// draw road markings
 	if (hasRoadMarking) {
 		for (int i = 0; i < MAXBLOCK + 5; i+=4) {
 			game->RenderSprite(
 				roadMarkingSprite,
-				Alignment::getAlignedPosition(id, i, { 0, 4 }, Gravity::TOP_LEFT)
+				Alignment::GetAlignedPosition(id, i, { 0, 4 }, Gravity::TOP_LEFT)
 			);
 		}
 	}
@@ -50,4 +57,5 @@ void RoadLane::ScrollUp() {
 	position.Y += 24;
 	expectedPosition.Y += 24;
 	vehicle.MoveDown();
+	coin.MoveDown();
 }
