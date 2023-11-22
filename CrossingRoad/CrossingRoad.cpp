@@ -2,11 +2,12 @@
 #include "GameMap.h"
 #include "StreetMap.h"
 #include "MenuScreen.h"
-
+#include "SplashScreen.h"
+#include "SavedGameScreen.h"
 void CrossingRoad::Init() {
 	// ----- Init game -----
 	GameEngine::BuildConsole();	
-	Navigation::To(new MenuScreen(this));
+	Navigation::To(new SavedGameScreen(this));
 }
 
 bool CrossingRoad::GameCreate() {
