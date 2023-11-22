@@ -7,10 +7,11 @@
 #include "GamePlayer.h"
 #include "Widget.h"
 #include "MenuWidget.h"
+#include "SettingScreen.h"
 
-class Menu : public CrossingRoad::GameScreen {
-public: 
-	Menu(CrossingRoad* game) : GameScreen(game) {};
+class MenuScreen : public CrossingRoad::GameScreen {
+public:
+	MenuScreen(CrossingRoad* game) : GameScreen(game) {};
 
 	// overrided functions 
 	bool OnCreate();
@@ -19,8 +20,7 @@ public:
 
 	Animation meow;
 	Image image;
-	Widget::Button button = Widget::Button(game);
 	MenuWidget menuWidget = MenuWidget(game);
 };
 
-#endif // !MENU_H
+#endif // !MENU_SCREEN_H

@@ -67,17 +67,17 @@
     <Filter Include="Source Files\Objects\Obstacles">
       <UniqueIdentifier>{12f28759-5831-4b31-a0ec-118c03cf98f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Menu">
-      <UniqueIdentifier>{df73de2e-afd8-42da-80f2-69d12fb78e4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menu">
-      <UniqueIdentifier>{b463ed12-dcfe-404e-a1dd-ff258ffc9c60}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Sound">
       <UniqueIdentifier>{b478398a-0cc6-4320-b76b-1b35a3fbc18c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{e93c837f-54c1-4775-a89f-1e4923a76758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screen">
+      <UniqueIdentifier>{df73de2e-afd8-42da-80f2-69d12fb78e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screen">
+      <UniqueIdentifier>{b463ed12-dcfe-404e-a1dd-ff258ffc9c60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +130,7 @@
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\Menu</Filter>
+      <Filter>Source Files\Screen</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Graphics</Filter>
@@ -143,6 +143,21 @@
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingWidget.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMenuScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayMenuWidget.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,7 +222,7 @@
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Header Files\Menu</Filter>
+      <Filter>Header Files\Screen</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Graphics</Filter>
@@ -223,6 +238,21 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingWidget.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMenuScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMenuWidget.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

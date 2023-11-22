@@ -3,7 +3,7 @@
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 
-MenuWidget::MenuWidget(
+PlayMenuWidget::PlayMenuWidget(
 	CrossingRoad* pgame,
 	std::vector<Widget::Button>& pbuttons,
 	COORD pposition
@@ -29,14 +29,14 @@ MenuWidget::MenuWidget(
 	}
 }
 
-void MenuWidget::Render() {
+void PlayMenuWidget::Render() {
 	for (int i = 0; i < buttons.size(); i++) {
 		buttons[i].Render();
 	}
-}	
+}
 
-void MenuWidget::Update(float elapsedTime) {
-	auto checkIndex= [max = (int)buttons.size() - 1,_game = game](int &i) {
+void PlayMenuWidget::Update(float elapsedTime) {
+	auto checkIndex = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
 			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
 			i = max(0, i);
@@ -82,6 +82,7 @@ void MenuWidget::Update(float elapsedTime) {
 		totalTime += elapsedTime;
 		if (totalTime > 500) {
 			buttons[currentButtonIndex].action();
+
 			enterClicked = false;
 			totalTime = 0;
 			// reset button text position

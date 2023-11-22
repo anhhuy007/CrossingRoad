@@ -78,6 +78,7 @@ void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting,int preIndexSo
 			repeatSound(alias);
 			soundSetting.backgroundPlaying = true;
 			soundSetting.firstTimePlaying = false;
+			soundSetting.currentIndexBackgroundSound = indexSound;
 		}
 		else {
 			resumeSound(alias);
@@ -117,15 +118,14 @@ void Sound::turnOffEffectSound(Sound::SoundSetting& soundSetting) {
 
 void Sound::turnOnEffectSound(Sound::SoundSetting& soundSetting) {
 	soundSetting.effectSound = true;
-	playEffectSound(soundSetting, int(Sound::Effect::VALID));
 }
 
 
 //--------------Adjust volume--------------
 bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 	int* volume = &soundSetting.backgroundVolume;
-	if (*volume <= 100 && *volume > 0) {
-		*volume += 10;
+	if (*volume < 100 && *volume >= 0) {
+		*volume += 20;
 		for (auto i: BACKGROUND) {
 			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(*volume * 10);
 			mciSendString(volumeUp.c_str(), NULL, 0, NULL);
@@ -137,7 +137,7 @@ bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
 	int* volume = &soundSetting.backgroundVolume;
 	if (*volume <= 100 && *volume > 0) {
-		*volume -= 10;
+		*volume -= 20;
 		for (auto i : BACKGROUND) {
 			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(*volume * 10);
 			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
@@ -149,7 +149,7 @@ bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
 bool Sound::turnUpEffectVolume(SoundSetting& soundSetting) {
 	int* volume = &soundSetting.effectVolume;
 	if (*volume < 100 && *volume >= 0) {
-		*volume += 10;
+		*volume += 20;
 		return 1;
 	}
 	return 0;
@@ -157,7 +157,7 @@ bool Sound::turnUpEffectVolume(SoundSetting& soundSetting) {
 bool Sound::turnDownEffectVolume(SoundSetting& soundSetting) {
 	int* volume = &soundSetting.effectVolume;
 	if (*volume <= 100 && *volume > 0) {
-		*volume -= 10;
+		*volume -= 20;
 		return 1;
 	}
 	return 0;

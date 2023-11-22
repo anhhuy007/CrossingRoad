@@ -1,24 +1,23 @@
 #pragma once
 
-#ifndef MENU_WIDGET_H
-#define MENU_WIDGET_H
+#ifndef PLAY_MENU_WIDGET_H
+#define PLAY_MENU_WIDGET_H
 
 #include "GameObject.h"
 #include "Widget.h"
 #include "Values.h"
 #include "Sound.h"
 
-class MenuWidget : public GameObject {
+class PlayMenuWidget : public GameObject {
 	std::vector<Widget::Button> buttons;
 	int currentButtonIndex = 0;
 	COORD position;
 	std::vector<COORD> buttonPositions;
 	bool enterClicked = false;
-	float totalTime = 0;	
-
-public: 
-	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
-	MenuWidget(
+	float totalTime = 0;
+public:
+	PlayMenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
+	PlayMenuWidget(
 		CrossingRoad* pgame,
 		std::vector<Widget::Button>& pbuttons,
 		COORD pposition
@@ -28,5 +27,4 @@ public:
 	void Update(float elapsedTime);
 };
 
-#endif // !MENU_WIDGET_H
-
+#endif // !PLAY_MENU_WIDGET_H

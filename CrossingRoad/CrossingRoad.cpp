@@ -1,12 +1,12 @@
 #include "CrossingRoad.h"
 #include "GameMap.h"
 #include "StreetMap.h"
-#include "Menu.h"
+#include "MenuScreen.h"
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
 	GameEngine::BuildConsole();	
-	Navigation::To(new Menu(this));
+	Navigation::To(new MenuScreen(this));
 }
 
 bool CrossingRoad::GameCreate() {

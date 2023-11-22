@@ -16,6 +16,7 @@ public:
 		bool firstTimePlaying = true;
 		int backgroundVolume = 100;
 		int effectVolume = 100;
+		int currentIndexBackgroundSound = -1;
 	};
 private:
 	//Play and stop sound
