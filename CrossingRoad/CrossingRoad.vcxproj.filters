@@ -129,9 +129,6 @@
     <ClCompile Include="GrassLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\Screen</Filter>
-    </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -158,6 +155,18 @@
     </ClCompile>
     <ClCompile Include="PlayMenuWidget.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="SavedGameScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,9 +230,6 @@
     <ClInclude Include="Factory.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files\Screen</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -248,11 +254,11 @@
     <ClInclude Include="SettingWidget.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="PlayMenuScreen.h">
+    <ClInclude Include="SplashScreen.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="PlayMenuWidget.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SavedGameScreen.h">
+      <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

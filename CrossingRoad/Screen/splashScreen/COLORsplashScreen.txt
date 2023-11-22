@@ -1,0 +1,22 @@
+    colors = [
+        (0, 0, 0),  # BLACK
+        (255, 255, 255),  # WHITE
+        (168, 201, 205),  # LIGHT BLUE
+        (214, 229, 230),  # LIGHT LIGHT GREEN
+        (128, 177, 177),  #  GREEN
+        (15, 47, 67),         #BORDER GREEN
+
+        #chicken
+        (245, 228, 238),  # WHITE SHADOW
+        (229, 60, 117),  # RED HAIR
+        (255, 110, 165),  # LIGHT RED HAIR
+        (235, 90, 87),  # ORANGE
+        (255, 150, 111),  # LIGHT ORANGE
+
+        #bg
+        (105, 206, 236),  # BLUE BG
+        (94, 193, 225)  # BG WITH SHADOW
+
+        # 13/16
+    ]
+
