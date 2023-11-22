@@ -127,6 +127,7 @@ enum class ObjectType {
 	FLOATING_OBJECT_1, // small log
 	FLOATING_OBJECT_2, // big log
 	ITEM,
+	COIN,
 	PORTAL
 };
 

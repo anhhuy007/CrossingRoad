@@ -182,6 +182,24 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 
 		break;
 	case ObjectType::ITEM:
+		
+		break;
+
+	case ObjectType::COIN:
+		points = GetPointsOnLine(
+			{ 1, 5 },
+			{ 16, 8 },
+			2,
+			true
+		);
+
+		sum(points, GetPointsOnLine(
+			{ 11, 1 },
+			{ 5, 14 },
+			2,
+			false
+		));
+
 		break;
 
 	case ObjectType::PORTAL:

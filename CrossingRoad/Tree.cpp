@@ -8,7 +8,7 @@ Tree::Tree(CrossingRoad* game, int laneId) : GameObject(game) {
 
 	if (randomNumber % 2) {
 		treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
-		position = Alignment::getAlignedPosition(
+		position = Alignment::GetAlignedPosition(
 			laneId,
 			randomNumber,
 			{ 10, 40 },
@@ -21,7 +21,7 @@ Tree::Tree(CrossingRoad* game, int laneId) : GameObject(game) {
 	}
 	else {
 		treeSprite = Graphic::Sprite(DrawableRes::BigTree);
-		position = Alignment::getAlignedPosition(
+		position = Alignment::GetAlignedPosition(
 			laneId,
 			randomNumber,
 			{ 26, 63 },

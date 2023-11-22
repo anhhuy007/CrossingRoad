@@ -77,12 +77,12 @@ void StreetMap::ScrollUp() {
 		lanes[i]->ScrollUp();
 	}
 
-	if (score == 20) {
+	if (score == 30) {
 		// display grass lane with teleport portal
 		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0));
 		portal.visible = true;
 		portal.setPosition(
-			Alignment::getAlignedPosition(
+			Alignment::GetAlignedPosition(
 				0,
 				9,
 				{ -5, 105 },
@@ -91,7 +91,7 @@ void StreetMap::ScrollUp() {
 		);
 		portal.lanePos = 0;
 	}
-	else if (score > 20) {
+	else if (score > 30) {
 		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0));
 	}
 	else {
