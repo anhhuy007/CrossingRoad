@@ -127,6 +127,7 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	}
 	else if (collisType == 2) {
 		// player hit the coin
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::COIN));
 		collectedCoins++;
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;

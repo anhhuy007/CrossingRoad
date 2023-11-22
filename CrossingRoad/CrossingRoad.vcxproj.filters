@@ -168,6 +168,12 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SavedGameScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -260,8 +266,14 @@
     <ClInclude Include="PlayMenuWidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayMenuWidget.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SplashScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="SavedGameScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayMenuScreen.h">
+      <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

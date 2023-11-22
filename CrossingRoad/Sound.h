@@ -47,7 +47,8 @@ public:
 		INVALID,
 		VALID,
 		ENTER,
-		CHANGE
+		CHANGE,
+		COIN
 	};
 	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
 	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
