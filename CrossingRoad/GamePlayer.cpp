@@ -40,8 +40,8 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
-	/*if (animationState == AnimationState::DEAD ||
-		animationState == AnimationState::DROWN) return;*/
+	if (animationState == AnimationState::DEAD ||
+		animationState == AnimationState::DROWN) return;
 
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		if (CheckMoveUp()) {		// if GamePlayer can move up
