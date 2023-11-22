@@ -110,7 +110,7 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	else if (collisType == 6) {
 		// player hit the portal
 		system("pause");
-		CrossingRoad::Navigation::To(new Menu(game));
+		CrossingRoad::Navigation::To(new MenuScreen(game));
 	}
 }
 

@@ -142,7 +142,6 @@
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="PlayMenuScreen.cpp" />
@@ -173,7 +172,6 @@
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
     <ClInclude Include="Log.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="RoadLane.h" />
