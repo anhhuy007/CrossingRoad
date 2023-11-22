@@ -28,11 +28,8 @@ enum class AnimationState {
 	TURN_LEFT = 1,
 	TURN_RIGHT = 2, 
 	TURN_BACK = 3,
-	JUMP_AHEAD = 4,
-	JUMP_LEFT = 5,
-	JUMP_RIGHT = 6,
-	JUMP_BACK = 7,
-	DIED = 8
+	DEAD = 4,
+	DROWN = 5
 };
 
 enum class MovingDirection {
@@ -62,11 +59,11 @@ enum Overlapped : int {
 	BACKGROUND = 0,
 	LAND = 1,
 	DECORATOR = 2,
-	TEXT = 3,
 	LOG = 3,
 	OBSTACLE = 4,
 	VEHICLE = 4, 
 	PLAYER = 4,
+	TEXT = 5
 };
 
 enum class VehicleType {
@@ -129,7 +126,8 @@ enum class ObjectType {
 	WATER,
 	FLOATING_OBJECT_1, // small log
 	FLOATING_OBJECT_2, // big log
-	ITEM
+	ITEM,
+	PORTAL
 };
 
 struct GameSpeed {

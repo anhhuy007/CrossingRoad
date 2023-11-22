@@ -2,17 +2,15 @@
 
 std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 	std::vector<AnimationSprite> ans;
-	int numberOfAnimations = 8;
+	int numberOfAnimations = 6;
 
 	std::vector<AnimationState> animations = {
 		AnimationState::NORMAL,
 		AnimationState::TURN_LEFT,
 		AnimationState::TURN_RIGHT,
 		AnimationState::TURN_BACK,
-		AnimationState::JUMP_AHEAD,
-		AnimationState::JUMP_LEFT,
-		AnimationState::JUMP_RIGHT,
-		AnimationState::JUMP_BACK,
+		AnimationState::DEAD,
+		AnimationState::DROWN
 	};
 
 	std::vector<std::string> spriteFiles = {
@@ -21,23 +19,29 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 			DrawableRes::animationSprite3,
 			DrawableRes::animationSprite4,
 			DrawableRes::animationSprite5,
-			DrawableRes::animationSprite6,
-			DrawableRes::animationSprite7,
-			DrawableRes::animationSprite8,
+			DrawableRes::animationSprite6
 	};
 
 	std::string folder = "";
 
 	// get player sprite folder
 	switch (player) {
+
 	case Player::CHICK:
 		folder = "Chick\\";
+
 		break;
+
+	case Player::DUCKY:
+		folder = "Ducky\\";
+
+		break;
+
 	default:
 		break;
 	}
 
-	for (int i = 0; i < numberOfAnimations; i++) {
+	for (int i = 0; i < animations.size(); i++) {
 		std::string spritePath = DrawableRes::spriteFolder + folder + spriteFiles[i];
 		ans.push_back(
 			AnimationSprite(
@@ -46,6 +50,9 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 			)
 		);
 	}
+
+	// drown animation will be overlapped by log
+	ans[ans.size() - 1].sprite.SetOverlapped(Overlapped::DECORATOR);
 
 	return ans;
 }
@@ -59,6 +66,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		3: tree, rock, bush
 		4: car, truck, water 
 		5: floating object	
+		6: portal
 	*/
 	std::vector<CollisionPoint> points;
 
@@ -98,7 +106,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points =  GetPointsOnLine(
 			{ 1, 27 },
 			{ 72, 44 },
-			2,
+			4,
 			true
 		);
 
@@ -107,40 +115,40 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points = GetPointsOnLine(
 			{ 1, 40 },
 			{ 112, 67 },
-			2,
+			4,
 			true
 		);
 
 		break;
 	case ObjectType::TREE_1:
 		points = GetPointsOnLine(
-			{ 2, 39 },
-			{ 21, 43 },
+			{ 1, 31 },
+			{ 20, 35 },
 			3,
 			true
 		);
 
 		sum(points, GetPointsOnLine(
-			{ 13, 33 },
-			{ 8, 44 },
+			{ 1, 42 },
+			{ 21, 47 },
 			3,
-			false
+			true
 		));
 
 		break;
 	case ObjectType::TREE_2:
 		points = GetPointsOnLine(
-			{ 2, 52 },
-			{ 33, 59 },
+			{ 1, 43 },
+			{ 41, 53 },
 			3,
 			true
 		);
 
 		sum(points, GetPointsOnLine(
-			{ 33, 48 },
-			{ 29, 57 },
+			{ 1, 51 },
+			{ 45, 62 },
 			3,
-			false
+			true
 		));
 
 		break;
@@ -150,15 +158,15 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		points = GetPointsOnLine(
 			{ 1, 13 },
 			{ 461, 128 },
-			2,
+			4,
 			true
 		);
 
 		break;
 	case ObjectType::FLOATING_OBJECT_1:
 		points = GetPointsOnLine(
-			{ 3, 6 },
-			{ 102, 30 },
+			{ 11, 8 },
+			{ 94, 28 },
 			5,
 			true
 		);
@@ -166,14 +174,24 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		break;
 	case ObjectType::FLOATING_OBJECT_2:
 		points = GetPointsOnLine(
-			{ 3, 6 },
-			{ 71, 23 },
+			{ 11, 8 },
+			{ 69, 22 },
 			5,
 			true
 		);
 
 		break;
 	case ObjectType::ITEM:
+		break;
+
+	case ObjectType::PORTAL:
+		points = GetPointsOnLine(
+			{ 18, 73 },
+			{ 49, 80 },
+			6,
+			true
+		);
+
 		break;
 	default:
 		break;

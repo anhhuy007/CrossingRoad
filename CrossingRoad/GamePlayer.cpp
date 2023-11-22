@@ -6,12 +6,13 @@ GamePlayer::GamePlayer(
 	CrossingRoad* game
 ) : GameObject({ 0, 0 }, game) {
 	// initial player position
-	lanePos = 11;
-	blockPos = 8;
-
+	lanePos = 14;
+	blockPos = 5;
+	position = { 31, 217 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
-	speed = GameSpeed(4, 1, -1, 2);
+	speed = GameSpeed(24, 6, -11, 21);
+	axisSpeed = GameSpeed(4, 1, -1, 2);
 	OnMove();
 
 	// set collision points
@@ -39,122 +40,155 @@ Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
 }
 
 void GamePlayer::Update(float elapsedTime) {
+	/*if (animationState == AnimationState::DEAD ||
+		animationState == AnimationState::DROWN) return;*/
+
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-		if (moveUp()) {		// if GamePlayer can move up
+		if (CheckMoveUp()) {		// if GamePlayer can move up
 			movingDirection = MovingDirection::UP;
 			animationState = AnimationState::NORMAL;
-			position.X -= speed.X_VERTICAL;
-			position.Y -= speed.Y_VERTICAL;
-			lanePos -= 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-		if (moveDown()) {		// if GamePlayer can move down
+		if (CheckMoveDown()) {		// if GamePlayer can move down
 			movingDirection = MovingDirection::DOWN;
 			animationState = AnimationState::TURN_BACK;
-			position.X += speed.X_VERTICAL;
-			position.Y += speed.Y_VERTICAL;
-			lanePos += 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
-		if (moveLeft()) {		// if GamePlayer can move left
+		if (CheckMoveLeft()) {		// if GamePlayer can move left
 			movingDirection = MovingDirection::LEFT;
 			animationState = AnimationState::TURN_LEFT;
-			position.X -= speed.X_HORIZONTAL;
-			position.Y -= speed.Y_HORIZONTAL;
-			blockPos -= 1;
+
+			// animation
 			OnMove();
 		}
 	}
 	if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
-		if (moveRight()) {	// if GamePlayer can move right
+		if (CheckMoveRight()) {	// if GamePlayer can move right
 			movingDirection = MovingDirection::RIGHT;
 			animationState = AnimationState::TURN_RIGHT;
-			position.X += speed.X_HORIZONTAL;
-			position.Y += speed.Y_HORIZONTAL;
-			blockPos += 1;
+
+			// animation
 			OnMove();
 		}
 	}
 }
 
 void GamePlayer::OnMove() {
-	position = Alignment::getAlignedPosition(
-		lanePos, 
-		blockPos, 
-		{ 0, -2 }, 
-		Gravity::CENTRALLY_ALIGNED
-	);
-	
-	// get jumping direction
-	/*AnimationState tempAnimation = animationState; 
-	COORD tempPosition = position;*/
+	switch (movingDirection) {
+	case MovingDirection::UP:
+		position.X -= speed.X_VERTICAL;
+		position.Y -= speed.Y_VERTICAL;
+		if (lanePos % 3 == 1) {
+			position.X -= 1;
+			position.Y -= 1;
+		}
+		lanePos -= 1;
 
-	//switch (movingDirection) {
-	//case MovingDirection::UP:
-	//	animationState = AnimationState::JUMP_AHEAD;
-	//	//position.Y -= 10;
-	//	break;
+		break;
 
-	//case MovingDirection::LEFT:
-	//	animationState = AnimationState::JUMP_LEFT;
-	//	break;
+	case MovingDirection::LEFT:
+		position.X -= speed.X_HORIZONTAL;
+		position.Y -= speed.Y_HORIZONTAL;
+		blockPos -= 1;
 
-	//case MovingDirection::RIGHT:
-	//	animationState = AnimationState::JUMP_RIGHT;
-	//	break;
+		break;
 
-	//case MovingDirection::DOWN:
-	//	animationState = AnimationState::JUMP_BACK;
-	//	break;
-	//}
+	case MovingDirection::RIGHT:
+		position.X += speed.X_HORIZONTAL;
+		position.Y += speed.Y_HORIZONTAL;
+		blockPos += 1;
 
-	//Render();
-	//animationState = tempAnimation;
-	//position = tempPosition;
-	Render();
+		break;
+
+	case MovingDirection::DOWN:
+		position.X += speed.X_VERTICAL;
+		position.Y += speed.Y_VERTICAL;
+		if (lanePos % 3 == 0) {
+			position.X += 1;
+			position.Y += 1;
+		}
+		lanePos += 1;
+
+		break;
+	}
 }
 
-bool GamePlayer::moveUp() {
-	if (position.Y <= GameScreenLimit::TOP) return false;
+bool GamePlayer::CheckMoveUp() {
+	movingDirection = MovingDirection::UP;
 
-	// check obstacle ahead
-	// if (appearObstacle(position.X, position.Y - 1) return false;
+	OnMove();
+	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
-	return true;
+	movingDirection = MovingDirection::DOWN;
+	OnMove();
+
+	return (check != 3 && validPos);
 }
 
-bool GamePlayer::moveDown() {
-	if (position.Y + height >= GameScreenLimit::BOTTOM) return false;
+bool GamePlayer::CheckMoveDown() {
+	movingDirection = MovingDirection::DOWN;
 
-	// check obstacle ahead
-	// if (appearObstacle(position.X, position.Y + 1) return false;
+	OnMove();
+	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
-	return true;
+	movingDirection = MovingDirection::UP;
+	OnMove();
+
+	return (check != 3 && validPos);
 }
 
-bool GamePlayer::moveLeft() {
-	if (position.X <= GameScreenLimit::LEFT) return false;
+bool GamePlayer::CheckMoveLeft() {
+	movingDirection = MovingDirection::LEFT;
+	OnMove();
 
-	// check obstacle ahead
-	// if (appearObstacle(position.X - 1, position.Y) return false;
+	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
-	return true;
+	movingDirection = MovingDirection::RIGHT;
+	OnMove();
+
+	return (check != 3 && validPos);
 }
 
-bool GamePlayer::moveRight() {
-	if (position.X + width >= GameScreenLimit::RIGHT) return false;
+bool GamePlayer::CheckMoveRight() {
+	movingDirection = MovingDirection::RIGHT;
+	OnMove();
 
-	// check obstacle ahead
-	// if (appearObstacle(position.X + 1, position.Y) return false;
+	int check = CheckCollision();
+	bool validPos = ValidPosition();
 
-	return true;
+	movingDirection = MovingDirection::LEFT;
+	OnMove();
+
+	return (check != 3 && validPos);
+}
+
+bool GamePlayer::ValidPosition() {
+	return (position.X >= GameScreenLimit::LEFT &&
+			position.X + width <= GameScreenLimit::RIGHT &&
+			position.Y >= GameScreenLimit::TOP &&
+			position.Y + height <= GameScreenLimit::BOTTOM
+		);
 }
 
 int GamePlayer::CheckCollision() {
+	/* COLLISSION VALUES:
+		0: no collision
+		1: player
+		2: item
+		3: tree, rock, bush
+		4: car, truck, water
+		5: floating object */
 	int collisType = 0;
 
 	for (auto point : collisionPoints) {
@@ -163,8 +197,48 @@ int GamePlayer::CheckCollision() {
 			short(point.first.Y + position.Y)
 		};
 
-		collisType = max(collisType, game->CheckCollisionPoint(point.first));
+		int temp = game->CheckCollisionPoint(point.first);
+		collisType = max(collisType, temp);
 	}
 
 	return collisType;
+}
+
+void GamePlayer::MoveHorizontal(
+	float elapsedTime, 
+	float timeSpeed, 
+	MovingDirection direction
+) {
+	totalTime += (elapsedTime / 10000);
+
+	if (totalTime > timeSpeed) {
+		if (!ValidPosition()) {
+			animationState = AnimationState::DROWN;
+			return;
+		}
+
+		totalTime = 0;
+		switch (direction) {
+		case MovingDirection::LEFT:
+			position.X -= axisSpeed.X_HORIZONTAL;
+			position.Y -= axisSpeed.Y_HORIZONTAL;
+
+			break;
+		case MovingDirection::RIGHT:
+			position.X += axisSpeed.X_HORIZONTAL;
+			position.Y += axisSpeed.Y_HORIZONTAL;
+
+			break;
+		}
+	}
+}
+
+void GamePlayer::MoveDown() {
+	position.X += speed.X_VERTICAL;
+	position.Y += speed.Y_VERTICAL;
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}
+	lanePos += 1;
 }

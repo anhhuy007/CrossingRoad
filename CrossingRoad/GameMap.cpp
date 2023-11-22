@@ -1,15 +1,16 @@
 #include "GameMap.h"
+#include "WaterLane.h"
 
 bool GameMap::OnCreate() {
-	std::vector<AnimationSprite> spriteList;
-	player = new GamePlayer(Player::CHICK, this->game);
-
-	this->grid = Graphic::Sprite("sprites//Grid.sprite");
-	grid.SetOverlapped(Overlapped::PLAYER);
+	player = new GamePlayer(Player::CHICK, game);
+	portal = Portal(game);
+	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
 	
 	// create game lanes
 	CreateLanes();
 	SetScreenColor();
+
+	maxIndex = 14;
 	
 	return true;
 }
@@ -17,32 +18,108 @@ bool GameMap::OnCreate() {
 bool GameMap::OnUpdate(float elapsedTime) {
 	totalTime += elapsedTime;
 
-	player->Update(elapsedTime);
+	// update lanes and player position
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->Update(elapsedTime);
 	}
 
-	/*if (player->lanePos == 8) {
-		ScrollUp();
-		player->lanePos += 1;
-	}*/
+	// disable player moving above lane containing portal
+	if (portal.lanePos != 9 || 
+		player->lanePos != 7 || 
+		!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
+	) {
+		player->Update(elapsedTime);
+	}
 
+	// check for game collision
+	if (portal.lanePos == 9) portal.WriteCollisionPoints();
+	HandlePlayerCollision(elapsedTime);
+
+	// update score
+	int playerPos = player->lanePos;
+	if (playerPos < maxIndex) {
+		maxIndex = playerPos;
+		score++;
+	}
+
+	// display game 
 	Render();
 
-	// check collision
-	int collisType = player->CheckCollision();
-	if (collisType != 0 && collisType != 5) {
-		system("pause");
+	// handle map scrolling up
+	if (playerPos == 6 && portal.lanePos != 9) {
+		ScrollUp();
+		player->MoveDown();
+		portal.MoveDown();
+		maxIndex++;
 	}
 
 	return true;
 }
 
 void GameMap::Render() {
-	game->RenderSprite(grid, {0, 0});
-
+	//game->RenderSprite(grid, {0, 0});
+	//game->RenderSprite(portal, { 0, 0 });
 	for (int i = 0; i < lanes.size(); i++) {
+		if (portal.lanePos == i) portal.Render();
 		lanes[i]->Render();
 		if (player->lanePos == i) player->Render();
 	}
+
+	std::string playerScore = std::to_string(score);
+	Widget::Text textScore = Widget::Text(
+		game,
+		playerScore,
+		{ 440, 9 },
+		30, 30,
+		TextFont::NORMAL
+	);
+
+	textScore.Render();
+}
+
+void GameMap::HandlePlayerCollision(float elapsedTime) {
+	int collisType = player->CheckCollision();
+
+	COORD pos = player->getPosition();
+
+	if (collisType == 5) {
+		if (player->animationState == AnimationState::DROWN) return;
+
+		// player is on floating object
+		Log log = GetLogByLaneId(player->lanePos + 1);
+		float logSpeed = log.logSpeed;
+		MovingDirection logDirection = log.movingDirection;
+
+		player->MoveHorizontal(
+			elapsedTime, 
+			logSpeed, 
+			logDirection
+		);
+	}
+	else if (collisType == 4) {
+		// player is on water
+		if (lanes[player->lanePos + 1]->laneType == LaneType::WATER) {
+			player->animationState = AnimationState::DROWN;
+			//system("pause");
+		}
+		// player is hit by car
+		else {
+			player->animationState = AnimationState::DEAD;
+		}
+	}
+	else if (collisType == 6) {
+		// player hit the portal
+		system("pause");
+		CrossingRoad::Navigation::To(new Menu(game));
+	}
+}
+
+Log GameMap::GetLogByLaneId(int laneId) {
+	if (laneId >= 0 && laneId < lanes.size()) {
+		WaterLane* lane = dynamic_cast<WaterLane*>(lanes[laneId]);
+
+		return lane->log;
+	}
+
+	return Log();
 }

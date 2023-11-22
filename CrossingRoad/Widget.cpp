@@ -17,7 +17,7 @@ Widget::Text::Text(
 	appearance.clear();
 	for (auto& ch : ptext) {
 		// get sprite name
-		if (!isalpha(ch)) continue;
+		if (!isalpha(ch) && !isdigit(ch)) continue;
 
 		std::string spriteName = GetLetterSpritePath(ch, font);
 		Image letter = Image(spriteName, Overlapped::TEXT);

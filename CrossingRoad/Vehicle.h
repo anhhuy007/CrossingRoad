@@ -9,6 +9,7 @@
 
 class Vehicle : public GameObject {
 public:
+	// ----- behaviors -----
 	Vehicle() : GameObject({ 0, 0 }, game) {};
 	Vehicle(
 		CrossingRoad* game, 
@@ -26,15 +27,15 @@ public:
 	short getX() { return position.X; }
 	short getY() { return position.Y; }
 
+	// ----- properties -----
 	bool endOfRoad = false;
 	Graphic::Sprite vehicleSprite;
-	float vehicleSpeed = 0.01f;
+	float vehicleSpeed;
 	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;
-protected:
 	VehicleType type;
-	float time = 0.0f;
+	float time = 0.0f;	
 };
 
 #endif // !VEHICLE_H

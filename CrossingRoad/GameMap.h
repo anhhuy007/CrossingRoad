@@ -7,25 +7,34 @@
 #include "CrossingRoad.h"
 #include "GamePlayer.h"
 #include "Lane.h"
+#include "Log.h"
+#include "Portal.h"
+#include "Widget.h"
+#include "Menu.h"
 
 // ----- standard libs include -----
 #include <vector>
 #include <string>
 
 class GameMap : public CrossingRoad::GameScreen {
-
-protected: 
+private:
+	// ---- game properties ----
 	int level = 0;
-	int score = 0;
 	int collectedCoins = 0;
-	int playerIndex = 0;
+	int index = 0;
+	int maxIndex = 0;
 	float totalTime = 0.0f;
-	std::vector<Lane*> lanes;
-	
+
 	GamePlayer* player = nullptr;
 	Graphic::Sprite grid;
 
+protected:
+	int score = 0;
+	std::vector<Lane*> lanes;
+	Portal portal;
+
 public: 
+
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
 
 	// overrided functions 
@@ -40,6 +49,8 @@ public:
 
 	// methods
 	void Render();
+	void HandlePlayerCollision(float elapsedTime);
+	Log GetLogByLaneId(int laneId);
 };
 
 

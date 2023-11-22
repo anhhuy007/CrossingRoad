@@ -33,8 +33,8 @@ Vehicle::Vehicle(
 	SetInitPosition();
 	lanePos = _id;
 	movingDirection = _direction;
-	axisSpeed = GameSpeed(4, 1, -1, 2);
-	vehicleSpeed = float((rand() % 3) + 1) * 0.004;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
@@ -81,6 +81,25 @@ void Vehicle::MoveAhead() {
 void Vehicle::MoveDown() {
 	position.X += axisSpeed.X_VERTICAL;
 	position.Y += axisSpeed.Y_VERTICAL;
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}
+	lanePos += 1;
+
+	/*position.X -= 1;
+	position.Y += 2;
+	
+	if (position.Y % 24 == 0) {
+		lanePos += 1;
+		position.X += 1;
+		position.Y -= 5;
+	}
+
+	if (lanePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}*/
 }
 ;
 

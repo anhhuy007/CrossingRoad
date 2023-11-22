@@ -147,11 +147,13 @@
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="PlayMenuScreen.cpp" />
     <ClCompile Include="PlayMenuWidget.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RoadLane.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
     <ClCompile Include="SettingWidget.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StreetMap.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="WaterLane.cpp" />
     <ClCompile Include="Widget.cpp" />
@@ -174,8 +176,6 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />
-    <ClInclude Include="PlayMenuScreen.h" />
-    <ClInclude Include="PlayMenuWidget.h" />
     <ClInclude Include="RoadLane.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="SettingScreen.h" />
