@@ -14,9 +14,9 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 		return backPosition;
 	}
 }
-
-Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume) {
-	if (volume == 0) {
+	
+Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
+	if (volume == 0 || isOn == 0) {
 		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
@@ -65,10 +65,6 @@ void SettingWidget::Update(float elapsedTime) {
 
 	COORD background = { 185, 73 };
 	COORD effect = { 185, 104 };
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);
-
-	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
 	auto checkSound = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
@@ -89,7 +85,7 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		enterClicked = true;
-		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 		if (currentButtonIndex == 0) {
 			if (game->soundSetting.backgroundSound) {
 				Sound::turnOffBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
@@ -177,8 +173,8 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume,game->soundSetting.backgroundSound), background);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume,game->soundSetting.effectSound), effect);
 
 	// update button state
 	/*for (int i = 0; i < buttons.size(); i++) {

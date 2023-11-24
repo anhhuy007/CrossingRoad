@@ -18,19 +18,19 @@ class SettingWidget : public GameObject {
 
 	COORD musicPosition = { 81,73 };
 	COORD sfxPosition = { 85,104 };
-	COORD characterPosition = { 62,150 };
+	COORD characterPosition = { 72,150 };
 	COORD backPosition = { 80,180 };
 
 	Image cursor = Image(DrawableRes::cursor, Overlapped::DECORATOR);
 
 	Widget::Text music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
 	Widget::Text sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
-	Widget::Text character = Widget::Text(game, "CHARACTER", { 92,150 }, 45, 34, TextFont::NORMAL);
+	Widget::Text character = Widget::Text(game, "CHARACTER", { 102,150 }, 45, 34, TextFont::NORMAL);
 	Widget::Text back = Widget::Text(game, "BACK", { 110,180}, 20, 34, TextFont::NORMAL);
 
 
 	COORD getCursorPosition(int);
-	Graphic::Sprite getSpriteVolumeLevel(int);
+	Graphic::Sprite getSpriteVolumeLevel(int,bool);
 
 public:
 	SettingWidget(CrossingRoad* pgame) : GameObject(pgame) {};
