@@ -20,22 +20,22 @@ Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
-		return Graphic::Sprite(DrawableRes::lv1, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite", Overlapped::DECORATOR);
 	}
 	else if (volume == 40) {
-		return Graphic::Sprite(DrawableRes::lv2, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl2.sprite", Overlapped::DECORATOR);
 	}
 	else if (volume == 60) {
-		return Graphic::Sprite(DrawableRes::lv3, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl3.sprite", Overlapped::DECORATOR);
 	}
 	else if (volume == 80) {
-		return Graphic::Sprite(DrawableRes::lv4, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl4.sprite", Overlapped::DECORATOR);
 	}
 	else if (volume == 100) {
-		return Graphic::Sprite(DrawableRes::lv5, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl5.sprite", Overlapped::DECORATOR);
 	}
 	else {
-		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
 	}
 }
 
@@ -61,7 +61,6 @@ void SettingWidget::Update(float elapsedTime) {
 	sfx.Render();
 	character.Render();
 	back.Render();
-
 
 	COORD background = { 185, 73 };
 	COORD effect = { 185, 104 };
