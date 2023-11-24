@@ -16,6 +16,13 @@ class SettingWidget : public GameObject {
 	bool enterClicked = false;
 	float totalTime = 0;
 
+	Widget::Text music = Widget::Text(game, "MUSIC", { 20,60 }, 25, 34, TextFont::NORMAL);
+	Widget::Text sfx = Widget::Text(game, "SFX", { 20,90 }, 15, 34, TextFont::NORMAL);
+	Widget::Text character = Widget::Text(game, "CHARACTER", { 20,120 }, 45, 34, TextFont::NORMAL);
+	Widget::Text back = Widget::Text(game, "BACK", { 20,130 }, 20, 34, TextFont::NORMAL);
+
+	Graphic::Sprite getSpriteVolumeLevel(int);
+
 public:
 	SettingWidget(CrossingRoad* pgame) : GameObject(pgame) {};
 	SettingWidget(
@@ -27,6 +34,5 @@ public:
 	void Render();
 	void Update(float elapsedTime);
 };
-
 #endif // !SETTIING_WIDGET_H
 

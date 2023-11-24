@@ -25,14 +25,14 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"1";
 	else if (path == L"Sound\\Invalid.wav")
 		return L"2";
-	else if (path == L"Sound\\Valid.mp3")	
+	else if (path == L"Sound\\Valid.mp3")
 		return L"3";
-	else if ( path == L"Sound\\Enter.wav")
+	else if (path == L"Sound\\Enter.wav")
 		return L"4";
 	else if (path == L"Sound\\Change.mp3")
 		return L"5";
-	else if(path == L"Sound\\Coin.wav")
-		return L"6",
+	else if (path == L"Sound\\Coin.wav")
+		return L"6";
 	return L"";
 }
 //--------------Open and close file--------------

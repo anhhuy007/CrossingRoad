@@ -1,5 +1,29 @@
 #include "SettingWidget.h"
 
+Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume) {
+	if (volume == 0) {
+		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
+	}
+	else if (volume == 20) {
+		return Graphic::Sprite(DrawableRes::lv1, Overlapped::DECORATOR);
+	}
+	else if (volume == 40) {
+		return Graphic::Sprite(DrawableRes::lv2, Overlapped::DECORATOR);
+	}
+	else if (volume == 60) {
+		return Graphic::Sprite(DrawableRes::lv3, Overlapped::DECORATOR);
+	}
+	else if (volume == 80) {
+		return Graphic::Sprite(DrawableRes::lv4, Overlapped::DECORATOR);
+	}
+	else if (volume == 100) {
+		return Graphic::Sprite(DrawableRes::lv5, Overlapped::DECORATOR);
+	}
+	else {
+		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
+	}
+}
+
 SettingWidget::SettingWidget(
 	CrossingRoad* pgame,
 	std::vector<Widget::Button>& pbuttons,
@@ -8,21 +32,7 @@ SettingWidget::SettingWidget(
 	position = pposition;
 	buttons = pbuttons;
 
-	// set button positions
-	COORD pos = pposition;
-	for (auto& button : buttons) {
-		button.setPosition(pos);
 
-		// set button text positions
-		button.text.setTextPosition(
-			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 140, 34),
-			138,
-			34
-		);
-
-		pos.Y += 30;
-	}
 }
 
 void SettingWidget::Render() {
@@ -32,6 +42,17 @@ void SettingWidget::Render() {
 }
 
 void SettingWidget::Update(float elapsedTime) {
+	music.Render();
+	sfx.Render();
+	character.Render();
+	back.Render();
+
+	COORD background = { 160, 60 };
+	COORD effect = { 160, 90 };
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);
+
+
 	auto checkSound = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
 			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
@@ -137,8 +158,12 @@ void SettingWidget::Update(float elapsedTime) {
 			}
 		}
 	}
+
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);
+
 	// update button state
-	for (int i = 0; i < buttons.size(); i++) {
+	/*for (int i = 0; i < buttons.size(); i++) {
 		if (i == currentButtonIndex) {
 			if (enterClicked) {
 				buttons[i].OnTrigger();
@@ -153,10 +178,7 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	for (int i = 0; i < buttons.size(); i++) {
 		buttons[i].Render();
-	}
-
-	//update volume state
-
+	}*/
 	
 	// trigger button action
 	if (enterClicked) {
@@ -166,13 +188,13 @@ void SettingWidget::Update(float elapsedTime) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;
-			// reset button text position
-			buttons[currentButtonIndex].text.setTextPosition(
-				buttons[currentButtonIndex].text.text,
-				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 140, 34),
-				138,
-				34
-			);
+			//// reset button text position
+			//buttons[currentButtonIndex].text.setTextPosition(
+			//	buttons[currentButtonIndex].text.text,
+			//	Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 140, 34),
+			//	138,
+			//	34
+			//);
 		}
 	}
 }

@@ -44,6 +44,13 @@ bool SettingScreen::OnCreate() {
 		),
 		Widget::Button(
 			game,
+			"CHANGE CHARACTER",
+			[&]() {
+				nullptr;
+			}
+		),
+		Widget::Button(
+			game,
 			"BACK",
 			[&]() {
 				CrossingRoad::Navigation::To(new MenuScreen(game));
@@ -57,12 +64,13 @@ bool SettingScreen::OnCreate() {
 		{ 150, 50 }
 	);
 
-	onToggle = Image();
-	offToggle = Image();
+	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+
 	return true;
 }
 
 bool SettingScreen::OnUpdate(float elapsedTime) {
+
 	settingWidget.Update(elapsedTime);
 	return true;
 }

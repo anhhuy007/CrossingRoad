@@ -20,9 +20,7 @@ public:
 	//Animation
 
 	//Image
-
-	Image onToggle;
-	Image offToggle;
+	Image image;
 
 	SettingWidget settingWidget = SettingWidget(game);
 };
