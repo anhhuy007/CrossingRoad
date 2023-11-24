@@ -51,14 +51,6 @@ namespace DrawableRes {
 	const std::string onChosenButton = "widgets\\OnHoverButton.sprite";
 	const std::string onEnterButton = "widgets\\OnTriggerButton.sprite";
 
-	// setting button sprites
-	const std::string lv0 = spriteFolder + "lvl0.sprite";
-	const std::string lv1 = spriteFolder + "lvl1.sprite";
-	const std::string lv2 = spriteFolder + "lvl2.sprite";
-	const std::string lv3 = spriteFolder + "lvl3.sprite";
-	const std::string lv4 = spriteFolder + "lvl4.sprite";
-	const std::string lv5 = spriteFolder + "lvl5.sprite";
-	const std::string cursor = spriteFolder + "Cursor.sprite";
 }
 
 #endif // !TEXT_STRING
