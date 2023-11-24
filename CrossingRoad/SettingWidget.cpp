@@ -1,5 +1,20 @@
 #include "SettingWidget.h"
 
+COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
+	if (currentButtonIndex == 0) {
+		return musicPosition;
+	}
+	else if (currentButtonIndex == 1) {
+		return sfxPosition;
+	}
+	else if (currentButtonIndex == 2) {
+		return characterPosition;
+	}
+	else if (currentButtonIndex == 3) {
+		return backPosition;
+	}
+}
+
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume) {
 	if (volume == 0) {
 		return Graphic::Sprite(DrawableRes::lv0, Overlapped::DECORATOR);
@@ -47,11 +62,13 @@ void SettingWidget::Update(float elapsedTime) {
 	character.Render();
 	back.Render();
 
-	COORD background = { 160, 60 };
-	COORD effect = { 160, 90 };
+
+	COORD background = { 185, 73 };
+	COORD effect = { 185, 104 };
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);
 
+	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
 	auto checkSound = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
@@ -158,6 +175,7 @@ void SettingWidget::Update(float elapsedTime) {
 			}
 		}
 	}
+	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume), background);
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume), effect);

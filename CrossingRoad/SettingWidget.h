@@ -16,11 +16,20 @@ class SettingWidget : public GameObject {
 	bool enterClicked = false;
 	float totalTime = 0;
 
-	Widget::Text music = Widget::Text(game, "MUSIC", { 20,60 }, 25, 34, TextFont::NORMAL);
-	Widget::Text sfx = Widget::Text(game, "SFX", { 20,90 }, 15, 34, TextFont::NORMAL);
-	Widget::Text character = Widget::Text(game, "CHARACTER", { 20,120 }, 45, 34, TextFont::NORMAL);
-	Widget::Text back = Widget::Text(game, "BACK", { 20,130 }, 20, 34, TextFont::NORMAL);
+	COORD musicPosition = { 81,73 };
+	COORD sfxPosition = { 85,104 };
+	COORD characterPosition = { 62,150 };
+	COORD backPosition = { 80,180 };
 
+	Image cursor = Image(DrawableRes::cursor, Overlapped::DECORATOR);
+
+	Widget::Text music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
+	Widget::Text sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
+	Widget::Text character = Widget::Text(game, "CHARACTER", { 92,150 }, 45, 34, TextFont::NORMAL);
+	Widget::Text back = Widget::Text(game, "BACK", { 110,180}, 20, 34, TextFont::NORMAL);
+
+
+	COORD getCursorPosition(int);
 	Graphic::Sprite getSpriteVolumeLevel(int);
 
 public:

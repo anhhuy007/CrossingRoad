@@ -20,6 +20,7 @@ namespace DrawableRes {
 	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
+	const std::string LightBlueBG = spriteFolder + "LightBlueBG.sprite";
 	
 	// obstacle sprites
 	const std::string SmallTree = spriteFolder + "Tree1.sprite";
@@ -57,6 +58,7 @@ namespace DrawableRes {
 	const std::string lv3 = spriteFolder + "lvl3.sprite";
 	const std::string lv4 = spriteFolder + "lvl4.sprite";
 	const std::string lv5 = spriteFolder + "lvl5.sprite";
+	const std::string cursor = spriteFolder + "Cursor.sprite";
 }
 
 #endif // !TEXT_STRING
