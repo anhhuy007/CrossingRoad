@@ -72,6 +72,9 @@ void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting,int preIndexSo
 	if (preIndexSound != -1) {
 		closeSound(findAlias(BACKGROUND[preIndexSound]));
 	}
+	if (indexSound == -1) {
+		return;
+	}
 	std::wstring path = BACKGROUND[indexSound];
 	std::wstring alias = findAlias(path);
 	if (soundSetting.backgroundSound) {
