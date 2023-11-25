@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "GamePlayer.h"
 #include "Widget.h"
+#include "AboutScreen.h"
 
 class AboutScreen : public CrossingRoad::GameScreen {
 public:
@@ -26,6 +27,7 @@ public:
 	Widget::Text releasedDate = Widget::Text(game, "Released Date: ", { 92,150 }, 45, 34, TextFont::NORMAL);
 	Widget::Text Version = Widget::Text(game, "Version: 1.0.0", { 110,180 }, 20, 34, TextFont::NORMAL);
 
+	MenuWidget menuWidget = MenuWidget(game);
 };
 
 #endif // !ABOUT_SCREEN_H
