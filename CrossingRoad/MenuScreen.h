@@ -21,6 +21,22 @@ public:
 	Animation meow;
 	Image image;
 	MenuWidget menuWidget = MenuWidget(game);
+
+	//title
+	Animation C;
+	Animation R1;
+	Animation R2;
+	Animation O1;
+	Animation O2;
+	Animation S1;
+	Animation S2;
+	Animation I;
+	Animation N;
+	Animation G;
+	Animation R;
+	Animation O;
+	Animation A;
+	Animation D;
 };
 
 #endif // !MENU_SCREEN_H

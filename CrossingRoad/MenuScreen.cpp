@@ -26,8 +26,8 @@ bool MenuScreen::OnCreate() {
 
 	COLOR::SetConsoleColor(colors);
 
-	// declaration
 
+	// Menu button function
 	std::vector<Widget::Button> buttons = {
 		Widget::Button(
 			game,
@@ -72,6 +72,65 @@ bool MenuScreen::OnCreate() {
 	);
 	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 	return true;
+
+	//Crossing Road title
+	std::vector<Graphic::Sprite> textCgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
+	};
+	std::vector<Graphic::Sprite> textRgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowR.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowR.sprite")
+	};
+	std::vector<Graphic::Sprite> textOgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowO.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowO.sprite")
+	};
+	std::vector<Graphic::Sprite> textSgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowS.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowS.sprite")
+	};
+	std::vector<Graphic::Sprite> textIgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowI.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowI.sprite")
+	};
+	std::vector<Graphic::Sprite> textNgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowN.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowN.sprite")
+	};
+	std::vector<Graphic::Sprite> textGgif = {
+	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowG.sprite"),
+	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowG.sprite")
+	};
+	std::vector<Graphic::Sprite> textDgif = {
+Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowD.sprite"),
+Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowD.sprite")
+	};
+	std::vector<Graphic::Sprite> textAgif = {
+Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowA.sprite"),
+Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite"),
+	};
+
+
+	short top_border = 20, left = 50, space = 28;
+	C = Animation(game, textCgif, { left, top_border }, 400); left += space;
+	R1 = Animation(game, textRgif, { left, top_border }, 400); left += space;
+	O1 = Animation(game, textOgif, { left, top_border }, 400); left += space;
+	S1 = Animation(game, textSgif, { left, top_border }, 400); left += space;
+	S2 = Animation(game, textSgif, { left, top_border }, 400); left += space;
+	I = Animation(game, textIgif, { left, top_border }, 400); left += space;
+	N = Animation(game, textNgif, { left, top_border }, 400); left += space;
+	G = Animation(game, textGgif, { left, top_border }, 400); left += (space + 15);
+
+	R2 = Animation(game, textRgif, { left, top_border }, 400); left += space;
+	O2 = Animation(game, textOgif, { left, top_border }, 400); left += space;
+	A = Animation(game, textAgif, { left, top_border }, 400); left += space;
+	D = Animation(game, textDgif, { left, top_border }, 400);
+	return true;
+
+
+
+
 }
 
 bool MenuScreen::OnUpdate(float elapsedTime) {
@@ -81,6 +140,22 @@ bool MenuScreen::OnUpdate(float elapsedTime) {
 	//meow.OnPlay(elapsedTime);
 
 	menuWidget.Update(elapsedTime);
+
+
+	C.OnPlay(elapsedTime);
+	R1.OnPlay(elapsedTime);
+	R2.OnPlay(elapsedTime);
+	O1.OnPlay(elapsedTime);
+	O2.OnPlay(elapsedTime);
+	S1.OnPlay(elapsedTime);
+	S2.OnPlay(elapsedTime);
+	I.OnPlay(elapsedTime);
+	N.OnPlay(elapsedTime);
+	G.OnPlay(elapsedTime);
+	A.OnPlay(elapsedTime);
+	D.OnPlay(elapsedTime);
+
+
 
 	return true;
 }
