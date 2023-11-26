@@ -12,7 +12,6 @@ class SettingWidget : public GameObject {
 	std::vector<Widget::Button> buttons;
 	int currentButtonIndex = 0;
 	COORD position;
-	std::vector<COORD> buttonPositions;
 	bool enterClicked = false;
 	float totalTime = 0;
 

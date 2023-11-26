@@ -17,7 +17,7 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 	
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 	if (volume == 0 || isOn == 0) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite",Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
 		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite", Overlapped::DECORATOR);
@@ -46,8 +46,6 @@ SettingWidget::SettingWidget(
 ) : GameObject(pgame) {
 	position = pposition;
 	buttons = pbuttons;
-
-
 }
 
 void SettingWidget::Render() {
@@ -175,39 +173,12 @@ void SettingWidget::Update(float elapsedTime) {
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume,game->soundSetting.backgroundSound), background);
 	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume,game->soundSetting.effectSound), effect);
 
-	// update button state
-	/*for (int i = 0; i < buttons.size(); i++) {
-		if (i == currentButtonIndex) {
-			if (enterClicked) {
-				buttons[i].OnTrigger();
-			}
-			else {
-				buttons[i].OnHover();
-			}
-		}
-		else {
-			buttons[i].OnNormal();
-		}
-	}
-	for (int i = 0; i < buttons.size(); i++) {
-		buttons[i].Render();
-	}*/
-	
-	// trigger button action
 	if (enterClicked) {
-		
 		totalTime += elapsedTime;
 		if (totalTime > 500) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;
-			//// reset button text position
-			//buttons[currentButtonIndex].text.setTextPosition(
-			//	buttons[currentButtonIndex].text.text,
-			//	Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 140, 34),
-			//	138,
-			//	34
-			//);
 		}
 	}
 }
