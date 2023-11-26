@@ -1,8 +1,9 @@
 #include "SettingScreen.h"
 #include "StreetMap.h"
 #include "MenuScreen.h"
+#include "AboutScreen.h"
 
-bool SettingScreen::OnCreate() {
+bool AboutScreen::OnCreate() {
 	// set console color
 	std::vector<int> colors = {
 		//BAR
@@ -21,12 +22,27 @@ bool SettingScreen::OnCreate() {
 
 	COLOR::SetConsoleColor(colors);
 
-	// declaration
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"BACK",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		)
+	};
+	
+	menuWidget = MenuWidget(
+		game,
+		buttons,
+		{ 150, 50 }
+	);
 
+	// declaration
 	return true;
 }
 
-bool SettingScreen::OnUpdate(float elapsedTime)	{
-	settingWidget.Update(elapsedTime);
+bool AboutScreen::OnUpdate(float elapsedTime) {
+	menuWidget.Update(elapsedTime);
 	return true;
 }

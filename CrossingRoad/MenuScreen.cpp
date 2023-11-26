@@ -71,9 +71,9 @@ bool MenuScreen::OnCreate() {
 		{ 150, 60 }
 	);
 	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	return true;
 
 	//Crossing Road title
+	
 	std::vector<Graphic::Sprite> textCgif = {
 	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
 	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
@@ -126,6 +126,9 @@ Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite
 	O2 = Animation(game, textOgif, { left, top_border }, 400); left += space;
 	A = Animation(game, textAgif, { left, top_border }, 400); left += space;
 	D = Animation(game, textDgif, { left, top_border }, 400);
+
+
+	
 	return true;
 
 
@@ -141,7 +144,7 @@ bool MenuScreen::OnUpdate(float elapsedTime) {
 
 	menuWidget.Update(elapsedTime);
 
-
+	
 	C.OnPlay(elapsedTime);
 	R1.OnPlay(elapsedTime);
 	R2.OnPlay(elapsedTime);
@@ -154,7 +157,7 @@ bool MenuScreen::OnUpdate(float elapsedTime) {
 	G.OnPlay(elapsedTime);
 	A.OnPlay(elapsedTime);
 	D.OnPlay(elapsedTime);
-
+	
 
 
 	return true;

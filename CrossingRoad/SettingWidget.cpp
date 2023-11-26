@@ -17,7 +17,7 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 	
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 	if (volume == 0 || isOn == 0) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite",Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
 		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite", Overlapped::DECORATOR);
