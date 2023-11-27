@@ -153,6 +153,20 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 
 		break;
 	case ObjectType::ROCK:
+		points = GetPointsOnLine(
+			{ 1, 3 },
+			{ 27, 9 },
+			3,
+			true
+		);
+
+		sum(points, GetPointsOnLine(
+			{ 1, 16 },
+			{ 27, 22 },
+			3,
+			true
+		));
+
 		break;
 	case ObjectType::WATER:
 		points = GetPointsOnLine(

@@ -30,7 +30,8 @@ Lane* StreetMap::GetNewLane(int laneId, LaneType previousLane) {
 			laneId, 
 			game, 
 			grasslane,
-			rand() % 5 + 1
+			rand() % 3 + 1,
+			rand() % 2
 		);
 	}
 	else if (randomLane == 1) {
@@ -66,12 +67,11 @@ void StreetMap::CreateLanes() {
 		lanes.push_back(GetNewLane(i, i == 0 ? LaneType::GRASS : lanes[i - 1]->laneType));
 	}
 
-	lanes.push_back(new GrassLane(MAXLANE - 2, game, grasslane, 0));
-	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane, 0));
+	lanes.push_back(new GrassLane(MAXLANE - 2, game, grasslane, 0, 0));
+	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane, 0, 0));
 }
 
 void StreetMap::ScrollUp() {
-
 	lanes.pop_back();
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->ScrollUp();
@@ -79,7 +79,7 @@ void StreetMap::ScrollUp() {
 
 	if (score == 30) {
 		// display grass lane with teleport portal
-		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0));
+		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0, 0));
 		portal.visible = true;
 		portal.setPosition(
 			Alignment::GetAlignedPosition(
@@ -92,7 +92,7 @@ void StreetMap::ScrollUp() {
 		portal.lanePos = 0;
 	}
 	else if (score > 30) {
-		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0));
+		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0, 0));
 	}
 	else {
 		lanes.insert(lanes.begin(), GetNewLane(0, LaneType::GRASS));
@@ -103,8 +103,3 @@ void StreetMap::ScrollUp() {
 		roadlane->hasRoadMarking = true;
 	}
 }
-
-Graphic::Sprite grasslane = Graphic::Sprite(DrawableRes::GrassLane);
-Graphic::Sprite waterlane = Graphic::Sprite(DrawableRes::WaterLane);
-Graphic::Sprite roadlane = Graphic::Sprite(DrawableRes::RoadLane);
-Graphic::Sprite roadMarking = Graphic::Sprite(DrawableRes::RoadMarking);

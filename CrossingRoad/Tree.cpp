@@ -1,16 +1,20 @@
 #include "Tree.h"
 
-Tree::Tree(CrossingRoad* game, int laneId) : GameObject(game) {
-	int randomNumber = rand() % 20;
+Tree::Tree(
+	CrossingRoad* game,
+	int planePos,
+	int pblockPos,
+	TreeType ptreeType,
+	Graphic::Sprite psprite
+) : GameObject(game) {
 
-	lanePos = laneId;
-	blockPos = randomNumber;
+	lanePos = planePos;
+	blockPos = pblockPos;
 
-	if (randomNumber % 2) {
-		treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
+	if (treeType == TreeType::SMALL_TREE) {
 		position = Alignment::GetAlignedPosition(
-			laneId,
-			randomNumber,
+			lanePos,
+			blockPos,
 			{ 10, 40 },
 			Gravity::CENTRALLY_ALIGNED
 		);
@@ -20,10 +24,9 @@ Tree::Tree(CrossingRoad* game, int laneId) : GameObject(game) {
 		collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_1);
 	}
 	else {
-		treeSprite = Graphic::Sprite(DrawableRes::BigTree);
 		position = Alignment::GetAlignedPosition(
-			laneId,
-			randomNumber,
+			lanePos,
+			blockPos,
 			{ 26, 63 },
 			Gravity::BOTTOM_CENTER
 		);
@@ -33,6 +36,7 @@ Tree::Tree(CrossingRoad* game, int laneId) : GameObject(game) {
 		collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_2);
 	}
 
+	treeSprite = psprite;
 	treeSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 

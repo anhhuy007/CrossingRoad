@@ -33,6 +33,12 @@ protected:
 	std::vector<Lane*> lanes;
 	Portal portal;
 
+	Graphic::Sprite grasslane;
+	Graphic::Sprite snowlane;
+	Graphic::Sprite waterlane;
+	Graphic::Sprite roadlane;
+	Graphic::Sprite roadMarking;
+
 public: 
 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
@@ -40,6 +46,7 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
+	bool OnPause();
 	bool OnDestroy() { return false; };
 
 	// must override functions

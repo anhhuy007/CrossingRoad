@@ -14,11 +14,6 @@
 #include <string>
 
 class StreetMap : public GameMap {
-	Graphic::Sprite grasslane;
-	Graphic::Sprite waterlane;
-	Graphic::Sprite roadlane;
-	Graphic::Sprite roadMarking;
-
 public:
 	StreetMap(CrossingRoad* game) : GameMap(game) {};
 	

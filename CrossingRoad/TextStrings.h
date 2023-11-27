@@ -18,6 +18,7 @@ namespace DrawableRes {
 	const std::string GrassLane = spriteFolder + "GrassLane.sprite";
 	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
 	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
+	const std::string SnowLane = spriteFolder + "SnowLane.sprite";
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
 	const std::string LightBlueBG = spriteFolder + "LightBlueBG.sprite";
@@ -36,6 +37,13 @@ namespace DrawableRes {
 	const std::string Portal = spriteFolder + "Portal.sprite";
 	const std::string Grid = spriteFolder + "Grid.sprite";
 	const std::string Coin = spriteFolder + "Coin.sprite";
+	const std::string Rock = spriteFolder + "Rock.sprite";
+	const std::string Rock_Snow = spriteFolder + "Rock_Snow.sprite";
+	const std::string PineTree1 = spriteFolder + "PineTree1.sprite";
+	const std::string PineTree2 = spriteFolder + "PineTree2.sprite";
+	const std::string Gift = spriteFolder + "Gift.sprite";
+	const std::string Deer = spriteFolder + "Deer.sprite";
+	const std::string Snowman = spriteFolder + "Snowman.sprite";
 	
 
 	// animation sprites

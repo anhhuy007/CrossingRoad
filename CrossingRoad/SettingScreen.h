@@ -23,6 +23,15 @@ public:
 	Image image;
 
 	SettingWidget settingWidget = SettingWidget(game);
+
+	Animation S;
+	Animation E;
+	Animation T1;
+	Animation T2;
+	Animation I;
+	Animation N;
+	Animation G;
+
 };
 
 #endif // !SETTING_SCREEN_H

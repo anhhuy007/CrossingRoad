@@ -1,13 +1,19 @@
 #include "CrossingRoad.h"
-#include "GameMap.h"
-#include "StreetMap.h"
+
+// ----- Game Screens -----
 #include "MenuScreen.h"
 #include "SplashScreen.h"
 #include "SavedGameScreen.h"
+#include "AboutScreen.h"
+
+// ----- Game Maps -----
+#include "StreetMap.h"
+#include "WinterMap.h"
+
 void CrossingRoad::Init() {
 	// ----- Init game -----
 	GameEngine::BuildConsole();	
-	Navigation::To(new MenuScreen(this));
+	Navigation::To(new WinterMap(this));
 }
 
 bool CrossingRoad::GameCreate() {
@@ -22,15 +28,12 @@ bool CrossingRoad::GameCreate() {
 bool CrossingRoad::GameUpdate(float elapsedTime) {
 	// ----- Game pause -----
 	if (inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
-		return Navigation::OnScreenDestroy();
+		if (Navigation::OnScreenPause() == false)
+			return Navigation::OnScreenDestroy();
 	}
 
 	// ------ Game Update -----
 	return Navigation::OnScreenUpdate(elapsedTime);
-}
-
-void CrossingRoad::Navigation::To(std::string route) {
-	// do some navigation
 }
 
 void CrossingRoad::Navigation::To(GameScreen* pscreen) {

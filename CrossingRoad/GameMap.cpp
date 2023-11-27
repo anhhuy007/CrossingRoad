@@ -17,36 +17,43 @@ bool GameMap::OnCreate() {
 }
 
 bool GameMap::OnUpdate(float elapsedTime) {
-	totalTime += elapsedTime;
+	if (!isPaused) {
+		totalTime += elapsedTime;
 
-	// update lanes and player position
-	for (int i = 0; i < lanes.size(); i++) {
-		lanes[i]->Update(elapsedTime);
-	}
+		// update lanes and player position
+		for (int i = 0; i < lanes.size(); i++) {
+			lanes[i]->Update(elapsedTime);
+		}
 
-	// disable player moving above lane containing portal
-	if (portal.lanePos != 9 || 
-		player->lanePos != 7 || 
-		!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
-	) {
-		player->Update(elapsedTime);
-	}
+		// disable player moving above lane containing portal
+		if (portal.lanePos != 9 ||
+			player->lanePos != 7 ||
+			!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
+			) {
+			player->Update(elapsedTime);
+		}
 
-	// check for game collision
-	if (portal.lanePos == 9) portal.WriteCollisionPoints();
-	HandlePlayerCollision(elapsedTime);
+		// check for game collision
+		if (portal.lanePos == 9) portal.WriteCollisionPoints();
+		HandlePlayerCollision(elapsedTime);
 
-	// update score
-	int playerPos = player->lanePos;
-	if (playerPos < maxIndex) {
-		maxIndex = playerPos;
-		score++;
+		// update score
+		int playerPos = player->lanePos;
+		if (playerPos < maxIndex) {
+			maxIndex = playerPos;
+			score++;
+		}
 	}
 
 	// display game 
 	Render();
 
+	if (isPaused) {
+		return OnPause();
+	}
+	
 	// handle map scrolling up
+	int playerPos = player->lanePos;
 	if (playerPos == 6 && portal.lanePos != 9) {
 		ScrollUp();
 		player->MoveDown();
@@ -57,9 +64,25 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	return true;
 }
 
+bool GameMap::OnPause() {
+	// display dialog to ask player to continue or exit game
+	isPaused = true;
+
+	// if player press ESC, exit game
+	if (game->inputHandle->keyState_[Keyboard::SPACE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+		return true;
+	}
+
+	// if player press ENTER, continue game
+	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		isPaused = false;
+	}
+
+	return true;
+}
+
 void GameMap::Render() {
-	//game->RenderSprite(grid, {0, 0});
-	//game->RenderSprite(portal, { 0, 0 });
 	for (int i = 0; i < lanes.size(); i++) {
 		if (portal.lanePos == i) portal.Render();
 		lanes[i]->Render();
@@ -113,7 +136,6 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 		// player is on water
 		if (lanes[player->lanePos + 1]->laneType == LaneType::WATER) {
 			player->animationState = AnimationState::DROWN;
-			//system("pause");
 		}
 		// player is hit by car
 		else {

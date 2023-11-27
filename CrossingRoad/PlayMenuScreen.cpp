@@ -1,6 +1,6 @@
 #include "PlayMenuScreen.h"
-#include "StreetMap.h"
 #include "MenuScreen.h"
+#include "StreetMap.h"
 
 bool PlayMenuScreen::OnCreate() {
 	// set console color
