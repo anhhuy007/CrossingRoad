@@ -68,11 +68,11 @@ void GrassLane::ScrollUp() {
 
 	// move trees down
 	for (auto& tree : trees) {
-		tree.MoveDown();
+		tree.MoveDown(tree.lanePos);
 	}
 
 	// move rocks down
 	for (auto& rock : rocks) {
-		rock.MoveDown();
+		rock.MoveDown(rock.lanePos);
 	}
 }

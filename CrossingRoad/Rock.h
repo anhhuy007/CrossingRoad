@@ -16,10 +16,8 @@ public:
 	void Update(float elapsedTime) {};
 	void Render() {};
 
-	void MoveDown();
 
 	// ----- properties -----
-	GameSpeed axisSpeed = GameSpeed(24, 6, -11, 21);
 	Graphic::Sprite rockSprite;
 	int lanePos;
 	int blockPos;

@@ -5,7 +5,7 @@ void WaterLane::Update(float elapsedTime) {
 
 	if (log.endOfRoad == true) {
 		log.endOfRoad = false;
-		log.setInitPosition();
+		log.SetInitPosition();
 		log.logSpeed = float((rand() % 3) + 1) * 0.004;	// reset new log speed
 	}
 
@@ -21,5 +21,5 @@ void WaterLane::Render() {
 void WaterLane::ScrollUp() {
 	id++;
 	position.Y += 24;
-	log.MoveDown();
+	log.MoveDown(log.lanePos);
 }

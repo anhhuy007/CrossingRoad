@@ -26,7 +26,7 @@ bool MenuScreen::OnCreate() {
 	};
 
 	// background 
-	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 
 	// Menu button function
 	std::vector<Widget::Button> buttons = {
@@ -132,7 +132,7 @@ bool MenuScreen::OnCreate() {
 }
 
 bool MenuScreen::OnUpdate(float elapsedTime) {
-	game->RenderSprite(image, { 0, 0 });
+	game->RenderSprite(bgImage, { 0, 0 });
 	menuWidget.Update(elapsedTime);
 
 	C.OnPlay(elapsedTime);

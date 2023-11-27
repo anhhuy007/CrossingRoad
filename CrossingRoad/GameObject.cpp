@@ -42,5 +42,15 @@ void GameObject::WriteCollisionPoints() {
 	//system("pause");
 }
 
+void GameObject::MoveDown(int &planePos) {
+	position.X += moveDownSpeed.X_VERTICAL;
+	position.Y += moveDownSpeed.Y_VERTICAL;
+	if (planePos % 3 == 0) {
+		position.X += 1;
+		position.Y += 1;
+	}
+	planePos += 1;
+}
+
 
 

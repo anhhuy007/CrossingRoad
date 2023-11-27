@@ -89,30 +89,6 @@ void Vehicle::MoveAhead() {
 		position.Y += axisSpeed.Y_HORIZONTAL;
 	}
 }
-void Vehicle::MoveDown() {
-	position.X += axisSpeed.X_VERTICAL;
-	position.Y += axisSpeed.Y_VERTICAL;
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}
-	lanePos += 1;
-
-	/*position.X -= 1;
-	position.Y += 2;
-	
-	if (position.Y % 24 == 0) {
-		lanePos += 1;
-		position.X += 1;
-		position.Y -= 5;
-	}
-
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}*/
-}
-;
 
 void Vehicle::SetInitPosition() {
 	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);

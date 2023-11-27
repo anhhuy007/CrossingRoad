@@ -19,6 +19,8 @@ namespace Widget {
 		TextFont font;
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
+		std::string GetNextWord(int index, std::string ptext);
+		int GetWordWidth(std::string word);
 
 	public:
 		std::vector<COORD> textPositions;
@@ -45,11 +47,6 @@ namespace Widget {
 			int pwidth, 
 			int pheight
 		);
-
-	// private functions
-	private:
-		std::string GetNextWord(int index, std::string ptext);
-		int GetWordWidth(std::string word);
 	};
 
 	class Button : public GameObject {

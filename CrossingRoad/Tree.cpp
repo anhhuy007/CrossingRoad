@@ -38,13 +38,3 @@ Tree::Tree(
 	treeSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
-void Tree::MoveDown() {
-	position.X += axisSpeed.X_VERTICAL;
-	position.Y += axisSpeed.Y_VERTICAL;
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}
-	lanePos += 1;
-}
-

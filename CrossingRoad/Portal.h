@@ -7,7 +7,6 @@
 
 class Portal : public GameObject {
 	Graphic::Sprite portalSprite;
-	GameSpeed axisSpeed;
 
 public: 
 	// ---- properties ----
@@ -17,7 +16,6 @@ public:
 	// ---- behaviors ----
 	Portal() : GameObject(nullptr) {};
 	Portal(CrossingRoad* game);
-	void MoveDown();
 	void Update(float elapsedTime) {};
 	void Render();
 };

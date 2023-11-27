@@ -8,7 +8,6 @@ public:
 	// ---- properties ----
 	Graphic::Sprite coinSprite;
 	int lanePos;
-	GameSpeed axisSpeed;
 	bool isCollected = false;
 
 	// ---- methods ----
@@ -20,6 +19,5 @@ public:
 
 	void Update(float elapsedTime);
 	void Render();
-	void MoveDown();
 };
 
