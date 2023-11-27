@@ -1,6 +1,7 @@
 #include "PlayMenuScreen.h"
 #include "MenuScreen.h"
-#include "StreetMap.h"
+#include "ClassicMap.h"
+#include "WinterMap.h"
 
 bool PlayMenuScreen::OnCreate() {
 	// set console color
@@ -32,14 +33,14 @@ bool PlayMenuScreen::OnCreate() {
 			game,
 			"ENDLESS MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new StreetMap(game));
+				CrossingRoad::Navigation::To(new ClassicMap(game));
 			}
 		),
 		Widget::Button(
 			game,
 			"LEVEL MODE",
 			[&]() {
-				//CrossingRoad::Navigation::To(new LeaderboardScreen(game));
+				CrossingRoad::Navigation::To(new WinterMap(game));
 			}
 		),
 		Widget::Button(

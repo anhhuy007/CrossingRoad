@@ -18,12 +18,21 @@
 
 class GameMap : public CrossingRoad::GameScreen {
 private:
+	struct LevelInformation {
+		int level;
+		int score;
+		int collectedCoins;
+		float totalTime;
+		bool endlessMode;
+	};
+
 	// ---- game properties ----
 	int level = 0;
 	int collectedCoins = 0;
 	int index = 0;
 	int maxIndex = 0;
 	float totalTime = 0.0f;
+	bool endlessMode = false;
 
 	GamePlayer* player = nullptr;
 	Graphic::Sprite grid;
@@ -32,6 +41,7 @@ protected:
 	int score = 0;
 	std::vector<Lane*> lanes;
 	Portal portal;
+	GameInformation* gameInfo = nullptr;
 
 	Graphic::Sprite grasslane;
 	Graphic::Sprite snowlane;
@@ -42,6 +52,8 @@ protected:
 public: 
 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
+
+	void CreateNewGameLevel(LevelInformation* levelInfo);
 
 	// overrided functions 
 	bool OnCreate();
@@ -56,7 +68,7 @@ public:
 
 	// methods
 	void Render();
-	void HandlePlayerCollision(float elapsedTime);
+	bool HandlePlayerCollision(float elapsedTime);
 	Log GetLogByLaneId(int laneId);
 };
 

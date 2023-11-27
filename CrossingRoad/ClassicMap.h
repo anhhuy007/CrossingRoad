@@ -13,9 +13,9 @@
 #include <vector>
 #include <string>
 
-class StreetMap : public GameMap {
+class ClassicMap : public GameMap {
 public:
-	StreetMap(CrossingRoad* game) : GameMap(game) {};
+	ClassicMap(CrossingRoad* game) : GameMap(game) {};
 	
 	void CreateLanes();
 	void ScrollUp();
