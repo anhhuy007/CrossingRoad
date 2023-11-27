@@ -7,7 +7,7 @@
 #include "AboutScreen.h"
 
 // ----- Game Maps -----
-#include "StreetMap.h"
+#include "ClassicMap.h"
 #include "WinterMap.h"
 
 void CrossingRoad::Init() {

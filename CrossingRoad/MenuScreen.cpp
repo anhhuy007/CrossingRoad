@@ -1,5 +1,5 @@
 #include "MenuScreen.h"
-#include "StreetMap.h"
+#include "ClassicMap.h"
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 #include "AboutScreen.h"

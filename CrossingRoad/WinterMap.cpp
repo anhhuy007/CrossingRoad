@@ -77,7 +77,7 @@ void WinterMap::ScrollUp() {
 		lanes[i]->ScrollUp();
 	}
 
-	if (score == 30) {
+	if (score == 20) {
 		// display grass lane with teleport portal
 		lanes.insert(lanes.begin(), new SnowLane(0, game, snowlane, 0, 0));
 		portal.visible = true;

@@ -1,8 +1,14 @@
 #include "GameMap.h"
 #include "WaterLane.h"
 #include "RoadLane.h"
+#include "WinterMap.h"
 
 bool GameMap::OnCreate() {
+	if (gameInfo != nullptr) {
+		level = gameInfo->level + 1;
+		collectedCoins = gameInfo->collectedCoins;
+	}
+
 	player = new GamePlayer(Player::CHICK, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
@@ -35,7 +41,10 @@ bool GameMap::OnUpdate(float elapsedTime) {
 
 		// check for game collision
 		if (portal.lanePos == 9) portal.WriteCollisionPoints();
-		HandlePlayerCollision(elapsedTime);
+		if (HandlePlayerCollision(elapsedTime) == false) {
+			// if player win
+			return true;
+		};
 
 		// update score
 		int playerPos = player->lanePos;
@@ -82,6 +91,20 @@ bool GameMap::OnPause() {
 	return true;
 }
 
+void GameMap::CreateNewGameLevel(LevelInformation* levelInfo) {
+	
+	if (levelInfo != nullptr) {
+		// reset game properties
+		level = levelInfo->level;
+		score = levelInfo->score;
+		collectedCoins = levelInfo->collectedCoins;
+		totalTime = levelInfo->totalTime;
+		endlessMode = levelInfo->endlessMode;
+	}
+
+	OnCreate();
+}
+
 void GameMap::Render() {
 	for (int i = 0; i < lanes.size(); i++) {
 		if (portal.lanePos == i) portal.Render();
@@ -113,13 +136,13 @@ void GameMap::Render() {
 	textCoins.Render();
 }
 
-void GameMap::HandlePlayerCollision(float elapsedTime) {
+bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	int collisType = player->CheckCollision();
 
 	COORD pos = player->getPosition();
 
 	if (collisType == 5) {
-		if (player->animationState == AnimationState::DROWN) return;
+		if (player->animationState == AnimationState::DROWN) return true;
 
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
@@ -145,7 +168,16 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	else if (collisType == 6) {
 		// player hit the portal
 		system("pause");
-		CrossingRoad::Navigation::To(new MenuScreen(game));
+
+		// get current level information
+		LevelInformation levelInfo;
+		levelInfo.level = level;
+		levelInfo.score = score;
+		levelInfo.collectedCoins = collectedCoins;
+		levelInfo.totalTime = totalTime;
+		levelInfo.endlessMode = endlessMode;
+
+		CrossingRoad::Navigation::To(new WinterMap(game));
 	}
 	else if (collisType == 2) {
 		// player hit the coin
@@ -154,6 +186,8 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;
 	}
+
+	return true;
 }
 
 Log GameMap::GetLogByLaneId(int laneId) {

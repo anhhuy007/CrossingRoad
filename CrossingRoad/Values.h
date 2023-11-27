@@ -131,6 +131,11 @@ enum class ObjectType {
 	PORTAL
 };
 
+enum class MapType {
+	CLASSIC, 
+	WINTER
+};
+
 struct GameSpeed {
 	int X_HORIZONTAL = 0;
 	int Y_HORIZONTAL = 0;
@@ -160,6 +165,14 @@ struct AnimationSprite {
 		sprite = _sprite;
 		state = _state;
 	}
+};
+
+struct GameInformation {
+	int level;
+	int score;
+	int collectedCoins;
+	float totalTime;
+	bool endlessMode;
 };
 
 #endif // !VALUES_H
