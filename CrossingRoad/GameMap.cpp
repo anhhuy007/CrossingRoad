@@ -66,7 +66,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	if (playerPos == 6 && portal.lanePos != 9) {
 		ScrollUp();
 		player->MoveDown();
-		portal.MoveDown();
+		portal.MoveDown(portal.lanePos);
 		maxIndex++;
 	}
 

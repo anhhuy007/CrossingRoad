@@ -17,7 +17,7 @@ Log::Log(
 	}
 
 	lanePos = _id;
-	setInitPosition();
+	endOfRoad = true;
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	logSpeed = float((rand() % 3) + 1) * 0.004;
@@ -54,24 +54,14 @@ void Log::Update(float elapsedTime) {
 	WriteCollisionPoints();
 }
 
-void Log::MoveDown() {
-	position.X += axisSpeed.X_VERTICAL;
-	position.Y += axisSpeed.Y_VERTICAL;
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}
-	lanePos += 1;
-}
-
-void Log::setSprite(Graphic::Sprite _sprite) {
+void Log::SetSprite(Graphic::Sprite _sprite) {
 	// delete old sprite
 	width = _sprite.getWidth();
 	height = _sprite.getHeight();
 	logSprite = _sprite;
 }
 
-void Log::setInitPosition() {
+void Log::SetInitPosition() {
 	int blockPos = movingDirection == MovingDirection::LEFT ? 17 : 0;
 	position = Alignment::GetAlignedPosition(lanePos, blockPos, { 3, 15 }, Gravity::LEFT_CENTER);
 }

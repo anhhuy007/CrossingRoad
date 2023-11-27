@@ -11,7 +11,6 @@ Coin::Coin(
 ) : GameObject(game) {
 	// set sprite and position
 	lanePos = planePos;
-	axisSpeed = GameSpeed(0, 0, -11, 21);
 	coinSprite = Graphic::Sprite(DrawableRes::Coin, Overlapped::DECORATOR);
 
 	int blockPos = rand() % 6 + 6;
@@ -37,14 +36,3 @@ void Coin::Render() {
 	}
 }
 
-void Coin::MoveDown() {
-	if (lanePos == -1) return;
-
-	position.X += axisSpeed.X_VERTICAL;
-	position.Y += axisSpeed.Y_VERTICAL;
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}
-	lanePos += 1;
-}
