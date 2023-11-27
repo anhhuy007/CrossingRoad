@@ -89,7 +89,6 @@ private:
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
-	int fps;
 	std::string logText;
  };
 

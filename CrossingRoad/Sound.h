@@ -8,7 +8,7 @@
 
 
 class Sound {
-public: 
+public:
 	struct SoundSetting {
 		bool backgroundSound = true;
 		bool effectSound = true;
@@ -37,7 +37,7 @@ private:
 
 	Sound() {};
 
-public: 
+public:
 	//Path
 	static enum class Background : char {
 		BACKGROUND_MUSIC
@@ -53,8 +53,8 @@ public:
 	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
 	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
 
-	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
-	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
+	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound);
+	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound);
 	static void turnOffEffectSound(Sound::SoundSetting& soundSetting);
 	static void turnOnEffectSound(Sound::SoundSetting& soundSetting);
 

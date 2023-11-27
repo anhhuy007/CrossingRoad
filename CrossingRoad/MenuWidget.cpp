@@ -1,5 +1,4 @@
 #include "MenuScreen.h"
-#include "StreetMap.h"
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 
@@ -33,10 +32,10 @@ void MenuWidget::Render() {
 	for (int i = 0; i < buttons.size(); i++) {
 		buttons[i].Render();
 	}
-}	
+}
 
 void MenuWidget::Update(float elapsedTime) {
-	auto checkIndex= [max = (int)buttons.size() - 1,_game = game](int &i) {
+	auto checkIndex = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
 			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
 			i = max(0, i);
@@ -45,7 +44,7 @@ void MenuWidget::Update(float elapsedTime) {
 		}
 		Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::CHANGE));
 		return 1;
-	};
+		};
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		checkIndex(--currentButtonIndex);
@@ -80,7 +79,7 @@ void MenuWidget::Update(float elapsedTime) {
 	// trigger button action
 	if (enterClicked) {
 		totalTime += elapsedTime;
-		if (totalTime > 500) {
+		if (totalTime > 400) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;

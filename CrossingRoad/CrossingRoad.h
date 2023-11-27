@@ -15,6 +15,7 @@ public:
 	class GameScreen {
 	protected:
 		CrossingRoad* game;
+		bool isPaused = false;
 
 	public:
 		GameScreen(CrossingRoad* pgame) {
@@ -41,7 +42,6 @@ public:
 		Navigation(Navigation& other) = delete;
 		void operator=(const Navigation&) = delete;
 
-		static void To(std::string route);
 		static void To(GameScreen* pscreen);
 
 		static bool OnScreenCreate();

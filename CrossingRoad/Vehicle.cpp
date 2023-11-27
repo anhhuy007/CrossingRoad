@@ -41,7 +41,7 @@ Vehicle::Vehicle(
 		);
 	}
 
-	SetInitPosition();
+	endOfRoad = true;
 	lanePos = _id;
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);

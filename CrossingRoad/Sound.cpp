@@ -68,7 +68,7 @@ void Sound::playSound(std::wstring alias) {
 	mciSendString(play.c_str(), NULL, 0, NULL);
 }
 //--------------Play background and effect sound--------------
-void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting,int preIndexSound, int indexSound) {
+void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound) {
 	if (preIndexSound != -1) {
 		closeSound(findAlias(BACKGROUND[preIndexSound]));
 	}
@@ -108,12 +108,12 @@ void Sound::playEffectSound(Sound::SoundSetting& soundSetting, int indexSound) {
 	}
 }
 
-void Sound::turnOffBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound) {
+void Sound::turnOffBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound) {
 	soundSetting.backgroundSound = false;
 	playBackgroundSound(soundSetting, -1, indexSound);
 }
 
-void Sound::turnOnBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound) {
+void Sound::turnOnBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound) {
 	soundSetting.backgroundSound = true;
 	playBackgroundSound(soundSetting, -1, indexSound);
 }
@@ -131,7 +131,7 @@ void Sound::turnOnEffectSound(Sound::SoundSetting& soundSetting) {
 bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 	if (soundSetting.backgroundVolume < 100 && soundSetting.backgroundVolume >= 0) {
 		soundSetting.backgroundVolume += 20;
-		for (auto i: BACKGROUND) {
+		for (auto i : BACKGROUND) {
 			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
 			mciSendString(volumeUp.c_str(), NULL, 0, NULL);
 		}

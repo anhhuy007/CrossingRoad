@@ -1,23 +1,20 @@
 #pragma once
 
-#ifndef GRASS_LANE_H
-#define GRASS_LANE_H
-
 #include "Tree.h"
 #include "Rock.h"
 #include "Lane.h"
 #include "Graphic.h"
 
-class GrassLane : public Lane {
+class SnowLane : public Lane {
 	std::vector<Tree> trees;
 	std::vector<Rock> rocks;
 	short objectCoord[20] = { 0 };
 
-public: 
-	GrassLane(
+public:
+	SnowLane(
 		int id,
 		CrossingRoad* game,
-		Graphic::Sprite _grassSprite,
+		Graphic::Sprite _snowSprite,
 		int numberOfTree,
 		int numberOfRock
 	);
@@ -26,6 +23,4 @@ public:
 	void Update(float elapsedTime);
 	void ScrollUp();
 };
-
-#endif // !GRASS_LANE_H
 

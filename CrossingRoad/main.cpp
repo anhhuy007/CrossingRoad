@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CrossingRoad.h"
-
+#include "Sound.h"
 int main() {
 	CrossingRoad CrossyRoad;
 	srand(time(NULL));

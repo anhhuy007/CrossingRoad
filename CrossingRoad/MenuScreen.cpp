@@ -25,8 +25,8 @@ bool MenuScreen::OnCreate() {
 		RGB(153,152,154)
 	};
 
-	COLOR::SetConsoleColor(colors);
-
+	// background 
+	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 
 	// Menu button function
 	std::vector<Widget::Button> buttons = {
@@ -65,53 +65,50 @@ bool MenuScreen::OnCreate() {
 			}
 		)
 	};
-
 	menuWidget = MenuWidget(
 		game,
 		buttons,
 		{ 150, 60 }
 	);
-	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 
 	//Crossing Road title
-	
+
 	std::vector<Graphic::Sprite> textCgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
 	};
 	std::vector<Graphic::Sprite> textRgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowR.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowR.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowR.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowR.sprite")
 	};
 	std::vector<Graphic::Sprite> textOgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowO.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowO.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowO.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowO.sprite")
 	};
 	std::vector<Graphic::Sprite> textSgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowS.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowS.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowS.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowS.sprite")
 	};
 	std::vector<Graphic::Sprite> textIgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowI.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowI.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowI.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowI.sprite")
 	};
 	std::vector<Graphic::Sprite> textNgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowN.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowN.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowN.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowN.sprite")
 	};
 	std::vector<Graphic::Sprite> textGgif = {
-	Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowG.sprite"),
-	Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowG.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowG.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowG.sprite")
 	};
 	std::vector<Graphic::Sprite> textDgif = {
-Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowD.sprite"),
-Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowD.sprite")
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowD.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowD.sprite")
 	};
 	std::vector<Graphic::Sprite> textAgif = {
-Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowA.sprite"),
-Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowA.sprite"),
+		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite"),
 	};
-
 
 	short top_border = 20, left = 50, space = 28;
 	C = Animation(game, textCgif, { left, top_border }, 400); left += space;
@@ -128,24 +125,16 @@ Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite
 	A = Animation(game, textAgif, { left, top_border }, 400); left += space;
 	D = Animation(game, textDgif, { left, top_border }, 400);
 
+	game->BuildConsole();
+	COLOR::SetConsoleColor(colors);
 
-	
 	return true;
-
-
-
-
 }
 
 bool MenuScreen::OnUpdate(float elapsedTime) {
-	/*text.Render();
-	button.Render();*/
 	game->RenderSprite(image, { 0, 0 });
-	//meow.OnPlay(elapsedTime);
-
 	menuWidget.Update(elapsedTime);
 
-	
 	C.OnPlay(elapsedTime);
 	R1.OnPlay(elapsedTime);
 	R2.OnPlay(elapsedTime);
@@ -158,8 +147,6 @@ bool MenuScreen::OnUpdate(float elapsedTime) {
 	G.OnPlay(elapsedTime);
 	A.OnPlay(elapsedTime);
 	D.OnPlay(elapsedTime);
-	
-
 
 	return true;
 }

@@ -1,34 +1,32 @@
 #include "SettingScreen.h"
-#include "StreetMap.h"
 #include "MenuScreen.h"
 
 bool SettingScreen::OnCreate() {
 
 	std::vector<Graphic::Sprite> textSgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\S.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\S.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\S.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\S.sprite"),
 	};
 	std::vector<Graphic::Sprite> textEgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\E.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\E.sprite")
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\E.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\E.sprite")
 	};
 	std::vector<Graphic::Sprite> textTgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\T.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\T.sprite")
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\T.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\T.sprite")
 	};
 	std::vector<Graphic::Sprite> textIgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\I.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\I.sprite")
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\I.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\I.sprite")
 	};
 	std::vector<Graphic::Sprite> textNgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\N.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\N.sprite")
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\N.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\N.sprite")
 	};
 	std::vector<Graphic::Sprite> textGgif = {
-Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\G.sprite"),
-Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
+		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\G.sprite"),
+		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	};
-
 
 	// set console color
 	std::vector<int> colors = {
@@ -37,7 +35,7 @@ Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	RGB(0,0,0), //Black
 	RGB(255,255,255), //White
 
-	//bar buttonv
+	//bar button
 	RGB(73,131,189), //Dark Blue
 	RGB(137,184,212), //Blue
 	RGB(189,213,229), //Light light Blue for button border
@@ -53,31 +51,23 @@ Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	RGB(15,47,67),
 	};
 
-	COLOR::SetConsoleColor(colors);
-
 	// declaration
 
 	std::vector<Widget::Button> buttons = {
 		Widget::Button(
 			game,
 			"BACKGROUND MUSIC",
-			[&]() {
-				nullptr;
-			}
+			[]() {}
 		),
 		Widget::Button(
 			game,
 			"EFFECT MUSIC",
-			[&]() {
-				nullptr;
-			}
+			[]() {}
 		),
 		Widget::Button(
 			game,
 			"CHANGE CHARACTER",
-			[&]() {
-				nullptr;
-			}
+			[]() {}
 		),
 		Widget::Button(
 			game,
@@ -104,7 +94,7 @@ Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	N = Animation(game, textNgif, { left, top_border }, 400); left += space;
 	G = Animation(game, textGgif, { left, top_border }, 400); left += space;
 
-
+	COLOR::SetConsoleColor(colors);
 
 	return true;
 }
@@ -118,7 +108,6 @@ bool SettingScreen::OnUpdate(float elapsedTime) {
 	I.OnPlay(elapsedTime);
 	N.OnPlay(elapsedTime);
 	G.OnPlay(elapsedTime);
-
 
 	settingWidget.Update(elapsedTime);
 	return true;
