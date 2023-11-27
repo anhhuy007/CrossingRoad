@@ -180,6 +180,12 @@
     <ClCompile Include="Rock.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="WinterMap.cpp">
+      <Filter>Source Files\Objects\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowLane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -280,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Objects\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="WinterMap.h">
+      <Filter>Header Files\Objects\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowLane.h">
+      <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

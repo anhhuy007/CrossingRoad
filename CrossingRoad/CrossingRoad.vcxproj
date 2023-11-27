@@ -160,6 +160,7 @@
     <ClCompile Include="SavedGameScreen.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
     <ClCompile Include="SettingWidget.cpp" />
+    <ClCompile Include="SnowLane.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="StreetMap.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="WaterLane.cpp" />
     <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="WinterMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutScreen.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="SavedGameScreen.h" />
     <ClInclude Include="SettingScreen.h" />
     <ClInclude Include="SettingWidget.h" />
+    <ClInclude Include="SnowLane.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="StreetMap.h" />
@@ -202,6 +205,7 @@
     <ClInclude Include="Vehicle.h" />
     <ClInclude Include="WaterLane.h" />
     <ClInclude Include="Widget.h" />
+    <ClInclude Include="WinterMap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

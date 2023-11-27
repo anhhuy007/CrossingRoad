@@ -1,12 +1,12 @@
-#include "GrassLane.h"
+#include "SnowLane.h"
 
-GrassLane::GrassLane(
-	int id, 
-	CrossingRoad* game, 
-	Graphic::Sprite _grassSprite,
+SnowLane::SnowLane(
+	int id,
+	CrossingRoad* game,
+	Graphic::Sprite _snowSprite,
 	int numberOfTree,
 	int numberOfRock
-) : Lane(id, game, _grassSprite, LaneType::GRASS) {
+) : Lane(id, game, _snowSprite, LaneType::GRASS) {
 	// generate random trees and rocks
 	for (int i = 0; i < 20; i++) {
 		int random = rand() % 6;
@@ -29,19 +29,19 @@ GrassLane::GrassLane(
 
 	for (int i = 0; i < 20; i++) {
 		if (objectCoord[i] == 1) {
-			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::SmallTree));
+			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::PineTree1));
 		}
 		else if (objectCoord[i] == 2) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::BigTree));
+			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::PineTree2));
 			i++;
 		}
 		else if (objectCoord[i] == 3) {
-			rocks.push_back(Rock(game, id, i, DrawableRes::Rock));
+			rocks.push_back(Rock(game, id, i, DrawableRes::Rock_Snow));
 		}
 	}
 };
 
-void GrassLane::Render() {
+void SnowLane::Render() {
 	game->RenderSprite(laneSprite, position);
 	for (int i = 0; i < trees.size(); i++) {
 		game->RenderSprite(trees[i].treeSprite, trees[i].getPosition());
@@ -52,7 +52,7 @@ void GrassLane::Render() {
 	}
 }
 
-void GrassLane::Update(float elapsedTime) {
+void SnowLane::Update(float elapsedTime) {
 	for (auto& tree : trees) {
 		tree.WriteCollisionPoints();
 	}
@@ -62,7 +62,7 @@ void GrassLane::Update(float elapsedTime) {
 	}
 }
 
-void GrassLane::ScrollUp() {
+void SnowLane::ScrollUp() {
 	id++;
 	position.Y += 24;
 

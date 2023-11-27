@@ -1,5 +1,4 @@
 #include "SettingScreen.h"
-#include "StreetMap.h"
 #include "MenuScreen.h"
 
 bool SettingScreen::OnCreate() {

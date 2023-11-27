@@ -1,15 +1,19 @@
 #include "CrossingRoad.h"
-#include "GameMap.h"
-#include "StreetMap.h"
+
+// ----- Game Screens -----
 #include "MenuScreen.h"
 #include "SplashScreen.h"
 #include "SavedGameScreen.h"
 #include "AboutScreen.h"
 
+// ----- Game Maps -----
+#include "StreetMap.h"
+#include "WinterMap.h"
+
 void CrossingRoad::Init() {
 	// ----- Init game -----
 	GameEngine::BuildConsole();	
-	Navigation::To(new StreetMap(this));
+	Navigation::To(new WinterMap(this));
 }
 
 bool CrossingRoad::GameCreate() {

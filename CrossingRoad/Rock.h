@@ -9,7 +9,8 @@ public:
 	Rock(
 		CrossingRoad* game, 
 		int planePos,
-		int pblockPos
+		int pblockPos,
+		Graphic::Sprite pSprite
 	);
 
 	void Update(float elapsedTime) {};

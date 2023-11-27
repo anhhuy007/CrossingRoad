@@ -3,12 +3,13 @@
 Rock::Rock(
 	CrossingRoad* game,
 	int planePos,
-	int pblockPos
+	int pblockPos,
+	Graphic::Sprite pSprite
 ) : GameObject(game)
 {
 	lanePos = planePos;
 	blockPos = pblockPos;
-	rockSprite = Graphic::Sprite(DrawableRes::Rock);
+	rockSprite = pSprite;
 
 	position = Alignment::GetAlignedPosition(
 		lanePos,

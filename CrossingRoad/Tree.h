@@ -13,7 +13,8 @@ public:
 		CrossingRoad* game,
 		int planePos,
 		int pblockPos,
-		TreeType ptreeType
+		TreeType ptreeType,
+		Graphic::Sprite psprite
 	);
 	
 	void Update(float elapsedTime) {};

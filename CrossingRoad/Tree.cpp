@@ -4,14 +4,14 @@ Tree::Tree(
 	CrossingRoad* game,
 	int planePos,
 	int pblockPos,
-	TreeType ptreeType
+	TreeType ptreeType,
+	Graphic::Sprite psprite
 ) : GameObject(game) {
 
 	lanePos = planePos;
 	blockPos = pblockPos;
 
-	if (blockPos % 2) {
-		treeSprite = Graphic::Sprite(DrawableRes::SmallTree);
+	if (treeType == TreeType::SMALL_TREE) {
 		position = Alignment::GetAlignedPosition(
 			lanePos,
 			blockPos,
@@ -24,7 +24,6 @@ Tree::Tree(
 		collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_1);
 	}
 	else {
-		treeSprite = Graphic::Sprite(DrawableRes::BigTree);
 		position = Alignment::GetAlignedPosition(
 			lanePos,
 			blockPos,
@@ -37,6 +36,7 @@ Tree::Tree(
 		collisionPoints = Factory::GetObjectCollisionPoints(ObjectType::TREE_2);
 	}
 
+	treeSprite = psprite;
 	treeSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
