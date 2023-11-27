@@ -51,8 +51,6 @@ Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	RGB(15,47,67)
 	};
 
-	COLOR::SetConsoleColor(colors);
-
 	// declaration
 
 	std::vector<Widget::Button> buttons = {
@@ -102,7 +100,7 @@ Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
 	N = Animation(game, textNgif, { left, top_border }, 400); left += space;
 	G = Animation(game, textGgif, { left, top_border }, 400); left += space;
 
-
+	COLOR::SetConsoleColor(colors);
 
 	return true;
 }

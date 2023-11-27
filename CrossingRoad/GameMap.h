@@ -40,6 +40,7 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
+	bool OnPause();
 	bool OnDestroy() { return false; };
 
 	// must override functions

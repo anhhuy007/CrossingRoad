@@ -80,7 +80,7 @@ void MenuWidget::Update(float elapsedTime) {
 	// trigger button action
 	if (enterClicked) {
 		totalTime += elapsedTime;
-		if (totalTime > 500) {
+		if (totalTime > 400) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;
