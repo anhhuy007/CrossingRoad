@@ -177,6 +177,9 @@
     <ClCompile Include="Tree.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Source Files\Objects\Obstacles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">

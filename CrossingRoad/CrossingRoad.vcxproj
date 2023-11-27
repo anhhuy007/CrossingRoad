@@ -156,6 +156,7 @@
     <ClCompile Include="PlayMenuScreen.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RoadLane.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SavedGameScreen.cpp" />
     <ClCompile Include="SettingScreen.cpp" />
     <ClCompile Include="SettingWidget.cpp" />

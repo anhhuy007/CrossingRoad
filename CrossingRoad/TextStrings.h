@@ -36,6 +36,7 @@ namespace DrawableRes {
 	const std::string Portal = spriteFolder + "Portal.sprite";
 	const std::string Grid = spriteFolder + "Grid.sprite";
 	const std::string Coin = spriteFolder + "Coin.sprite";
+	const std::string Rock = spriteFolder + "Rock.sprite";
 	
 
 	// animation sprites
