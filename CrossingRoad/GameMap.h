@@ -50,7 +50,6 @@ protected:
 	Graphic::Sprite roadMarking;
 
 public: 
-
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
 
 	void CreateNewGameLevel(LevelInformation* levelInfo);

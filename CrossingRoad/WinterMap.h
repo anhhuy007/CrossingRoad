@@ -14,11 +14,6 @@
 #include <string>
 
 class WinterMap : public GameMap {
-	Graphic::Sprite snowlane;
-	Graphic::Sprite waterlane;
-	Graphic::Sprite roadlane;
-	Graphic::Sprite roadMarking;
-
 public:
 	WinterMap(CrossingRoad* game) : GameMap(game) {};
 	WinterMap(CrossingRoad* game, GameInformation pgameInfo) : GameMap(game) {

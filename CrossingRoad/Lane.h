@@ -8,13 +8,10 @@
 #include "Vehicle.h"
 
 class Lane : public GameObject {
-protected:
-	Graphic::Sprite laneSprite;
-
 public:
+	Graphic::Sprite laneSprite;
 	int id;
 	LaneType laneType;
-	bool isScrolling = false;
 
 	Lane(
 		int id,

@@ -18,8 +18,7 @@ public:
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
 
-	Animation meow;
-	Image image;
+	Image bgImage;
 	MenuWidget menuWidget = MenuWidget(game);
 
 	//title
