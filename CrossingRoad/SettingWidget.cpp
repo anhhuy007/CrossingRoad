@@ -14,7 +14,7 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 		return backPosition;
 	}
 }
-	
+
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 	if (volume == 0 || isOn == 0) {
 		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
@@ -72,7 +72,7 @@ void SettingWidget::Update(float elapsedTime) {
 		}
 		Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::CHANGE));
 		return 1;
-	};
+		};
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		checkSound(--currentButtonIndex);
@@ -170,8 +170,8 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume,game->soundSetting.backgroundSound), background);
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume,game->soundSetting.effectSound), effect);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume, game->soundSetting.backgroundSound), background);
+	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume, game->soundSetting.effectSound), effect);
 
 	if (enterClicked) {
 		totalTime += elapsedTime;
@@ -182,4 +182,3 @@ void SettingWidget::Update(float elapsedTime) {
 		}
 	}
 }
-

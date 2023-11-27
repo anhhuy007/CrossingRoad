@@ -123,7 +123,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::TREE_1:
 		points = GetPointsOnLine(
 			{ 1, 31 },
-			{ 20, 35 },
+			{ 24, 36 },
 			3,
 			true
 		);
@@ -202,7 +202,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::COIN:
 		points = GetPointsOnLine(
 			{ 1, 5 },
-			{ 16, 8 },
+			{ 24, 10 },
 			2,
 			true
 		);

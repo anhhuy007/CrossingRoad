@@ -26,7 +26,7 @@ bool MenuScreen::OnCreate() {
 
 	// background 
 	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	
+
 	// Menu button function
 	std::vector<Widget::Button> buttons = {
 		Widget::Button(

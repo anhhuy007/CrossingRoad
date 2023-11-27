@@ -12,15 +12,14 @@
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
+
 	GameEngine::BuildConsole();	
-	Navigation::To(new WinterMap(this));
+	Navigation::To(new MenuScreen(this));
 }
 
 bool CrossingRoad::GameCreate() {
 	// ----- Create new game -----
-	GameEngine::BuildConsole();
 
-	Navigation::To(new StreetMap(this));
 
 	return true;
 }

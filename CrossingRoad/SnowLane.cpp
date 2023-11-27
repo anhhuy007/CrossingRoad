@@ -11,15 +11,15 @@ SnowLane::SnowLane(
 	for (int i = 0; i < 20; i++) {
 		int random = rand() % 6;
 		if (random == 5 && numberOfRock > 0) {
-			objectCoord[i] = 3;	// rock
+			objectCoord[i] = rand() % 2 == 0 ? 5 : 6;
 			numberOfRock--;
 		}
 		else if (random == 4 && numberOfTree && objectCoord[max(i - 1, 0)] == 0) {
-			objectCoord[i] = 2;	// big tree
+			objectCoord[i] = rand() % 2 == 0 ? 3 : 4;
 			numberOfTree--;
 		}
 		else if (random == 3 && numberOfTree > 0) {
-			objectCoord[i] = 1;	// small tree
+			objectCoord[i] = rand() % 2 == 0 ? 1 : 2;	// small tree
 			numberOfTree--;
 		}
 		else {
@@ -32,11 +32,25 @@ SnowLane::SnowLane(
 			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::PineTree1));
 		}
 		else if (objectCoord[i] == 2) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::PineTree2));
-			i++;
+			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::Snowman));
 		}
 		else if (objectCoord[i] == 3) {
+			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::PineTree2));
+			i++;
+
+			// adjust tree position
+			COORD pos = trees[trees.size() - 1].getPosition();
+			trees[trees.size() - 1].setPosition({ pos.X, short(pos.Y - 5) });
+		}
+		else if (objectCoord[i] == 4) {
+			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::Deer));
+			i++;
+		}
+		else if (objectCoord[i] == 5) {
 			rocks.push_back(Rock(game, id, i, DrawableRes::Rock_Snow));
+		}
+		else if (objectCoord[i] == 6) {
+			rocks.push_back(Rock(game, id, i, DrawableRes::Gift));
 		}
 	}
 };

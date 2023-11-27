@@ -103,15 +103,15 @@ void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidt
 }
 
 Widget::Button::Button(
-	CrossingRoad* pgame, 
-	std::string ptext, 
-	std::function<void()> paction, 
+	CrossingRoad* pgame,
+	std::string ptext,
+	std::function<void()> paction,
 	COORD pposition
 ) : GameObject(pgame) {
-	
+
 	text = Text(
-		pgame, 
-		ptext, 
+		pgame,
+		ptext,
 		GetCenterTextPos(ptext, pposition, 112, 34),
 		112, 34,
 		TextFont::NORMAL
@@ -137,7 +137,7 @@ void Widget::Button::OnTrigger() {
 	for (int i = 0; i < text.textPositions.size(); i++) {
 		text.textPositions[i].Y += 3;
 	}
-	
+
 	// play sfx 
 	Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
 }
@@ -164,9 +164,9 @@ void Widget::Button::Render() {
 }
 
 COORD Widget::GetCenterTextPos(
-	std::string text, 
-	COORD position, 
-	int width, 
+	std::string text,
+	COORD position,
+	int width,
 	int height
 ) {
 	int textWidth = text.size() * 5;
