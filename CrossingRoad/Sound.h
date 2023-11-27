@@ -53,13 +53,14 @@ public:
 	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
 	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
 
-	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
-	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound);
+	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting);
+	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting);
 	static void turnOffEffectSound(Sound::SoundSetting& soundSetting);
 	static void turnOnEffectSound(Sound::SoundSetting& soundSetting);
 
 	static bool turnUpBackgroundVolume(Sound::SoundSetting& soundSetting);
 	static bool turnDownBackgroundVolume(Sound::SoundSetting& soundSetting);
+
 	static bool turnUpEffectVolume(Sound::SoundSetting& soundSetting);
 	static bool turnDownEffectVolume(Sound::SoundSetting& soundSetting);
 };

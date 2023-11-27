@@ -84,11 +84,12 @@ void SettingWidget::Update(float elapsedTime) {
 		enterClicked = true;
 		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 		if (currentButtonIndex == 0) {
+
 			if (game->soundSetting.backgroundSound) {
-				Sound::turnOffBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+				Sound::turnOffBackgroundSound(game->soundSetting);
 			}
 			else {
-				Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+				Sound::turnOnBackgroundSound(game->soundSetting);
 			}
 		}
 		else if (currentButtonIndex == 1) {
@@ -106,7 +107,7 @@ void SettingWidget::Update(float elapsedTime) {
 				if (Sound::turnDownBackgroundVolume(game->soundSetting)) {
 					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 					if (game->soundSetting.backgroundVolume == 0) {
-						Sound::turnOffBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+						Sound::turnOffBackgroundSound(game->soundSetting);
 					}
 				}
 				else {
@@ -120,7 +121,7 @@ void SettingWidget::Update(float elapsedTime) {
 				else {
 					Sound::turnDownBackgroundVolume(game->soundSetting);
 					if (game->soundSetting.backgroundVolume != 0) {
-						Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+						Sound::turnOnBackgroundSound(game->soundSetting);
 						Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
 					}
 				}
@@ -147,7 +148,7 @@ void SettingWidget::Update(float elapsedTime) {
 	else if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
 		if (currentButtonIndex == 0) {
 			if (game->soundSetting.backgroundSound == 0) {
-				Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+				Sound::turnOnBackgroundSound(game->soundSetting);
 			}
 			if (Sound::turnUpBackgroundVolume(game->soundSetting)) {
 				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));

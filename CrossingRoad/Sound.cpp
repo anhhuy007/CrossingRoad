@@ -71,16 +71,17 @@ void Sound::playSound(std::wstring alias) {
 void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting,int preIndexSound, int indexSound) {
 	if (preIndexSound != -1) {
 		closeSound(findAlias(BACKGROUND[preIndexSound]));
+		soundSetting.firstTimePlaying = true;
 	}
 	if (indexSound == -1) {
 		return;
 	}
 	std::wstring path = BACKGROUND[indexSound];
 	std::wstring alias = findAlias(path);
+	setAudio(alias, soundSetting.backgroundVolume);
 	if (soundSetting.backgroundSound) {
 		if (soundSetting.firstTimePlaying) {
 			openSound(path);
-			setAudio(alias, soundSetting.backgroundVolume);
 			repeatSound(alias);
 			soundSetting.backgroundPlaying = true;
 			soundSetting.firstTimePlaying = false;
@@ -96,6 +97,7 @@ void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting,int preIndexSo
 		soundSetting.backgroundPlaying = false;
 	}
 }
+
 void Sound::playEffectSound(Sound::SoundSetting& soundSetting, int indexSound) {
 	std::wstring path = EFFECT[indexSound];
 	std::wstring alias = findAlias(path);
@@ -108,14 +110,14 @@ void Sound::playEffectSound(Sound::SoundSetting& soundSetting, int indexSound) {
 	}
 }
 
-void Sound::turnOffBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound) {
+void Sound::turnOffBackgroundSound(Sound::SoundSetting& soundSetting) {
 	soundSetting.backgroundSound = false;
-	playBackgroundSound(soundSetting, -1, indexSound);
+	playBackgroundSound(soundSetting, -1, soundSetting.currentIndexBackgroundSound);
 }
 
-void Sound::turnOnBackgroundSound(Sound::SoundSetting& soundSetting,int indexSound) {
+void Sound::turnOnBackgroundSound(Sound::SoundSetting& soundSetting) {
 	soundSetting.backgroundSound = true;
-	playBackgroundSound(soundSetting, -1, indexSound);
+	playBackgroundSound(soundSetting, -1, soundSetting.currentIndexBackgroundSound);
 }
 
 void Sound::turnOffEffectSound(Sound::SoundSetting& soundSetting) {
@@ -131,10 +133,7 @@ void Sound::turnOnEffectSound(Sound::SoundSetting& soundSetting) {
 bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 	if (soundSetting.backgroundVolume < 100 && soundSetting.backgroundVolume >= 0) {
 		soundSetting.backgroundVolume += 20;
-		for (auto i: BACKGROUND) {
-			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
-			mciSendString(volumeUp.c_str(), NULL, 0, NULL);
-		}
+		playBackgroundSound(soundSetting, -1, soundSetting.currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;
@@ -142,10 +141,7 @@ bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
 bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
 	if (soundSetting.backgroundVolume <= 100 && soundSetting.backgroundVolume > 0) {
 		soundSetting.backgroundVolume -= 20;
-		for (auto i : BACKGROUND) {
-			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
-			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
-		}
+		playBackgroundSound(soundSetting, -1, soundSetting.currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;

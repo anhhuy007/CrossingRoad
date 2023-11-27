@@ -175,7 +175,7 @@
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
     <ClCompile Include="AboutScreen.cpp">
-      <Filter>Source Files\Screen</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,7 +276,7 @@
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
     <ClInclude Include="AboutScreen.h">
-      <Filter>Header Files\Screen</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
