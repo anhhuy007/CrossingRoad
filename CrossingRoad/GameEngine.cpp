@@ -125,7 +125,6 @@ int GameEngine::CheckCollisionPoint(COORD point) {
 }
 
 void GameEngine::UpdateConsole() {
-	HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	CHAR_INFO* consoleBuffer = new CHAR_INFO[windowSize.x * (windowSize.y / 2)];
 
 	// ----- Compress screen buffer height -----
@@ -141,7 +140,7 @@ void GameEngine::UpdateConsole() {
 	}
 
 	WriteConsoleOutput(
-		hStdout,
+		hOut,
 		consoleBuffer,
 		{ short(windowSize.x), short(windowSize.y / 2) },
 		{ 0, 0 },
@@ -152,6 +151,7 @@ void GameEngine::UpdateConsole() {
 }
 
 GameEngine::GameEngine() {
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	fontSize = 6;
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
@@ -177,18 +177,10 @@ GameEngine::~GameEngine() {
 }
 
 void GameEngine::BuildConsole() {
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	// set the window size
-	SetConsoleWindowInfo(hOut, 1, &windowScope);
-
-	// set the screen buffer size
-	CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;
-	GetConsoleScreenBufferInfo(hOut, &scrBufferInfo);
-	short winHeight = scrBufferInfo.srWindow.Bottom - scrBufferInfo.srWindow.Top + 1;
-	short scrBufferWidth = scrBufferInfo.dwSize.X;
-	COORD newSize = { scrBufferWidth, winHeight };
-	SetConsoleScreenBufferSize(hOut, newSize);
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r); //stores the console's current dimensions
+	MoveWindow(console, r.left, r.top, 1487, 800, TRUE); // 800 width, 100 height
 
 	// set window position
 	SetWindowPos(
@@ -214,8 +206,7 @@ void GameEngine::BuildConsole() {
 	SetConsoleCursorInfo(hOut, &cursorInfo);
 
 	// diable selection
-	HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
-	SetConsoleMode(hIn, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	SetConsoleMode(hOut, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
 
 	// set the font size
 	CONSOLE_FONT_INFOEX cfi;

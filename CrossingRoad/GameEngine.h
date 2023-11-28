@@ -81,7 +81,7 @@ private:
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
 	int* overlappedBuffer = nullptr;
 	int* collisMatrix = nullptr;
-
+	HANDLE hOut;
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);

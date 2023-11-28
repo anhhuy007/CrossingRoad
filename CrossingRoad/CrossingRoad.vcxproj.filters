@@ -186,14 +186,14 @@
     <ClCompile Include="SnowLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
-    <ClCompile Include="Lane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="Lane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
     <ClCompile Include="LeaderBoard.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
