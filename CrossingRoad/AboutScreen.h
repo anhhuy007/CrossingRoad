@@ -1,12 +1,7 @@
 #pragma once
 
-#ifndef ABOUT_SCREEN_H
-#define ABOUT_SCREEN_H
-
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
-#include "AboutScreen.h"
 
 class AboutScreen : public CrossingRoad::GameScreen {
 public:
@@ -29,5 +24,3 @@ public:
 
 	MenuWidget menuWidget;
 };
-
-#endif // !ABOUT_SCREEN_H

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef WATER_LANE_H
-#define WATER_LANE_H
-
 #include "Lane.h"
 #include "Log.h"
 
@@ -31,6 +28,4 @@ public:
 	void Render();
 	void ScrollUp();
 };
-
-#endif // !WATER_LANE_H
 

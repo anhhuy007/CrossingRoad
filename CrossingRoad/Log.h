@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef LOG_H
-#define LOG_H
-
 #include "GameObject.h"
 #include "Alignment.h"
 #include "TextStrings.h"
@@ -38,6 +35,4 @@ public:
 	LogType logType;
 	float time = 0.0f;
 };
-
-#endif //!LOG_H
 

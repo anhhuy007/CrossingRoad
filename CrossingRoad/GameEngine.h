@@ -13,10 +13,6 @@ This class include all the functions that are used in the game, such as: manage 
 #ifndef UNICODE
 #endif
 
-#ifndef GAME_ENGINE_H		// prevent multiple definitions if this
-#define GAME_ENGINE_H		// ..file is included in more than one place
-
-
 // STANDARD INCLUDES
 #include <Windows.h>
 #include <iostream>
@@ -85,11 +81,9 @@ private:
 	CHAR_INFO* screenBuffer ;    // store screen buffer info to display in each frame
 	int* overlappedBuffer = nullptr;
 	int* collisMatrix = nullptr;
-
+	HANDLE hOut;
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
 	std::string logText;
  };
-
-#endif // _GAME_ENGINE_H_

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAME_PLAYER_H
-#define GAME_PLAYER_H
-
 #define X_AXIS first
 #define Y_AXIS second
 
@@ -58,5 +55,3 @@ public:
 	bool ValidPosition();
 	int CheckCollision();
 };
-
-#endif // !GAME_PLAYER_H

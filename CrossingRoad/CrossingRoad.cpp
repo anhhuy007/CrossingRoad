@@ -15,15 +15,13 @@
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
-
+	srand(time(NULL));
 	GameEngine::BuildConsole();	
 	Navigation::To(new MenuScreen(this));
 }
 
 bool CrossingRoad::GameCreate() {
 	// ----- Create new game -----
-
-
 	return true;
 }
 

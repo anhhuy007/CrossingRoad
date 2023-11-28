@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef WINTER_MAP_H
-#define WINTER_MAP_H
-
 #include "Lane.h"
 #include "GameMap.h"
 #include "RoadLane.h"
@@ -26,5 +23,3 @@ public:
 
 	Lane* GetNewLane(int laneId, LaneType previousLane); // genarate random lane
 };
-
-#endif // !WINTER_MAP_H

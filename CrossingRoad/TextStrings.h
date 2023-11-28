@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef TEXT_STRING
-#define TEXT_STRING
-
 #include <wchar.h>
 #include <string>
 
@@ -79,4 +76,3 @@ namespace DrawableRes {
 	const std::string leaderboardBg = leaderboardScreenFolder + "leaderboardBg.sprite";
 
 }
-#endif // !TEXT_STRING

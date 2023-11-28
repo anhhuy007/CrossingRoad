@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef WIDGET_H
-#define WIDGET_H
-
 #include "GameObject.h"
 #include "Values.h"
 #include "TextStrings.h"
@@ -105,5 +102,3 @@ namespace Widget {
 
 	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
 };
-
-#endif //!WIDGET_H

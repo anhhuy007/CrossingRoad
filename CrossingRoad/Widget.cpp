@@ -196,7 +196,7 @@ Widget::Dialog::Dialog(
 	message = Widget::Text(
 		pgame,
 		ptext,
-		Widget::GetCenterTextPos(ptext, pposition, pwidth + 180, pheight - 60),
+		Widget::GetCenterTextPos(ptext, pposition, pwidth + 180, pheight - 55),
 		pwidth,
 		pheight,
 		TextFont::NORMAL
@@ -215,6 +215,7 @@ Widget::Dialog::Dialog(
 
 	// set button positions
 	COORD pos = {pposition.X + 72, pposition.Y + 45 };
+	if (buttons.size() == 2) pos.X += 30;
 	for (auto& button : buttons) {
 		button.setPosition(pos);
 

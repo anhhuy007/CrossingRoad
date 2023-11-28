@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAMEMAP_H
-#define GAMEMAP_H
-
 // ----- my libs include -----
 #include "CrossingRoad.h"
 #include "GamePlayer.h"
@@ -37,7 +34,8 @@ class GameMap : public CrossingRoad::GameScreen {
 
 	GamePlayer* player = nullptr;
 	Image grid;
-	Widget::Dialog dialog;
+	Widget::Dialog pausegame_dialog;
+	Widget::Dialog gameover_dialog;
 
 protected:
 	int score = 0;
@@ -71,6 +69,3 @@ public:
 	bool HandlePlayerCollision(float elapsedTime);
 	Log GetLogByLaneId(int laneId);
 };
-
-
-#endif // !GAMEMAP_H

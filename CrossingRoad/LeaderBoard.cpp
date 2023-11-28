@@ -37,8 +37,6 @@ bool LeaderBoard::OnCreate()
 	medal2 = Image(DrawableRes::silverMedal);
 	medal3 = Image(DrawableRes::bronzeMedal);
 
-
-
     return true;
 }
 

@@ -1,11 +1,6 @@
 #pragma once
 
-
-#ifndef SPLASHSCREEN_H
-#define SPLASHSCREEN_H
-
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
 
 
@@ -34,9 +29,3 @@ public:
 	Image textA2;
 	Image bg;
 };
-
-
-
-
-
-#endif //SPLASHSCREEN_H

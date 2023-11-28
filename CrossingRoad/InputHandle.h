@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef INPUT_HANDLE
-#define INPUT_HANDLE
-
 #include <Windows.h>   
 #include <WinUser.h>
 
@@ -32,6 +29,3 @@ public:
 
 	static InputHandle* GetKeyBoardState();
 };
-
-
-#endif // !INPUT_HANDLE

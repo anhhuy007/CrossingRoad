@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef VEHICLE_H
-#define VEHICLE_H
-
 #include "GameObject.h"
 #include "Alignment.h"
 #include "TextStrings.h"
@@ -32,5 +29,3 @@ public:
 	VehicleType type;
 	float time = 0.0f;	
 };
-
-#endif // !VEHICLE_H

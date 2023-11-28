@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ANIMATION_H
-#define ANIMATION_H
-
 #include "CrossingRoad.h"
 #include "Graphic.h"
 
@@ -33,6 +30,4 @@ public:
 	void OnPause();
 	void OnResume();
 };
-
-#endif // !ANIMATION_H
 
