@@ -73,7 +73,7 @@ namespace DrawableRes {
 	const std::string goldMedal = leaderboardScreenFolder + "gold.sprite";
 	const std::string silverMedal = leaderboardScreenFolder + "silver.sprite";
 	const std::string bronzeMedal = leaderboardScreenFolder + "bronze.sprite";
-	const std::string item = leaderboardScreenFolder + "item.sprite";
+	const std::string leaderboardItem = leaderboardScreenFolder + "item.sprite";
 	const std::string endlessText = leaderboardScreenFolder + "endlessText.sprite";
 	const std::string levelText = leaderboardScreenFolder + "levelText.sprite";
 	const std::string leaderboardBg = leaderboardScreenFolder + "leaderboardBg.sprite";
