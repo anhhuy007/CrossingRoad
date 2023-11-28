@@ -48,7 +48,6 @@ public:
 		static bool OnScreenUpdate(float elapsedTime);
 		static bool OnScreenPause();
 		static bool OnScreenDestroy();
-
 	};	
 
 	void Init();

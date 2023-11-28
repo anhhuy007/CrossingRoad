@@ -150,6 +150,7 @@
     <ClCompile Include="GrassLane.cpp" />
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Lane.cpp" />
+    <ClCompile Include="LeaderBoard.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="GrassLane.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
+    <ClInclude Include="LeaderBoard.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />

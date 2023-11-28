@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SAVEDGAMESCREEN_H
-#define SAVEDGAMESCREEN_H
+#ifndef _SAVEDGAMESCREEN_H_
+#define _SAVEDGAMESCREEN_H_
 
 
 #include "Animation.h"
@@ -41,4 +41,4 @@ public:
 
 };
 
-#endif // !SAVEDGAMESCREEN_H
+#endif // !_SAVEDGAMESCREEN_H_
