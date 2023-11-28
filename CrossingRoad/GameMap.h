@@ -37,7 +37,8 @@ class GameMap : public CrossingRoad::GameScreen {
 
 	GamePlayer* player = nullptr;
 	Image grid;
-	Widget::Dialog dialog;
+	Widget::Dialog pausegame_dialog;
+	Widget::Dialog gameover_dialog;
 
 protected:
 	int score = 0;

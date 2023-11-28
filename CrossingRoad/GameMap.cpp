@@ -18,7 +18,9 @@ bool GameMap::OnCreate() {
 		Widget::Button(
 			game,
 			"Exit",
-			[]() {}
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
 		),
 		Widget::Button(
 			game,
@@ -28,10 +30,12 @@ bool GameMap::OnCreate() {
 		Widget::Button(
 			game,
 			"Continue",
-			[]() {}
+			[&]() {
+				isPaused = false;
+			}
 		),
 	};
-	dialog = Widget::Dialog(
+	pausegame_dialog = Widget::Dialog(
 		game,
 		"Choose your option",
 		buttons,
@@ -39,6 +43,29 @@ bool GameMap::OnCreate() {
 		100,
 		100
 	);
+	std::vector<Widget::Button> buttons2 = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"New game",
+			[]() {}
+		),
+	};
+	gameover_dialog = Widget::Dialog(
+		game,
+		"Game over",
+		buttons2,
+		{ 100, 50 },
+		100,
+		100
+	);
+
 	
 	// create game lanes
 	CreateLanes();
@@ -50,6 +77,12 @@ bool GameMap::OnCreate() {
 }
 
 bool GameMap::OnUpdate(float elapsedTime) {
+	if (player->animationState == AnimationState::DEAD || player->animationState == AnimationState::DROWN) {
+		// display dialog to ask player to continue or exit game
+		gameover_dialog.Update(30);
+		gameover_dialog.Render();
+	}
+
 	if (!isPaused) {
 		totalTime += elapsedTime;
 
@@ -100,19 +133,8 @@ bool GameMap::OnUpdate(float elapsedTime) {
 bool GameMap::OnPause() {
 	// display dialog to ask player to continue or exit game
 	isPaused = true;
-	dialog.Update(30);
-	dialog.Render();
-
-	// if player press ESC, exit game
-	if (game->inputHandle->keyState_[Keyboard::SPACE_KEY].isPressed) {
-		CrossingRoad::Navigation::To(new MenuScreen(game));
-		return true;
-	}
-
-	// if player press ENTER, continue game
-	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-		isPaused = false;
-	}
+	pausegame_dialog.Update(30);
+	pausegame_dialog.Render();
 
 	return true;
 }
