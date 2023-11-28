@@ -54,7 +54,9 @@ bool GameMap::OnCreate() {
 		Widget::Button(
 			game,
 			"New game",
-			[]() {}
+			[&]() {
+				CrossingRoad::Navigation::To(new WinterMap(game));
+			}
 		),
 	};
 	gameover_dialog = Widget::Dialog(
@@ -78,14 +80,16 @@ bool GameMap::OnCreate() {
 
 bool GameMap::OnUpdate(float elapsedTime) {
 	if (player->animationState == AnimationState::DEAD || player->animationState == AnimationState::DROWN) {
-		// display dialog to ask player to continue or exit game
-		gameover_dialog.Update(30);
-		gameover_dialog.Render();
+		totalTime += elapsedTime;
+		if (totalTime > 2000) {
+			totalTime = 2000;
+			// display dialog to ask player to continue or exit game
+			gameover_dialog.Update(30);
+			gameover_dialog.Render();
+		}
 	}
 
 	if (!isPaused) {
-		totalTime += elapsedTime;
-
 		// update lanes and player position
 		for (int i = 0; i < lanes.size(); i++) {
 			lanes[i]->Update(elapsedTime);
@@ -131,6 +135,10 @@ bool GameMap::OnUpdate(float elapsedTime) {
 }
 
 bool GameMap::OnPause() {
+	if (player->animationState == AnimationState::DEAD || player->animationState == AnimationState::DROWN) {
+		return true;
+	}
+
 	// display dialog to ask player to continue or exit game
 	isPaused = true;
 	pausegame_dialog.Update(30);

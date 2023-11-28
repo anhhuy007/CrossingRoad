@@ -6,22 +6,22 @@ bool LeaderBoard::OnCreate()
 
 	//-----------------------------LEADER BOARD---------------------------
 	std::vector<int> colors = {
-		RGB(0,0,0) //BLACK
-		RGB(255,255,255) // WHITE 
-		RGB(253,143,144) //LIGHT RED
-		RGB(236,74,75) //RED
-		RGB(253,195,59)	//MEDAL 1 LIGHT YELLOW
-		RGB(223,162,37) 	//MEDAL 1 STRONG YELLOW
-		RGB(183,181,206) 	//MEDAL 2 LIGHT GRAY
-		RGB(116,139,166) 	//MEDAL 2 STRONG GRAY
-		RGB(226,146,103) 	//MEDAL 3 LIGHT BRONZE
-		RGB(194,104,77) 	//MEDAL 3 STRONG BRONZE
-
-		RGB(0,186,255) // bg
-		RGB(43,122,120) // border item
-		RGB(255,235,216) //content padding
-		RGB(159,250,222) // title
-		//14/16
+		RGB(0,0,0), //BLACK
+		RGB(255,255,255), // WHITE 
+		RGB(253,143,144), //LIGHT RED
+		RGB(236,74,75), //RED
+		RGB(253,195,59),	//MEDAL 1 LIGHT YELLOW
+		RGB(223,162,37), 	//MEDAL 1 STRONG YELLOW
+		RGB(183,181,206), 	//MEDAL 2 LIGHT GRAY
+		RGB(116,139,166), 	//MEDAL 2 STRONG GRAY
+		RGB(226,146,103),	//MEDAL 3 LIGHT BRONZE
+		RGB(194,104,77), //MEDAL 3 STRONG BRONZE
+		RGB(0,186,255),	// bg
+		RGB(43,122,120), // border item
+		RGB(255,235,216), //content padding
+		RGB(159,250,222), // title
+		RGB(255,255,251), // text
+		RGB(255,255,252), // medal
 	};
 	COLOR::SetConsoleColor(colors);
 	
@@ -34,8 +34,6 @@ bool LeaderBoard::OnCreate()
 	medal1 = Image(DrawableRes::goldMedal);
 	medal2 = Image(DrawableRes::silverMedal);
 	medal3 = Image(DrawableRes::bronzeMedal);
-
-
 
     return true;
 }
