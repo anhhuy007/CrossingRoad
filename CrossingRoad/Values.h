@@ -1,10 +1,6 @@
 #pragma once
 
-#ifndef VALUES_H
-#define VALUES_H
-
 #include <windows.h>
-#include <map>
 #include <string>
 #include "Graphic.h"
 
@@ -178,5 +174,3 @@ struct GameInformation {
 	float totalTime;
 	bool endlessMode;
 };
-
-#endif // !VALUES_H

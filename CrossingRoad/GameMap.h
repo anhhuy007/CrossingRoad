@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAMEMAP_H
-#define GAMEMAP_H
-
 // ----- my libs include -----
 #include "CrossingRoad.h"
 #include "GamePlayer.h"
@@ -72,6 +69,3 @@ public:
 	bool HandlePlayerCollision(float elapsedTime);
 	Log GetLogByLaneId(int laneId);
 };
-
-
-#endif // !GAMEMAP_H

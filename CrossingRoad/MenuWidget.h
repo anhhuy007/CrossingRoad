@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MENU_WIDGET_H
-#define MENU_WIDGET_H
-
 #include "GameObject.h"
 #include "Widget.h"
 #include "Values.h"
@@ -27,6 +24,4 @@ public:
 	void Render();
 	void Update(float elapsedTime);
 };
-
-#endif // !MENU_WIDGET_H
 

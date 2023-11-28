@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAME_OBJECT
-#define GAME_OBJECT
-
 // ----- STANDARD INCLUDES -----
 #include <Windows.h>
 #include <vector>
@@ -71,5 +68,3 @@ public:
 	virtual void Update(float elapsedTime) = 0; 
 	virtual void Render() = 0;	// render object in a current state to console
 };
-
-#endif // !GAME_OBJECT

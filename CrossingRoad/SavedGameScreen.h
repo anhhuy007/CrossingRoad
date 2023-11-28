@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef _SAVEDGAMESCREEN_H_
-#define _SAVEDGAMESCREEN_H_
-
-
 #include "Animation.h"
 #include "GamePlayer.h"
 #include "Widget.h"
@@ -40,5 +36,3 @@ public:
 
 
 };
-
-#endif // !_SAVEDGAMESCREEN_H_

@@ -4,7 +4,6 @@
 #define MENU_H
 
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
 #include "MenuWidget.h"
 #include "SettingScreen.h"

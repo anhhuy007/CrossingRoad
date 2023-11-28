@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef TREE_H
-#define TREE_H
-
 #include "GameObject.h"
 #include "Alignment.h"
 
@@ -26,6 +23,4 @@ public:
 	int lanePos;
 	int blockPos;
 };
-
-#endif // !TREE_H
 

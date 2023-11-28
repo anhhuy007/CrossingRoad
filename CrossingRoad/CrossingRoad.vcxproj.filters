@@ -192,6 +192,9 @@
     <ClCompile Include="TestScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="LeaderBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -300,6 +303,9 @@
       <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
     <ClInclude Include="TestScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaderBoard.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>

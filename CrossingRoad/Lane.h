@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef LANE_H
-#define LANE_H
-
 #include "GameObject.h"
 #include "Values.h"
 #include "Vehicle.h"
@@ -32,6 +29,3 @@ private:
 		return { 0, short(_id * 24 - 144) };
 	}
 };
-
-
-#endif LANE_H

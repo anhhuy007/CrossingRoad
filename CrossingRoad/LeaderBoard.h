@@ -1,11 +1,5 @@
 #pragma once
 
-#ifndef _LEADERBOARD_H_
-#define _LEADERBOARD_H_
-
-
-
-
 #include "Animation.h"
 #include "GamePlayer.h"
 #include "Widget.h"
@@ -21,8 +15,6 @@ public:
 	bool OnPause()  override { return false; };	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
-
-
 	Image bg;
 	Image item;
 	Image title;
@@ -32,22 +24,4 @@ public:
 	Image medal1;
 	Image medal2;
 	Image medal3;
-
-	
-
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif // !_LEADERBOARD_H_

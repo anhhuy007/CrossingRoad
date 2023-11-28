@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ROAD_LANE_H
-#define ROAD_LANE_H
-
 #include "Lane.h"
 #include "Vehicle.h"
 #include "Coin.h"
@@ -30,5 +27,3 @@ public:
 	void Render();
 	void ScrollUp();
 };
-
-#endif // !ROAD_LANE_H

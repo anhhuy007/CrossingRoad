@@ -6,7 +6,6 @@
 #include <mmsystem.h>
 #include <iostream>
 
-
 class Sound {
 public:
 	struct SoundSetting {
