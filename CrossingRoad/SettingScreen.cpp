@@ -30,6 +30,7 @@ bool SettingScreen::OnCreate() {
 
 	// set console color
 	std::vector<int> colors = {
+	
 	//BAR
 	RGB(0,0,0), //Black
 	RGB(255,255,255), //White
@@ -41,12 +42,13 @@ bool SettingScreen::OnCreate() {
 	RGB(168, 208, 230),  // LIGHT BLUE + bg
 
 	//Button
+
 	RGB(26,56,163),
 	RGB(0,145,161),
 	RGB(182,227,252),
 
 	//text
-	RGB(15,47,67)
+	RGB(15,47,67),
 	};
 
 	// declaration

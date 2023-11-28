@@ -2,6 +2,7 @@
 #include "ClassicMap.h"
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
+#include "AboutScreen.h"
 
 bool MenuScreen::OnCreate() {
 	// set console color
@@ -54,7 +55,7 @@ bool MenuScreen::OnCreate() {
 			game,
 			"About",
 			[&]() {
-				//CrossingRoad::Navigation::To(new AboutScreen(game));
+				CrossingRoad::Navigation::To(new AboutScreen(game));
 			}
 		),
 		Widget::Button(

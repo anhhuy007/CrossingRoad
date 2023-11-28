@@ -5,7 +5,9 @@
 #include "SplashScreen.h"
 #include "SavedGameScreen.h"
 #include "AboutScreen.h"
+#include "LeaderBoard.h"
 #include "TestScreen.h"
+
 
 // ----- Game Maps -----
 #include "ClassicMap.h"
@@ -15,7 +17,7 @@ void CrossingRoad::Init() {
 	// ----- Init game -----
 
 	GameEngine::BuildConsole();	
-	Navigation::To(new MenuScreen(this));
+	Navigation::To(new LeaderBoard(this));
 }
 
 bool CrossingRoad::GameCreate() {
