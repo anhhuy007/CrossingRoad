@@ -16,8 +16,9 @@
 #include <vector>
 #include <string>
 
+#define Image Graphic::Sprite
+
 class GameMap : public CrossingRoad::GameScreen {
-private:
 	struct LevelInformation {
 		int level;
 		int score;
@@ -35,20 +36,20 @@ private:
 	bool endlessMode = false;
 
 	GamePlayer* player = nullptr;
-	Graphic::Sprite grid;
+	Image grid;
+	Widget::Dialog dialog;
 
 protected:
 	int score = 0;
 	std::vector<Lane*> lanes;
 	Portal portal;
 	GameInformation* gameInfo = nullptr;
-
+		
 	Graphic::Sprite grasslane;
 	Graphic::Sprite snowlane;
 	Graphic::Sprite waterlane;
 	Graphic::Sprite roadlane;
 	Graphic::Sprite roadMarking;
-
 public: 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
 

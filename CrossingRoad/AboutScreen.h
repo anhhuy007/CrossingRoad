@@ -27,7 +27,7 @@ public:
 	Widget::Text releasedDate = Widget::Text(game, "Released Date: ", { 92,150 }, 500, 34, TextFont::NORMAL);
 	Widget::Text Version = Widget::Text(game, "Version: 1.0.0", { 110,180 }, 500, 34, TextFont::NORMAL);
 
-	MenuWidget menuWidget = MenuWidget(game);
+	MenuWidget menuWidget;
 };
 
 #endif // !ABOUT_SCREEN_H

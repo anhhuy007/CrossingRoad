@@ -17,7 +17,7 @@ class MenuWidget : public GameObject {
 	float totalTime = 0;	
 
 public: 
-	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
+	MenuWidget() : GameObject(nullptr) {};
 	MenuWidget(
 		CrossingRoad* pgame,
 		std::vector<Widget::Button>& pbuttons,

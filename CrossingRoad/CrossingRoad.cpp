@@ -6,6 +6,7 @@
 #include "SavedGameScreen.h"
 #include "AboutScreen.h"
 #include "LeaderBoard.h"
+#include "TestScreen.h"
 
 
 // ----- Game Maps -----

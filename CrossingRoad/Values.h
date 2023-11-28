@@ -63,7 +63,9 @@ enum Overlapped : int {
 	OBSTACLE = 4,
 	VEHICLE = 4, 
 	PLAYER = 4,
-	TEXT = 5
+	DIALOG = 5,
+	BUTTON = 6,
+	TEXT = 7,
 };
 
 enum class VehicleType {
@@ -97,7 +99,9 @@ enum class Player {
 
 enum class TextFont {
 	TITLE,
-	NORMAL
+	NORMAL,
+	NUMBER, 
+	COIN_NUMBER
 };
 
 enum class ButtonState {

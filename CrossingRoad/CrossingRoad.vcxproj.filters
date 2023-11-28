@@ -189,7 +189,7 @@
     <ClCompile Include="Lane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LeaderBoard.cpp">
+    <ClCompile Include="TestScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -299,7 +299,7 @@
     <ClInclude Include="SnowLane.h">
       <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
-    <ClInclude Include="LeaderBoard.h">
+    <ClInclude Include="TestScreen.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
