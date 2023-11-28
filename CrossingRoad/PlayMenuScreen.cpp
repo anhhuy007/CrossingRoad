@@ -64,14 +64,14 @@ bool PlayMenuScreen::OnCreate() {
 		{ 150, 50 }
 	);
 
-	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 	return true;
 }
 
 bool PlayMenuScreen::OnUpdate(float elapsedTime) {
 	/*text.Render();
 	button.Render();*/
-	game->RenderSprite(image, { 0, 0 });
+	game->RenderSprite(bgImage, { 0, 0 });
 	//meow.OnPlay(elapsedTime);
 
 	playMenuWidget.Update(elapsedTime);

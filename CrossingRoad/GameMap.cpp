@@ -9,9 +9,36 @@ bool GameMap::OnCreate() {
 		collectedCoins = gameInfo->collectedCoins;
 	}
 
-	player = new GamePlayer(Player::CHICK, game);
+	player = new GamePlayer(Player::DUCKY, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
+	
+	// widgets
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"Exit",
+			[]() {}
+		),
+		Widget::Button(
+			game,
+			"Save game",
+			[]() {}
+		),
+		Widget::Button(
+			game,
+			"Continue",
+			[]() {}
+		),
+	};
+	dialog = Widget::Dialog(
+		game,
+		"Choose your option",
+		buttons,
+		{ 100, 50 },
+		100,
+		100
+	);
 	
 	// create game lanes
 	CreateLanes();
@@ -32,10 +59,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		}
 
 		// disable player moving above lane containing portal
-		if (portal.lanePos != 9 ||
-			player->lanePos != 7 ||
-			!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
-			) {
+		if (portal.lanePos != 9 || player->lanePos != 7 || !game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 			player->Update(elapsedTime);
 		}
 
@@ -66,7 +90,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	if (playerPos == 6 && portal.lanePos != 9) {
 		ScrollUp();
 		player->MoveDown(player->lanePos);
-		portal.MoveDown(portal.lanePos);
+		if (portal.visible) portal.MoveDown(portal.lanePos);
 		maxIndex++;
 	}
 
@@ -76,6 +100,8 @@ bool GameMap::OnUpdate(float elapsedTime) {
 bool GameMap::OnPause() {
 	// display dialog to ask player to continue or exit game
 	isPaused = true;
+	dialog.Update(30);
+	dialog.Render();
 
 	// if player press ESC, exit game
 	if (game->inputHandle->keyState_[Keyboard::SPACE_KEY].isPressed) {
@@ -112,26 +138,28 @@ void GameMap::Render() {
 		if (player->lanePos == i) player->Render();
 	}
 
-	// display score
-	std::string playerScore = std::to_string(score);
+	// update text 
+	std::string str_score = std::to_string(score);
+	std::string str_coin = std::to_string(collectedCoins);
+
 	Widget::Text textScore = Widget::Text(
 		game,
-		playerScore,
-		{ 440, 7 },
+		str_score,
+		{ short(440 - str_score.length() * 13 + 13), 5 },
 		30, 30,
-		TextFont::NORMAL
+		TextFont::NUMBER
 	);
 
 	// display collected coins
-	std::string playerCoins = std::to_string(collectedCoins);
 	Widget::Text textCoins = Widget::Text(
 		game,
-		playerCoins,
-		{ 440, 14 },
+		str_coin,
+		{ short(440 - str_coin.length() * 13 + 13), 22 },
 		30, 30,
-		TextFont::NORMAL
+		TextFont::COIN_NUMBER
 	);
 
+	// display score
 	textScore.Render();
 	textCoins.Render();
 }
@@ -181,7 +209,7 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	}
 	else if (collisType == 2) {
 		// player hit the coin
-		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::COIN));
+		//Sound::playEffectSound(game->soundSetting, int(Sound::Effect::COIN));
 		collectedCoins++;
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;

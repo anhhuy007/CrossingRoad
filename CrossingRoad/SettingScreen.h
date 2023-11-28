@@ -20,8 +20,7 @@ public:
 	//Animation
 
 	//Image
-	Image image;
-
+	Image bgImage;
 	SettingWidget settingWidget = SettingWidget(game);
 
 	Animation S;

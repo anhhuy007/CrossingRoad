@@ -37,6 +37,12 @@ std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
 	case TextFont::NORMAL:
 		path += "normal\\";
 		break;
+	case TextFont::NUMBER:
+		path += "numbers\\numbers\\";
+		break;
+	case TextFont::COIN_NUMBER:
+		path += "numbers\\coin_numbers\\";
+		break;
 	}
 
 	// change to lowercase
@@ -176,4 +182,111 @@ COORD Widget::GetCenterTextPos(
 	int y = position.Y + (height - textHeight) / 2;
 
 	return { short(x + 20), short(y + 10) };
+}
+
+Widget::Dialog::Dialog(
+	CrossingRoad* pgame, 
+	std::string ptext, 
+	std::vector<Widget::Button>& pbuttons, 
+	COORD pposition, 
+	int pwidth, 
+	int pheight
+) : GameObject(pgame) {
+	dialog = Image(DrawableRes::Dialog, Overlapped::DIALOG);
+	message = Widget::Text(
+		pgame,
+		ptext,
+		Widget::GetCenterTextPos(ptext, pposition, pwidth + 180, pheight - 60),
+		pwidth,
+		pheight,
+		TextFont::NORMAL
+	);
+	buttons = pbuttons;
+	position = pposition;
+	width = pwidth;
+	height = pheight;
+
+	// change buttons appearances
+	for (auto& button : buttons) {
+		button.appearance[0] = Image(DrawableRes::DialogButtonNormal, Overlapped::BUTTON);
+		button.appearance[1] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+		button.appearance[2] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+	}
+
+	// set button positions
+	COORD pos = {pposition.X + 72, pposition.Y + 45 };
+	for (auto& button : buttons) {
+		button.setPosition(pos);
+
+		// set button text positions
+		button.text.setTextPosition(
+			button.text.text,
+			Widget::GetCenterTextPos(button.text.text, pos, 20, -10),
+			50,
+			15
+		);
+
+		pos.X += 60;
+	}
+}
+
+void Widget::Dialog::Update(float elapsedTime) {
+	auto checkIndex = [max = (int)buttons.size() - 1, _game = game](int& i) {
+		if (i < 0 || i > max) {
+			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
+			i = max(0, i);
+			i = min(max, i);
+			return 0;
+		}
+		Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::CHANGE));
+		return 1;
+		};
+	// get key pressed events
+	if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
+		checkIndex(--currentButtonIndex);
+	}
+	else if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
+		checkIndex(++currentButtonIndex);
+	}
+	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		enterClicked = true;
+		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+	}
+
+	// update button state
+	for (int i = 0; i < buttons.size(); i++) {
+		if (i == currentButtonIndex) {
+			if (enterClicked) {
+				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+			}
+			else {
+				buttons[i].OnHover();
+			}
+		}
+		else {
+			buttons[i].OnNormal();
+		}
+	}
+
+	for (int i = 0; i < buttons.size(); i++) {
+		buttons[i].Render();
+	}
+
+	// trigger button action
+	if (enterClicked) {
+		totalTime += elapsedTime;
+		//if (totalTime > 100) {
+			enterClicked = false;
+			buttons[currentButtonIndex].action();
+			totalTime = 0;
+		//}
+	}
+}
+
+void Widget::Dialog::Render() {
+	game->RenderSprite(dialog, position);
+	message.Render();
+	for (auto& button : buttons) {
+		button.Render();
+	}
 }

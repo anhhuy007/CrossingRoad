@@ -26,6 +26,7 @@ namespace Widget {
 		std::vector<COORD> textPositions;
 		std::string text;
 
+		Text() : GameObject(nullptr) {};
 		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
@@ -51,7 +52,7 @@ namespace Widget {
 
 	class Button : public GameObject {
 	public:
-		Button(CrossingRoad* game) : GameObject(game) {};
+		Button() : GameObject(nullptr) {};
 		Button(
 			CrossingRoad* pgame,
 			std::string ptext,
@@ -73,6 +74,33 @@ namespace Widget {
 		Text text = Text(game);
 		std::function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
+	};
+
+	class Dialog : public GameObject {
+	public: 
+		Dialog() : GameObject(nullptr) {};
+		Dialog(
+			CrossingRoad* pgame,
+			std::string ptext,
+			std::vector<Widget::Button> &pbuttons,  
+			COORD pposition,
+			int pwidth,
+			int pheight
+		);
+
+		// overried methods
+		void Update(float elapsedTime);
+		void Render();
+
+		// attributes
+		Image dialog;
+		Widget::Text message;
+		std::vector<Widget::Button> buttons;
+		int currentButtonIndex = 0;
+		COORD position;
+		std::vector<COORD> buttonPositions;
+		bool enterClicked = false;
+		float totalTime = 0;
 	};
 
 	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);

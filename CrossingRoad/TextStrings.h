@@ -14,6 +14,7 @@ namespace StringRes {
 
 namespace DrawableRes {
 	const std::string spriteFolder = "sprites\\";
+
 	// lane sprites	
 	const std::string GrassLane = spriteFolder + "GrassLane.sprite";
 	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
@@ -44,7 +45,6 @@ namespace DrawableRes {
 	const std::string Gift = spriteFolder + "Gift.sprite";
 	const std::string Deer = spriteFolder + "Deer.sprite";
 	const std::string Snowman = spriteFolder + "Snowman.sprite";
-	
 
 	// animation sprites
 	const std::string animationSprite1 = "Animation1.sprite";
@@ -58,6 +58,10 @@ namespace DrawableRes {
 	const std::string normalButton = "widgets\\NormalButton.sprite";
 	const std::string onChosenButton = "widgets\\OnHoverButton.sprite";
 	const std::string onEnterButton = "widgets\\OnTriggerButton.sprite";
+	const std::string Dialog = "widgets\\Dialog.sprite";
+	const std::string DialogButtonNormal = "widgets\\Dialog_Button_Normal.sprite";
+	const std::string DialogButtonHover = "widgets\\Dialog_Button_Hover.sprite";
+	const std::string DialogButtonTrigger = "widgets\\Dialog_Button_Trigger.sprite";
 
 }
 

@@ -5,6 +5,7 @@
 #include "SplashScreen.h"
 #include "SavedGameScreen.h"
 #include "AboutScreen.h"
+#include "TestScreen.h"
 
 // ----- Game Maps -----
 #include "ClassicMap.h"

@@ -19,7 +19,7 @@ public:
 	bool OnDestroy() { return false; };
 
 	Image bgImage;
-	MenuWidget menuWidget = MenuWidget(game);
+	MenuWidget menuWidget;
 
 	//title
 	Animation C;

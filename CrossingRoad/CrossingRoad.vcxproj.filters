@@ -189,6 +189,9 @@
     <ClCompile Include="Lane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="SnowLane.h">
       <Filter>Header Files\Objects\Lanes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScreen.h">
+      <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
