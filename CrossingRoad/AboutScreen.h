@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ABOUT_SCREEN_H
+#define ABOUT_SCREEN_H
+
 #include "Animation.h"
 #include "Widget.h"
 #include "MenuWidget.h"
@@ -19,7 +22,7 @@ public:
 	//Text
 	Widget::Text design, mssv1, mssv2, mssv3, mssv4, instructor, releasedDate, Version;
 
-	MenuWidget aboutMenuWidget = MenuWidget(game);
+	MenuWidget aboutMenuWidget;
 };
 
 #endif // !ABOUT_SCREEN_H

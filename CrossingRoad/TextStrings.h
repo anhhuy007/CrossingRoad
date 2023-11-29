@@ -75,4 +75,14 @@ namespace DrawableRes {
 	const std::string levelText = leaderboardScreenFolder + "levelText.sprite";
 	const std::string leaderboardBg = leaderboardScreenFolder + "leaderboardBg.sprite";
 
+	// SETTING SCREEN SPRITE
+	const std::string settingScreenFolder = "Screen\\settingScreen\\";
+	const std::string volumeBarLvl0 = settingScreenFolder + "lvl0.sprite";
+	const std::string volumeBarLvl1 = settingScreenFolder + "lvl1.sprite";
+	const std::string volumeBarLvl2 = settingScreenFolder + "lvl2.sprite";
+	const std::string volumeBarLvl3 = settingScreenFolder + "lvl3.sprite";
+	const std::string volumeBarLvl4 = settingScreenFolder + "lvl4.sprite";
+	const std::string volumeBarLvl5 = settingScreenFolder + "lvl5.sprite";
+	const std::string cursor = settingScreenFolder + "Cursor.sprite";
+
 }

@@ -3,6 +3,7 @@
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 #include "AboutScreen.h"
+#include "LeaderBoard.h"
 
 bool MenuScreen::OnCreate() {
 	// set console color
@@ -41,7 +42,7 @@ bool MenuScreen::OnCreate() {
 			game,
 			"Leaderboard",
 			[&]() {
-				//CrossingRoad::Navigation::To(new LeaderboardScreen(game));
+				CrossingRoad::Navigation::To(new LeaderBoard(game));
 			}
 		),
 		Widget::Button(

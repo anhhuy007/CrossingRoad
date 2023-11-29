@@ -17,26 +17,25 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 	if (volume == 0 || isOn == 0) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl0, Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl1, Overlapped::DECORATOR);
 	}
 	else if (volume == 40) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl2.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl2, Overlapped::DECORATOR);
 	}
 	else if (volume == 60) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl3.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl3, Overlapped::DECORATOR);
 	}
 	else if (volume == 80) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl4.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl4, Overlapped::DECORATOR);
 	}
 	else if (volume == 100) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl5.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl5, Overlapped::DECORATOR);
 	}
-	else {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
-	}
+	else 
+		return Graphic::Sprite(DrawableRes::volumeBarLvl0, Overlapped::DECORATOR);
 }
 
 SettingWidget::SettingWidget(
@@ -55,10 +54,6 @@ void SettingWidget::Render() {
 }
 
 void SettingWidget::Update(float elapsedTime) {
-	music.Render();
-	sfx.Render();
-	character.Render();
-	back.Render();
 
 	COORD background = { 185, 73 };
 	COORD effect = { 185, 104 };
@@ -82,7 +77,12 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		enterClicked = true;
-		game->sound->playEffectSound( int(Sound::Effect::VALID));
+		if (currentButtonIndex == 3) {
+			game->sound->playEffectSound(int(Sound::Effect::ENTER));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
+		}
 		if (currentButtonIndex == 0) {
 
 			if (game->sound->isBackgroundSoundOn()) {
