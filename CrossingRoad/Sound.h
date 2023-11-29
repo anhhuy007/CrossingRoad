@@ -1,66 +1,86 @@
-#pragma comment(lib, "winmm.lib")
 #pragma once
+#pragma comment(lib, "winmm.lib")
+
 #include <Windows.h>
 #include <string>
 #include <vector>
 #include <mmsystem.h>
 #include <iostream>
-
+#include <mutex>
 
 class Sound {
-public: 
-	struct SoundSetting {
-		bool backgroundSound = true;
-		bool effectSound = true;
-		bool backgroundPlaying = false;
-		bool firstTimePlaying = true;
-		int backgroundVolume = 100;
-		int effectVolume = 100;
-		int currentIndexBackgroundSound = -1;
-	};
 private:
-	//Play and stop sound
-	static void repeatSound(std::wstring alias);
-	static void playSound(std::wstring alias);
-	static void pauseSound(std::wstring alias);
-	static void resumeSound(std::wstring alias);
-	static void setAudio(std::wstring alias, int volume);
+    bool backgroundSound;
+    bool effectSound;
+    bool backgroundPlaying;
+    bool firstTimePlaying;
+    int backgroundVolume;
+    int effectVolume;
+    int currentIndexBackgroundSound;
 
-	//Open and close file
-	static void openSound(std::wstring path);
-	static void closeSound(std::wstring alias);
+    std::wstring findAlias(std::wstring path);
 
-	static std::wstring findAlias(std::wstring path);
+    void repeatSound(std::wstring alias);
+    void playSound(std::wstring alias);
+    void pauseSound(std::wstring alias);
+    void resumeSound(std::wstring alias);
+    void setAudio(std::wstring alias, int volume);
+    void openSound(std::wstring path);
+    void closeSound(std::wstring alias);
 
-	static const std::vector <std::wstring> EFFECT;
-	static const std::vector <std::wstring> BACKGROUND;
+    static const std::vector<std::wstring> EFFECT;
+    static const std::vector<std::wstring> BACKGROUND;
 
-	Sound() {};
+    static std::mutex locker;
+protected:
+    Sound() {
+         backgroundSound = true;
+         effectSound = true;
+         backgroundPlaying = false;
+         firstTimePlaying = true;
+         backgroundVolume = 100;
+         effectVolume = 100;
+        currentIndexBackgroundSound = 0;
+    };
+    static Sound* instance_;
 
-public: 
-	//Path
-	static enum class Background : char {
-		BACKGROUND_MUSIC
-	};
-	static enum class Effect : char {
-		CAR_CRASH,
-		INVALID,
-		VALID,
-		ENTER,
-		CHANGE,
-		COIN
-	};
-	static void playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound);
-	static void playEffectSound(Sound::SoundSetting& soundSetting, int indexSound);
+public:
+    
+    Sound(Sound& other) = delete;
+   void operator=(const Sound& other ) = delete;
+   
+   enum class Background : char {
+        BACKGROUND_MUSIC,
+        HIGHWAY
+    };
+    enum class Effect : char {
+        CAR_CRASH,
+        INVALID,
+        VALID,
+        ENTER,
+        CHANGE,
+        COIN
+    };
 
-	static void turnOffBackgroundSound(Sound::SoundSetting& soundSetting);
-	static void turnOnBackgroundSound(Sound::SoundSetting& soundSetting);
-	static void turnOffEffectSound(Sound::SoundSetting& soundSetting);
-	static void turnOnEffectSound(Sound::SoundSetting& soundSetting);
+    static Sound* getInstance();
 
-	static bool turnUpBackgroundVolume(Sound::SoundSetting& soundSetting);
-	static bool turnDownBackgroundVolume(Sound::SoundSetting& soundSetting);
+    void playBackgroundSound(int indexSound);
+    void playEffectSound(int indexSound);
 
-	static bool turnUpEffectVolume(Sound::SoundSetting& soundSetting);
-	static bool turnDownEffectVolume(Sound::SoundSetting& soundSetting);
+    void turnOffBackgroundSound();
+    void turnOnBackgroundSound();
+    void turnOffEffectSound();
+    void turnOnEffectSound();
+
+    bool turnUpBackgroundVolume();
+    bool turnDownBackgroundVolume();
+
+    bool turnUpEffectVolume();
+    bool turnDownEffectVolume();
+
+    bool isBackgroundSoundOn();
+    bool isEffectSoundOn();
+
+    int getBackgroundVolume();
+    int getEffectVolume();
 };

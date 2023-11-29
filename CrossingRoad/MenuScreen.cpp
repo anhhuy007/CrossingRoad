@@ -128,6 +128,7 @@ bool MenuScreen::OnCreate() {
 	game->BuildConsole();
 	COLOR::SetConsoleColor(colors);
 
+	game->sound->playBackgroundSound(int(Sound::Background::BACKGROUND_MUSIC));
 	return true;
 }
 

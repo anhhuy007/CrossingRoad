@@ -139,7 +139,7 @@ void Widget::Button::OnTrigger() {
 	}
 	
 	// play sfx 
-	Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+	game->sound->playEffectSound(int(Sound::Effect::ENTER));
 }
 
 void Widget::Button::OnHover() {
