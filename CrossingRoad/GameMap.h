@@ -41,7 +41,6 @@ protected:
 	int score = 0;
 	std::vector<Lane*> lanes;
 	Portal portal;
-	GameInformation* gameInfo = nullptr;
 		
 	Graphic::Sprite grasslane;
 	Graphic::Sprite snowlane;

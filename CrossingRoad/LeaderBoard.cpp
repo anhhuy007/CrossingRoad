@@ -1,9 +1,7 @@
-#include "LeaderBoard.h"
+#include "LeaderBoard.h" 
 
 bool LeaderBoard::OnCreate()
 {
-
-
 	//-----------------------------LEADER BOARD---------------------------
 	std::vector<int> colors = {
 		RGB(0,0,0), //BLACK
@@ -24,9 +22,7 @@ bool LeaderBoard::OnCreate()
 
 
 		//14/16
-	};
-	COLOR::SetConsoleColor(colors);
-	
+	};	
 
 	bg = Image(DrawableRes::leaderboardBg);
 	item = Image(DrawableRes::leaderboardItem);
@@ -37,11 +33,18 @@ bool LeaderBoard::OnCreate()
 	medal2 = Image(DrawableRes::silverMedal);
 	medal3 = Image(DrawableRes::bronzeMedal);
 
+	COLOR::SetConsoleColor(colors);
+
     return true;
 }
 
 bool LeaderBoard::OnUpdate(float elapsedTime)
 {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	game->RenderSprite(bg, { 0,0 });
 	game->RenderSprite(title, { 86,10 });
 	game->RenderSprite(text1, { 73,48 });

@@ -26,6 +26,37 @@ bool MenuScreen::OnCreate() {
 		RGB(153,152,154)
 	};
 
+	// init widget
+	InitWidget();
+
+	COLOR::SetConsoleColor(colors);
+
+	game->sound->playBackgroundSound(int(Sound::Background::BACKGROUND_MUSIC));
+	return true;
+}
+
+bool MenuScreen::OnUpdate(float elapsedTime) {
+	game->RenderSprite(bgImage, { 0, 0 });
+	menuWidget.Update(elapsedTime);
+
+	C.OnPlay(elapsedTime);
+	R1.OnPlay(elapsedTime);
+	R2.OnPlay(elapsedTime);
+	O1.OnPlay(elapsedTime);
+	O2.OnPlay(elapsedTime);
+	S1.OnPlay(elapsedTime);
+	S2.OnPlay(elapsedTime);
+	I.OnPlay(elapsedTime);
+	N.OnPlay(elapsedTime);
+	G.OnPlay(elapsedTime);
+	A.OnPlay(elapsedTime);
+	D.OnPlay(elapsedTime);
+
+	return true;
+}
+
+void MenuScreen::InitWidget()
+{
 	// background 
 	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 
@@ -73,7 +104,6 @@ bool MenuScreen::OnCreate() {
 	);
 
 	//Crossing Road title
-
 	std::vector<Graphic::Sprite> textCgif = {
 		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
 		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
@@ -125,30 +155,4 @@ bool MenuScreen::OnCreate() {
 	O2 = Animation(game, textOgif, { left, top_border }, 400); left += space;
 	A = Animation(game, textAgif, { left, top_border }, 400); left += space;
 	D = Animation(game, textDgif, { left, top_border }, 400);
-
-	game->BuildConsole();
-	COLOR::SetConsoleColor(colors);
-
-	game->sound->playBackgroundSound(int(Sound::Background::BACKGROUND_MUSIC));
-	return true;
-}
-
-bool MenuScreen::OnUpdate(float elapsedTime) {
-	game->RenderSprite(bgImage, { 0, 0 });
-	menuWidget.Update(elapsedTime);
-
-	C.OnPlay(elapsedTime);
-	R1.OnPlay(elapsedTime);
-	R2.OnPlay(elapsedTime);
-	O1.OnPlay(elapsedTime);
-	O2.OnPlay(elapsedTime);
-	S1.OnPlay(elapsedTime);
-	S2.OnPlay(elapsedTime);
-	I.OnPlay(elapsedTime);
-	N.OnPlay(elapsedTime);
-	G.OnPlay(elapsedTime);
-	A.OnPlay(elapsedTime);
-	D.OnPlay(elapsedTime);
-
-	return true;
 }

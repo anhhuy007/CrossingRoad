@@ -13,9 +13,6 @@
 class WinterMap : public GameMap {
 public:
 	WinterMap(CrossingRoad* game) : GameMap(game) {};
-	WinterMap(CrossingRoad* game, GameInformation pgameInfo) : GameMap(game) {
-		gameInfo = &pgameInfo;
-	}
 
 	void CreateLanes();
 	void ScrollUp();

@@ -54,7 +54,6 @@ void Sound::closeSound(std::wstring alias) {
 	mciSendString(close.c_str(), NULL, 0, NULL);
 }
 
-
 //--------------Play and stop sound--------------
 void Sound::repeatSound(std::wstring alias) {
 	std::wstring repeat = L"play " + alias + L" repeat";
