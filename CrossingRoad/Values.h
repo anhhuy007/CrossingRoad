@@ -137,8 +137,8 @@ enum class MapType {
 };
 
 enum class GameMode {
-	ENDLESS,
-	LEVEL
+	ENDLESS_MODE,
+	LEVEL_MODE
 };
 
 struct GameSpeed {
@@ -178,16 +178,19 @@ struct LaneInfo {
 	MovingDirection objectDirection;
 };
 
+struct PlayerInfo {
+	MovingDirection moveDirec;
+	AnimationState aniState;
+	int lanePos;
+	COORD position;
+};
+
 struct GameMapInfo {
 	MapType mapType;
 	GameMode gameMode;
 	std::vector<LaneInfo> lanesInfo;
-};
-
-struct GamePlayerInfo {
-	int level;
+	PlayerInfo playerInfo; // some  attributes are not used
+	int level; // optional if game mode is LEVEL_MODE
 	int score;
-	int collectedCoins;
-	float totalTime;
-	bool endlessMode;
+	int coin;
 };

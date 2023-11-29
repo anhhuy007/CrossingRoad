@@ -16,14 +16,6 @@
 #define Image Graphic::Sprite
 
 class GameMap : public CrossingRoad::GameScreen {
-	struct LevelInformation {
-		int level;
-		int score;
-		int collectedCoins;
-		float totalTime;
-		bool endlessMode;
-	};
-
 	// ---- game properties ----
 	int level = 0;
 	int collectedCoins = 0;
@@ -49,8 +41,6 @@ protected:
 	Graphic::Sprite roadMarking;
 public: 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
-
-	void CreateNewGameLevel(LevelInformation* levelInfo);
 
 	// overrided functions 
 	bool OnCreate();

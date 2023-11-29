@@ -68,7 +68,6 @@ bool GameMap::OnCreate() {
 	CreateLanes();
 	SetScreenColor();
 
-	game->sound->turnOffBackgroundSound();
 	game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
 
 	maxIndex = 14;
@@ -145,19 +144,6 @@ bool GameMap::OnPause() {
 	return true;
 }
 
-void GameMap::CreateNewGameLevel(LevelInformation* levelInfo) {
-	
-	if (levelInfo != nullptr) {
-		// reset game properties
-		level = levelInfo->level;
-		score = levelInfo->score;
-		collectedCoins = levelInfo->collectedCoins;
-		totalTime = levelInfo->totalTime;
-		endlessMode = levelInfo->endlessMode;
-	}
-
-	OnCreate();
-}
 
 void GameMap::Render() {
 	for (int i = 0; i < lanes.size(); i++) {
@@ -226,14 +212,6 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 
 		// player hit the portal
 		system("pause");
-
-		// get current level information
-		LevelInformation levelInfo;
-		levelInfo.level = level;
-		levelInfo.score = score;
-		levelInfo.collectedCoins = collectedCoins;
-		levelInfo.totalTime = totalTime;
-		levelInfo.endlessMode = endlessMode;
 
 		CrossingRoad::Navigation::To(new WinterMap(game));
 	}
