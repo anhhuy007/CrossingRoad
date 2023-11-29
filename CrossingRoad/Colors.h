@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef COLOR_CONSTANTS
-#define COLOR_CONSTANTS
-
 #include <Windows.h>
 #include <string>
 #include <vector>
@@ -35,5 +32,3 @@ namespace COLOR {
 	int GetRGBFromHex(std::string hexColor);
 	
 };
-
-#endif // !COLOR_CONSTANTS

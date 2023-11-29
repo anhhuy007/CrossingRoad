@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GAME_OBJECT
-#define GAME_OBJECT
-
 // ----- STANDARD INCLUDES -----
 #include <Windows.h>
 #include <vector>
@@ -22,7 +19,7 @@ protected:
 	COORD position;	// real object position in console (top left coordinate)
 	CrossingRoad* game = nullptr;
 	std::vector<CollisionPoint> collisionPoints;	// points of object collision
-
+	GameSpeed moveDownSpeed = GameSpeed(0, 0, -11, 21);
 public:
 	GameObject(
 		int _width,
@@ -65,10 +62,9 @@ public:
 	void setCollisionPoints(std::vector<CollisionPoint>_collisionPoints);
 
 	void WriteCollisionPoints();
+	void MoveDown(int &planePos); // move object down by 1 unit when map scrolls down
 
 	// ----- Methods -----
 	virtual void Update(float elapsedTime) = 0; 
 	virtual void Render() = 0;	// render object in a current state to console
 };
-
-#endif // !GAME_OBJECT

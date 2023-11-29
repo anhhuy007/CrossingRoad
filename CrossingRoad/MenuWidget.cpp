@@ -32,10 +32,10 @@ void MenuWidget::Render() {
 	for (int i = 0; i < buttons.size(); i++) {
 		buttons[i].Render();
 	}
-}	
+}
 
 void MenuWidget::Update(float elapsedTime) {
-	auto checkIndex= [max = (int)buttons.size() - 1,_game = game](int &i) {
+	auto checkIndex = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
 			_game->sound->playEffectSound( int(Sound::Effect::INVALID));
 			i = max(0, i);
@@ -44,7 +44,7 @@ void MenuWidget::Update(float elapsedTime) {
 		}
 		_game->sound->playEffectSound(int(Sound::Effect::CHANGE));
 		return 1;
-	};
+		};
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		checkIndex(--currentButtonIndex);

@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ALIGNMENT
-#define ALIGNMENT
-
 #include <Windows.h>
 #include "GameObject.h"
 
@@ -71,8 +68,4 @@ public:
 	}
 
 };
-
-
-
-#endif // !ALIGNMENT
 

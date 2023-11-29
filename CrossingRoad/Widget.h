@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef WIDGET_H
-#define WIDGET_H
-
 #include "GameObject.h"
 #include "Values.h"
 #include "TextStrings.h"
@@ -19,11 +16,14 @@ namespace Widget {
 		TextFont font;
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
+		std::string GetNextWord(int index, std::string ptext);
+		int GetWordWidth(std::string word);
 
 	public:
 		std::vector<COORD> textPositions;
 		std::string text;
 
+		Text() : GameObject(nullptr) {};
 		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
@@ -45,16 +45,11 @@ namespace Widget {
 			int pwidth, 
 			int pheight
 		);
-
-	// private functions
-	private:
-		std::string GetNextWord(int index, std::string ptext);
-		int GetWordWidth(std::string word);
 	};
 
 	class Button : public GameObject {
 	public:
-		Button(CrossingRoad* game) : GameObject(game) {};
+		Button() : GameObject(nullptr) {};
 		Button(
 			CrossingRoad* pgame,
 			std::string ptext,
@@ -78,7 +73,32 @@ namespace Widget {
 		ButtonState state = ButtonState::NORMAL;
 	};
 
+	class Dialog : public GameObject {
+	public: 
+		Dialog() : GameObject(nullptr) {};
+		Dialog(
+			CrossingRoad* pgame,
+			std::string ptext,
+			std::vector<Widget::Button> &pbuttons,  
+			COORD pposition,
+			int pwidth,
+			int pheight
+		);
+
+		// overried methods
+		void Update(float elapsedTime);
+		void Render();
+
+		// attributes
+		Image dialog;
+		Widget::Text message;
+		std::vector<Widget::Button> buttons;
+		int currentButtonIndex = 0;
+		COORD position;
+		std::vector<COORD> buttonPositions;
+		bool enterClicked = false;
+		float totalTime = 0;
+	};
+
 	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
 };
-
-#endif //!WIDGET_H

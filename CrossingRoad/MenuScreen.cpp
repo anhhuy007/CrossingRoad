@@ -1,5 +1,5 @@
 #include "MenuScreen.h"
-#include "StreetMap.h"
+#include "ClassicMap.h"
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 #include "AboutScreen.h"
@@ -26,8 +26,8 @@ bool MenuScreen::OnCreate() {
 	};
 
 	// background 
-	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	
+	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+
 	// Menu button function
 	std::vector<Widget::Button> buttons = {
 		Widget::Button(
@@ -133,7 +133,7 @@ bool MenuScreen::OnCreate() {
 }
 
 bool MenuScreen::OnUpdate(float elapsedTime) {
-	game->RenderSprite(image, { 0, 0 });
+	game->RenderSprite(bgImage, { 0, 0 });
 	menuWidget.Update(elapsedTime);
 
 	C.OnPlay(elapsedTime);

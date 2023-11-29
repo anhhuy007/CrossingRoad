@@ -23,13 +23,13 @@ GamePlayer::GamePlayer(
 
 void GamePlayer::Render() {
 	// get appropriate sprite by animation state: normal, left, right, back, jump
-	Graphic::Sprite sprite = getSpriteByAnimation(animationState);
+	Graphic::Sprite sprite = GetSpriteByAnimation(animationState);
 
 	// render sprite
 	game->RenderSprite(sprite, position);
 }
 
-Graphic::Sprite GamePlayer::getSpriteByAnimation(AnimationState state) {
+Graphic::Sprite GamePlayer::GetSpriteByAnimation(AnimationState state) {
 	for (auto playerSprite : animationSprite) {
 		if (playerSprite.state == state) {
 			return playerSprite.sprite;
@@ -231,14 +231,4 @@ void GamePlayer::MoveHorizontal(
 			break;
 		}
 	}
-}
-
-void GamePlayer::MoveDown() {
-	position.X += speed.X_VERTICAL;
-	position.Y += speed.Y_VERTICAL;
-	if (lanePos % 3 == 0) {
-		position.X += 1;
-		position.Y += 1;
-	}
-	lanePos += 1;
 }

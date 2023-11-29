@@ -1,10 +1,6 @@
 #pragma once
 
-#ifndef ABOUT_SCREEN_H
-#define ABOUT_SCREEN_H
-
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
 #include "MenuWidget.h"
 #include "AboutScreen.h"

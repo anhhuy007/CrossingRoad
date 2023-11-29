@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef VEHICLE_H
-#define VEHICLE_H
-
 #include "GameObject.h"
 #include "Alignment.h"
 #include "TextStrings.h"
@@ -18,14 +15,9 @@ public:
 	);
 
 	void SetInitPosition();
-
 	void Update(float elapsedTime);
 	void Render() {};
 	void MoveAhead();
-	void MoveDown(); // when scrolling up
-
-	short getX() { return position.X; }
-	short getY() { return position.Y; }
 
 	// ----- properties -----
 	bool endOfRoad = false;
@@ -37,5 +29,3 @@ public:
 	VehicleType type;
 	float time = 0.0f;	
 };
-
-#endif // !VEHICLE_H

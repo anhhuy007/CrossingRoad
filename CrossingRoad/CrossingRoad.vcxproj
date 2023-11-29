@@ -149,6 +149,8 @@
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="GrassLane.cpp" />
     <ClCompile Include="InputHandle.cpp" />
+    <ClCompile Include="Lane.cpp" />
+    <ClCompile Include="LeaderBoard.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
@@ -163,7 +165,8 @@
     <ClCompile Include="SnowLane.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
-    <ClCompile Include="StreetMap.cpp" />
+    <ClCompile Include="ClassicMap.cpp" />
+    <ClCompile Include="TestScreen.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Vehicle.cpp" />
     <ClCompile Include="WaterLane.cpp" />
@@ -186,6 +189,7 @@
     <ClInclude Include="GrassLane.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
+    <ClInclude Include="LeaderBoard.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />
@@ -198,7 +202,8 @@
     <ClInclude Include="SnowLane.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SplashScreen.h" />
-    <ClInclude Include="StreetMap.h" />
+    <ClInclude Include="ClassicMap.h" />
+    <ClInclude Include="TestScreen.h" />
     <ClInclude Include="TextStrings.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Values.h" />

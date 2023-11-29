@@ -1,6 +1,6 @@
-#include "StreetMap.h"
+#include "ClassicMap.h"
 
-void StreetMap::SetScreenColor() {
+void ClassicMap::SetScreenColor() {
 	std::vector<int> colors = {
 		RGB(0, 0, 0), 
 		RGB(255, 255, 255), 
@@ -22,7 +22,7 @@ void StreetMap::SetScreenColor() {
 	COLOR::SetConsoleColor(colors);
 }
 
-Lane* StreetMap::GetNewLane(int laneId, LaneType previousLane) {
+Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
 	int randomLane = rand() % 4;
 
 	if (randomLane == 0) {
@@ -54,7 +54,7 @@ Lane* StreetMap::GetNewLane(int laneId, LaneType previousLane) {
 	}
 }
 
-void StreetMap::CreateLanes() {
+void ClassicMap::CreateLanes() {
 	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
 	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
@@ -71,7 +71,7 @@ void StreetMap::CreateLanes() {
 	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane, 0, 0));
 }
 
-void StreetMap::ScrollUp() {
+void ClassicMap::ScrollUp() {
 	lanes.pop_back();
 	for (int i = 0; i < lanes.size(); i++) {
 		lanes[i]->ScrollUp();

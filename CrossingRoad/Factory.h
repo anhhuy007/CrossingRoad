@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef FACTORY_H
-#define FACTORY_H
-
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -32,5 +29,3 @@ public:
 		std::vector<CollisionPoint> b
 	);
 };
-
-#endif // !FACTORY_H

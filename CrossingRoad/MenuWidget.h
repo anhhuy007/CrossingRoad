@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MENU_WIDGET_H
-#define MENU_WIDGET_H
-
 #include "GameObject.h"
 #include "Widget.h"
 #include "Values.h"
@@ -17,7 +14,7 @@ class MenuWidget : public GameObject {
 	float totalTime = 0;	
 
 public: 
-	MenuWidget(CrossingRoad* pgame) : GameObject(pgame) {};
+	MenuWidget() : GameObject(nullptr) {};
 	MenuWidget(
 		CrossingRoad* pgame,
 		std::vector<Widget::Button>& pbuttons,
@@ -27,6 +24,4 @@ public:
 	void Render();
 	void Update(float elapsedTime);
 };
-
-#endif // !MENU_WIDGET_H
 

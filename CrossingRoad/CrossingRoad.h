@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef _CROSSINGROAD_H_
-#define _CROSSINGROAD_H_
-
 #include "GameEngine.h"
 #include "Sound.h"
 
@@ -48,12 +45,9 @@ public:
 		static bool OnScreenUpdate(float elapsedTime);
 		static bool OnScreenPause();
 		static bool OnScreenDestroy();
-
 	};	
 
 	void Init();
 	bool GameCreate();
 	bool GameUpdate(float elapsedTime);
 };
-
-#endif // !_CROSSINGROAD_H_

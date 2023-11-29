@@ -4,7 +4,6 @@
 #define MENU_H
 
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
 #include "MenuWidget.h"
 #include "SettingScreen.h"
@@ -19,9 +18,8 @@ public:
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
 
-	Animation meow;
-	Image image;
-	MenuWidget menuWidget = MenuWidget(game);
+	Image bgImage;
+	MenuWidget menuWidget;
 
 	//title
 	Animation C;

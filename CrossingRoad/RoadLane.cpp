@@ -25,15 +25,8 @@ void RoadLane::Update(float elapsedTime) {
 	if (vehicle.endOfRoad == true) {
 		vehicle.endOfRoad = false;
 		vehicle.SetInitPosition();
-		vehicle.vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
+		vehicle.vehicleSpeed = 0.001 + float(rand() % 4 + 1) * 0.001;
 	}
-
-	//if (position.Y < expectedPosition.Y) {
-	//	position.Y += 2;
-
-	//	// move vehicle down
-	//	vehicle.MoveDown();
-	//}
 }
 
 void RoadLane::Render() {
@@ -55,7 +48,6 @@ void RoadLane::Render() {
 void RoadLane::ScrollUp() {
 	id++;
 	position.Y += 24;
-	expectedPosition.Y += 24;
-	vehicle.MoveDown();
-	coin.MoveDown();
+	vehicle.MoveDown(vehicle.lanePos);
+	coin.MoveDown(coin.lanePos);
 }

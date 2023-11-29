@@ -5,23 +5,23 @@
 #include "SplashScreen.h"
 #include "SavedGameScreen.h"
 #include "AboutScreen.h"
+#include "LeaderBoard.h"
+#include "TestScreen.h"
+
 
 // ----- Game Maps -----
-#include "StreetMap.h"
+#include "ClassicMap.h"
 #include "WinterMap.h"
 
 void CrossingRoad::Init() {
 	// ----- Init game -----
+	srand(time(NULL));
 	GameEngine::BuildConsole();	
-	Navigation::To(new WinterMap(this));
+	Navigation::To(new MenuScreen(this));
 }
 
 bool CrossingRoad::GameCreate() {
 	// ----- Create new game -----
-	GameEngine::BuildConsole();
-
-	Navigation::To(new StreetMap(this));
-
 	return true;
 }
 

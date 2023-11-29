@@ -1,11 +1,73 @@
 #include "GameMap.h"
 #include "WaterLane.h"
 #include "RoadLane.h"
+#include "WinterMap.h"
 
 bool GameMap::OnCreate() {
-	player = new GamePlayer(Player::CHICK, game);
+	if (gameInfo != nullptr) {
+		level = gameInfo->level + 1;
+		collectedCoins = gameInfo->collectedCoins;
+	}
+
+	player = new GamePlayer(Player::DUCKY, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
+	
+	// widgets
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"Save game",
+			[]() {}
+		),
+		Widget::Button(
+			game,
+			"Continue",
+			[&]() {
+				isPaused = false;
+			}
+		),
+	};
+	pausegame_dialog = Widget::Dialog(
+		game,
+		"Choose your option",
+		buttons,
+		{ 100, 50 },
+		100,
+		100
+	);
+	std::vector<Widget::Button> buttons2 = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"New game",
+			[&]() {
+				CrossingRoad::Navigation::To(new WinterMap(game));
+			}
+		),
+	};
+	gameover_dialog = Widget::Dialog(
+		game,
+		"Game over",
+		buttons2,
+		{ 100, 50 },
+		100,
+		100
+	);
+
 	
 	// create game lanes
 	CreateLanes();
@@ -17,25 +79,33 @@ bool GameMap::OnCreate() {
 }
 
 bool GameMap::OnUpdate(float elapsedTime) {
-	if (!isPaused) {
+	if (player->animationState == AnimationState::DEAD || player->animationState == AnimationState::DROWN) {
 		totalTime += elapsedTime;
+		if (totalTime > 2000) {
+			totalTime = 2000;
+			// display dialog to ask player to continue or exit game
+			gameover_dialog.Update(30);
+			gameover_dialog.Render();
+		}
+	}
 
+	if (!isPaused) {
 		// update lanes and player position
 		for (int i = 0; i < lanes.size(); i++) {
 			lanes[i]->Update(elapsedTime);
 		}
 
 		// disable player moving above lane containing portal
-		if (portal.lanePos != 9 ||
-			player->lanePos != 7 ||
-			!game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed
-			) {
+		if (portal.lanePos != 9 || player->lanePos != 7 || !game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 			player->Update(elapsedTime);
 		}
 
 		// check for game collision
 		if (portal.lanePos == 9) portal.WriteCollisionPoints();
-		HandlePlayerCollision(elapsedTime);
+		if (HandlePlayerCollision(elapsedTime) == false) {
+			// if player win
+			return true;
+		};
 
 		// update score
 		int playerPos = player->lanePos;
@@ -56,8 +126,8 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	int playerPos = player->lanePos;
 	if (playerPos == 6 && portal.lanePos != 9) {
 		ScrollUp();
-		player->MoveDown();
-		portal.MoveDown();
+		player->MoveDown(player->lanePos);
+		if (portal.visible) portal.MoveDown(portal.lanePos);
 		maxIndex++;
 	}
 
@@ -65,21 +135,30 @@ bool GameMap::OnUpdate(float elapsedTime) {
 }
 
 bool GameMap::OnPause() {
-	// display dialog to ask player to continue or exit game
-	isPaused = true;
-
-	// if player press ESC, exit game
-	if (game->inputHandle->keyState_[Keyboard::SPACE_KEY].isPressed) {
-		CrossingRoad::Navigation::To(new MenuScreen(game));
+	if (player->animationState == AnimationState::DEAD || player->animationState == AnimationState::DROWN) {
 		return true;
 	}
 
-	// if player press ENTER, continue game
-	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-		isPaused = false;
-	}
+	// display dialog to ask player to continue or exit game
+	isPaused = true;
+	pausegame_dialog.Update(30);
+	pausegame_dialog.Render();
 
 	return true;
+}
+
+void GameMap::CreateNewGameLevel(LevelInformation* levelInfo) {
+	
+	if (levelInfo != nullptr) {
+		// reset game properties
+		level = levelInfo->level;
+		score = levelInfo->score;
+		collectedCoins = levelInfo->collectedCoins;
+		totalTime = levelInfo->totalTime;
+		endlessMode = levelInfo->endlessMode;
+	}
+
+	OnCreate();
 }
 
 void GameMap::Render() {
@@ -89,37 +168,39 @@ void GameMap::Render() {
 		if (player->lanePos == i) player->Render();
 	}
 
-	// display score
-	std::string playerScore = std::to_string(score);
+	// update text 
+	std::string str_score = std::to_string(score);
+	std::string str_coin = std::to_string(collectedCoins);
+
 	Widget::Text textScore = Widget::Text(
 		game,
-		playerScore,
-		{ 440, 7 },
+		str_score,
+		{ short(440 - str_score.length() * 13 + 13), 5 },
 		30, 30,
-		TextFont::NORMAL
+		TextFont::NUMBER
 	);
 
 	// display collected coins
-	std::string playerCoins = std::to_string(collectedCoins);
 	Widget::Text textCoins = Widget::Text(
 		game,
-		playerCoins,
-		{ 440, 14 },
+		str_coin,
+		{ short(440 - str_coin.length() * 13 + 13), 22 },
 		30, 30,
-		TextFont::NORMAL
+		TextFont::COIN_NUMBER
 	);
 
+	// display score
 	textScore.Render();
 	textCoins.Render();
 }
 
-void GameMap::HandlePlayerCollision(float elapsedTime) {
+bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	int collisType = player->CheckCollision();
 
 	COORD pos = player->getPosition();
 
 	if (collisType == 5) {
-		if (player->animationState == AnimationState::DROWN) return;
+		if (player->animationState == AnimationState::DROWN) return true;
 
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
@@ -145,7 +226,16 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 	else if (collisType == 6) {
 		// player hit the portal
 		system("pause");
-		CrossingRoad::Navigation::To(new MenuScreen(game));
+
+		// get current level information
+		LevelInformation levelInfo;
+		levelInfo.level = level;
+		levelInfo.score = score;
+		levelInfo.collectedCoins = collectedCoins;
+		levelInfo.totalTime = totalTime;
+		levelInfo.endlessMode = endlessMode;
+
+		CrossingRoad::Navigation::To(new WinterMap(game));
 	}
 	else if (collisType == 2) {
 		// player hit the coin
@@ -154,6 +244,8 @@ void GameMap::HandlePlayerCollision(float elapsedTime) {
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;
 	}
+
+	return true;
 }
 
 Log GameMap::GetLogByLaneId(int laneId) {

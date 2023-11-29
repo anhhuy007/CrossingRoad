@@ -1,6 +1,7 @@
 #include "PlayMenuScreen.h"
 #include "MenuScreen.h"
-#include "StreetMap.h"
+#include "ClassicMap.h"
+#include "WinterMap.h"
 
 bool PlayMenuScreen::OnCreate() {
 	// set console color
@@ -32,14 +33,14 @@ bool PlayMenuScreen::OnCreate() {
 			game,
 			"ENDLESS MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new StreetMap(game));
+				CrossingRoad::Navigation::To(new ClassicMap(game));
 			}
 		),
 		Widget::Button(
 			game,
 			"LEVEL MODE",
 			[&]() {
-				//CrossingRoad::Navigation::To(new LeaderboardScreen(game));
+				CrossingRoad::Navigation::To(new WinterMap(game));
 			}
 		),
 		Widget::Button(
@@ -63,14 +64,14 @@ bool PlayMenuScreen::OnCreate() {
 		{ 150, 50 }
 	);
 
-	image = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 	return true;
 }
 
 bool PlayMenuScreen::OnUpdate(float elapsedTime) {
 	/*text.Render();
 	button.Render();*/
-	game->RenderSprite(image, { 0, 0 });
+	game->RenderSprite(bgImage, { 0, 0 });
 	//meow.OnPlay(elapsedTime);
 
 	playMenuWidget.Update(elapsedTime);

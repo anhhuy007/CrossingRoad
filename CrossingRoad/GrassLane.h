@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef GRASS_LANE_H
-#define GRASS_LANE_H
-
 #include "Tree.h"
 #include "Rock.h"
 #include "Lane.h"
@@ -26,6 +23,4 @@ public:
 	void Update(float elapsedTime);
 	void ScrollUp();
 };
-
-#endif // !GRASS_LANE_H
 

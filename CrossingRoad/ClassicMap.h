@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef STREET_MAP_H
-#define STREET_MAP_H
-
 #include "Lane.h"
 #include "GameMap.h"
 #include "RoadLane.h"
@@ -13,9 +10,9 @@
 #include <vector>
 #include <string>
 
-class StreetMap : public GameMap {
+class ClassicMap : public GameMap {
 public:
-	StreetMap(CrossingRoad* game) : GameMap(game) {};
+	ClassicMap(CrossingRoad* game) : GameMap(game) {};
 	
 	void CreateLanes();
 	void ScrollUp();
@@ -23,5 +20,3 @@ public:
 
 	Lane* GetNewLane(int laneId, LaneType previousLane); // genarate random lane
 };
-
-#endif // !STREET_MAP_H

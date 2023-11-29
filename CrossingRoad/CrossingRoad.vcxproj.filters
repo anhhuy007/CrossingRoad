@@ -105,7 +105,7 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Objects\Maps</Filter>
     </ClCompile>
-    <ClCompile Include="StreetMap.cpp">
+    <ClCompile Include="ClassicMap.cpp">
       <Filter>Source Files\Objects\Maps</Filter>
     </ClCompile>
     <ClCompile Include="CrossingRoad.cpp">
@@ -186,6 +186,15 @@
     <ClCompile Include="SnowLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
+    <ClCompile Include="TestScreen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Lane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
+    <ClCompile Include="LeaderBoard.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -215,7 +224,7 @@
     <ClInclude Include="GameMap.h">
       <Filter>Header Files\Objects\Maps</Filter>
     </ClInclude>
-    <ClInclude Include="StreetMap.h">
+    <ClInclude Include="ClassicMap.h">
       <Filter>Header Files\Objects\Maps</Filter>
     </ClInclude>
     <ClInclude Include="CrossingRoad.h">
@@ -292,6 +301,12 @@
     </ClInclude>
     <ClInclude Include="SnowLane.h">
       <Filter>Header Files\Objects\Lanes</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScreen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaderBoard.h">
+      <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,10 +1,6 @@
 #pragma once
 
-#ifndef VALUES_H
-#define VALUES_H
-
 #include <windows.h>
-#include <map>
 #include <string>
 #include "Graphic.h"
 
@@ -63,7 +59,9 @@ enum Overlapped : int {
 	OBSTACLE = 4,
 	VEHICLE = 4, 
 	PLAYER = 4,
-	TEXT = 5
+	DIALOG = 5,
+	BUTTON = 6,
+	TEXT = 7,
 };
 
 enum class VehicleType {
@@ -97,7 +95,9 @@ enum class Player {
 
 enum class TextFont {
 	TITLE,
-	NORMAL
+	NORMAL,
+	NUMBER, 
+	COIN_NUMBER
 };
 
 enum class ButtonState {
@@ -131,6 +131,11 @@ enum class ObjectType {
 	PORTAL
 };
 
+enum class MapType {
+	CLASSIC, 
+	WINTER
+};
+
 struct GameSpeed {
 	int X_HORIZONTAL = 0;
 	int Y_HORIZONTAL = 0;
@@ -162,4 +167,10 @@ struct AnimationSprite {
 	}
 };
 
-#endif // !VALUES_H
+struct GameInformation {
+	int level;
+	int score;
+	int collectedCoins;
+	float totalTime;
+	bool endlessMode;
+};

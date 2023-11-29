@@ -1,10 +1,6 @@
 #pragma once
 
-#ifndef SETTING_SCREEN_H
-#define SETTING_SCREEN_H
-
 #include "Animation.h"
-#include "GamePlayer.h"
 #include "Widget.h"
 #include "SettingWidget.h"
 
@@ -20,8 +16,7 @@ public:
 	//Animation
 
 	//Image
-	Image image;
-
+	Image bgImage;
 	SettingWidget settingWidget = SettingWidget(game);
 
 	Animation S;
@@ -33,5 +28,3 @@ public:
 	Animation G;
 
 };
-
-#endif // !SETTING_SCREEN_H

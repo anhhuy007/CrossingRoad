@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef GRAPHIC_H
-#define GRAPHIC_H
-
-#include <Windows.h>
 #include <iostream>
 #include <fstream>
 
@@ -51,5 +47,3 @@ namespace Graphic {
 
 	void GotToXY(int x, int y);
 };
-
-#endif // !GRAPHIC_H
