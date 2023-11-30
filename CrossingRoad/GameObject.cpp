@@ -12,6 +12,11 @@ COORD GameObject::getPosition() {
 	return position;
 }
 
+ObjectType GameObject::getObjType() const
+{
+	return objType;
+}
+
 void GameObject::setPosition(COORD _position) {
 	position = _position;
 }
@@ -24,7 +29,7 @@ void GameObject::setWidth(int _width) {
 	width = _width;
 }
 
-void GameObject::setCollisionPoints(std::vector<CollisionPoint>_collisionPoints) {
+void GameObject::SetCollisionPoints(std::vector<CollisionPoint>_collisionPoints) {
 	collisionPoints = _collisionPoints;
 }
 

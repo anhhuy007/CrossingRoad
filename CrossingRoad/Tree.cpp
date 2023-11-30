@@ -4,15 +4,15 @@ Tree::Tree(
 	CrossingRoad* game,
 	int planePos,
 	int pblockPos,
-	TreeType ptreeType,
+	ObjectType pobjType,
 	Graphic::Sprite psprite
-) : GameObject(game) {
+) : GameObject(game, pobjType) {
 
 	lanePos = planePos;
 	blockPos = pblockPos;
 	treeSprite = psprite;
 
-	if (ptreeType == TreeType::SMALL_TREE) {
+	if (pobjType == ObjectType::SMALL_TREE) {
 		position = Alignment::GetAlignedPosition(
 			lanePos,
 			blockPos,

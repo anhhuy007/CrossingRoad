@@ -7,7 +7,7 @@
 class Vehicle : public GameObject {
 public:
 	// ----- behaviors -----
-	Vehicle() : GameObject({ 0, 0 }, game) {};
+	Vehicle() : GameObject(nullptr) {};
 	Vehicle(
 		CrossingRoad* game, 
 		int _id, 
@@ -26,6 +26,5 @@ public:
 	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
 	GameSpeed axisSpeed;
-	VehicleType type;
 	float time = 0.0f;	
 };

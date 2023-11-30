@@ -82,7 +82,8 @@ enum class TreeType {
 enum class LaneType {
 	GRASS,
 	WATER,
-	ROAD
+	ROAD,
+	SNOW
 };
 
 enum class Player {
@@ -117,12 +118,15 @@ enum ObjectCollis : int {
 };
 
 enum class ObjectType {
+	NONE, 
 	PLAYER,
-	CAR,
-	TRUCK,
+	RED_CAR,
+	GREEN_CAR,
+	RED_TRUCK,
 	SMALL_TREE,
 	BIG_TREE,
 	ROCK,
+	SNOW_ROCK,
 	WATER,
 	SMALL_LOG, 
 	BIG_LOG,
@@ -131,12 +135,15 @@ enum class ObjectType {
 	PORTAL,
 	GIFT, 
 	DEER,
+	SNOWMAN, 
 	SMALL_PINETREE,
 	BIG_PINETREE,
 	GRASS_LANE,
 	ROAD_LANE,
 	WATER_LANE,
-	WINTER_LANE
+	SNOW_LANE, 
+	TEXT_WIDGET,
+	BUTTON_WIDGET
 };
 
 enum class MapType {

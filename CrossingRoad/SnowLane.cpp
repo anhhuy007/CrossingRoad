@@ -6,7 +6,7 @@ SnowLane::SnowLane(
 	Graphic::Sprite _snowSprite,
 	int numberOfTree,
 	int numberOfRock
-) : Lane(id, game, _snowSprite, LaneType::GRASS) {
+) : Lane(id, game, _snowSprite, LaneType::SNOW) {
 	// generate random trees, rocks, gifts, deers and snowman
 	for (int i = 0; i < 20; i++) {
 		int random = rand() % 6;
@@ -29,13 +29,13 @@ SnowLane::SnowLane(
 
 	for (int i = 0; i < 20; i++) {
 		if (objectCoord[i] == 1) {
-			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::PineTree1));
+			trees.push_back(Tree(game, id, i, ObjectType::SMALL_PINETREE, DrawableRes::PineTree1));
 		}
 		else if (objectCoord[i] == 2) {
-			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::Snowman));
+			trees.push_back(Tree(game, id, i, ObjectType::SNOWMAN, DrawableRes::Snowman));
 		}
 		else if (objectCoord[i] == 3) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::PineTree2));
+			trees.push_back(Tree(game, id, i, ObjectType::BIG_PINETREE, DrawableRes::PineTree2));
 			i++;
 
 			// adjust tree position
@@ -43,14 +43,14 @@ SnowLane::SnowLane(
 			trees[trees.size() - 1].setPosition({ pos.X, short(pos.Y - 5) });
 		}
 		else if (objectCoord[i] == 4) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::Deer));
+			trees.push_back(Tree(game, id, i, ObjectType::DEER, DrawableRes::Deer));
 			i++;
 		}
 		else if (objectCoord[i] == 5) {
-			rocks.push_back(Rock(game, id, i, DrawableRes::Rock_Snow));
+			rocks.push_back(Rock(game, id, i, ObjectType::SNOW_ROCK, DrawableRes::Rock_Snow));
 		}
 		else if (objectCoord[i] == 6) {
-			rocks.push_back(Rock(game, id, i, DrawableRes::Gift));
+			rocks.push_back(Rock(game, id, i, ObjectType::GIFT, DrawableRes::Gift));
 		}
 	}
 };

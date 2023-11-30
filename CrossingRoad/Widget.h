@@ -24,7 +24,6 @@ namespace Widget {
 		std::string text;
 
 		Text() : GameObject(nullptr) {};
-		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
 			std::string ptext,
@@ -68,7 +67,7 @@ namespace Widget {
 
 		// attributes
 		std::vector<Image> appearance; // 0: normal, 1: chosen, 2: enter
-		Text text = Text(game);
+		Text text;
 		std::function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
 	};

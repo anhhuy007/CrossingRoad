@@ -19,9 +19,7 @@ public:
 		// generate random log
 		direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
 		log = Log(game, id, direction);
-		setCollisionPoints(
-			Factory::GetObjectCollisionPoints(ObjectType::WATER)
-		);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::WATER));
 	};
 
 	void Update(float elapsedTime);

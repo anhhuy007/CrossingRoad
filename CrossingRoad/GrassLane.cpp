@@ -29,14 +29,14 @@ GrassLane::GrassLane(
 
 	for (int i = 0; i < 20; i++) {
 		if (objectCoord[i] == 1) {
-			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::SmallTree));
+			trees.push_back(Tree(game, id, i, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
 		}
 		else if (objectCoord[i] == 2) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::BigTree));
+			trees.push_back(Tree(game, id, i, ObjectType::BIG_TREE, DrawableRes::BigTree));
 			i++;
 		}
 		else if (objectCoord[i] == 3) {
-			rocks.push_back(Rock(game, id, i, DrawableRes::Rock));
+			rocks.push_back(Rock(game, id, i, ObjectType::ROCK, DrawableRes::Rock));
 		}
 	}
 };

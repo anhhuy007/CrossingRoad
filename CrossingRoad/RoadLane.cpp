@@ -14,7 +14,7 @@ RoadLane::RoadLane(
 	roadMarkingSprite = _roadMarkingSprite;
 
 	// create random coin
-	if (rand() % 3 == 0) {
+	if (rand() % 3 == 0) { 
 		coin = Coin(game, id);
 	}
 }

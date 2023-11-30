@@ -32,7 +32,6 @@ public:
 	float logSpeed = 0.01f;
 	GameSpeed axisSpeed;
 	MovingDirection movingDirection = MovingDirection::NONE;
-	LogType logType;
 	float time = 0.0f;
 };
 

@@ -8,37 +8,37 @@ Vehicle::Vehicle(
 	int random = rand() % 5;
 
 	if (random == 0) {
-		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::Car1Left)
 			: Graphic::Sprite(DrawableRes::Car1Right);
 
 		// set collision points
-		setCollisionPoints(
-			Factory::GetObjectCollisionPoints(ObjectType::CAR)
+		SetCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::GREEN_CAR)
 		);
+		objType = ObjectType::GREEN_CAR;
 	}
 	else if (random <= 2) {
-		type = VehicleType::CAR;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::Car2Left)
 			: Graphic::Sprite(DrawableRes::Car2Right);
 
 		// set collision points
-		setCollisionPoints(
-			Factory::GetObjectCollisionPoints(ObjectType::CAR)
+		SetCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::RED_CAR)
 		);
+		objType = ObjectType::RED_CAR;
 	}
 	else {
-		type = VehicleType::TRUCK;
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::TruckLeft)
 			: Graphic::Sprite(DrawableRes::TruckRight);
 
 		// set collision points
-		setCollisionPoints(
-			Factory::GetObjectCollisionPoints(ObjectType::TRUCK)
+		SetCollisionPoints(
+			Factory::GetObjectCollisionPoints(ObjectType::RED_TRUCK)
 		);
+		objType = ObjectType::RED_TRUCK;
 	}
 
 	endOfRoad = true;
@@ -91,7 +91,7 @@ void Vehicle::MoveAhead() {
 }
 
 void Vehicle::SetInitPosition() {
-	COORD centerSpot = type == VehicleType::CAR ? COORD(0, 20) : COORD(0, 32);
+	COORD centerSpot = (getObjType() == ObjectType::RED_CAR || getObjType() == ObjectType::GREEN_CAR) ? COORD(0, 20) : COORD(0, 32);
 	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
 
 	position = Alignment::GetAlignedPosition(lanePos, startBlock, centerSpot, Gravity::TOP_LEFT);

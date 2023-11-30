@@ -4,10 +4,11 @@
 GamePlayer::GamePlayer(
 	Player player,
 	CrossingRoad* game
-) : GameObject({ 0, 0 }, game) {
+) : GameObject(game, ObjectType::PLAYER) {
 	// initial player position
 	lanePos = 14;
 	position = { 31, 217 };
+		
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(24, 6, -11, 21);
@@ -15,7 +16,7 @@ GamePlayer::GamePlayer(
 	OnMove();
 
 	// set collision points
-	setCollisionPoints(
+	SetCollisionPoints(
 		Factory::GetObjectCollisionPoints(ObjectType::PLAYER)
 	);
 }

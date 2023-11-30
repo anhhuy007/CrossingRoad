@@ -102,7 +102,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		));
 
 		break;
-	case ObjectType::CAR:
+	case ObjectType::RED_CAR:
 		points =  GetPointsOnLine(
 			{ 1, 27 },
 			{ 72, 44 },
@@ -111,7 +111,16 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::TRUCK:
+	case ObjectType::GREEN_CAR:
+		points = GetPointsOnLine(
+			{ 1, 27 },
+			{ 72, 44 },
+			4,
+			true
+		);
+
+		break;
+	case ObjectType::RED_TRUCK:
 		points = GetPointsOnLine(
 			{ 1, 40 },
 			{ 112, 67 },
@@ -202,7 +211,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::COIN:
 		points = GetPointsOnLine(
 			{ 1, 5 },
-			{ 24, 10 },
+			{ 28, 11 },
 			2,
 			true
 		);

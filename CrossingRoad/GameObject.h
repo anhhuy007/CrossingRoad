@@ -20,6 +20,7 @@ protected:
 	CrossingRoad* game = nullptr;
 	std::vector<CollisionPoint> collisionPoints;	// points of object collision
 	GameSpeed moveDownSpeed = GameSpeed(0, 0, -11, 21);
+	ObjectType objType = ObjectType::NONE;
 public:
 	GameObject(
 		int _width,
@@ -49,17 +50,26 @@ public:
 		this->position = { 0, 0 };
 		this->game = _game;
 	}
+
+	GameObject(CrossingRoad* _game, ObjectType _type) {
+		this->height = 0;
+		this->width = 0;
+		this->position = { 0, 0 };
+		this->game = _game;
+		this->objType = _type;
+	}
 	
 	// ----- Getters -----
 	int getWidth();
 	int getHeight();
 	COORD getPosition();
+	ObjectType getObjType() const;
 
 	// ----- Setters -----
 	void setPosition(COORD _position);
 	void setHeight(int _height);
 	void setWidth(int _width);
-	void setCollisionPoints(std::vector<CollisionPoint>_collisionPoints);
+	void SetCollisionPoints(std::vector<CollisionPoint>_collisionPoints);
 
 	void WriteCollisionPoints();
 	void MoveDown(int &planePos); // move object down by 1 unit when map scrolls down
