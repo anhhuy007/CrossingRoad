@@ -9,11 +9,11 @@ Log::Log(
 
 	if (random) {
 		logSprite = Graphic::Sprite(DrawableRes::Log1);
-		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_1));
+		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::SMALL_LOG));
 	}
 	else {
 		logSprite = Graphic::Sprite(DrawableRes::Log2);
-		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_2));
+		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::BIG_LOG));
 	}
 
 	lanePos = _id;

@@ -7,7 +7,7 @@ SnowLane::SnowLane(
 	int numberOfTree,
 	int numberOfRock
 ) : Lane(id, game, _snowSprite, LaneType::GRASS) {
-	// generate random trees and rocks
+	// generate random trees, rocks, gifts, deers and snowman
 	for (int i = 0; i < 20; i++) {
 		int random = rand() % 6;
 		if (random == 5 && numberOfRock > 0) {

@@ -120,15 +120,23 @@ enum class ObjectType {
 	PLAYER,
 	CAR,
 	TRUCK,
-	TREE_1, // small tree
-	TREE_2, // big tree
+	SMALL_TREE,
+	BIG_TREE,
 	ROCK,
 	WATER,
-	FLOATING_OBJECT_1, // small log
-	FLOATING_OBJECT_2, // big log
+	SMALL_LOG, 
+	BIG_LOG,
 	ITEM,
 	COIN,
-	PORTAL
+	PORTAL,
+	GIFT, 
+	DEER,
+	SMALL_PINETREE,
+	BIG_PINETREE,
+	GRASS_LANE,
+	ROAD_LANE,
+	WATER_LANE,
+	WINTER_LANE
 };
 
 enum class MapType {

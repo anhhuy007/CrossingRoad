@@ -120,7 +120,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::TREE_1:
+	case ObjectType::SMALL_TREE:
 		points = GetPointsOnLine(
 			{ 1, 31 },
 			{ 24, 36 },
@@ -136,7 +136,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		));
 
 		break;
-	case ObjectType::TREE_2:
+	case ObjectType::BIG_TREE:
 		points = GetPointsOnLine(
 			{ 1, 43 },
 			{ 41, 53 },
@@ -177,7 +177,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::FLOATING_OBJECT_1:
+	case ObjectType::SMALL_LOG:
 		points = GetPointsOnLine(
 			{ 11, 8 },
 			{ 94, 28 },
@@ -186,7 +186,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::FLOATING_OBJECT_2:
+	case ObjectType::BIG_LOG:
 		points = GetPointsOnLine(
 			{ 11, 8 },
 			{ 69, 22 },
