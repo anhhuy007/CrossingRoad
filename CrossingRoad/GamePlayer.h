@@ -27,7 +27,6 @@ class GamePlayer : public GameObject {
 public:
 	// attributes
 	int lanePos;
-	int blockPos;
 	AnimationState animationState = AnimationState::NORMAL;
 
 	// methods

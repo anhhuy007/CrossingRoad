@@ -18,6 +18,8 @@ public:
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
 
+	void InitWidget();
+
 	Image bgImage;
 	MenuWidget menuWidget;
 

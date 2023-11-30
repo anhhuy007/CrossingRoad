@@ -136,6 +136,11 @@ enum class MapType {
 	WINTER
 };
 
+enum class GameMode {
+	ENDLESS_MODE,
+	LEVEL_MODE
+};
+
 struct GameSpeed {
 	int X_HORIZONTAL = 0;
 	int Y_HORIZONTAL = 0;
@@ -167,10 +172,25 @@ struct AnimationSprite {
 	}
 };
 
-struct GameInformation {
-	int level;
+struct LaneInfo {
+	LaneType laneType;
+	int laneSpeed;
+	MovingDirection objectDirection;
+};
+
+struct PlayerInfo {
+	MovingDirection moveDirec;
+	AnimationState aniState;
+	int lanePos;
+	COORD position;
+};
+
+struct GameMapInfo {
+	MapType mapType;
+	GameMode gameMode;
+	std::vector<LaneInfo> lanesInfo;
+	PlayerInfo playerInfo; // some  attributes are not used
+	int level; // optional if game mode is LEVEL_MODE
 	int score;
-	int collectedCoins;
-	float totalTime;
-	bool endlessMode;
+	int coin;
 };

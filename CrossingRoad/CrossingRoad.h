@@ -47,7 +47,6 @@ public:
 		static bool OnScreenDestroy();
 	};	
 
-	void Init();
 	bool GameCreate();
 	bool GameUpdate(float elapsedTime);
 };
