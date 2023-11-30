@@ -165,9 +165,6 @@
     <ClCompile Include="SavedGameScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
-    <ClCompile Include="AboutScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Portal.cpp">
       <Filter>Source Files\Objects\Obstacles</Filter>
     </ClCompile>
@@ -193,6 +190,9 @@
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
     <ClCompile Include="LeaderBoard.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutScreen.cpp">
       <Filter>Source Files\Screen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -290,9 +290,6 @@
     <ClInclude Include="PlayMenuScreen.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
-    <ClInclude Include="AboutScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Objects\Obstacles</Filter>
     </ClInclude>
@@ -306,6 +303,9 @@
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
     <ClInclude Include="LeaderBoard.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutScreen.h">
       <Filter>Header Files\Screen</Filter>
     </ClInclude>
   </ItemGroup>
