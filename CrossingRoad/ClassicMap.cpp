@@ -54,6 +54,17 @@ Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
 	}
 }
 
+ClassicMap::ClassicMap(
+	CrossingRoad* pgame, 
+	GameMode pgameMode
+) : GameMap(pgame)
+{
+	gameInfo.mapType = MapType::CLASSIC;
+	gameInfo.gameMode = pgameMode;
+	gameInfo.level = 1;
+	gameInfo.endLane = 20;
+}
+
 void ClassicMap::CreateLanes() {
 	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
@@ -77,7 +88,7 @@ void ClassicMap::ScrollUp() {
 		lanes[i]->ScrollUp();
 	}
 
-	if (score == 30) {
+	if (gameInfo.score == gameInfo.endLane) {
 		// display grass lane with teleport portal
 		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0, 0));
 		portal.visible = true;
@@ -91,7 +102,7 @@ void ClassicMap::ScrollUp() {
 		);
 		portal.lanePos = 0;
 	}
-	else if (score > 30) {
+	else if (gameInfo.score > gameInfo.endLane) {
 		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0, 0));
 	}
 	else {

@@ -54,6 +54,17 @@ Lane* WinterMap::GetNewLane(int laneId, LaneType previousLane) {
 	}
 }
 
+WinterMap::WinterMap(
+	CrossingRoad* pgame, 
+	GameMode pgameMode
+) : GameMap(pgame)
+{
+	gameInfo.gameMode = pgameMode;
+	gameInfo.mapType = MapType::WINTER;
+	gameInfo.level = 1;
+	gameInfo.endLane = 20;
+}
+
 void WinterMap::CreateLanes() {
 	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
@@ -77,7 +88,7 @@ void WinterMap::ScrollUp() {
 		lanes[i]->ScrollUp();
 	}
 
-	if (score == 30) {
+	if (gameInfo.score == gameInfo.endLane) {
 		// display grass lane with teleport portal
 		lanes.insert(lanes.begin(), new SnowLane(0, game, snowlane, 0, 0));
 		portal.visible = true;
@@ -91,7 +102,7 @@ void WinterMap::ScrollUp() {
 		);
 		portal.lanePos = 0;
 	}
-	else if (score > 30) {
+	else if (gameInfo.score > gameInfo.endLane) {
 		lanes.insert(lanes.begin(), new SnowLane(0, game, snowlane, 0, 0));
 	}
 	else {

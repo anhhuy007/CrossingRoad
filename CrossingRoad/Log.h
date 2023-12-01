@@ -30,7 +30,7 @@ public:
 	bool endOfRoad = false;
 	Graphic::Sprite logSprite;
 	float logSpeed = 0.01f;
-	GameSpeed axisSpeed;
+	GameSpeed axisSpeed;	// for moving horizontally
 	MovingDirection movingDirection = MovingDirection::NONE;
 	float time = 0.0f;
 };

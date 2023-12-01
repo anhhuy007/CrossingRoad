@@ -15,6 +15,7 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
+	bool OnPause() { return true; };
 	bool OnDestroy() { return false; };
 
 	Image image;

@@ -44,7 +44,8 @@ void MenuWidget::Update(float elapsedTime) {
 		}
 		_game->sound->playEffectSound(int(Sound::Effect::CHANGE));
 		return 1;
-		};
+	};
+
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		checkIndex(--currentButtonIndex);

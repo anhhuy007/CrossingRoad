@@ -4,6 +4,24 @@
 #include "WinterMap.h"
 
 bool PlayMenuScreen::OnCreate() {
+	InitWidget();
+	return true;
+}
+
+bool PlayMenuScreen::OnUpdate(float elapsedTime) {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
+	game->RenderSprite(bgImage, { 0, 0 });
+	playMenuWidget.Update(elapsedTime);
+
+	return true;
+}
+
+void PlayMenuScreen::InitWidget()
+{
 	// set console color
 	std::vector<int> colors = {
 		RGB(0, 0, 0),             // BLACK
@@ -33,20 +51,21 @@ bool PlayMenuScreen::OnCreate() {
 			game,
 			"ENDLESS MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new ClassicMap(game));
+				OnEndlessModeClicked();
 			}
 		),
 		Widget::Button(
 			game,
 			"LEVEL MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new WinterMap(game));
+				OnLevelModeClicked();
 			}
 		),
 		Widget::Button(
 			game,
 			"LOAD GAME",
 			[&]() {
+				OnLoadGameClicked();
 			}
 		),
 		Widget::Button(
@@ -65,16 +84,30 @@ bool PlayMenuScreen::OnCreate() {
 	);
 
 	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	return true;
 }
 
-bool PlayMenuScreen::OnUpdate(float elapsedTime) {
-	/*text.Render();
-	button.Render();*/
-	game->RenderSprite(bgImage, { 0, 0 });
-	//meow.OnPlay(elapsedTime);
+void PlayMenuScreen::OnLevelModeClicked()
+{
+	int random = rand() % 2;
+	if (random == 0) {
+		CrossingRoad::Navigation::To(new ClassicMap(game, GameMode::LEVEL_MODE));
+	}
+	else {
+		CrossingRoad::Navigation::To(new WinterMap(game, GameMode::LEVEL_MODE));
+	}
+}
 
-	playMenuWidget.Update(elapsedTime);
+void PlayMenuScreen::OnEndlessModeClicked()
+{
+	int random = rand() % 2;
+	if (random == 0) {
+		CrossingRoad::Navigation::To(new ClassicMap(game, GameMode::ENDLESS_MODE));
+	}
+	else {
+		CrossingRoad::Navigation::To(new WinterMap(game, GameMode::ENDLESS_MODE));
+	}
+}
 
-	return true;
+void PlayMenuScreen::OnLoadGameClicked()
+{
 }

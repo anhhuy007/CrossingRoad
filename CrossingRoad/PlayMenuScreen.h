@@ -12,7 +12,14 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
+	bool OnPause() { return true; };
 	bool OnDestroy() { return false; };
+
+	void InitWidget();
+
+	void OnLevelModeClicked();
+	void OnEndlessModeClicked();
+	void OnLoadGameClicked();
 
 	Image bgImage;
 	MenuWidget playMenuWidget;

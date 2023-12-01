@@ -55,7 +55,7 @@ void GameEngine::GameLoop() {
 		
 		// ----- Log text -----
 		Graphic::GotToXY(1, 1);
-		std::cout << logText << std::endl;;
+		std::cout << logText << std::endl;
 
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
@@ -168,6 +168,8 @@ GameEngine::GameEngine() {
 		overlappedBuffer[i] = 0;
 		collisMatrix[i] = 0;
 	}
+
+	BuildConsole();
 }
 
 GameEngine::~GameEngine() {

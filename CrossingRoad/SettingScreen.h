@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "Widget.h"
 #include "SettingWidget.h"
+#include "MenuScreen.h"
 
 class SettingScreen : public CrossingRoad::GameScreen {
 public:
@@ -11,7 +12,7 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
-	bool OnDestroy() { return false; };
+	bool OnPause() { return true; };
 
 	//Animation
 

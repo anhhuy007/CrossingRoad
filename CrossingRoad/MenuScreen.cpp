@@ -1,5 +1,4 @@
 #include "MenuScreen.h"
-#include "ClassicMap.h"
 #include "SettingScreen.h"
 #include "PlayMenuScreen.h"
 #include "AboutScreen.h"
@@ -28,7 +27,7 @@ bool MenuScreen::OnCreate() {
 
 	// init widget
 	InitWidget();
-
+	game->BuildConsole();
 	COLOR::SetConsoleColor(colors);
 
 	game->sound->playBackgroundSound(int(Sound::Background::BACKGROUND_MUSIC));

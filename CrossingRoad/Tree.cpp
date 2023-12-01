@@ -12,7 +12,10 @@ Tree::Tree(
 	blockPos = pblockPos;
 	treeSprite = psprite;
 
-	if (pobjType == ObjectType::SMALL_TREE) {
+	if (pobjType == ObjectType::SMALL_TREE || 
+		pobjType == ObjectType::SMALL_PINETREE || 
+		objType == ObjectType::SNOWMAN
+	) {
 		position = Alignment::GetAlignedPosition(
 			lanePos,
 			blockPos,

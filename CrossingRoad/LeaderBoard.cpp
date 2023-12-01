@@ -19,8 +19,6 @@ bool LeaderBoard::OnCreate()
 		RGB(43,122,120), // border item
 		RGB(255,235,216), //content padding
 		RGB(159,250,222), // title
-
-
 		//14/16
 	};	
 

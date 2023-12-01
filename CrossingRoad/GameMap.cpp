@@ -2,76 +2,52 @@
 #include "WaterLane.h"
 #include "RoadLane.h"
 #include "WinterMap.h"
+#include "ClassicMap.h"
 
-bool GameMap::OnCreate() {
+const std::vector<std::pair<MapType, int>> gameLevels = {
+	{ MapType::WINTER, 20 },
+	{ MapType::WINTER, 20 },
+	{ MapType::CLASSIC, 20 },
+	{ MapType::CLASSIC, 30 },
+	{ MapType::WINTER, 30 },
+	{ MapType::WINTER, 30 },
+	{ MapType::CLASSIC, 30 },
+	{ MapType::WINTER, 40 },
+	{ MapType::CLASSIC, 40 },
+};
+
+void GameMap::CreateNewGame()
+{
 	player = new GamePlayer(Player::DUCKY, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
-	
-	// widgets
-	std::vector<Widget::Button> buttons = {
-		Widget::Button(
-			game,
-			"Exit",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
-		Widget::Button(
-			game,
-			"Save game",
-			[]() {}
-		),
-		Widget::Button(
-			game,
-			"Continue",
-			[&]() {
-				isPaused = false;
-			}
-		),
-	};
-	pausegame_dialog = Widget::Dialog(
-		game,
-		"Choose your option",
-		buttons,
-		{ 100, 50 },	
-		100,
-		100
-	);
-	std::vector<Widget::Button> buttons2 = {
-		Widget::Button(
-			game,
-			"Exit",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
-		Widget::Button(
-			game,
-			"New game",
-			[&]() {
-				CrossingRoad::Navigation::To(new WinterMap(game));
-			}
-		),
-	};
-	gameover_dialog = Widget::Dialog(
-		game,
-		"Game over",
-		buttons2,
-		{ 100, 50 },
-		100,
-		100
-	);
-
-	
-	// create game lanes
-	CreateLanes();
-	SetScreenColor();
-
-	game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
-
 	maxIndex = 14;
-	
+
+	if (gameInfo.gameMode == GameMode::ENDLESS_MODE) {
+		// create random game lanes
+		gameInfo.endLane = 300;
+		gameInfo.level = 0;
+	}
+
+	CreateLanes();
+}
+
+void GameMap::LoadSavedGame()
+{
+
+}
+
+bool GameMap::OnCreate() 
+{	
+	if (gameInfo.lanesInfo.size() == 0) {
+		CreateNewGame();
+	}
+	else {
+		LoadSavedGame();
+	}
+
+	InitWidget();
+
 	return true;
 }
 
@@ -108,7 +84,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		int playerPos = player->lanePos;
 		if (playerPos < maxIndex) {
 			maxIndex = playerPos;
-			score++;
+			gameInfo.score++;
 		}
 	}
 
@@ -153,8 +129,8 @@ void GameMap::Render() {
 	}
 
 	// update text 
-	std::string str_score = std::to_string(score);
-	std::string str_coin = std::to_string(collectedCoins);
+	std::string str_score = std::to_string(gameInfo.score);
+	std::string str_coin = std::to_string(gameInfo.coin);
 
 	Widget::Text textScore = Widget::Text(
 		game,
@@ -176,6 +152,7 @@ void GameMap::Render() {
 	// display score
 	textScore.Render();
 	textCoins.Render();
+	level.Render();
 }
 
 bool GameMap::HandlePlayerCollision(float elapsedTime) {
@@ -207,24 +184,123 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 			player->animationState = AnimationState::DEAD;
 		}
 	}
-	else if (collisType == 6) {
+	else if (collisType == 6) {		
+		// player hit the portal
 		game->sound->turnOffBackgroundSound();
 
-		// player hit the portal
-		system("pause");
+		// update game info for the next level
+		gameInfo.score = 0;
+		gameInfo.coin += 5; // add 5 coins for player
+		gameInfo.level++;
+		gameInfo.mapType = gameLevels[gameInfo.level - 1].first;
+		gameInfo.endLane = gameLevels[gameInfo.level - 1].second;
 
-		CrossingRoad::Navigation::To(new WinterMap(game));
+		if (gameInfo.mapType == MapType::WINTER) {
+			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+		}
+		else {
+			CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+		}
+
+		system("pause");
 	}
 	else if (collisType == 2) {
 		// player hit the coin
-		game->sound->playEffectSound( int(Sound::Effect::COIN));
-		collectedCoins++;
+		game->sound->playEffectSound(int(Sound::Effect::COIN));
+		gameInfo.coin++;
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;
 	}
 
 	return true;
 }
+
+void GameMap::InitWidget()
+{
+	// widgets
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"Save game",
+			[]() {}
+		),
+		Widget::Button(
+			game,
+			"Continue",
+			[&]() {
+				isPaused = false;
+			}
+		),
+	};
+	pausegame_dialog = Widget::Dialog(
+		game,
+		"Choose your option",
+		buttons,
+		{ 100, 50 },
+		100,
+		100
+	);
+	std::vector<Widget::Button> buttons2 = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"New game",
+			[&]() {
+				CrossingRoad::Navigation::To(new WinterMap(game));
+			}
+		),
+	};
+	gameover_dialog = Widget::Dialog(
+		game,
+		"Game over",
+		buttons2,
+		{ 100, 50 },
+		100,
+		100
+	);
+
+	level = Widget::Text(
+		game,
+		std::to_string(gameInfo.level),
+		{ 10, 5 },
+		30, 30,
+		TextFont::NUMBER
+	);
+
+	SetScreenColor();
+}
+
+void GameMap::GetNewEndlessGame()
+{
+	// generate new endless game
+	gameInfo.gameMode = GameMode::ENDLESS_MODE;
+	gameInfo.endLane = -1;
+
+	CreateLanes();
+}
+
+void GameMap::GetNewGameLevel(int level)
+{
+	// get new game level info
+	gameInfo.mapType = gameLevels[level - 1].first;
+	gameInfo.endLane = gameLevels[level - 1].second;
+
+	CreateLanes();
+}
+
 
 Log GameMap::GetLogByLaneId(int laneId) {
 	if (laneId >= 0 && laneId < lanes.size()) {
@@ -235,3 +311,5 @@ Log GameMap::GetLogByLaneId(int laneId) {
 
 	return Log();
 }
+
+

@@ -89,7 +89,7 @@ enum class LaneType {
 enum class Player {
 	CHICK,
 	DUCKY,
-	DOGGO,
+	PENGUIN,
 	MEOW, 
 	DINO
 };
@@ -205,6 +205,7 @@ struct GameMapInfo {
 	GameMode gameMode;
 	std::vector<LaneInfo> lanesInfo;
 	PlayerInfo playerInfo; // some  attributes are not used
+	int endLane; // portal position in lane
 	int level; // optional if game mode is LEVEL_MODE
 	int score;
 	int coin;

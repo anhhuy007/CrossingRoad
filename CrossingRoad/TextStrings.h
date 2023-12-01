@@ -60,10 +60,6 @@ namespace DrawableRes {
 	const std::string DialogButtonHover = "widgets\\Dialog_Button_Hover.sprite";
 	const std::string DialogButtonTrigger = "widgets\\Dialog_Button_Trigger.sprite";
 
-
-
-
-
 	// LEADERBOARD SPRITE
 	const std::string leaderboardScreenFolder = "Screen\\leaderboardScreen\\img\\";
 	const std::string title = leaderboardScreenFolder + "title.sprite";
@@ -84,5 +80,4 @@ namespace DrawableRes {
 	const std::string volumeBarLvl4 = settingScreenFolder + "lvl4.sprite";
 	const std::string volumeBarLvl5 = settingScreenFolder + "lvl5.sprite";
 	const std::string cursor = settingScreenFolder + "Cursor.sprite";
-
 }

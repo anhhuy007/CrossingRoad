@@ -16,9 +16,7 @@ GamePlayer::GamePlayer(
 	OnMove();
 
 	// set collision points
-	SetCollisionPoints(
-		Factory::GetObjectCollisionPoints(ObjectType::PLAYER)
-	);
+	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PLAYER));
 }
 
 void GamePlayer::Render() {

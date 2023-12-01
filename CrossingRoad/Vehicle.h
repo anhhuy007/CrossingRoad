@@ -9,8 +9,8 @@ public:
 	// ----- behaviors -----
 	Vehicle() : GameObject(nullptr) {};
 	Vehicle(
-		CrossingRoad* game, 
-		int _id, 
+		CrossingRoad* game,
+		int _id,
 		MovingDirection _direction = MovingDirection::LEFT
 	);
 
@@ -25,6 +25,6 @@ public:
 	float vehicleSpeed;
 	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
-	GameSpeed axisSpeed;
-	float time = 0.0f;	
+	GameSpeed axisSpeed;	// for moving horizontally
+	float time = 0.0f;
 };

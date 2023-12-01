@@ -13,6 +13,16 @@
 class ClassicMap : public GameMap {
 public:
 	ClassicMap(CrossingRoad* game) : GameMap(game) {};
+
+	ClassicMap(
+		CrossingRoad* pgame,
+		GameMode pgameMode
+	);
+
+	ClassicMap(
+		CrossingRoad* pgame,
+		GameMapInfo pgameInfo
+	) : GameMap(pgame, pgameInfo) {};
 	
 	void CreateLanes();
 	void ScrollUp();
