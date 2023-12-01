@@ -17,11 +17,19 @@ const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\Valid.mp3",
 	L"Sound\\Enter.wav",
 	L"Sound\\Change.mp3",
-	L"Sound\\Coin.wav"
+	L"Sound\\Coin.wav",
+	L"Sound\\Bubble.mp3",
+	L"Sound\\Duck.mp3",
+	L"Sound\\LogJump.wav",
+	L"Sound\\WaterSplash.wav",
+	L"Sound\\Portal.mp3",
+	L"Sound\\Hit.wav",
+	L"Sound\\EndSoundWinterMap.mp3",
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
 	L"Sound\\BackgroundMusic.mp3",
-	L"Sound\\HighwayBackground.mp3"
+	L"Sound\\HighwayBackground.mp3",
+	L"Sound\\ChristmasAmbient.mp3"
 };
 std::wstring Sound::findAlias(std::wstring path) {
 	if (path == L"Sound\\BackgroundMusic.mp3")
@@ -40,6 +48,22 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"6";
 	else if (path == L"Sound\\HighwayBackground.mp3")
 		return L"7";
+	else if (path == L"Sound\\ChristmasAmbient.mp3")
+		return L"8";
+	else if (path == L"Sound\\Bubble.mp3")
+		return L"9";
+	else if (path == L"Sound\\Duck.mp3")
+		return L"10";
+	else if (path == L"Sound\\LogJump.wav")
+		return L"11";
+	else if (path == L"Sound\\WaterSplash.wav")
+		return L"12";
+	else if (path == L"Sound\\Portal.mp3")
+		return L"13";
+	else if (path == L"Sound\\Hit.wav")
+		return L"14";
+	else if (path == L"Sound\\EndSoundWinterMap.mp3")
+		return L"15";
 	else
 		return L"";
 }

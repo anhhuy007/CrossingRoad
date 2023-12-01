@@ -67,9 +67,7 @@ bool GameMap::OnCreate() {
 	// create game lanes
 	CreateLanes();
 	SetScreenColor();
-
-	game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
-
+	
 	maxIndex = 14;
 	
 	return true;
@@ -184,7 +182,10 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	COORD pos = player->getPosition();
 
 	if (collisType == 5) {
-		if (player->animationState == AnimationState::DROWN) return true;
+		if (player->animationState == AnimationState::DROWN) {
+			game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+			return true;
+		}
 
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
@@ -201,17 +202,21 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 		// player is on water
 		if (lanes[player->lanePos + 1]->laneType == LaneType::WATER) {
 			player->animationState = AnimationState::DROWN;
+			game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
 		}
 		// player is hit by car
 		else {
 			player->animationState = AnimationState::DEAD;
+			game->sound->playEffectSound(int(Sound::Effect::HIT));
 		}
 	}
 	else if (collisType == 6) {
 		game->sound->turnOffBackgroundSound();
 
 		// player hit the portal
+		game->sound->playEffectSound(int(Sound::Effect::PORTAL));
 		system("pause");
+
 
 		CrossingRoad::Navigation::To(new WinterMap(game));
 	}

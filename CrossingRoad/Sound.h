@@ -51,15 +51,23 @@ public:
    
    enum class Background : char {
         BACKGROUND_MUSIC,
-        HIGHWAY
+        HIGHWAY,
+        CHRISTMAS
     };
-    enum class Effect : char {
-        CAR_CRASH,
-        INVALID,
-        VALID,
-        ENTER,
-        CHANGE,
-        COIN
+   enum class Effect : char {
+       CAR_CRASH,
+       INVALID,
+       VALID,
+       ENTER,
+       CHANGE,
+       COIN,
+       BUBBLE,
+       DUCK,
+       LOG,
+       WATER_SPLASH,
+       PORTAL,
+       HIT,
+       END_WINTER_MAP
     };
 
     static Sound* getInstance();
