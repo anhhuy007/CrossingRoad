@@ -181,12 +181,21 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 
 	COORD pos = player->getPosition();
 
+	if (collisType != 5) {
+		isFirstOnLog = false;
+	}
 	if (collisType == 5) {
 		if (player->animationState == AnimationState::DROWN) {
-			game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
-			return true;
+			if (!isFirstHit) {
+				game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+				isFirstHit = true;
+				return true;
+			}
 		}
-
+		if (!isFirstOnLog) {
+			game->sound->playEffectSound(int(Sound::Effect::LOG));
+			isFirstOnLog = true;
+		}
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
 		float logSpeed = log.logSpeed;
@@ -202,12 +211,18 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 		// player is on water
 		if (lanes[player->lanePos + 1]->laneType == LaneType::WATER) {
 			player->animationState = AnimationState::DROWN;
-			game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+			if (!isFirstHit) {
+				game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+				isFirstHit = true;
+			}
 		}
 		// player is hit by car
 		else {
 			player->animationState = AnimationState::DEAD;
-			game->sound->playEffectSound(int(Sound::Effect::HIT));
+			if (!isFirstHit) {
+				game->sound->playEffectSound(int(Sound::Effect::HIT));
+				isFirstHit = true;
+			}
 		}
 	}
 	else if (collisType == 6) {

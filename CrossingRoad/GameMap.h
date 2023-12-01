@@ -23,6 +23,8 @@ class GameMap : public CrossingRoad::GameScreen {
 	int maxIndex = 0;
 	float totalTime = 0.0f;
 	bool endlessMode = false;
+	bool isFirstHit = false;
+	bool isFirstOnLog = false;
 
 	GamePlayer* player = nullptr;
 	Image grid;
