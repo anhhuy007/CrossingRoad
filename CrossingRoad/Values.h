@@ -187,13 +187,33 @@ struct AnimationSprite {
 	}
 };
 
+struct ObjectInfo {
+	ObjectType objType;
+	float speed;
+	COORD position;
+};
+
 struct LaneInfo {
 	LaneType laneType;
-	int laneSpeed;
 	MovingDirection objectDirection;
+	std::vector<ObjectInfo> objectsInfo;
+
+	LaneInfo() {
+		laneType = LaneType::GRASS;
+		objectDirection = MovingDirection::NONE;
+	}
+
+	LaneInfo(const LaneInfo& other) {
+		laneType = other.laneType;
+		objectDirection = other.objectDirection;
+		for (auto obj : other.objectsInfo) {
+			objectsInfo.push_back(obj);
+		}
+	}
 };
 
 struct PlayerInfo {
+	Player playerName;
 	MovingDirection moveDirec;
 	AnimationState aniState;
 	int lanePos;
@@ -209,4 +229,26 @@ struct GameMapInfo {
 	int level; // optional if game mode is LEVEL_MODE
 	int score;
 	int coin;
+
+	GameMapInfo() {
+		mapType = MapType::CLASSIC;
+		gameMode = GameMode::ENDLESS_MODE;
+		endLane = 0;
+		level = 0;
+		score = 0;
+		coin = 0;
+	}
+
+	GameMapInfo(const GameMapInfo& other) {
+		mapType = other.mapType;
+		gameMode = other.gameMode;
+		for (auto lane : other.lanesInfo) {
+			lanesInfo.push_back(lane);
+		}
+		playerInfo = other.playerInfo;
+		endLane = other.endLane;
+		level = other.level;
+		score = other.score;
+		coin = other.coin;
+	}
 };

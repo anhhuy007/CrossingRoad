@@ -28,6 +28,40 @@ Log::Log(
 	logSprite.SetOverlapped(Overlapped::LOG);
 }
 
+Log::Log(
+	CrossingRoad* game, 
+	int _lanePos, 
+	MovingDirection _direction, 
+	ObjectInfo _info
+) : GameObject(game)
+{
+	objType = _info.objType;
+	lanePos = _lanePos;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	logSpeed = _info.speed;
+	position = _info.position;
+
+	switch (objType) {
+	case ObjectType::SMALL_LOG: {
+		logSprite = Graphic::Sprite(DrawableRes::Log1);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::SMALL_LOG));
+		break;
+	}
+
+	case ObjectType::BIG_LOG: {
+		logSprite = Graphic::Sprite(DrawableRes::Log1);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::BIG_LOG));
+		break;
+	}
+
+	}
+
+	width = logSprite.getWidth();
+	height = logSprite.getHeight();
+	logSprite.SetOverlapped(Overlapped::OBSTACLE);
+}
+
 void Log::Update(float elapsedTime) {
 	time += (elapsedTime / 10000);
 

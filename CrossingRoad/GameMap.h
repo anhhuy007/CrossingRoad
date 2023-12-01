@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "Widget.h"
 #include "MenuScreen.h"
+#include "FileIO.h"
 
 // ----- standard libs include -----
 #include <vector>
@@ -47,6 +48,14 @@ public:
 
 	void GetNewEndlessGame();
 	void GetNewGameLevel(int level);
+	void LoadSavedLanes();
+
+	void SaveGame();
+	GameMapInfo GetGameMapInfo(
+		GameMapInfo partialInfo,
+		GamePlayer* player,
+		std::vector<Lane*> lanes
+	);
 
 	// overrided functions 
 	bool OnCreate();

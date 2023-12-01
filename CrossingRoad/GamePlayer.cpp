@@ -19,6 +19,24 @@ GamePlayer::GamePlayer(
 	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PLAYER));
 }
 
+GamePlayer::GamePlayer(
+	PlayerInfo playerInfo, 
+	CrossingRoad* game
+) : GameObject(game)
+{
+	lanePos = playerInfo.lanePos;
+	position = playerInfo.position;
+	animationState = playerInfo.aniState;
+	movingDirection = playerInfo.moveDirec;
+
+	animationSprite = Factory::GetPlayerSprite(playerInfo.playerName);
+	speed = GameSpeed(24, 6, -11, 21);
+	axisSpeed = GameSpeed(4, 1, -1, 2);
+	OnMove();
+
+	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PLAYER));
+}
+
 void GamePlayer::Render() {
 	// get appropriate sprite by animation state: normal, left, right, back, jump
 	Graphic::Sprite sprite = GetSpriteByAnimation(animationState);

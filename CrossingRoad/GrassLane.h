@@ -19,8 +19,19 @@ public:
 		int numberOfRock
 	);
 
+	GrassLane(
+		int id,
+		CrossingRoad* game,
+		Graphic::Sprite _grassSprite,
+		LaneInfo laneInfo
+	);
+
 	void Render();
 	void Update(float elapsedTime);
 	void ScrollUp();
+
+	// get trees
+	std::vector<Tree> GetTrees();
+	std::vector<Rock> GetRocks();
 };
 

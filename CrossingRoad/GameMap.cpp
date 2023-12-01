@@ -34,7 +34,9 @@ void GameMap::CreateNewGame()
 
 void GameMap::LoadSavedGame()
 {
-
+	// initialize player
+	player = new GamePlayer(gameInfo.playerInfo, game);
+	LoadSavedLanes();
 }
 
 bool GameMap::OnCreate() 
@@ -229,7 +231,9 @@ void GameMap::InitWidget()
 		Widget::Button(
 			game,
 			"Save game",
-			[]() {}
+			[&]() {
+				SaveGame();
+			}
 		),
 		Widget::Button(
 			game,
@@ -301,15 +305,170 @@ void GameMap::GetNewGameLevel(int level)
 	CreateLanes();
 }
 
+void GameMap::SaveGame()
+{
+	GameMapInfo finalInfo = GetGameMapInfo(gameInfo, player, lanes);
+	bool status = FileIO::WriteGameInfo("test.game", finalInfo);
+
+	if (status == true) {
+		std::cout << "Game saved successfully" << std::endl;
+	}
+	else {
+		std::cout << "Game saved failed" << std::endl;
+	};
+
+	system("pause");
+}
+
+void GameMap::LoadSavedLanes()
+{
+	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
+	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
+	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
+	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
+	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
+
+
+	int cnt = 0;
+	for (auto lane : gameInfo.lanesInfo) {
+		switch (lane.laneType) {
+		case LaneType::GRASS: {
+			GrassLane* grassLane = new GrassLane(cnt, game, grasslane, lane);
+			lanes.push_back(grassLane);
+			break;
+		}
+
+		case LaneType::ROAD: {
+			RoadLane* roadLane = new RoadLane(cnt, game, roadlane, lane);
+			lanes.push_back(roadLane);
+			break;
+		}
+
+		case LaneType::WATER: {
+			WaterLane* waterLane = new WaterLane(cnt, game, waterlane, lane);
+			lanes.push_back(waterLane);
+			break;
+		}
+
+		/*case LaneType::SNOW: {
+			SnowLane* snowLane = new SnowLane(cnt, game, snowlane, lane);
+			lanes.push_back(snowLane);
+			break;
+		}*/
+
+		}
+
+		cnt++;
+	}
+}
+
 
 Log GameMap::GetLogByLaneId(int laneId) {
 	if (laneId >= 0 && laneId < lanes.size()) {
 		WaterLane* lane = dynamic_cast<WaterLane*>(lanes[laneId]);
 
-		return lane->log;
+		return lane->GetLog();
 	}
 
 	return Log();
 }
+
+GameMapInfo GameMap::GetGameMapInfo(
+	GameMapInfo partialInfo,
+	GamePlayer* player,
+	std::vector<Lane*> lanes
+) {
+	GameMapInfo gameInfo = partialInfo;
+
+	// get player informations
+	gameInfo.playerInfo.moveDirec = player->movingDirection;
+	gameInfo.playerInfo.aniState = player->animationState;
+	gameInfo.playerInfo.lanePos = player->lanePos;
+	gameInfo.playerInfo.position = player->getPosition();
+
+	// get lane informations
+	for (auto lane : lanes) {
+		LaneInfo laneInfo;
+
+		// switch case
+		switch (lane->getObjType())
+		{
+
+		case ObjectType::GRASS_LANE: {
+			GrassLane* grassLane = dynamic_cast<GrassLane*>(lane);
+			laneInfo.laneType = LaneType::GRASS;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on grass lane 
+			for (auto tree : grassLane->GetTrees()) {
+				ObjectInfo objInfo;
+				objInfo.objType = tree.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = tree.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			for (auto rock : grassLane->GetRocks()) {
+				ObjectInfo objInfo;
+				objInfo.objType = rock.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = rock.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			break;
+		}
+
+		case ObjectType::ROAD_LANE: {
+			RoadLane* roadLane = dynamic_cast<RoadLane*>(lane);
+			laneInfo.laneType = LaneType::ROAD;
+			Vehicle vehicle = roadLane->GetVehicle();
+			laneInfo.objectDirection = vehicle.movingDirection;
+
+			// get objects on road lane 
+			ObjectInfo vehicleInfo;
+			vehicleInfo.objType = vehicle.getObjType();
+			vehicleInfo.speed = vehicle.vehicleSpeed;
+			vehicleInfo.position = vehicle.getPosition();
+
+			ObjectInfo coinInfo;
+			coinInfo.objType = roadLane->coin.getObjType();
+			coinInfo.speed = 0;
+			coinInfo.position = roadLane->coin.getPosition();
+
+			laneInfo.objectsInfo.push_back(vehicleInfo);
+			laneInfo.objectsInfo.push_back(coinInfo);
+
+			break;
+		}
+
+
+		case ObjectType::WATER_LANE: {
+			WaterLane* waterLane = dynamic_cast<WaterLane*>(lane);
+			laneInfo.laneType = LaneType::WATER;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on water lane 
+			ObjectInfo logInfo;
+			Log log = waterLane->GetLog();
+			logInfo.objType = log.getObjType();
+			logInfo.speed = log.logSpeed;
+			logInfo.position = log.getPosition();
+
+			laneInfo.objectsInfo.push_back(logInfo);
+
+			break;
+		}
+
+		}
+
+		gameInfo.lanesInfo.push_back(laneInfo);
+	}
+
+	return gameInfo;
+}
+
 
 

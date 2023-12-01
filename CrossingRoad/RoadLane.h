@@ -23,7 +23,17 @@ public:
 		bool _hasRoadMarking
 	);
 
+	RoadLane(
+		int id, 
+		CrossingRoad* game,
+		Graphic::Sprite roadSprite,
+		LaneInfo laneInfo
+	);
+
 	void Update(float elapsedTime);
 	void Render();
 	void ScrollUp();
+
+	// get vehicle
+	Vehicle GetVehicle();
 };

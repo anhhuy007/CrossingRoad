@@ -13,6 +13,14 @@ public:
 		int _id,
 		MovingDirection _direction = MovingDirection::LEFT
 	);
+
+	Log(
+		CrossingRoad* game,
+		int _lanePos,
+		MovingDirection _direction,
+		ObjectInfo _info
+	);
+
 	Log(const Log& other) : GameObject(other.game) {
 		lanePos = other.lanePos;
 		logSpeed = other.logSpeed;

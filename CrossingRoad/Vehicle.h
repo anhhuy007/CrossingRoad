@@ -14,6 +14,13 @@ public:
 		MovingDirection _direction = MovingDirection::LEFT
 	);
 
+	Vehicle(
+		CrossingRoad* game,
+		int _lanePos,
+		MovingDirection _direction,
+		ObjectInfo _info
+	);
+
 	void SetInitPosition();
 	void Update(float elapsedTime);
 	void Render() {};

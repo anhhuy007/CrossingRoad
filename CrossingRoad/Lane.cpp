@@ -18,7 +18,6 @@ Lane::Lane(
 	else objType = ObjectType::GRASS_LANE;
 }
 
-
 Lane::Lane(const Lane& lane) : GameObject(lane) {
 	this->id = lane.id;
 	this->laneSprite = lane.laneSprite;

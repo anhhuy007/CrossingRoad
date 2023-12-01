@@ -293,4 +293,3 @@ void Factory::sum(
 		a.push_back(point);
 	}
 }
-

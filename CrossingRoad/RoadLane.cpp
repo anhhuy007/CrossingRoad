@@ -19,6 +19,17 @@ RoadLane::RoadLane(
 	}
 }
 
+RoadLane::RoadLane(
+	int id, 
+	CrossingRoad* game, 
+	Graphic::Sprite roadSprite, 
+	LaneInfo laneInfo
+) : Lane(id, game, roadSprite, LaneType::ROAD) {
+	direction = laneInfo.objectDirection;
+	vehicle = Vehicle(game, id, direction, laneInfo.objectsInfo[0]);
+}
+
+
 void RoadLane::Update(float elapsedTime) {
 	vehicle.Update(elapsedTime);
 	coin.Update(elapsedTime);
@@ -50,4 +61,9 @@ void RoadLane::ScrollUp() {
 	position.Y += 24;
 	vehicle.MoveDown(vehicle.lanePos);
 	coin.MoveDown(coin.lanePos);
+}
+
+Vehicle RoadLane::GetVehicle()
+{
+	return vehicle;
 }

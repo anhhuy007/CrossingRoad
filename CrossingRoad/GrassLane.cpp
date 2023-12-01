@@ -39,7 +39,28 @@ GrassLane::GrassLane(
 			rocks.push_back(Rock(game, id, i, ObjectType::ROCK, DrawableRes::Rock));
 		}
 	}
-};
+}
+GrassLane::GrassLane(
+	int id, 
+	CrossingRoad* game, 
+	Graphic::Sprite _grassSprite,
+	LaneInfo laneInfo
+) : Lane(id, game, _grassSprite, LaneType::GRASS)
+{
+for (int i = 0; i < laneInfo.objectsInfo.size(); i++) {
+		if (laneInfo.objectsInfo[i].objType == ObjectType::SMALL_TREE) {
+			trees.push_back(Tree(game, id, i, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
+		}
+		else if (laneInfo.objectsInfo[i].objType == ObjectType::BIG_TREE) {
+			trees.push_back(Tree(game, id, i, ObjectType::BIG_TREE, DrawableRes::BigTree));
+			i++;
+		}
+		else if (laneInfo.objectsInfo[i].objType == ObjectType::ROCK) {
+			rocks.push_back(Rock(game, id, i, ObjectType::ROCK, DrawableRes::Rock));
+		}
+	}
+}
+;
 
 void GrassLane::Render() {
 	game->RenderSprite(laneSprite, position);
@@ -75,4 +96,14 @@ void GrassLane::ScrollUp() {
 	for (auto& rock : rocks) {
 		rock.MoveDown(rock.lanePos);
 	}
+}
+
+std::vector<Tree> GrassLane::GetTrees()
+{
+	return trees;
+}
+
+std::vector<Rock> GrassLane::GetRocks()
+{
+	return rocks;
 }

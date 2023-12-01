@@ -51,6 +51,50 @@ Vehicle::Vehicle(
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
+Vehicle::Vehicle(
+	CrossingRoad* game, 
+	int _lanePos,
+	MovingDirection _direction, 
+	ObjectInfo _info
+) : GameObject(game)
+{
+	objType = _info.objType;
+	lanePos = _lanePos;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	vehicleSpeed = _info.speed;
+	position = _info.position;
+
+	switch(objType) {
+		case ObjectType::RED_CAR:
+			vehicleSprite = _direction == MovingDirection::LEFT
+				? Graphic::Sprite(DrawableRes::Car1Left)
+				: Graphic::Sprite(DrawableRes::Car1Right);
+
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::GREEN_CAR));
+			break;
+
+		case ObjectType::GREEN_CAR:
+			vehicleSprite = _direction == MovingDirection::LEFT
+				? Graphic::Sprite(DrawableRes::Car2Left)
+				: Graphic::Sprite(DrawableRes::Car2Right);
+
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_CAR));
+			break;
+
+		case ObjectType::RED_TRUCK:
+			vehicleSprite = _direction == MovingDirection::LEFT
+				? Graphic::Sprite(DrawableRes::TruckLeft)
+				: Graphic::Sprite(DrawableRes::TruckRight);
+			break;
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_TRUCK));
+	}
+
+	width = vehicleSprite.getWidth();
+	height = vehicleSprite.getHeight();
+	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
+}
+
 void Vehicle::Update(float elapsedTime) {
 	time += (elapsedTime / 10000);
 
