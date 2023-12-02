@@ -3,29 +3,30 @@
 
 bool SettingScreen::OnCreate() {
 
+	// S E T I N G
 	std::vector<Graphic::Sprite> textSgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\S.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\S.sprite"),
+	Graphic::Sprite(DrawableRes::settingTitleCharSwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharSwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textEgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\E.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\E.sprite")
+	Graphic::Sprite(DrawableRes::settingTitleCharEwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharEwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textTgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\T.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\T.sprite")
+	Graphic::Sprite(DrawableRes::settingTitleCharTwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharTwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textIgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\I.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\I.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharIwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharIwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textNgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\N.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\N.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharNwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharNwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textGgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\G.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharGwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharGwithoutShadow),
 	};
 
 	// set console color

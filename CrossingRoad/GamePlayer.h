@@ -46,7 +46,6 @@ public:
 		float timeSpeed,
 		MovingDirection direction
 	);
-
 	// check collision
 	bool CheckMoveUp();
 	bool CheckMoveDown();
@@ -54,4 +53,5 @@ public:
 	bool CheckMoveRight();
 	bool ValidPosition();
 	int CheckCollision();
+	
 };

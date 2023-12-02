@@ -72,42 +72,42 @@ bool MenuScreen::OnCreate() {
 	);
 
 	//Crossing Road title
-
+	// C R O S I N G A D
 	std::vector<Graphic::Sprite> textCgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowC.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowC.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharCwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharCwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textRgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowR.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowR.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharRwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharRwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textOgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowO.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowO.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharOwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharOwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textSgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowS.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowS.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharSwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharSwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textIgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowI.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowI.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharIwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharIwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textNgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowN.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowN.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharNwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharNwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textGgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowG.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowG.sprite")
-	};
-	std::vector<Graphic::Sprite> textDgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowD.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowD.sprite")
+		Graphic::Sprite(DrawableRes::menuTitleCharGwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharGwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textAgif = {
-		Graphic::Sprite("Screen\\menuScreen\\title\\withShadow\\withShadowA.sprite"),
-		Graphic::Sprite("Screen\\menuScreen\\title\\withoutShadow\\withoutShadowA.sprite"),
+		Graphic::Sprite(DrawableRes::menuTitleCharAwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharAwithoutShadow)
+	};
+	std::vector<Graphic::Sprite> textDgif = {
+		Graphic::Sprite(DrawableRes::menuTitleCharDwithShadow),
+		Graphic::Sprite(DrawableRes::menuTitleCharDwithoutShadow)
 	};
 
 	short top_border = 20, left = 50, space = 28;

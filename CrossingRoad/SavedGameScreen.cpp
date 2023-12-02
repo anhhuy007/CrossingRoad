@@ -2,33 +2,34 @@
 
 bool SavedGameScreen::OnCreate()
 {
-	std::vector<Graphic::Sprite> textAgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowA.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowA.sprite"),
-	};
+	//S A V E D G M
 	std::vector<Graphic::Sprite> textSgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowS.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowS.sprite")
+		Graphic::Sprite(DrawableRes::saveGameTitleCharSwithShadow),
+		Graphic::Sprite(DrawableRes::saveGameTitleCharSwithoutShadow),
 	};
-	std::vector<Graphic::Sprite> textDgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowD.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowD.sprite")
-	};
-	std::vector<Graphic::Sprite> textGgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowG.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowG.sprite")
+	std::vector<Graphic::Sprite> textAgif = {
+	Graphic::Sprite(DrawableRes::saveGameTitleCharAwithShadow),
+	Graphic::Sprite(DrawableRes::saveGameTitleCharAwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textVgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowV.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowV.sprite")
+	Graphic::Sprite(DrawableRes::saveGameTitleCharVwithShadow),
+	Graphic::Sprite(DrawableRes::saveGameTitleCharVwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textEgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowE.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowE.sprite")
+		Graphic::Sprite(DrawableRes::saveGameTitleCharEwithShadow),
+		Graphic::Sprite(DrawableRes::saveGameTitleCharEwithoutShadow),
+	};
+	std::vector<Graphic::Sprite> textDgif = {
+		Graphic::Sprite(DrawableRes::saveGameTitleCharDwithShadow),
+		Graphic::Sprite(DrawableRes::saveGameTitleCharDwithoutShadow),
+	};
+	std::vector<Graphic::Sprite> textGgif = {
+		Graphic::Sprite(DrawableRes::saveGameTitleCharGwithShadow),
+		Graphic::Sprite(DrawableRes::saveGameTitleCharGwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textMgif = {
-Graphic::Sprite("Screen\\saveGame\\title\\withShadow\\withShadowM.sprite"),
-Graphic::Sprite("Screen\\saveGame\\title\\withoutShadow\\withoutShadowM.sprite")
+		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithShadow),
+		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithoutShadow),
 	};
 	
 	std::string animationPath = "Screen\\saveGame\\animation\\hoverGif\\";
