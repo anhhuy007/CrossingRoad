@@ -17,13 +17,7 @@ class SettingWidget : public GameObject {
 	COORD characterPosition = { 72,150 };
 	COORD backPosition = { 80,180 };
 
-	Image cursor = Image("Screen\\settingScreen\\Cursor.sprite", Overlapped::DECORATOR);
-
-	Widget::Text music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
-	Widget::Text sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
-	Widget::Text character = Widget::Text(game, "CHARACTER", { 102,150 }, 45, 34, TextFont::NORMAL);
-	Widget::Text back = Widget::Text(game, "BACK", { 110,180}, 20, 34, TextFont::NORMAL);
-
+	Image cursor = Image(DrawableRes::cursor, Overlapped::DECORATOR);
 
 	COORD getCursorPosition(int);
 	Graphic::Sprite getSpriteVolumeLevel(int,bool);

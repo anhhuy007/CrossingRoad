@@ -7,7 +7,6 @@ GamePlayer::GamePlayer(
 ) : GameObject({ 0, 0 }, game) {
 	// initial player position
 	lanePos = 14;
-	blockPos = 5;
 	position = { 31, 217 };
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
@@ -97,14 +96,12 @@ void GamePlayer::OnMove() {
 	case MovingDirection::LEFT:
 		position.X -= speed.X_HORIZONTAL;
 		position.Y -= speed.Y_HORIZONTAL;
-		blockPos -= 1;
 
 		break;
 
 	case MovingDirection::RIGHT:
 		position.X += speed.X_HORIZONTAL;
 		position.Y += speed.Y_HORIZONTAL;
-		blockPos += 1;
 
 		break;
 

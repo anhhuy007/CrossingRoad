@@ -73,7 +73,8 @@ public:
 
 	// ----- Properties -----
 	InputHandle* inputHandle;
-	Sound::SoundSetting soundSetting;
+	Sound* sound = Sound::getInstance();
+
 private:
 	void GameLoop();
 	int fontSize;

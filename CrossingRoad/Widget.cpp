@@ -145,7 +145,7 @@ void Widget::Button::OnTrigger() {
 	}
 
 	// play sfx 
-	Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+	game->sound->playEffectSound(int(Sound::Effect::ENTER));
 }
 
 void Widget::Button::OnHover() {
@@ -234,12 +234,12 @@ Widget::Dialog::Dialog(
 void Widget::Dialog::Update(float elapsedTime) {
 	auto checkIndex = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
-			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
+			_game->sound->playEffectSound(int(Sound::Effect::INVALID));
 			i = max(0, i);
 			i = min(max, i);
 			return 0;
 		}
-		Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::CHANGE));
+		_game->sound->playEffectSound(int(Sound::Effect::VALID));
 		return 1;
 		};
 	// get key pressed events
@@ -251,14 +251,15 @@ void Widget::Dialog::Update(float elapsedTime) {
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		enterClicked = true;
-		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+		game->sound->playEffectSound(int(Sound::Effect::ENTER));
 	}
 
 	// update button state
 	for (int i = 0; i < buttons.size(); i++) {
 		if (i == currentButtonIndex) {
 			if (enterClicked) {
-				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::ENTER));
+				game->sound->playEffectSound(int(Sound::Effect::ENTER));
+
 			}
 			else {
 				buttons[i].OnHover();

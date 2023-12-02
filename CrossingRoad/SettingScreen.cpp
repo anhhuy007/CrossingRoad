@@ -95,6 +95,12 @@ bool SettingScreen::OnCreate() {
 	N = Animation(game, textNgif, { left, top_border }, 400); left += space;
 	G = Animation(game, textGgif, { left, top_border }, 400); left += space;
 
+	music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
+	sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
+	character = Widget::Text(game, "CHARACTER", { 102,150 }, 45, 34, TextFont::NORMAL);
+	back = Widget::Text(game, "BACK", { 110,180 }, 20, 34, TextFont::NORMAL);
+
+
 	COLOR::SetConsoleColor(colors);
 
 	return true;
@@ -102,6 +108,7 @@ bool SettingScreen::OnCreate() {
 
 bool SettingScreen::OnUpdate(float elapsedTime) {
 	game->RenderSprite(bgImage, { 0,0 });
+
 	S.OnPlay(elapsedTime);
 	E.OnPlay(elapsedTime);
 	T1.OnPlay(elapsedTime);
@@ -110,6 +117,10 @@ bool SettingScreen::OnUpdate(float elapsedTime) {
 	N.OnPlay(elapsedTime);
 	G.OnPlay(elapsedTime);
 
+	music.Render();
+	sfx.Render();
+	character.Render();
+	back.Render();
 	settingWidget.Update(elapsedTime);
 	return true;
 }

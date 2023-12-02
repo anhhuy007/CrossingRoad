@@ -7,6 +7,7 @@
 #include "Widget.h"
 #include "MenuWidget.h"
 #include "SettingScreen.h"
+#include "AboutScreen.h"
 
 class MenuScreen : public CrossingRoad::GameScreen {
 public:
@@ -16,6 +17,8 @@ public:
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
+
+	void InitWidget();
 
 	Image bgImage;
 	MenuWidget menuWidget;

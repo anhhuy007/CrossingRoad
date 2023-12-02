@@ -4,7 +4,11 @@
 #include <iostream>
 #include <string>
 #include <mmsystem.h>
+#include <mutex>
 #pragma comment(lib, "winmm.lib")
+
+Sound* Sound::instance_ = nullptr;
+std::mutex Sound::locker;
 
 //--------------Path and alias of sound--------------
 const std::vector<std::wstring> Sound::EFFECT = {
@@ -13,10 +17,19 @@ const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\Valid.mp3",
 	L"Sound\\Enter.wav",
 	L"Sound\\Change.mp3",
-	L"Sound\\Coin.wav"
+	L"Sound\\Coin.wav",
+	L"Sound\\Bubble.mp3",
+	L"Sound\\Duck.mp3",
+	L"Sound\\LogJump.wav",
+	L"Sound\\WaterSplash.wav",
+	L"Sound\\Portal.mp3",
+	L"Sound\\Hit.wav",
+	L"Sound\\EndSoundWinterMap.mp3",
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
-	L"Sound\\BackgroundMusic.mp3"
+	L"Sound\\BackgroundMusic.mp3",
+	L"Sound\\HighwayBackground.mp3",
+	L"Sound\\ChristmasAmbient.mp3"
 };
 std::wstring Sound::findAlias(std::wstring path) {
 	if (path == L"Sound\\BackgroundMusic.mp3")
@@ -33,8 +46,28 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"5";
 	else if (path == L"Sound\\Coin.wav")
 		return L"6";
-	return L"";
+	else if (path == L"Sound\\HighwayBackground.mp3")
+		return L"7";
+	else if (path == L"Sound\\ChristmasAmbient.mp3")
+		return L"8";
+	else if (path == L"Sound\\Bubble.mp3")
+		return L"9";
+	else if (path == L"Sound\\Duck.mp3")
+		return L"10";
+	else if (path == L"Sound\\LogJump.wav")
+		return L"11";
+	else if (path == L"Sound\\WaterSplash.wav")
+		return L"12";
+	else if (path == L"Sound\\Portal.mp3")
+		return L"13";
+	else if (path == L"Sound\\Hit.wav")
+		return L"14";
+	else if (path == L"Sound\\EndSoundWinterMap.mp3")
+		return L"15";
+	else
+		return L"";
 }
+
 //--------------Open and close file--------------
 void Sound::openSound(std::wstring path) {
 	std::wstring open = L"open \"" + path + L"\" type mpegvideo alias " + findAlias(path);
@@ -44,7 +77,6 @@ void Sound::closeSound(std::wstring alias) {
 	std::wstring close = L"close " + alias;
 	mciSendString(close.c_str(), NULL, 0, NULL);
 }
-
 
 //--------------Play and stop sound--------------
 void Sound::repeatSound(std::wstring alias) {
@@ -59,6 +91,7 @@ void Sound::resumeSound(std::wstring alias) {
 	std::wstring resume = L"resume " + alias;
 	mciSendString(resume.c_str(), NULL, 0, NULL);
 }
+
 void Sound::setAudio(std::wstring alias, int volume) {
 	std::wstring setAudio = L"setaudio " + alias + L" volume to " + std::to_wstring(volume * 10);
 	mciSendString(setAudio.c_str(), NULL, 0, NULL);
@@ -68,103 +101,121 @@ void Sound::playSound(std::wstring alias) {
 	mciSendString(play.c_str(), NULL, 0, NULL);
 }
 //--------------Play background and effect sound--------------
-void Sound::playBackgroundSound(Sound::SoundSetting& soundSetting, int preIndexSound, int indexSound) {
-	if (preIndexSound != -1) {
-		closeSound(findAlias(BACKGROUND[preIndexSound]));
+void Sound::playBackgroundSound(int indexSound) {
+	if (indexSound != currentIndexBackgroundSound) {
+		closeSound(findAlias(BACKGROUND[currentIndexBackgroundSound]));
+		firstTimePlaying = true;
 	}
 	if (indexSound == -1) {
 		return;
 	}
 	std::wstring path = BACKGROUND[indexSound];
 	std::wstring alias = findAlias(path);
-	if (soundSetting.backgroundSound) {
-		if (soundSetting.firstTimePlaying) {
+
+	setAudio(alias, backgroundVolume);
+
+	if (backgroundSound) {
+		if (firstTimePlaying) {
 			openSound(path);
-			setAudio(alias, soundSetting.backgroundVolume);
 			repeatSound(alias);
-			soundSetting.backgroundPlaying = true;
-			soundSetting.firstTimePlaying = false;
-			soundSetting.currentIndexBackgroundSound = indexSound;
+			backgroundPlaying = true;
+			firstTimePlaying = false;
+			currentIndexBackgroundSound = indexSound;
 		}
 		else {
 			resumeSound(alias);
-			soundSetting.backgroundPlaying = true;
+			backgroundPlaying = true;
 		}
 	}
 	else {
 		pauseSound(alias);
-		soundSetting.backgroundPlaying = false;
+		backgroundPlaying = false;
 	}
 }
-void Sound::playEffectSound(Sound::SoundSetting& soundSetting, int indexSound) {
+
+void Sound::playEffectSound(int indexSound) {
 	std::wstring path = EFFECT[indexSound];
 	std::wstring alias = findAlias(path);
 
-	if (soundSetting.effectSound) {
+	if (effectSound) {
 		closeSound(alias);
 		openSound(path);
-		setAudio(alias, soundSetting.effectVolume);
+		setAudio(alias, effectVolume);
 		playSound(alias);
 	}
 }
 
-void Sound::turnOffBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound) {
-	soundSetting.backgroundSound = false;
-	playBackgroundSound(soundSetting, -1, indexSound);
+void Sound::turnOffBackgroundSound() {
+	backgroundSound = false;
+	playBackgroundSound(currentIndexBackgroundSound);
 }
 
-void Sound::turnOnBackgroundSound(Sound::SoundSetting& soundSetting, int indexSound) {
-	soundSetting.backgroundSound = true;
-	playBackgroundSound(soundSetting, -1, indexSound);
+void Sound::turnOnBackgroundSound() {
+	backgroundSound = true;
+	playBackgroundSound(currentIndexBackgroundSound);
 }
 
-void Sound::turnOffEffectSound(Sound::SoundSetting& soundSetting) {
-	soundSetting.effectSound = false;
+void Sound::turnOffEffectSound() {
+	effectSound = false;
 }
 
-void Sound::turnOnEffectSound(Sound::SoundSetting& soundSetting) {
-	soundSetting.effectSound = true;
+void Sound::turnOnEffectSound() {
+	effectSound = true;
 }
 
 
 //--------------Adjust volume--------------
-bool Sound::turnUpBackgroundVolume(SoundSetting& soundSetting) {
-	if (soundSetting.backgroundVolume < 100 && soundSetting.backgroundVolume >= 0) {
-		soundSetting.backgroundVolume += 20;
-		for (auto i : BACKGROUND) {
-			std::wstring volumeUp = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
-			mciSendString(volumeUp.c_str(), NULL, 0, NULL);
-		}
+bool Sound::turnUpBackgroundVolume() {
+	if (backgroundVolume < 100 && backgroundVolume >= 0) {
+		backgroundVolume += 20;
+		playBackgroundSound(currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;
 }
-bool Sound::turnDownBackgroundVolume(SoundSetting& soundSetting) {
-	if (soundSetting.backgroundVolume <= 100 && soundSetting.backgroundVolume > 0) {
-		soundSetting.backgroundVolume -= 20;
-		for (auto i : BACKGROUND) {
-			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.backgroundVolume * 10);
-			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
-		}
+bool Sound::turnDownBackgroundVolume() {
+	if (backgroundVolume <= 100 && backgroundVolume > 0) {
+		backgroundVolume -= 20;
+		playBackgroundSound(currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;
 }
-bool Sound::turnUpEffectVolume(SoundSetting& soundSetting) {
-	if (soundSetting.effectVolume < 100 && soundSetting.effectVolume >= 0) {
-		soundSetting.effectVolume += 20;
+Sound* Sound::getInstance() {
+	locker.lock();
+	if (instance_ == nullptr) {
+		instance_ = new Sound;
+	}
+	locker.unlock();
+	return instance_;
+}
+bool Sound::turnUpEffectVolume() {
+	if (effectVolume < 100 && effectVolume >= 0) {
+		effectVolume += 20;
 		return 1;
 	}
 	return 0;
 }
-bool Sound::turnDownEffectVolume(SoundSetting& soundSetting) {
-	if (soundSetting.effectVolume <= 100 && soundSetting.effectVolume > 0) {
-		soundSetting.effectVolume -= 20;
-		for (auto i : EFFECT) {
-			std::wstring volumeDown = L"setaudio " + findAlias(i) + L" volume to " + std::to_wstring(soundSetting.effectVolume * 10);
-			mciSendString(volumeDown.c_str(), NULL, 0, NULL);
-		}
+bool Sound::turnDownEffectVolume() {
+	if (effectVolume <= 100 && effectVolume > 0) {
+		effectVolume -= 20;
 		return 1;
 	}
 	return 0;
+}
+
+bool Sound::isBackgroundSoundOn() {
+	return backgroundSound;
+}
+
+bool Sound::isEffectSoundOn() {
+	return effectSound;
+}
+
+int Sound::getBackgroundVolume() {
+	return backgroundVolume;
+}
+
+int Sound::getEffectVolume() {
+	return effectVolume;
 }

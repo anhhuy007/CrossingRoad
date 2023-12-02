@@ -17,26 +17,25 @@ COORD SettingWidget::getCursorPosition(int currentButtonIndex) {
 
 Graphic::Sprite SettingWidget::getSpriteVolumeLevel(int volume, bool isOn) {
 	if (volume == 0 || isOn == 0) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl0, Overlapped::DECORATOR);
 	}
 	else if (volume == 20) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl1.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl1, Overlapped::DECORATOR);
 	}
 	else if (volume == 40) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl2.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl2, Overlapped::DECORATOR);
 	}
 	else if (volume == 60) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl3.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl3, Overlapped::DECORATOR);
 	}
 	else if (volume == 80) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl4.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl4, Overlapped::DECORATOR);
 	}
 	else if (volume == 100) {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl5.sprite", Overlapped::DECORATOR);
+		return Graphic::Sprite(DrawableRes::volumeBarLvl5, Overlapped::DECORATOR);
 	}
-	else {
-		return Graphic::Sprite("Screen\\settingScreen\\lvl0.sprite", Overlapped::DECORATOR);
-	}
+	else 
+		return Graphic::Sprite(DrawableRes::volumeBarLvl0, Overlapped::DECORATOR);
 }
 
 SettingWidget::SettingWidget(
@@ -55,22 +54,18 @@ void SettingWidget::Render() {
 }
 
 void SettingWidget::Update(float elapsedTime) {
-	music.Render();
-	sfx.Render();
-	character.Render();
-	back.Render();
 
 	COORD background = { 185, 73 };
 	COORD effect = { 185, 104 };
 
 	auto checkSound = [max = (int)buttons.size() - 1, _game = game](int& i) {
 		if (i < 0 || i > max) {
-			Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::INVALID));
+			_game->sound->playEffectSound(int(Sound::Effect::INVALID));
 			i = max(0, i);
 			i = min(max, i);
 			return 0;
 		}
-		Sound::playEffectSound(_game->soundSetting, int(Sound::Effect::CHANGE));
+		_game->sound->playEffectSound( int(Sound::Effect::CHANGE));
 		return 1;
 		};
 	// get key pressed events
@@ -82,96 +77,102 @@ void SettingWidget::Update(float elapsedTime) {
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		enterClicked = true;
-		Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
+		if (currentButtonIndex == 3) {
+			game->sound->playEffectSound(int(Sound::Effect::ENTER));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
+		}
 		if (currentButtonIndex == 0) {
-			if (game->soundSetting.backgroundSound) {
-				Sound::turnOffBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+
+			if (game->sound->isBackgroundSoundOn()) {
+				game->sound->turnOffBackgroundSound();
 			}
 			else {
-				Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+				game->sound->turnOnBackgroundSound();
 			}
 		}
 		else if (currentButtonIndex == 1) {
-			if (game->soundSetting.effectSound) {
-				Sound::turnOffEffectSound(game->soundSetting);
+			if (game->sound->isEffectSoundOn()) {
+				game->sound->turnOffEffectSound();
 			}
 			else {
-				Sound::turnOnEffectSound(game->soundSetting);
+				game->sound->turnOnEffectSound();
 			}
 		}
 	}
 	else if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
 		if (currentButtonIndex == 0) {
-			if (game->soundSetting.backgroundSound) {
-				if (Sound::turnDownBackgroundVolume(game->soundSetting)) {
-					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
-					if (game->soundSetting.backgroundVolume == 0) {
-						Sound::turnOffBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+			if (game->sound->isBackgroundSoundOn()) {
+				if (game->sound->turnDownBackgroundVolume()) {
+					game->sound->playEffectSound( int(Sound::Effect::VALID));
+					if (game->sound->getBackgroundVolume() == 0) {
+						game->sound->turnOffBackgroundSound();
 					}
 				}
 				else {
-					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::INVALID));
+					game->sound->playEffectSound(int(Sound::Effect::INVALID));
 				}
 			}
 			else {
-				if (game->soundSetting.backgroundVolume == 0) {
-					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::INVALID));
+				if (game->sound->getBackgroundVolume() == 0) {
+					game->sound->playEffectSound( int(Sound::Effect::INVALID));
 				}
 				else {
-					Sound::turnDownBackgroundVolume(game->soundSetting);
-					if (game->soundSetting.backgroundVolume != 0) {
-						Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
-						Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
+					game->sound->turnDownBackgroundVolume();
+					if (game->sound->getBackgroundVolume() != 0) {
+						game->sound->turnOnBackgroundSound();
+						game->sound->playEffectSound(int(Sound::Effect::VALID));
 					}
 				}
 			}
 		}
 		else if (currentButtonIndex == 1) {
-			if (game->soundSetting.effectSound) {
-				if (Sound::turnDownEffectVolume(game->soundSetting)) {
-					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
-					if (game->soundSetting.effectVolume == 0) {
-						Sound::turnOffEffectSound(game->soundSetting);
+			if (game->sound->isEffectSoundOn()) {
+				if (game->sound->turnDownEffectVolume()) {
+					game->sound->playEffectSound(int(Sound::Effect::VALID));
+					if (game->sound->getEffectVolume() == 0) {
+						game->sound->turnOffEffectSound();
 					}
 				}
 			}
 			else {
-				Sound::turnDownEffectVolume(game->soundSetting);
-				if (game->soundSetting.effectVolume != 0) {
-					Sound::turnOnEffectSound(game->soundSetting);
-					Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
+				game->sound->turnDownEffectVolume();
+				if (game->sound->getEffectVolume() != 0) {
+					game->sound->turnOnEffectSound();
+					game->sound->playEffectSound( int(Sound::Effect::VALID));
 				}
 			}
 		}
 	}
 	else if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
 		if (currentButtonIndex == 0) {
-			if (game->soundSetting.backgroundSound == 0) {
-				Sound::turnOnBackgroundSound(game->soundSetting, game->soundSetting.currentIndexBackgroundSound);
+			if (game->sound->isBackgroundSoundOn() == 0) {
+				game->sound->turnOnBackgroundSound();
 			}
-			if (Sound::turnUpBackgroundVolume(game->soundSetting)) {
-				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
+			if (game->sound->turnUpBackgroundVolume()) {
+				game->sound->playEffectSound( int(Sound::Effect::VALID));
 			}
 			else {
-				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::INVALID));
+				game->sound->playEffectSound(int(Sound::Effect::INVALID));
 			}
 		}
 		else if (currentButtonIndex == 1) {
-			if (game->soundSetting.effectSound == 0) {
-				Sound::turnOnEffectSound(game->soundSetting);
+			if (game->sound->isEffectSoundOn() == 0) {
+				game->sound->turnOnEffectSound();
 			}
-			if (Sound::turnUpEffectVolume(game->soundSetting)) {
-				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::VALID));
+			if (game->sound->turnUpEffectVolume()) {
+				game->sound->playEffectSound( int(Sound::Effect::VALID));
 			}
 			else {
-				Sound::playEffectSound(game->soundSetting, int(Sound::Effect::INVALID));
+				game->sound->playEffectSound( int(Sound::Effect::INVALID));
 			}
 		}
 	}
 	game->RenderSprite(cursor, getCursorPosition(currentButtonIndex));
 
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.backgroundVolume, game->soundSetting.backgroundSound), background);
-	game->RenderSprite(getSpriteVolumeLevel(game->soundSetting.effectVolume, game->soundSetting.effectSound), effect);
+	game->RenderSprite(getSpriteVolumeLevel(game->sound->getBackgroundVolume(),game->sound->isBackgroundSoundOn()), background);
+	game->RenderSprite(getSpriteVolumeLevel(game->sound->getEffectVolume(),game->sound->isEffectSoundOn()), effect);
 
 	if (enterClicked) {
 		totalTime += elapsedTime;

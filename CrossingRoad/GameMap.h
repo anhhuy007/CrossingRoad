@@ -16,14 +16,6 @@
 #define Image Graphic::Sprite
 
 class GameMap : public CrossingRoad::GameScreen {
-	struct LevelInformation {
-		int level;
-		int score;
-		int collectedCoins;
-		float totalTime;
-		bool endlessMode;
-	};
-
 	// ---- game properties ----
 	int level = 0;
 	int collectedCoins = 0;
@@ -31,6 +23,8 @@ class GameMap : public CrossingRoad::GameScreen {
 	int maxIndex = 0;
 	float totalTime = 0.0f;
 	bool endlessMode = false;
+	bool isFirstHit = false;
+	bool isFirstOnLog = false;
 
 	GamePlayer* player = nullptr;
 	Image grid;
@@ -41,7 +35,6 @@ protected:
 	int score = 0;
 	std::vector<Lane*> lanes;
 	Portal portal;
-	GameInformation* gameInfo = nullptr;
 		
 	Graphic::Sprite grasslane;
 	Graphic::Sprite snowlane;
@@ -50,8 +43,6 @@ protected:
 	Graphic::Sprite roadMarking;
 public: 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
-
-	void CreateNewGameLevel(LevelInformation* levelInfo);
 
 	// overrided functions 
 	bool OnCreate();

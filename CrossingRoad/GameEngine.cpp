@@ -20,9 +20,9 @@ void GameEngine::Start() {
 }
 
 void GameEngine::GameLoop() {
-	/*if (!GameCreate()) {
+	if (!GameCreate()) {
 		atomActive = false;
-	}*/
+	}
 
 	// timer
 	auto time1 = std::chrono::system_clock::now();
@@ -177,6 +177,17 @@ GameEngine::~GameEngine() {
 }
 
 void GameEngine::BuildConsole() {
+	// set the font size
+	CONSOLE_FONT_INFOEX cfi;
+	cfi.cbSize = sizeof(cfi);
+	cfi.nFont = 0;
+	cfi.dwFontSize.X = 0;					// Width of each character in the font
+	cfi.dwFontSize.Y = fontSize;            // Height
+	cfi.FontFamily = FF_DONTCARE;
+	cfi.FontWeight = FW_NORMAL;
+	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
+	SetCurrentConsoleFontEx(hOut, FALSE, &cfi);
+
 	HWND console = GetConsoleWindow();
 	RECT r;
 	GetWindowRect(console, &r); //stores the console's current dimensions
@@ -207,17 +218,6 @@ void GameEngine::BuildConsole() {
 
 	// diable selection
 	SetConsoleMode(hOut, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
-
-	// set the font size
-	CONSOLE_FONT_INFOEX cfi;
-	cfi.cbSize = sizeof(cfi);
-	cfi.nFont = 0;
-	cfi.dwFontSize.X = 0;					// Width of each character in the font
-	cfi.dwFontSize.Y = fontSize;            // Height
-	cfi.FontFamily = FF_DONTCARE;
-	cfi.FontWeight = FW_NORMAL;
-	std::wcscpy(cfi.FaceName, L"Consolas"); // Choose your font
-	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 }
 
 // ----- define static variables -----

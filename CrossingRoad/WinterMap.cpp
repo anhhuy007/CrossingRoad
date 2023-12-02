@@ -69,6 +69,8 @@ void WinterMap::CreateLanes() {
 
 	lanes.push_back(new SnowLane(MAXLANE - 2, game, snowlane, 0, 0));
 	lanes.push_back(new SnowLane(MAXLANE - 1, game, snowlane, 0, 0));
+
+	game->sound->playBackgroundSound(int(Sound::Background::CHRISTMAS));
 }
 
 void WinterMap::ScrollUp() {

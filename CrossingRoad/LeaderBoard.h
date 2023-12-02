@@ -4,6 +4,9 @@
 #include "GamePlayer.h"
 #include "Widget.h"
 
+// ----- Game Screens -----
+#include "MenuScreen.h"
+
 class LeaderBoard : public CrossingRoad::GameScreen
 {
 public:
@@ -12,7 +15,7 @@ public:
 	// overrided functions 
 	bool OnCreate() override;
 	bool OnUpdate(float elapsedTime) override;
-	bool OnPause()  override { return false; };	// handle ESC key pressed
+	bool OnPause()  override { return true; };	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
 	Image bg;
