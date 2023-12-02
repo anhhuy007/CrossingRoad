@@ -21,11 +21,13 @@ public:
 		ObjectInfo _info
 	);
 
-	Log(const Log& other) : GameObject(other.game) {
+	/*Log(const Log& other) : GameObject(other.game) {
 		lanePos = other.lanePos;
 		logSpeed = other.logSpeed;
 		movingDirection = other.movingDirection;
-	};
+		logSprite = other.logSprite;
+		position = other.position;
+	};*/
 
 	void SetSprite(Graphic::Sprite _sprite);
 	void SetInitPosition();

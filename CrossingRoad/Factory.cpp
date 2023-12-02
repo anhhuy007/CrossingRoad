@@ -134,6 +134,16 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
+
+	case ObjectType::TRAIN:
+		points = GetPointsOnLine(
+			{ 1, 40 },
+			{ 600, 189 },
+			4,
+			true
+		);
+
+		break;
 	case ObjectType::SMALL_TREE:
 		points = GetPointsOnLine(
 			{ 1, 31 },

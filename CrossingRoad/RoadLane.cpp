@@ -42,7 +42,7 @@ void RoadLane::Update(float elapsedTime) {
 
 void RoadLane::Render() {
 	game->RenderSprite(laneSprite, position);
-	game->RenderSprite(vehicle.vehicleSprite, vehicle.getPosition());
+	vehicle.Render();
 	coin.Render();
 
 	// draw road markings

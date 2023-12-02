@@ -66,7 +66,8 @@ enum Overlapped : int {
 
 enum class VehicleType {
 	CAR = 1,
-	TRUCK = 2
+	TRUCK = 2,
+	TRAIN = 3
 };
 
 enum class LogType {
@@ -83,7 +84,8 @@ enum class LaneType {
 	GRASS,
 	WATER,
 	ROAD,
-	SNOW
+	SNOW,
+	RAILWAY
 };
 
 enum class Player {
@@ -123,6 +125,7 @@ enum class ObjectType {
 	RED_CAR,
 	GREEN_CAR,
 	RED_TRUCK,
+	TRAIN,
 	SMALL_TREE,
 	BIG_TREE,
 	ROCK,
@@ -141,6 +144,7 @@ enum class ObjectType {
 	GRASS_LANE,
 	ROAD_LANE,
 	WATER_LANE,
+	RAILWAY_LANE,
 	SNOW_LANE, 
 	TEXT_WIDGET,
 	BUTTON_WIDGET
@@ -194,16 +198,19 @@ struct ObjectInfo {
 };
 
 struct LaneInfo {
+	int lanePos;
 	LaneType laneType;
 	MovingDirection objectDirection;
 	std::vector<ObjectInfo> objectsInfo;
 
 	LaneInfo() {
+		lanePos = 0;
 		laneType = LaneType::GRASS;
 		objectDirection = MovingDirection::NONE;
 	}
 
 	LaneInfo(const LaneInfo& other) {
+		lanePos = other.lanePos;
 		laneType = other.laneType;
 		objectDirection = other.objectDirection;
 		for (auto obj : other.objectsInfo) {

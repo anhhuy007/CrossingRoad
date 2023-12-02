@@ -47,20 +47,21 @@ GrassLane::GrassLane(
 	LaneInfo laneInfo
 ) : Lane(id, game, _grassSprite, LaneType::GRASS)
 {
-for (int i = 0; i < laneInfo.objectsInfo.size(); i++) {
-		if (laneInfo.objectsInfo[i].objType == ObjectType::SMALL_TREE) {
-			trees.push_back(Tree(game, id, i, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
+	for (auto obj : laneInfo.objectsInfo) {
+		if (obj.objType == ObjectType::SMALL_TREE) {
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
+			trees[trees.size() - 1].setPosition(obj.position);
 		}
-		else if (laneInfo.objectsInfo[i].objType == ObjectType::BIG_TREE) {
-			trees.push_back(Tree(game, id, i, ObjectType::BIG_TREE, DrawableRes::BigTree));
-			i++;
+		else if (obj.objType == ObjectType::BIG_TREE) {
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, ObjectType::BIG_TREE, DrawableRes::BigTree));
+			trees[trees.size() - 1].setPosition(obj.position);
 		}
-		else if (laneInfo.objectsInfo[i].objType == ObjectType::ROCK) {
-			rocks.push_back(Rock(game, id, i, ObjectType::ROCK, DrawableRes::Rock));
+		else if (obj.objType == ObjectType::ROCK) {
+			rocks.push_back(Rock(game, laneInfo.lanePos, 0, ObjectType::ROCK, DrawableRes::Rock));
+			rocks[rocks.size() - 1].setPosition(obj.position);
 		}
 	}
 }
-;
 
 void GrassLane::Render() {
 	game->RenderSprite(laneSprite, position);

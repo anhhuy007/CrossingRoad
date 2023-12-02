@@ -50,13 +50,14 @@ Log::Log(
 	}
 
 	case ObjectType::BIG_LOG: {
-		logSprite = Graphic::Sprite(DrawableRes::Log1);
+		logSprite = Graphic::Sprite(DrawableRes::Log2);
 		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::BIG_LOG));
 		break;
 	}
 
 	}
 
+	logSprite.SetOverlapped(Overlapped::LOG);
 	width = logSprite.getWidth();
 	height = logSprite.getHeight();
 	logSprite.SetOverlapped(Overlapped::OBSTACLE);

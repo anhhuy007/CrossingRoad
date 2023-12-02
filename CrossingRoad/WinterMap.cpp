@@ -23,9 +23,9 @@ void WinterMap::SetScreenColor() {
 }
 
 Lane* WinterMap::GetNewLane(int laneId, LaneType previousLane) {
-	int randomLane = rand() % 4;
+	int randomLane = rand() % 10;
 
-	if (randomLane == 0) {
+	if (randomLane <= 1) {
 		return new SnowLane(
 			laneId,
 			game,
@@ -34,14 +34,21 @@ Lane* WinterMap::GetNewLane(int laneId, LaneType previousLane) {
 			rand() % 2
 		);
 	}
-	else if (randomLane == 1) {
+	else if (randomLane <= 3) {
 		return new WaterLane(
 			laneId,
 			game,
 			waterlane
 		);
 	}
-	else if (randomLane >= 2) {
+	else if (randomLane == 4) {
+		return new RailWayLane(
+			laneId,
+			game,
+			railwaylane
+		);
+	}
+	else if (randomLane >= 5) {
 		bool hasRoadMarking = previousLane == LaneType::ROAD ? true : false;
 
 		return new RoadLane(
@@ -69,9 +76,10 @@ void WinterMap::CreateLanes() {
 	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
 	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
+	railwaylane = Graphic::Sprite(DrawableRes::RailWayLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
-	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
+	/*Lane* lane = new RailWayLane(7, game, railwaylane);
 	lanes.push_back(lane);*/
 
 	for (int i = 0; i < MAXLANE - 2; i++) {

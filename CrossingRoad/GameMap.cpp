@@ -328,7 +328,6 @@ void GameMap::LoadSavedLanes()
 	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
-
 	int cnt = 0;
 	for (auto lane : gameInfo.lanesInfo) {
 		switch (lane.laneType) {
@@ -350,11 +349,11 @@ void GameMap::LoadSavedLanes()
 			break;
 		}
 
-		/*case LaneType::SNOW: {
+		case LaneType::SNOW: {
 			SnowLane* snowLane = new SnowLane(cnt, game, snowlane, lane);
 			lanes.push_back(snowLane);
 			break;
-		}*/
+		}
 
 		}
 
@@ -424,14 +423,14 @@ GameMapInfo GameMap::GetGameMapInfo(
 		case ObjectType::ROAD_LANE: {
 			RoadLane* roadLane = dynamic_cast<RoadLane*>(lane);
 			laneInfo.laneType = LaneType::ROAD;
-			Vehicle vehicle = roadLane->GetVehicle();
-			laneInfo.objectDirection = vehicle.movingDirection;
+			Vehicle _vehicle = roadLane->GetVehicle();
+			laneInfo.objectDirection = _vehicle.movingDirection;
 
 			// get objects on road lane 
 			ObjectInfo vehicleInfo;
-			vehicleInfo.objType = vehicle.getObjType();
-			vehicleInfo.speed = vehicle.vehicleSpeed;
-			vehicleInfo.position = vehicle.getPosition();
+			vehicleInfo.objType = _vehicle.getObjType();
+			vehicleInfo.speed = _vehicle.vehicleSpeed;
+			vehicleInfo.position = _vehicle.getPosition();
 
 			ObjectInfo coinInfo;
 			coinInfo.objType = roadLane->coin.getObjType();
@@ -452,15 +451,41 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 			// get objects on water lane 
 			ObjectInfo logInfo;
-			Log log = waterLane->GetLog();
-			logInfo.objType = log.getObjType();
-			logInfo.speed = log.logSpeed;
-			logInfo.position = log.getPosition();
+			Log _log = waterLane->GetLog();
+			logInfo.objType = _log.getObjType();
+			logInfo.speed = _log.logSpeed;
+			logInfo.position = _log.getPosition();
 
 			laneInfo.objectsInfo.push_back(logInfo);
 
 			break;
 		}
+
+		case ObjectType::SNOW_LANE:
+			SnowLane* snowlane = dynamic_cast<SnowLane*>(lane);
+			laneInfo.laneType = LaneType::SNOW;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on grass lane 
+			for (auto tree : snowlane->GetTrees()) {
+				ObjectInfo objInfo;
+				objInfo.objType = tree.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = tree.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			for (auto rock : snowlane->GetRocks()) {
+				ObjectInfo objInfo;
+				objInfo.objType = rock.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = rock.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			break;
 
 		}
 

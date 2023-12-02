@@ -198,6 +198,9 @@
     <ClCompile Include="FileIO.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="RailWayLane.cpp">
+      <Filter>Source Files\Objects\Lanes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="FileIO.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RailWayLane.h">
+      <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

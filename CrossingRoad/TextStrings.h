@@ -17,6 +17,7 @@ namespace DrawableRes {
 	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
 	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
 	const std::string SnowLane = spriteFolder + "SnowLane.sprite";
+	const std::string RailWayLane = spriteFolder + "RailWayLane.sprite";
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
 	const std::string LightBlueBG = spriteFolder + "LightBlueBG.sprite";
@@ -30,6 +31,7 @@ namespace DrawableRes {
 	const std::string Car1Right = spriteFolder + "Car1_Right.sprite";
 	const std::string TruckLeft = spriteFolder + "Truck_Left.sprite";
 	const std::string TruckRight = spriteFolder + "Truck_Right.sprite";
+	const std::string Train = spriteFolder + "Train.sprite";
 	const std::string Log1 = spriteFolder + "Log1.sprite";
 	const std::string Log2 = spriteFolder + "Log2.sprite";
 	const std::string Portal = spriteFolder + "Portal.sprite";

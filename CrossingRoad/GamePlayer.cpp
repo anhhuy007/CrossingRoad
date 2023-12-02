@@ -32,7 +32,6 @@ GamePlayer::GamePlayer(
 	animationSprite = Factory::GetPlayerSprite(playerInfo.playerName);
 	speed = GameSpeed(24, 6, -11, 21);
 	axisSpeed = GameSpeed(4, 1, -1, 2);
-	OnMove();
 
 	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PLAYER));
 }

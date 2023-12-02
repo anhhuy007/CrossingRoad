@@ -20,6 +20,7 @@ bool FileIO::WriteGameInfo(std::string filename, GameMapInfo gameInfo)
 
     // Write each LaneInfo element in the vector
     for (const LaneInfo& lane : gameInfo.lanesInfo) {
+        ofs.write(reinterpret_cast<const char*>(&lane.lanePos), sizeof(int));
         ofs.write(reinterpret_cast<const char*>(&lane.laneType), sizeof(LaneType));
         ofs.write(reinterpret_cast<const char*>(&lane.objectDirection), sizeof(MovingDirection));
 
@@ -61,6 +62,7 @@ bool FileIO::LoadGameInfo(std::string filename, GameMapInfo& gameInfo)
 	// Read each LaneInfo element in the vector
 	for (size_t i = 0; i < lanesInfoSize; ++i) {
 		LaneInfo lane;
+		ifs.read(reinterpret_cast<char*>(&lane.lanePos), sizeof(int));
 		ifs.read(reinterpret_cast<char*>(&lane.laneType), sizeof(LaneType));
 		ifs.read(reinterpret_cast<char*>(&lane.objectDirection), sizeof(MovingDirection));
 

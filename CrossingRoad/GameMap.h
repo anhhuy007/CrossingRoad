@@ -37,6 +37,7 @@ protected:
 	Graphic::Sprite snowlane;
 	Graphic::Sprite waterlane;
 	Graphic::Sprite roadlane;
+	Graphic::Sprite railwaylane;
 	Graphic::Sprite roadMarking;
 public: 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};

@@ -7,10 +7,9 @@
 
 class WaterLane : public Lane {
 	MovingDirection direction;
-	Log log;
 
 public:
-
+	Log log;
 	WaterLane(
 		int id,
 		CrossingRoad* game,

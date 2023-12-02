@@ -53,6 +53,58 @@ Vehicle::Vehicle(
 
 Vehicle::Vehicle(
 	CrossingRoad* game, 
+	int _id, 
+	MovingDirection _direction, 
+	ObjectType _objType
+) : GameObject(game)
+{
+	objType = _objType;
+	lanePos = _id;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
+	endOfRoad = true;
+
+	switch (objType) {
+	case ObjectType::RED_CAR:
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite(DrawableRes::Car1Left)
+			: Graphic::Sprite(DrawableRes::Car1Right);
+
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::GREEN_CAR));
+		break;
+
+	case ObjectType::GREEN_CAR:
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite(DrawableRes::Car2Left)
+			: Graphic::Sprite(DrawableRes::Car2Right);
+
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_CAR));
+		break;
+
+	case ObjectType::RED_TRUCK:
+		vehicleSprite = _direction == MovingDirection::LEFT
+			? Graphic::Sprite(DrawableRes::TruckLeft)
+			: Graphic::Sprite(DrawableRes::TruckRight);
+		break;
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_TRUCK));
+
+	case ObjectType::TRAIN: 
+		vehicleSprite = Graphic::Sprite(DrawableRes::Train);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::TRAIN));
+		
+		// reset speed
+		vehicleSpeed = 0;
+		break;
+	}
+
+	width = vehicleSprite.getWidth();
+	height = vehicleSprite.getHeight();
+	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
+}
+
+Vehicle::Vehicle(
+	CrossingRoad* game, 
 	int _lanePos,
 	MovingDirection _direction, 
 	ObjectInfo _info
@@ -88,6 +140,14 @@ Vehicle::Vehicle(
 				: Graphic::Sprite(DrawableRes::TruckRight);
 			break;
 			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_TRUCK));
+
+		case ObjectType::TRAIN:
+				vehicleSprite = Graphic::Sprite(DrawableRes::Train);
+				SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::TRAIN));
+
+				// reset speed
+				vehicleSpeed = 0;
+				break;
 	}
 
 	width = vehicleSprite.getWidth();
@@ -123,6 +183,11 @@ void Vehicle::Update(float elapsedTime) {
 	WriteCollisionPoints();
 }
 
+void Vehicle::Render()
+{
+	if (!endOfRoad) game->RenderSprite(vehicleSprite, position);
+}
+
 void Vehicle::MoveAhead() {
 	if (movingDirection == MovingDirection::LEFT) {
 		position.X -= axisSpeed.X_HORIZONTAL;
@@ -135,8 +200,23 @@ void Vehicle::MoveAhead() {
 }
 
 void Vehicle::SetInitPosition() {
-	COORD centerSpot = (getObjType() == ObjectType::RED_CAR || getObjType() == ObjectType::GREEN_CAR) ? COORD(0, 20) : COORD(0, 32);
-	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -3;
+	COORD centerSpot = { 0, 0 };
+	int startBlock = movingDirection == MovingDirection::LEFT ? 19 : -5;
+
+	switch (objType) {
+	case ObjectType::GREEN_CAR:
+	case ObjectType::RED_CAR:
+		centerSpot = COORD(0, 20);
+		break;
+		
+	case ObjectType::RED_TRUCK:
+		centerSpot = COORD(0, 32);
+		break;
+
+	case ObjectType::TRAIN:
+		centerSpot = COORD(0, 35);
+		break;
+	}
 
 	position = Alignment::GetAlignedPosition(lanePos, startBlock, centerSpot, Gravity::TOP_LEFT);
 }

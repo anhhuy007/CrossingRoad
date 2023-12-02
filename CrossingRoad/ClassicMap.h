@@ -5,6 +5,7 @@
 #include "RoadLane.h"
 #include "GrassLane.h"
 #include "WaterLane.h"
+#include "RailWayLane.h"
 #include "TextStrings.h"
 
 #include <vector>

@@ -23,9 +23,9 @@ void ClassicMap::SetScreenColor() {
 }
 
 Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
-	int randomLane = rand() % 4;
+	int randomLane = rand() % 10;
 
-	if (randomLane == 0) {
+	if (randomLane <= 1) {
 		return new GrassLane(
 			laneId, 
 			game, 
@@ -34,14 +34,21 @@ Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
 			rand() % 2
 		);
 	}
-	else if (randomLane == 1) {
+	else if (randomLane <= 3) {
 		return new WaterLane(
 			laneId, 
 			game, 
 			waterlane
 		);
 	}
-	else if (randomLane >= 2) {
+	else if (randomLane == 4) {
+		return new RailWayLane(
+			laneId, 
+			game, 
+			railwaylane
+		);
+	}
+	else if (randomLane >= 5) {
 		bool hasRoadMarking = previousLane == LaneType::ROAD ? true : false;
 
 		return new RoadLane(
@@ -69,7 +76,9 @@ void ClassicMap::CreateLanes() {
 	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
 	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
+	railwaylane = Graphic::Sprite(DrawableRes::RailWayLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
+
 
 	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
 	lanes.push_back(lane);*/

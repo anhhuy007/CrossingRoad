@@ -53,7 +53,52 @@ SnowLane::SnowLane(
 			rocks.push_back(Rock(game, id, i, ObjectType::GIFT, DrawableRes::Gift));
 		}
 	}
-};
+}
+
+SnowLane::SnowLane(
+	int id, 
+	CrossingRoad* game, 
+	Graphic::Sprite _snowSprite, 
+	LaneInfo laneInfo
+) : Lane(id, game, _snowSprite, LaneType::SNOW)
+{
+	for (auto obj : laneInfo.objectsInfo) {
+
+		switch (obj.objType) {
+		case ObjectType::SMALL_PINETREE:
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::PineTree1));
+			trees[trees.size() - 1].setPosition(obj.position);
+			break;
+
+		case ObjectType::SNOWMAN:
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::Snowman));
+			trees[trees.size() - 1].setPosition(obj.position);
+			break;
+
+		case ObjectType::BIG_PINETREE:
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::PineTree2));
+			trees[trees.size() - 1].setPosition(obj.position);
+			break;
+
+		case ObjectType::DEER:
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::Deer));
+			trees[trees.size() - 1].setPosition(obj.position);
+			break;
+
+		case ObjectType::SNOW_ROCK:
+			rocks.push_back(Rock(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::Rock_Snow));
+			rocks[rocks.size() - 1].setPosition(obj.position);
+			break;
+
+		case ObjectType::GIFT:
+			rocks.push_back(Rock(game, laneInfo.lanePos, 0, obj.objType, DrawableRes::Gift));
+			rocks[rocks.size() - 1].setPosition(obj.position);
+			break;
+
+		}
+	}
+}
+
 
 void SnowLane::Render() {
 	game->RenderSprite(laneSprite, position);
@@ -89,4 +134,14 @@ void SnowLane::ScrollUp() {
 	for (auto& rock : rocks) {
 		rock.MoveDown(rock.lanePos);
 	}
+}
+
+std::vector<Tree> SnowLane::GetTrees()
+{
+	return trees;
+}
+
+std::vector<Rock> SnowLane::GetRocks()
+{
+	return rocks;
 }
