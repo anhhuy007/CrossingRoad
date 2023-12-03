@@ -44,6 +44,8 @@ namespace DrawableRes {
 	const std::string Gift = spriteFolder + "Gift.sprite";
 	const std::string Deer = spriteFolder + "Deer.sprite";
 	const std::string Snowman = spriteFolder + "Snowman.sprite";
+	const std::string GreenLight = spriteFolder + "GreenLight.sprite";
+	const std::string RedLight = spriteFolder + "RedLight.sprite";
 
 	// animation sprites
 	const std::string animationSprite1 = "Animation1.sprite";

@@ -59,9 +59,10 @@ enum Overlapped : int {
 	OBSTACLE = 4,
 	VEHICLE = 4, 
 	PLAYER = 4,
-	DIALOG = 5,
-	BUTTON = 6,
-	TEXT = 7,
+	TRAFFIC_LIGHT = 4,
+	DIALOG = 6,
+	BUTTON = 7,
+	TEXT = 8,
 };
 
 enum class VehicleType {

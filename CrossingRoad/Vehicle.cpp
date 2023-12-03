@@ -58,14 +58,7 @@ Vehicle::Vehicle(
 	ObjectType _objType
 ) : GameObject(game)
 {
-	objType = _objType;
-	lanePos = _id;
-	movingDirection = _direction;
-	axisSpeed = GameSpeed(4, 1, -11, 21);
-	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
-	endOfRoad = true;
-
-	switch (objType) {
+	switch (_objType) {
 	case ObjectType::RED_CAR:
 		vehicleSprite = _direction == MovingDirection::LEFT
 			? Graphic::Sprite(DrawableRes::Car1Left)
@@ -98,6 +91,12 @@ Vehicle::Vehicle(
 		break;
 	}
 
+	objType = _objType;
+	lanePos = _id;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
+	endOfRoad = true;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
@@ -110,46 +109,40 @@ Vehicle::Vehicle(
 	ObjectInfo _info
 ) : GameObject(game)
 {
-	objType = _info.objType;
-	lanePos = _lanePos;
-	movingDirection = _direction;
-	axisSpeed = GameSpeed(4, 1, -11, 21);
-	vehicleSpeed = _info.speed;
-	position = _info.position;
-
-	switch(objType) {
+	switch(_info.objType) {
 		case ObjectType::RED_CAR:
 			vehicleSprite = _direction == MovingDirection::LEFT
 				? Graphic::Sprite(DrawableRes::Car1Left)
 				: Graphic::Sprite(DrawableRes::Car1Right);
-
-			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::GREEN_CAR));
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_CAR));
 			break;
 
 		case ObjectType::GREEN_CAR:
 			vehicleSprite = _direction == MovingDirection::LEFT
 				? Graphic::Sprite(DrawableRes::Car2Left)
 				: Graphic::Sprite(DrawableRes::Car2Right);
-
-			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_CAR));
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::GREEN_CAR));
 			break;
 
 		case ObjectType::RED_TRUCK:
 			vehicleSprite = _direction == MovingDirection::LEFT
 				? Graphic::Sprite(DrawableRes::TruckLeft)
 				: Graphic::Sprite(DrawableRes::TruckRight);
-			break;
 			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::RED_TRUCK));
+			break;
 
 		case ObjectType::TRAIN:
-				vehicleSprite = Graphic::Sprite(DrawableRes::Train);
-				SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::TRAIN));
-
-				// reset speed
-				vehicleSpeed = 0;
-				break;
+			vehicleSprite = Graphic::Sprite(DrawableRes::Train);
+			SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::TRAIN));
+			break;
 	}
 
+	objType = _info.objType;
+	lanePos = _lanePos;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	vehicleSpeed = _info.speed;
+	position = _info.position;
 	width = vehicleSprite.getWidth();
 	height = vehicleSprite.getHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);

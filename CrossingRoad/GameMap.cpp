@@ -339,13 +339,12 @@ void GameMap::LoadSavedLanes()
 	railwaylane = Graphic::Sprite(DrawableRes::RailWayLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
-	int cnt = 0;
 	for (int i = 0; i < gameInfo.lanesInfo.size(); i++) {
 		auto lane = gameInfo.lanesInfo[i];
 
 		switch (lane.laneType) {
 		case LaneType::GRASS: {
-			GrassLane* grassLane = new GrassLane(cnt, game, grasslane, lane);
+			GrassLane* grassLane = new GrassLane(lane.lanePos, game, grasslane, lane);
 			lanes.push_back(grassLane);
 			break;
 		}
@@ -358,32 +357,30 @@ void GameMap::LoadSavedLanes()
 				}
 			}
 
-			RoadLane* roadLane = new RoadLane(cnt, game, roadlane, lane, hasRoadMarking);
+			RoadLane* roadLane = new RoadLane(lane.lanePos, game, roadlane, lane, hasRoadMarking);
 			lanes.push_back(roadLane);
 			break;
 		}
 
 		case LaneType::WATER: {
-			WaterLane* waterLane = new WaterLane(cnt, game, waterlane, lane);
+			WaterLane* waterLane = new WaterLane(lane.lanePos, game, waterlane, lane);
 			lanes.push_back(waterLane);
 			break;
 		}
 
 		case LaneType::SNOW: {
-			SnowLane* snowLane = new SnowLane(cnt, game, snowlane, lane);
+			SnowLane* snowLane = new SnowLane(lane.lanePos, game, snowlane, lane);
 			lanes.push_back(snowLane);
 			break;
 		}
 
 		case LaneType::RAILWAY: {
-			RailWayLane* railWayLane = new RailWayLane(cnt, game, railwaylane, lane);
+			RailWayLane* railWayLane = new RailWayLane(lane.lanePos, game, railwaylane, lane);
 			lanes.push_back(railWayLane);
 			break;
 		}
 
 		}
-
-		cnt++;
 	}
 }
 

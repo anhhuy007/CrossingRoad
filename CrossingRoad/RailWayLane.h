@@ -9,6 +9,9 @@ class RailWayLane : public Lane
 	MovingDirection direction;
 	float time = 0;	// manage lane time
 	float trainTime = 0;	// manage train time
+	Graphic::Sprite greenLight, redLight;
+	int trafficLightPos;
+	bool isTrain = false;
 
 public: 
 	RailWayLane(

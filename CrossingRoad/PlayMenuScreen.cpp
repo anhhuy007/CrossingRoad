@@ -112,7 +112,7 @@ void PlayMenuScreen::OnLoadGameClicked()
 {
 	GameMapInfo savedGame;
 	bool status = FileIO::LoadGameInfo("test.game", savedGame);
-
+ 
 	if (status == false) {
 		std::cout << "Load game failed!" << std::endl;
 		return;
