@@ -15,6 +15,7 @@ Lane::Lane(
 	if (laneType == LaneType::ROAD) objType = ObjectType::ROAD_LANE;
 	else if (laneType == LaneType::WATER) objType = ObjectType::WATER_LANE;
 	else if (laneType == LaneType::SNOW) objType = ObjectType::SNOW_LANE;
+	else if (laneType == LaneType::RAILWAY) objType = ObjectType::RAILWAY_LANE;
 	else objType = ObjectType::GRASS_LANE;
 }
 

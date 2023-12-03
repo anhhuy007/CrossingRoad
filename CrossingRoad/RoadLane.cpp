@@ -23,10 +23,13 @@ RoadLane::RoadLane(
 	int id, 
 	CrossingRoad* game, 
 	Graphic::Sprite roadSprite, 
-	LaneInfo laneInfo
+	LaneInfo laneInfo,
+	bool _hasRoadMarking
 ) : Lane(id, game, roadSprite, LaneType::ROAD) {
 	direction = laneInfo.objectDirection;
 	vehicle = Vehicle(game, id, direction, laneInfo.objectsInfo[0]);
+	hasRoadMarking = _hasRoadMarking;
+	roadMarkingSprite = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 }
 
 

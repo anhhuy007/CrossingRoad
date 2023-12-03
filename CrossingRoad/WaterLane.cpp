@@ -19,6 +19,7 @@ WaterLane::WaterLane(
 	// generate random log
 	direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
 	log = Log(game, id, direction, laneInfo.objectsInfo[0]);
+	log.logSprite.SetOverlapped(Overlapped::LOG);
 	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::WATER));
 }
 

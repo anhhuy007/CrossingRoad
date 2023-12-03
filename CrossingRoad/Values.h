@@ -197,6 +197,12 @@ struct ObjectInfo {
 	COORD position;
 };
 
+struct PortalInfo {
+	bool visible;
+	int lanePos;
+	COORD position;
+};
+
 struct LaneInfo {
 	int lanePos;
 	LaneType laneType;
@@ -232,6 +238,7 @@ struct GameMapInfo {
 	GameMode gameMode;
 	std::vector<LaneInfo> lanesInfo;
 	PlayerInfo playerInfo; // some  attributes are not used
+	PortalInfo portalInfo;
 	int endLane; // portal position in lane
 	int level; // optional if game mode is LEVEL_MODE
 	int score;

@@ -27,7 +27,8 @@ public:
 		int id, 
 		CrossingRoad* game,
 		Graphic::Sprite roadSprite,
-		LaneInfo laneInfo
+		LaneInfo laneInfo,
+		bool _hasRoadMarking
 	);
 
 	void Update(float elapsedTime);

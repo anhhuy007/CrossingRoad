@@ -32,6 +32,7 @@ bool FileIO::WriteGameInfo(std::string filename, GameMapInfo gameInfo)
         ofs.write(reinterpret_cast<const char*>(lane.objectsInfo.data()), objectsInfoSize * sizeof(ObjectInfo));
     }
 
+	ofs.write(reinterpret_cast<const char*>(&gameInfo.portalInfo), sizeof(PortalInfo));
     ofs.write(reinterpret_cast<const char*>(&gameInfo.playerInfo), sizeof(PlayerInfo));
     ofs.write(reinterpret_cast<const char*>(&gameInfo.endLane), sizeof(int));
     ofs.write(reinterpret_cast<const char*>(&gameInfo.level), sizeof(int));
@@ -77,7 +78,13 @@ bool FileIO::LoadGameInfo(std::string filename, GameMapInfo& gameInfo)
 		gameInfo.lanesInfo.push_back(lane);
 	}
 
+	// read portal 
+	ifs.read(reinterpret_cast<char*>(&gameInfo.portalInfo), sizeof(PortalInfo));
+
+	// read player 
 	ifs.read(reinterpret_cast<char*>(&gameInfo.playerInfo), sizeof(PlayerInfo));
+
+	// read game points 
 	ifs.read(reinterpret_cast<char*>(&gameInfo.endLane), sizeof(int));
 	ifs.read(reinterpret_cast<char*>(&gameInfo.level), sizeof(int));
 	ifs.read(reinterpret_cast<char*>(&gameInfo.score), sizeof(int));

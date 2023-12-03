@@ -36,6 +36,15 @@ void GameMap::LoadSavedGame()
 {
 	// initialize player
 	player = new GamePlayer(gameInfo.playerInfo, game);
+
+	if (gameInfo.gameMode == GameMode::LEVEL_MODE) {
+		// build portal for level mode
+		portal = Portal(game);
+		portal.setPosition(gameInfo.portalInfo.position);
+		portal.visible = gameInfo.portalInfo.visible;
+		portal.lanePos = gameInfo.portalInfo.lanePos;
+	}
+
 	LoadSavedLanes();
 }
 
@@ -327,10 +336,13 @@ void GameMap::LoadSavedLanes()
 	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
 	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
 	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
+	railwaylane = Graphic::Sprite(DrawableRes::RailWayLane, Overlapped::LAND);
 	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
 
 	int cnt = 0;
-	for (auto lane : gameInfo.lanesInfo) {
+	for (int i = 0; i < gameInfo.lanesInfo.size(); i++) {
+		auto lane = gameInfo.lanesInfo[i];
+
 		switch (lane.laneType) {
 		case LaneType::GRASS: {
 			GrassLane* grassLane = new GrassLane(cnt, game, grasslane, lane);
@@ -339,7 +351,14 @@ void GameMap::LoadSavedLanes()
 		}
 
 		case LaneType::ROAD: {
-			RoadLane* roadLane = new RoadLane(cnt, game, roadlane, lane);
+			bool hasRoadMarking = false;
+			if (i > 0) {
+				if (gameInfo.lanesInfo[i - 1].laneType == LaneType::ROAD) {
+					hasRoadMarking = true;
+				}
+			}
+
+			RoadLane* roadLane = new RoadLane(cnt, game, roadlane, lane, hasRoadMarking);
 			lanes.push_back(roadLane);
 			break;
 		}
@@ -353,6 +372,12 @@ void GameMap::LoadSavedLanes()
 		case LaneType::SNOW: {
 			SnowLane* snowLane = new SnowLane(cnt, game, snowlane, lane);
 			lanes.push_back(snowLane);
+			break;
+		}
+
+		case LaneType::RAILWAY: {
+			RailWayLane* railWayLane = new RailWayLane(cnt, game, railwaylane, lane);
+			lanes.push_back(railWayLane);
 			break;
 		}
 
@@ -386,6 +411,11 @@ GameMapInfo GameMap::GetGameMapInfo(
 	gameInfo.playerInfo.lanePos = player->lanePos;
 	gameInfo.playerInfo.position = player->getPosition();
 
+	// get portal informations
+	gameInfo.portalInfo.position = portal.getPosition();
+	gameInfo.portalInfo.visible = portal.visible;
+	gameInfo.portalInfo.lanePos = portal.lanePos;
+
 	// get lane informations
 	for (auto lane : lanes) {
 		LaneInfo laneInfo;
@@ -396,6 +426,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 		case ObjectType::GRASS_LANE: {
 			GrassLane* grassLane = dynamic_cast<GrassLane*>(lane);
+			laneInfo.lanePos = grassLane->id;
 			laneInfo.laneType = LaneType::GRASS;
 			laneInfo.objectDirection = MovingDirection::NONE;
 
@@ -423,8 +454,9 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 		case ObjectType::ROAD_LANE: {
 			RoadLane* roadLane = dynamic_cast<RoadLane*>(lane);
-			laneInfo.laneType = LaneType::ROAD;
 			Vehicle _vehicle = roadLane->GetVehicle();
+			laneInfo.lanePos = roadLane->id;
+			laneInfo.laneType = LaneType::ROAD;
 			laneInfo.objectDirection = _vehicle.movingDirection;
 
 			// get objects on road lane 
@@ -447,6 +479,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 		case ObjectType::WATER_LANE: {
 			WaterLane* waterLane = dynamic_cast<WaterLane*>(lane);
+			laneInfo.lanePos = waterLane->id;
 			laneInfo.laneType = LaneType::WATER;
 			laneInfo.objectDirection = MovingDirection::NONE;
 
@@ -464,6 +497,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 		case ObjectType::SNOW_LANE: {
 			SnowLane* snowlane = dynamic_cast<SnowLane*>(lane);
+			laneInfo.lanePos = snowlane->id;
 			laneInfo.laneType = LaneType::SNOW;
 			laneInfo.objectDirection = MovingDirection::NONE;
 
@@ -491,8 +525,9 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 		case ObjectType::RAILWAY_LANE: {
 			RailWayLane* railWayLane = dynamic_cast<RailWayLane*>(lane);
+			laneInfo.lanePos = railWayLane->id;
 			laneInfo.laneType = LaneType::RAILWAY;
-			laneInfo.objectDirection = MovingDirection::NONE;
+			laneInfo.objectDirection = MovingDirection::RIGHT;
 
 			// get train
 			ObjectInfo trainInfo;

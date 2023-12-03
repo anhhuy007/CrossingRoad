@@ -97,7 +97,7 @@ void WinterMap::ScrollUp() {
 	}
 
 	if (gameInfo.score == gameInfo.endLane) {
-		// display grass lane with teleport portal
+		// display final lane with teleport portal
 		lanes.insert(lanes.begin(), new SnowLane(0, game, snowlane, 0, 0));
 		portal.visible = true;
 		portal.setPosition(

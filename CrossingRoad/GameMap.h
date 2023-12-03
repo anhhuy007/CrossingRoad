@@ -52,6 +52,7 @@ public:
 	void LoadSavedLanes();
 
 	void SaveGame();
+
 	GameMapInfo GetGameMapInfo(
 		GameMapInfo partialInfo,
 		GamePlayer* player,
