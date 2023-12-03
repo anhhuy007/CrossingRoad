@@ -1,7 +1,13 @@
 #pragma once
 
+#ifndef _TEXTSTRING_H_
+#define _TEXTSTRING_H_
+
+
+
 #include <wchar.h>
 #include <string>
+
 
 namespace StringRes {
 	const std::wstring const GAME_TITLE = L"Crossing Road";
@@ -61,8 +67,15 @@ namespace DrawableRes {
 	const std::string DialogButtonTrigger = "widgets\\Dialog_Button_Trigger.sprite";
 
 
-
-
+	// SETTING SCREEN SPRITE
+	const std::string settingScreenFolder = "Screen\\settingScreen\\";
+	const std::string volumeBarLvl0 = settingScreenFolder + "lvl0.sprite";
+	const std::string volumeBarLvl1 = settingScreenFolder + "lvl1.sprite";
+	const std::string volumeBarLvl2 = settingScreenFolder + "lvl2.sprite";
+	const std::string volumeBarLvl3 = settingScreenFolder + "lvl3.sprite";
+	const std::string volumeBarLvl4 = settingScreenFolder + "lvl4.sprite";
+	const std::string volumeBarLvl5 = settingScreenFolder + "lvl5.sprite";
+	const std::string cursor = settingScreenFolder + "Cursor.sprite";
 
 	// LEADERBOARD SPRITE
 	const std::string leaderboardScreenFolder = "Screen\\leaderboardScreen\\img\\";
@@ -98,7 +111,7 @@ namespace DrawableRes {
 
 
 	//--------------------------------------SETTING SCREEN SPRITE-------------------------------
-	const std::string settingScreenFolder = "Screen\\settingScreen\\";
+
 	const std::string settingScreenTitleNoShadow = settingScreenFolder + "title\\withoutShadow\\";
 	const std::string settingScreenTitleWithShadow = settingScreenFolder + "title\\withShadow\\";
 	// S E T I N G withShadow
@@ -149,21 +162,22 @@ namespace DrawableRes {
 	const std::string splashScreenTitleWithShadow = splashScreenFolder + "title\\withShadow\\withShadow";
 
 	// N H O M 1 withShadow
-const std::string splashTitleCharNwithShadow = splashScreenTitleWithShadow + "N.Sprite";
-const std::string splashTitleCharHwithShadow = splashScreenTitleWithShadow + "H.Sprite";
-const std::string splashTitleCharOwithShadow = splashScreenTitleWithShadow + "O.Sprite";
-const std::string splashTitleCharMwithShadow = splashScreenTitleWithShadow + "M.Sprite";
-const std::string splashTitleChar1withShadow = splashScreenTitleWithShadow + "1.Sprite";
-const std::string splashTitleCharACUTEwithShadow = splashScreenTitleWithShadow + "ACUTE.Sprite";
+	const std::string splashTitleCharNwithShadow = splashScreenTitleWithShadow + "N.Sprite";
+	const std::string splashTitleCharHwithShadow = splashScreenTitleWithShadow + "H.Sprite";
+	const std::string splashTitleCharOwithShadow = splashScreenTitleWithShadow + "O.Sprite";
+	const std::string splashTitleCharMwithShadow = splashScreenTitleWithShadow + "M.Sprite";
+	const std::string splashTitleChar1withShadow = splashScreenTitleWithShadow + "1.Sprite";
+	const std::string splashTitleCharACUTEwithShadow = splashScreenTitleWithShadow + "ACUTE.Sprite";
 
 	// N H O M 1 ACUTE withoutShadow
-const std::string splashTitleCharNwithoutShadow = splashScreenTitleNoShadow + "N.Sprite";
-const std::string splashTitleCharHwithoutShadow = splashScreenTitleNoShadow + "H.Sprite";
-const std::string splashTitleCharOwithoutShadow = splashScreenTitleNoShadow + "O.Sprite";
-const std::string splashTitleCharMwithoutShadow = splashScreenTitleNoShadow + "M.Sprite";
-const std::string splashTitleChar1withoutShadow = splashScreenTitleNoShadow + "1.Sprite";
-const std::string splashTitleCharACUTEwithoutShadow = splashScreenTitleNoShadow + "ACUTE.Sprite";
-
+	const std::string splashTitleCharNwithoutShadow = splashScreenTitleNoShadow + "N.Sprite";
+	const std::string splashTitleCharHwithoutShadow = splashScreenTitleNoShadow + "H.Sprite";
+	const std::string splashTitleCharOwithoutShadow = splashScreenTitleNoShadow + "O.Sprite";
+	const std::string splashTitleCharMwithoutShadow = splashScreenTitleNoShadow + "M.Sprite";
+	const std::string splashTitleChar1withoutShadow = splashScreenTitleNoShadow + "1.Sprite";
+	const std::string splashTitleCharACUTEwithoutShadow = splashScreenTitleNoShadow + "ACUTE.Sprite";
 
 
 }
+
+#endif // !_TEXTSTRING_H_
