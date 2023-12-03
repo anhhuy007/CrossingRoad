@@ -243,13 +243,13 @@ void GameMap::InitWidget()
 			}
 		),
 	};
+
+	std::string message = "Choose your option";
 	pausegame_dialog = Widget::Dialog(
 		game,
-		"Choose your option",
+		message,
 		buttons,
-		{ 100, 50 },
-		100,
-		100
+		{ 100, 50 }
 	);
 	std::vector<Widget::Button> buttons2 = {
 		Widget::Button(
@@ -267,13 +267,14 @@ void GameMap::InitWidget()
 			}
 		),
 	};
+
+	Image gameoverImg = Image(DrawableRes::GameOver, Overlapped::DIALOG);
 	gameover_dialog = Widget::Dialog(
 		game,
-		"Game over",
+		Image(DrawableRes::GameOverDialog, Overlapped::DIALOG),
+		gameoverImg,
 		buttons2,
-		{ 100, 50 },
-		100,
-		100
+		{ 100, 50 }
 	);
 
 	level = Widget::Text(
@@ -461,7 +462,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 			break;
 		}
 
-		case ObjectType::SNOW_LANE:
+		case ObjectType::SNOW_LANE: {
 			SnowLane* snowlane = dynamic_cast<SnowLane*>(lane);
 			laneInfo.laneType = LaneType::SNOW;
 			laneInfo.objectDirection = MovingDirection::NONE;
@@ -486,6 +487,24 @@ GameMapInfo GameMap::GetGameMapInfo(
 			}
 
 			break;
+		}
+
+		case ObjectType::RAILWAY_LANE: {
+			RailWayLane* railWayLane = dynamic_cast<RailWayLane*>(lane);
+			laneInfo.laneType = LaneType::RAILWAY;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get train
+			ObjectInfo trainInfo;
+			Vehicle _train = railWayLane->GetVehicle();
+			trainInfo.objType = _train.getObjType();
+			trainInfo.speed = _train.vehicleSpeed;
+			trainInfo.position = _train.getPosition();
+
+			laneInfo.objectsInfo.push_back(trainInfo);
+
+			break;
+		}
 
 		}
 

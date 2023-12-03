@@ -66,8 +66,8 @@ std::string Widget::Text::GetNextWord(int index, std::string ptext) {
 	return ans;
 }
 
-int Widget::Text::GetWordWidth(std::string word) {
-	return word.size() * appearance[0].getWidth() + LETTER_SPACE; // 2 pixels is space between 2 letters
+int Widget::GetWordWidth(std::string word, int letterWidth) {
+	return word.size() * letterWidth + LETTER_SPACE; // 2 pixels is space between 2 letters
 }
 
 void Widget::Text::Render() {
@@ -86,7 +86,7 @@ void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidt
 	int index = 0;
 	while (index < ptext.size()) {
 		std::string word = GetNextWord(index, ptext);
-		int wordWidth = GetWordWidth(word);
+		int wordWidth = GetWordWidth(word, appearance[0].getWidth());
 
 		if (currentPos.X + wordWidth > maxX) {
 			// if text box is full then stop writing text
@@ -118,8 +118,12 @@ Widget::Button::Button(
 	text = Text(
 		pgame,
 		ptext,
-		GetCenterTextPos(ptext, pposition, 112, 34),
-		112, 34,
+		GetCenterTextPos(
+			ptext,
+			{ short(pposition.X + 43), short(pposition.Y + 18) },
+			90, 22
+		),
+		90, 22,
 		TextFont::NORMAL
 	);
 
@@ -175,36 +179,52 @@ COORD Widget::GetCenterTextPos(
 	int width,
 	int height
 ) {
-	int textWidth = text.size() * 5;
+	int textWidth = GetWordWidth(text, 5);
 	int textHeight = 5;
 
 	int x = position.X + (width - textWidth) / 2;
 	int y = position.Y + (height - textHeight) / 2;
 
-	return { short(x + 20), short(y + 10) };
+	return { short(x), short(y) };
+}
+
+COORD Widget::GetMessageImgPos(
+	COORD position,
+	int width,
+	int height,
+	int imgWidth,
+	int imgHeight
+) {
+	int x = position.X + (width - imgWidth) / 2;
+	int y = position.Y + (height - imgHeight) / 2;
+
+	return { short(x), short(y) };
 }
 
 Widget::Dialog::Dialog(
 	CrossingRoad* pgame, 
 	std::string ptext, 
 	std::vector<Widget::Button>& pbuttons, 
-	COORD pposition, 
-	int pwidth, 
-	int pheight
+	COORD pposition
 ) : GameObject(pgame) {
 	dialog = Image(DrawableRes::Dialog, Overlapped::DIALOG);
+	width = dialog.getWidth();
+	height = dialog.getHeight();
+
 	message = Widget::Text(
 		pgame,
 		ptext,
-		Widget::GetCenterTextPos(ptext, pposition, pwidth + 180, pheight - 55),
-		pwidth,
-		pheight,
+		Widget::GetCenterTextPos(
+			ptext, 
+			{ short(pposition.X + 65), short(pposition.Y + 10) }, // {pposition.X + 65, pposition.Y + 15
+			width - 65, height - 50
+		),
+		width - 65,
+		height - 50,
 		TextFont::NORMAL
 	);
 	buttons = pbuttons;
 	position = pposition;
-	width = pwidth;
-	height = pheight;
 
 	// change buttons appearances
 	for (auto& button : buttons) {
@@ -222,9 +242,54 @@ Widget::Dialog::Dialog(
 		// set button text positions
 		button.text.setTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 20, -10),
-			50,
-			15
+			Widget::GetMessageImgPos(
+				pos,
+				57, 13,
+				button.text.text.length() * 5, 5
+			),
+			57, 13
+		);
+
+		pos.X += 60;
+	}
+}
+
+Widget::Dialog::Dialog(
+	CrossingRoad* pgame,
+	Image _pdialog,
+	Image _pmessageImage,
+	std::vector<Widget::Button>& pbuttons,
+	COORD pposition
+) : GameObject(pgame) {
+	dialog = _pdialog;
+	dialogMessage = _pmessageImage;
+	buttons = pbuttons;
+	position = pposition;
+	width = dialog.getWidth();
+	height = dialog.getHeight();
+
+	// change buttons appearances
+	for (auto& button : buttons) {
+		button.appearance[0] = Image(DrawableRes::DialogButtonNormal, Overlapped::BUTTON);
+		button.appearance[1] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+		button.appearance[2] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+	}
+
+	// set button positions
+	COORD pos = { pposition.X + 72, pposition.Y + 45 };
+	if (buttons.size() == 2) pos.X += 30;
+	for (auto& button : buttons) {
+		button.setPosition(pos);
+
+		// set button text positions
+		button.text.setTextPosition(
+			button.text.text,
+			Widget::GetMessageImgPos(
+				pos,
+				57, 13,
+				button.text.text.length() * 5, 5
+			),
+			57, 13
 		);
 
 		pos.X += 60;
@@ -287,6 +352,18 @@ void Widget::Dialog::Update(float elapsedTime) {
 
 void Widget::Dialog::Render() {
 	game->RenderSprite(dialog, position);
+
+	int imgWidth = dialogMessage.getWidth();
+	int imgHeight = dialogMessage.getHeight();
+	game->RenderSprite(
+		dialogMessage, 
+		GetMessageImgPos(
+			{ short(position.X + 65), position.Y },
+			dialog.getWidth() - 65, dialog.getHeight() - 30,
+			imgWidth, imgHeight
+		)
+	);
+
 	message.Render();
 	for (auto& button : buttons) {
 		button.Render();

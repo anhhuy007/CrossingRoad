@@ -18,13 +18,15 @@ MenuWidget::MenuWidget(
 		// set button text positions
 		button.text.setTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 138, 34),
-			138,
-			34
+			Widget::GetMessageImgPos(
+				{ short(pos.X + 43), short(pos.Y + 18) },
+				90, 20,
+				button.text.text.length() * 5, 5
+			),
+			90, 20
 		);
 
 		pos.Y += 30;
-
 	}
 }
 

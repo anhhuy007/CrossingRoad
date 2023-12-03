@@ -57,10 +57,15 @@ namespace DrawableRes {
 	const std::string normalButton = "widgets\\NormalButton.sprite";
 	const std::string onChosenButton = "widgets\\OnHoverButton.sprite";
 	const std::string onEnterButton = "widgets\\OnTriggerButton.sprite";
-	const std::string Dialog = "widgets\\Dialog.sprite";
 	const std::string DialogButtonNormal = "widgets\\Dialog_Button_Normal.sprite";
 	const std::string DialogButtonHover = "widgets\\Dialog_Button_Hover.sprite";
 	const std::string DialogButtonTrigger = "widgets\\Dialog_Button_Trigger.sprite";
+
+	// dialog sprites
+	const std::string Dialog = "widgets\\Dialog.sprite";
+	const std::string GameOverDialog = "widgets\\GameOverDialog.sprite";
+	const std::string GameOver = "widgets\\GameOver.sprite";
+	
 
 	// LEADERBOARD SPRITE
 	const std::string leaderboardScreenFolder = "Screen\\leaderboardScreen\\img\\";

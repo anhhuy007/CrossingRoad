@@ -17,7 +17,6 @@ namespace Widget {
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 		std::string GetNextWord(int index, std::string ptext);
-		int GetWordWidth(std::string word);
 
 	public:
 		std::vector<COORD> textPositions;
@@ -75,13 +74,20 @@ namespace Widget {
 	class Dialog : public GameObject {
 	public: 
 		Dialog() : GameObject(nullptr) {};
+		
 		Dialog(
 			CrossingRoad* pgame,
 			std::string ptext,
 			std::vector<Widget::Button> &pbuttons,  
-			COORD pposition,
-			int pwidth,
-			int pheight
+			COORD pposition
+		);
+
+		Dialog(
+			CrossingRoad* pgame,
+			Image _pdialog,
+			Image _pmessageImage, 
+			std::vector<Widget::Button>& pbuttons,
+			COORD pposition
 		);
 
 		// overried methods
@@ -90,6 +96,7 @@ namespace Widget {
 
 		// attributes
 		Image dialog;
+		Image dialogMessage;
 		Widget::Text message;
 		std::vector<Widget::Button> buttons;
 		int currentButtonIndex = 0;
@@ -99,5 +106,20 @@ namespace Widget {
 		float totalTime = 0;
 	};
 
-	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
+	int GetWordWidth(std::string word, int letterWidth);
+
+	COORD GetCenterTextPos(
+		std::string text, 
+		COORD position, 
+		int width, 
+		int height
+	);
+
+	COORD GetMessageImgPos(
+		COORD position,
+		int width,
+		int height, 
+		int imgWidth,
+		int imgHeight
+	);
 };

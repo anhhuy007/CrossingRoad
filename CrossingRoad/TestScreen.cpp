@@ -43,13 +43,12 @@ bool TestScreen::OnCreate() {
 		),
 	};
 
+	std::string message = "Choose your option";
 	dialog = Widget::Dialog(
 		game,
-		"Choose your option",
+		message,
 		buttons, 
-		{ 50, 50 },
-		100,
-		100
+		{ 50, 50 }
 	);
 
 	return true;
