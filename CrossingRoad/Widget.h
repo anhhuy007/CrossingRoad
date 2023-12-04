@@ -31,18 +31,31 @@ namespace Widget {
 			int pheight,
 			TextFont pfont
 		);
+		
+		Text(
+			CrossingRoad* pgame,
+			std::string ptext,
+			COORD pposition,
+			int pwidth,
+			int pheight,
+			TextFont pfont,
+			short pcolor	// from 0 to 15
+		);
 
 		// overried methods
 		void Update(float elapsedTime) {};
 		void Render();
+		void UpdateText(std::string ptext);
 
 		// behaviours
-		void setTextPosition(
+		void SetTextPosition(
 			std::string ptext, 
 			COORD pposition, 
 			int pwidth, 
 			int pheight
 		);
+
+		void SetTextColor(short pcolor);
 	};
 
 	class Button : public GameObject {

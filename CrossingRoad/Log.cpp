@@ -23,8 +23,8 @@ Log::Log(
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	logSpeed = float((rand() % 3) + 1) * 0.004;
-	width = logSprite.getWidth();
-	height = logSprite.getHeight();
+	width = logSprite.GetWidth();
+	height = logSprite.GetHeight();
 	logSprite.SetOverlapped(Overlapped::LOG);
 }
 
@@ -58,8 +58,8 @@ Log::Log(
 	}
 
 	logSprite.SetOverlapped(Overlapped::LOG);
-	width = logSprite.getWidth();
-	height = logSprite.getHeight();
+	width = logSprite.GetWidth();
+	height = logSprite.GetHeight();
 	logSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
@@ -93,8 +93,8 @@ void Log::Update(float elapsedTime) {
 
 void Log::SetSprite(Graphic::Sprite _sprite) {
 	// delete old sprite
-	width = _sprite.getWidth();
-	height = _sprite.getHeight();
+	width = _sprite.GetWidth();
+	height = _sprite.GetHeight();
 	logSprite = _sprite;
 }
 

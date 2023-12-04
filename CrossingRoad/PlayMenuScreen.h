@@ -20,6 +20,7 @@ public:
 	void OnLevelModeClicked();
 	void OnEndlessModeClicked();
 	void OnLoadGameClicked();
+	std::string GetSavedGameName();
 
 	Image bgImage;
 	MenuWidget playMenuWidget;

@@ -51,6 +51,7 @@ public:
 	void GetNewGameLevel(int level);
 	void LoadSavedLanes();
 
+	std::string GetSavedGameName();
 	void SaveGame();
 
 	GameMapInfo GetGameMapInfo(

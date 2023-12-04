@@ -46,8 +46,8 @@ Vehicle::Vehicle(
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
-	width = vehicleSprite.getWidth();
-	height = vehicleSprite.getHeight();
+	width = vehicleSprite.GetWidth();
+	height = vehicleSprite.GetHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
@@ -97,8 +97,8 @@ Vehicle::Vehicle(
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	vehicleSpeed = 0.001 + (rand() % 4 + 1) * 0.001;
 	endOfRoad = true;
-	width = vehicleSprite.getWidth();
-	height = vehicleSprite.getHeight();
+	width = vehicleSprite.GetWidth();
+	height = vehicleSprite.GetHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
@@ -143,8 +143,8 @@ Vehicle::Vehicle(
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	vehicleSpeed = _info.speed;
 	position = _info.position;
-	width = vehicleSprite.getWidth();
-	height = vehicleSprite.getHeight();
+	width = vehicleSprite.GetWidth();
+	height = vehicleSprite.GetHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 

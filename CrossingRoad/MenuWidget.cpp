@@ -16,7 +16,7 @@ MenuWidget::MenuWidget(
 		button.setPosition(pos);
 
 		// set button text positions
-		button.text.setTextPosition(
+		button.text.SetTextPosition(
 			button.text.text,
 			Widget::GetMessageImgPos(
 				{ short(pos.X + 43), short(pos.Y + 18) },
@@ -82,12 +82,12 @@ void MenuWidget::Update(float elapsedTime) {
 	// trigger button action
 	if (enterClicked) {
 		totalTime += elapsedTime;
-		if (totalTime > 400) {
+		if (totalTime > 200) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;
 			// reset button text position
-			buttons[currentButtonIndex].text.setTextPosition(
+			buttons[currentButtonIndex].text.SetTextPosition(
 				buttons[currentButtonIndex].text.text,
 				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 138, 34),
 				138,

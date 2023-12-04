@@ -9,11 +9,11 @@ namespace Graphic {
 	class Pixel {
 	public:
 		COORD coordinate;
-		COLOR::COLOR color;
+		short color;
 		int overlapped;
 
 		Pixel();
-		Pixel(COORD _coordinate, COLOR::COLOR _color);
+		Pixel(COORD _coordinate, short _color);
 	};
 
 	class Sprite {
@@ -35,14 +35,15 @@ namespace Graphic {
 		};
 
 		// ----- Getters -----
-		int getWidth();
-		int getHeight();
-		Pixel getPixel(int i, int j);
+		int GetWidth();
+		int GetHeight();
+		Pixel GetPixel(int i, int j);
 
 		// ----- Setters -----
 		void setWidth(int _width);
 		void setHeight(int _height);
 		void SetOverlapped(int _overlapped);
+		void SetPixelColor(int i, int j, short color);
 	};
 
 	void GotToXY(int x, int y);

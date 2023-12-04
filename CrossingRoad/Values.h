@@ -44,6 +44,13 @@ enum Keyboard : int {
 	SPACE_KEY = VK_SPACE,
 	ENTER_KEY = VK_RETURN,
 	ESCAPE_KEY = VK_ESCAPE,
+	BACKSPACE_KEY = VK_BACK,
+	A_KEY = 65,
+	Z_KEY = 90,
+	a_KEY = 97,
+	z_KEY = 122,
+	NUM_0_KEY = 48,
+	NUM_9_KEY = 57
 };
 
 enum class PlayerState {

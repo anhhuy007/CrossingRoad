@@ -8,10 +8,14 @@ Widget::Text::Text(
 	int pheight,
 	TextFont pfont
 ) : GameObject(pgame) {
+	if (ptext == "") return;
+
 	ptext += " ";
 	text = ptext;
 	font = pfont;
 	position = pposition;
+	width = pwidth;
+	height = pheight;
 
 	// set appearance
 	appearance.clear();
@@ -25,7 +29,41 @@ Widget::Text::Text(
 	}
 
 	// set text positions
-	setTextPosition(ptext, pposition, pwidth, pheight);
+	SetTextPosition(ptext, pposition, pwidth, pheight);
+};
+
+Widget::Text::Text(
+	CrossingRoad* pgame,
+	std::string ptext,
+	COORD pposition,
+	int pwidth,
+	int pheight,
+	TextFont pfont,
+	short pcolor
+) : GameObject(pgame) {
+	if (ptext == "") return;
+
+	ptext += " ";
+	text = ptext;
+	font = pfont;
+	position = pposition;
+	width = pwidth;
+	height = pheight;
+
+	// set appearance
+	appearance.clear();
+	for (auto& ch : ptext) {
+		// get sprite name
+		if (!isalpha(ch) && !isdigit(ch)) continue;
+
+		std::string spriteName = GetLetterSpritePath(ch, font);
+		Image letter = Image(spriteName, Overlapped::TEXT);
+		appearance.push_back(letter);
+	}
+
+	// set text positions
+	SetTextPosition(ptext, pposition, pwidth, pheight);
+	SetTextColor(pcolor);
 };
 
 std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
@@ -56,6 +94,7 @@ std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
 }
 
 
+
 std::string Widget::Text::GetNextWord(int index, std::string ptext) {
 	std::string ans = "";
 	while (ptext[index] != ' ') {
@@ -76,17 +115,43 @@ void Widget::Text::Render() {
 	}
 }
 
-void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidth, int pheight) {
+void Widget::Text::UpdateText(std::string ptext)
+{
+	if (ptext == text || ptext == "") return;
+	ptext += " ";
+	text = ptext;
+
+	// set appearance
+	appearance.clear();
+	for (auto& ch : ptext) {
+		// get sprite name
+		if (!isalpha(ch) && !isdigit(ch)) continue;
+
+		std::string spriteName = GetLetterSpritePath(ch, font);
+		Image letter = Image(spriteName, Overlapped::TEXT);
+		appearance.push_back(letter);
+	}
+
+	// set text positions
+	SetTextPosition(ptext, position, width, height);
+}
+
+void Widget::Text::SetTextPosition(
+	std::string ptext,
+	COORD pposition,
+	int pwidth,
+	int pheight
+) {
 	textPositions.clear();
 
-	int wordHeight = appearance[0].getHeight();
+	int wordHeight = appearance[0].GetHeight();
 	int maxX = pposition.X + pwidth;
 	int maxY = pposition.Y + pheight;
 	COORD currentPos = pposition;
 	int index = 0;
 	while (index < ptext.size()) {
 		std::string word = GetNextWord(index, ptext);
-		int wordWidth = GetWordWidth(word, appearance[0].getWidth());
+		int wordWidth = GetWordWidth(word, appearance[0].GetWidth());
 
 		if (currentPos.X + wordWidth > maxX) {
 			// if text box is full then stop writing text
@@ -100,11 +165,24 @@ void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidt
 		// set each character positions
 		for (int i = 0; i < word.size(); i++) {
 			textPositions.push_back(currentPos);
-			currentPos.X += appearance[i].getWidth();
+			currentPos.X += appearance[i].GetWidth();
 		}
 		currentPos.X += 2; // 2 pixels is space between 2 words
 
 		index += word.size() + 1;
+	}
+}
+
+void Widget::Text::SetTextColor(short pcolor)
+{
+	for (auto& letter : appearance) {
+		for (int i = 0; i < letter.GetHeight(); i++) {
+			for (int j = 0; j < letter.GetWidth(); j++) {
+				if (letter.GetPixel(i, j).color != COLOR::TRANSPARENT_) {
+					letter.SetPixelColor(i, j, pcolor);
+				}
+			}
+		}
 	}
 }
 
@@ -208,8 +286,8 @@ Widget::Dialog::Dialog(
 	COORD pposition
 ) : GameObject(pgame) {
 	dialog = Image(DrawableRes::Dialog, Overlapped::DIALOG);
-	width = dialog.getWidth();
-	height = dialog.getHeight();
+	width = dialog.GetWidth();
+	height = dialog.GetHeight();
 
 	message = Widget::Text(
 		pgame,
@@ -240,7 +318,7 @@ Widget::Dialog::Dialog(
 		button.setPosition(pos);
 
 		// set button text positions
-		button.text.setTextPosition(
+		button.text.SetTextPosition(
 			button.text.text,
 			Widget::GetMessageImgPos(
 				pos,
@@ -265,8 +343,8 @@ Widget::Dialog::Dialog(
 	dialogMessage = _pmessageImage;
 	buttons = pbuttons;
 	position = pposition;
-	width = dialog.getWidth();
-	height = dialog.getHeight();
+	width = dialog.GetWidth();
+	height = dialog.GetHeight();
 
 	// change buttons appearances
 	for (auto& button : buttons) {
@@ -282,7 +360,7 @@ Widget::Dialog::Dialog(
 		button.setPosition(pos);
 
 		// set button text positions
-		button.text.setTextPosition(
+		button.text.SetTextPosition(
 			button.text.text,
 			Widget::GetMessageImgPos(
 				pos,
@@ -353,13 +431,13 @@ void Widget::Dialog::Update(float elapsedTime) {
 void Widget::Dialog::Render() {
 	game->RenderSprite(dialog, position);
 
-	int imgWidth = dialogMessage.getWidth();
-	int imgHeight = dialogMessage.getHeight();
+	int imgWidth = dialogMessage.GetWidth();
+	int imgHeight = dialogMessage.GetHeight();
 	game->RenderSprite(
 		dialogMessage, 
 		GetMessageImgPos(
 			{ short(position.X + 65), position.Y },
-			dialog.getWidth() - 65, dialog.getHeight() - 30,
+			dialog.GetWidth() - 65, dialog.GetHeight() - 30,
 			imgWidth, imgHeight
 		)
 	);
