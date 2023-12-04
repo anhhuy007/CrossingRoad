@@ -1,6 +1,10 @@
 #include "SavedGameScreen.h"
+#include "CrossingRoad.h"
+#include "Sound.h"
+#include "ClassicMap.h"
+#include "WinterMap.h"
 
-bool SavedGameScreen::OnCreate()
+void SavedGameScreen::InitWidget()
 {
 	//S A V E D G M
 	std::vector<Graphic::Sprite> textSgif = {
@@ -31,7 +35,7 @@ bool SavedGameScreen::OnCreate()
 		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithShadow),
 		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithoutShadow),
 	};
-	
+
 	std::string animationPath = "Screen\\saveGame\\animation\\hoverGif\\";
 	std::vector<Graphic::Sprite> hoverGif;
 	for (int i = 1; i <= 6; i++)
@@ -87,6 +91,54 @@ bool SavedGameScreen::OnCreate()
 	listItem = Image("Screen\\saveGame\\img\\listItem.sprite");
 	book = Image("Screen\\saveGame\\img\\book.sprite");
 	cat = Image("Screen\\saveGame\\img\\cat.sprite");
+}
+
+std::vector<SavedGameDisplayInfo> SavedGameScreen::GetSavedGameInfo()
+{
+	std::string path = "SavedGame\\";
+	for (const auto& entry : std::filesystem::directory_iterator(path))
+	{
+		std::string fileName = entry.path().filename().string();
+		
+		// read file to get saved game info
+		GameMapInfo gameInfo;
+		bool status = FileIO::LoadGameInfo(fileName, gameInfo);
+
+		if (!status) continue;
+
+		// get display info
+		fileName = fileName.substr(0, fileName.find("."));
+		savedGameList.push_back(SavedGameDisplayInfo(
+			savedGameList.size() + 1,
+			"unknown",
+			fileName,
+			gameInfo.gameMode,
+			gameInfo.score
+		));
+	}
+
+	return savedGameList;
+}
+
+bool SavedGameScreen::OnCreate()
+{
+	InitWidget();
+	std::vector<SavedGameDisplayInfo> savedGameList = GetSavedGameInfo();
+
+	// display saved game list to table
+	COORD pos = { 75, 95 };
+	for (int i = 0; i < savedGameList.size(); i++)
+	{
+		savedGameTexts.push_back(SavedGameText(
+			game,
+			savedGameList[i],
+			pos,
+			200, 5,
+			TextFont::NORMAL, 0
+		));
+
+		pos.Y += 30;
+	}
 
 	return true;
 }
@@ -104,6 +156,17 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 
+	// render text
+	for (int i = 0; i < savedGameTexts.size(); i++)
+	{
+		savedGameTexts[i].Render();
+	}
+
+	// render header
+	for (int i = 0; i < 5; i++) {
+		header[i].Render();
+	}
+
 	S.OnPlay(elapsedTime);
 	A1.OnPlay(elapsedTime);
 	V.OnPlay(elapsedTime);
@@ -115,7 +178,105 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	M.OnPlay(elapsedTime);
 	E2.OnPlay(elapsedTime);
 
+	// update hover
+	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+		if (hoverIndex > 0) {
+			hoverIndex--;
+			hoverPos.Y -= 30;
+		}
+	}
+	else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+		if (hoverIndex < savedGameTexts.size() - 1) {
+			hoverIndex++;
+			hoverPos.Y += 30;
+		}
+	}
+
+	hover.SetPosition(hoverPos);
 	hover.OnPlay(elapsedTime);
 
+	// handle enter key pressed
+	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		// get saved game info
+		SavedGameDisplayInfo info = savedGameList[hoverIndex];
+
+		// load saved game
+		GameMapInfo gameInfo;
+		bool status = FileIO::LoadGameInfo(info.fileName + ".game", gameInfo);
+		
+		if (!status) return false;
+
+		// navigate to game screen
+		if (gameInfo.mapType == MapType::CLASSIC) {
+			CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+		}
+		else if (gameInfo.mapType == MapType::WINTER) {
+			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+		}
+	}
+
 	return true;
+}
+
+SavedGameScreen::SavedGameText::SavedGameText(
+	CrossingRoad* _game,
+	SavedGameDisplayInfo _info,
+	COORD _position,
+	int _width,
+	int _height,
+	TextFont _font,
+	short _color
+) {
+	game = _game;
+	info = _info;
+	position = _position;
+
+	number = Widget::Text(
+		game,
+		std::to_string(info.index),
+		{ short(position.X + 10), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	playerName = Widget::Text(
+		game,
+		info.playerName,
+		{ short(position.X + 35), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	gameName = Widget::Text(
+		game,
+		info.fileName,
+		{ short(position.X + 120), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	gameMode = Widget::Text(
+		game,
+		(info.gameMode == GameMode::ENDLESS_MODE) ? "ENDLESS" : "LEVEL",
+		{ short(position.X + 220), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	score = Widget::Text(
+		game,
+		std::to_string(info.score),
+		{ short(position.X + 280), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+}
+
+void SavedGameScreen::SavedGameText::Render()
+{
+	number.Render();
+	playerName.Render();
+	gameName.Render();
+	gameMode.Render();
+	score.Render();
 }

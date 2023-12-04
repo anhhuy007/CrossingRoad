@@ -274,3 +274,33 @@ struct GameMapInfo {
 		coin = other.coin;
 	}
 };
+
+struct SavedGameDisplayInfo {
+	int index;
+	std::string playerName;
+	std::string fileName;
+	GameMode gameMode;
+	int score;
+
+	SavedGameDisplayInfo() {
+		index = 0;
+		playerName = "";
+		fileName = "";
+		gameMode = GameMode::ENDLESS_MODE;
+		score = 0;
+	}
+
+	SavedGameDisplayInfo(
+		int _index,
+		std::string _playerName,
+		std::string _fileName,
+		GameMode _gameMode,
+		int _score
+	) {
+		index = _index;
+		playerName = _playerName;
+		fileName = _fileName;
+		gameMode = _gameMode;
+		score = _score;
+	}
+};
