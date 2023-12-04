@@ -10,8 +10,14 @@ Lane::Lane(
 	this->laneSprite = laneSprite;
 	this->game = game;
 	this->laneType = laneType;
-}
 
+	// Set object type
+	if (laneType == LaneType::ROAD) objType = ObjectType::ROAD_LANE;
+	else if (laneType == LaneType::WATER) objType = ObjectType::WATER_LANE;
+	else if (laneType == LaneType::SNOW) objType = ObjectType::SNOW_LANE;
+	else if (laneType == LaneType::RAILWAY) objType = ObjectType::RAILWAY_LANE;
+	else objType = ObjectType::GRASS_LANE;
+}
 
 Lane::Lane(const Lane& lane) : GameObject(lane) {
 	this->id = lane.id;

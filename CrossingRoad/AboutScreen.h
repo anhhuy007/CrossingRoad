@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ABOUT_SCREEN_H
-#define ABOUT_SCREEN_H
-
 #include "Animation.h"
 #include "Widget.h"
 #include "MenuWidget.h"
@@ -15,6 +12,7 @@ public:
 	// overrided functions 
 	bool OnCreate();
 	bool OnUpdate(float elapsedTime);
+	bool OnPause() { return true; };
 	bool OnDestroy() { return false; };
 
 	Image image;
@@ -24,7 +22,4 @@ public:
 
 	MenuWidget aboutMenuWidget;
 };
-
-#endif // !ABOUT_SCREEN_H
-
 

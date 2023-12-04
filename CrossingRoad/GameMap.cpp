@@ -2,74 +2,63 @@
 #include "WaterLane.h"
 #include "RoadLane.h"
 #include "WinterMap.h"
+#include "ClassicMap.h"
 
-bool GameMap::OnCreate() {
+const std::vector<std::pair<MapType, int>> gameLevels = {
+	{ MapType::WINTER, 20 },
+	{ MapType::WINTER, 20 },
+	{ MapType::CLASSIC, 20 },
+	{ MapType::CLASSIC, 30 },
+	{ MapType::WINTER, 30 },
+	{ MapType::WINTER, 30 },
+	{ MapType::CLASSIC, 30 },
+	{ MapType::WINTER, 40 },
+	{ MapType::CLASSIC, 40 },
+};
+
+void GameMap::CreateNewGame()
+{
 	player = new GamePlayer(Player::DUCKY, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
-	
-	// widgets
-	std::vector<Widget::Button> buttons = {
-		Widget::Button(
-			game,
-			"Exit",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
-		Widget::Button(
-			game,
-			"Save game",
-			[]() {}
-		),
-		Widget::Button(
-			game,
-			"Continue",
-			[&]() {
-				isPaused = false;
-			}
-		),
-	};
-	pausegame_dialog = Widget::Dialog(
-		game,
-		"Choose your option",
-		buttons,
-		{ 100, 50 },	
-		100,
-		100
-	);
-	std::vector<Widget::Button> buttons2 = {
-		Widget::Button(
-			game,
-			"Exit",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
-		Widget::Button(
-			game,
-			"New game",
-			[&]() {
-				CrossingRoad::Navigation::To(new WinterMap(game));
-			}
-		),
-	};
-	gameover_dialog = Widget::Dialog(
-		game,
-		"Game over",
-		buttons2,
-		{ 100, 50 },
-		100,
-		100
-	);
-
-	
-	// create game lanes
-	CreateLanes();
-	SetScreenColor();
-	
 	maxIndex = 14;
-	
+
+	if (gameInfo.gameMode == GameMode::ENDLESS_MODE) {
+		// create random game lanes
+		gameInfo.endLane = 300;
+		gameInfo.level = 0;
+	}
+
+	CreateLanes();
+}
+
+void GameMap::LoadSavedGame()
+{
+	// initialize player
+	player = new GamePlayer(gameInfo.playerInfo, game);
+
+	if (gameInfo.gameMode == GameMode::LEVEL_MODE) {
+		// build portal for level mode
+		portal = Portal(game);
+		portal.setPosition(gameInfo.portalInfo.position);
+		portal.visible = gameInfo.portalInfo.visible;
+		portal.lanePos = gameInfo.portalInfo.lanePos;
+	}
+
+	LoadSavedLanes();
+}
+
+bool GameMap::OnCreate() 
+{	
+	if (gameInfo.lanesInfo.size() == 0) {
+		CreateNewGame();
+	}
+	else {
+		LoadSavedGame();
+	}
+
+	InitWidget();
+
 	return true;
 }
 
@@ -106,7 +95,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 		int playerPos = player->lanePos;
 		if (playerPos < maxIndex) {
 			maxIndex = playerPos;
-			score++;
+			gameInfo.score++;
 		}
 	}
 
@@ -151,8 +140,8 @@ void GameMap::Render() {
 	}
 
 	// update text 
-	std::string str_score = std::to_string(score);
-	std::string str_coin = std::to_string(collectedCoins);
+	std::string str_score = std::to_string(gameInfo.score);
+	std::string str_coin = std::to_string(gameInfo.coin);
 
 	Widget::Text textScore = Widget::Text(
 		game,
@@ -174,6 +163,7 @@ void GameMap::Render() {
 	// display score
 	textScore.Render();
 	textCoins.Render();
+	level.Render();
 }
 
 bool GameMap::HandlePlayerCollision(float elapsedTime) {
@@ -225,20 +215,30 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 			}
 		}
 	}
-	else if (collisType == 6) {
+	else if (collisType == 6) {		
+		// player hit the portal
 		game->sound->turnOffBackgroundSound();
 
-		// player hit the portal
-		game->sound->playEffectSound(int(Sound::Effect::PORTAL));
+		// update game info for the next level
+		gameInfo.score = 0;
+		gameInfo.coin += 5; // add 5 coins for player
+		gameInfo.level++;
+		gameInfo.mapType = gameLevels[gameInfo.level - 1].first;
+		gameInfo.endLane = gameLevels[gameInfo.level - 1].second;
+
+		if (gameInfo.mapType == MapType::WINTER) {
+			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+		}
+		else {
+			CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+		}
+
 		system("pause");
-
-
-		CrossingRoad::Navigation::To(new WinterMap(game));
 	}
 	else if (collisType == 2) {
 		// player hit the coin
-		game->sound->playEffectSound( int(Sound::Effect::COIN));
-		collectedCoins++;
+		game->sound->playEffectSound(int(Sound::Effect::COIN));
+		gameInfo.coin++;
 		RoadLane* lane = dynamic_cast<RoadLane*>(lanes[player->lanePos + 1]);
 		lane->coin.isCollected = true;
 	}
@@ -246,12 +246,454 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	return true;
 }
 
+void GameMap::InitWidget()
+{
+	// widgets
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"Save game",
+			[&]() {
+				SaveGame();
+			}
+		),
+		Widget::Button(
+			game,
+			"Continue",
+			[&]() {
+				isPaused = false;
+			}
+		),
+	};
+
+	std::string message = "Choose your option";
+	pausegame_dialog = Widget::Dialog(
+		game,
+		message,
+		buttons,
+		{ 100, 50 }
+	);
+	std::vector<Widget::Button> buttons2 = {
+		Widget::Button(
+			game,
+			"Exit",
+			[&]() {
+				CrossingRoad::Navigation::To(new MenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"New game",
+			[&]() {
+				CrossingRoad::Navigation::To(new WinterMap(game));
+			}
+		),
+	};
+
+	Image gameoverImg = Image(DrawableRes::GameOver, Overlapped::DIALOG);
+	gameover_dialog = Widget::Dialog(
+		game,
+		Image(DrawableRes::GameOverDialog, Overlapped::DIALOG),
+		gameoverImg,
+		buttons2,
+		{ 100, 50 }
+	);
+
+	level = Widget::Text(
+		game,
+		std::to_string(gameInfo.level),
+		{ 10, 5 },
+		30, 30,
+		TextFont::NUMBER
+	);
+
+	SetScreenColor();
+}
+
+void GameMap::GetNewEndlessGame()
+{
+	// generate new endless game
+	gameInfo.gameMode = GameMode::ENDLESS_MODE;
+	gameInfo.endLane = -1;
+
+	CreateLanes();
+}
+
+void GameMap::GetNewGameLevel(int level)
+{
+	// get new game level info
+	gameInfo.mapType = gameLevels[level - 1].first;
+	gameInfo.endLane = gameLevels[level - 1].second;
+
+	CreateLanes();
+}
+
+void GameMap::SaveGame()
+{
+	std::string gameName = GetSavedGameName();
+	GameMapInfo finalInfo = GetGameMapInfo(gameInfo, player, lanes);
+	bool status = FileIO::WriteGameInfo(gameName + ".game", finalInfo);
+
+	if (status == true) {
+		std::cout << "Game saved successfully" << std::endl;
+	}
+	else {
+		std::cout << "Game saved failed" << std::endl;
+	};
+
+	system("pause");
+}
+
+std::string GameMap::GetSavedGameName()
+{
+	// display screen to ask player to enter game name
+	std::string gameName;
+	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	Widget::Text title = Widget::Text(
+		game,
+		"Enter game name: ",
+		{ 140, 70 },
+		100, 30,
+		TextFont::NORMAL,
+		6
+	);
+	Widget::Text inputText = Widget::Text(
+		game,
+		"name",
+		{ 230, 70 },
+		200, 30,
+		TextFont::NORMAL
+	);
+	Widget::Text rule = Widget::Text(
+		game,
+		"Game name must be less than 20 characters and contain no special characters",
+		{ 140, 100 },
+		200, 30,
+		TextFont::NORMAL,
+		15
+	);
+
+	Widget::Text note = Widget::Text(
+		game,
+		"Press ENTER to save game or ESC to exit",
+		{ 140, 120 },
+		200, 40,
+		TextFont::NORMAL,
+		15
+	);
+
+	Widget::Text inputStatus = Widget::Text(
+		game,
+		"Invalid game name!",
+		{ 140, 150 },
+		200, 40,
+		TextFont::NORMAL,
+		10
+	);
+
+	// lambda function to check if game name is valid
+	auto isValidGameName = [](std::string gameName) {
+		if (gameName.size() == 0 || gameName.size() > 20) return false;
+		for (auto c : gameName) {
+			if (c == ' ') continue;
+			if (c < '0' || c > '9') {
+				if (c < 'A' || c > 'Z') {
+					if (c < 'a' || c > 'z') {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+		};
+
+	// check exist game name
+	auto isExistGameName = [](std::string gameName) {
+		std::string path = "SavedGame/" + gameName + ".game";
+		std::ifstream file(path);
+		return file.good();
+		};
+
+	// get game name from player
+	bool isValid = false;
+	bool okGameName = false;
+	while (!okGameName) {
+		game->inputHandle = InputHandle::GetKeyBoardState();
+
+		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+			if (isExistGameName(gameName)) {
+				isValid = false;
+				inputStatus.UpdateText("Game name is exist!");
+			}
+			else if (isValidGameName(gameName)) {
+				okGameName = true;
+				inputStatus.UpdateText("Save game succesfully!");
+				inputStatus.SetTextColor(8);
+			}
+		}
+		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+			return "";
+		}
+		else for (int i = 0; i < keyNumber; i++) {
+			if (game->inputHandle->keyState_[i].isPressed) {
+				isValid = isValidGameName(gameName);
+				if (!isValid) inputStatus.UpdateText("Invalid game name!");
+				else inputStatus.UpdateText("This name is great!");
+
+				if (i == Keyboard::BACKSPACE_KEY) {
+					if (gameName.size() > 0) {
+						gameName.pop_back();
+					}
+				}
+				else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+					(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+					(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+					i == Keyboard::SPACE_KEY
+					) {
+					if (gameName.size() < 20) {
+						gameName.push_back(i);
+					}
+				}
+			}
+		}
+
+		// update input text
+		game->ClearConsole();
+		game->RenderSprite(bg, { 0, 0 });
+		inputText.UpdateText(gameName);
+		inputText.Render();
+		title.Render();
+		rule.Render();
+		note.Render();
+		inputStatus.Render();
+		game->UpdateConsole();
+	}
+
+	return gameName;
+}
+
+void GameMap::LoadSavedLanes()
+{
+	grasslane = Graphic::Sprite(DrawableRes::GrassLane, Overlapped::LAND);
+	waterlane = Graphic::Sprite(DrawableRes::WaterLane, Overlapped::LAND);
+	roadlane = Graphic::Sprite(DrawableRes::RoadLane, Overlapped::LAND);
+	snowlane = Graphic::Sprite(DrawableRes::SnowLane, Overlapped::LAND);
+	railwaylane = Graphic::Sprite(DrawableRes::RailWayLane, Overlapped::LAND);
+	roadMarking = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
+
+	for (int i = 0; i < gameInfo.lanesInfo.size(); i++) {
+		auto lane = gameInfo.lanesInfo[i];
+
+		switch (lane.laneType) {
+		case LaneType::GRASS: {
+			GrassLane* grassLane = new GrassLane(lane.lanePos, game, grasslane, lane);
+			lanes.push_back(grassLane);
+			break;
+		}
+
+		case LaneType::ROAD: {
+			bool hasRoadMarking = false;
+			if (i > 0) {
+				if (gameInfo.lanesInfo[i - 1].laneType == LaneType::ROAD) {
+					hasRoadMarking = true;
+				}
+			}
+
+			RoadLane* roadLane = new RoadLane(lane.lanePos, game, roadlane, lane, hasRoadMarking);
+			lanes.push_back(roadLane);
+			break;
+		}
+
+		case LaneType::WATER: {
+			WaterLane* waterLane = new WaterLane(lane.lanePos, game, waterlane, lane);
+			lanes.push_back(waterLane);
+			break;
+		}
+
+		case LaneType::SNOW: {
+			SnowLane* snowLane = new SnowLane(lane.lanePos, game, snowlane, lane);
+			lanes.push_back(snowLane);
+			break;
+		}
+
+		case LaneType::RAILWAY: {
+			RailWayLane* railWayLane = new RailWayLane(lane.lanePos, game, railwaylane, lane);
+			lanes.push_back(railWayLane);
+			break;
+		}
+
+		}
+	}
+}
+
+
 Log GameMap::GetLogByLaneId(int laneId) {
 	if (laneId >= 0 && laneId < lanes.size()) {
 		WaterLane* lane = dynamic_cast<WaterLane*>(lanes[laneId]);
 
-		return lane->log;
+		return lane->GetLog();
 	}
 
 	return Log();
 }
+
+GameMapInfo GameMap::GetGameMapInfo(
+	GameMapInfo partialInfo,
+	GamePlayer* player,
+	std::vector<Lane*> lanes
+) {
+	GameMapInfo gameInfo = partialInfo;
+
+	// get player informations
+	gameInfo.playerInfo.moveDirec = player->movingDirection;
+	gameInfo.playerInfo.aniState = player->animationState;
+	gameInfo.playerInfo.lanePos = player->lanePos;
+	gameInfo.playerInfo.position = player->getPosition();
+
+	// get portal informations
+	gameInfo.portalInfo.position = portal.getPosition();
+	gameInfo.portalInfo.visible = portal.visible;
+	gameInfo.portalInfo.lanePos = portal.lanePos;
+
+	// get lane informations
+	for (auto lane : lanes) {
+		LaneInfo laneInfo;
+
+		// switch case
+		switch (lane->getObjType())
+		{
+
+		case ObjectType::GRASS_LANE: {
+			GrassLane* grassLane = dynamic_cast<GrassLane*>(lane);
+			laneInfo.lanePos = grassLane->id;
+			laneInfo.laneType = LaneType::GRASS;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on grass lane 
+			for (auto tree : grassLane->GetTrees()) {
+				ObjectInfo objInfo;
+				objInfo.objType = tree.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = tree.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			for (auto rock : grassLane->GetRocks()) {
+				ObjectInfo objInfo;
+				objInfo.objType = rock.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = rock.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			break;
+		}
+
+		case ObjectType::ROAD_LANE: {
+			RoadLane* roadLane = dynamic_cast<RoadLane*>(lane);
+			Vehicle _vehicle = roadLane->GetVehicle();
+			laneInfo.lanePos = roadLane->id;
+			laneInfo.laneType = LaneType::ROAD;
+			laneInfo.objectDirection = _vehicle.movingDirection;
+
+			// get objects on road lane 
+			ObjectInfo vehicleInfo;
+			vehicleInfo.objType = _vehicle.getObjType();
+			vehicleInfo.speed = _vehicle.vehicleSpeed;
+			vehicleInfo.position = _vehicle.getPosition();
+
+			ObjectInfo coinInfo;
+			coinInfo.objType = roadLane->coin.getObjType();
+			coinInfo.speed = 0;
+			coinInfo.position = roadLane->coin.getPosition();
+
+			laneInfo.objectsInfo.push_back(vehicleInfo);
+			laneInfo.objectsInfo.push_back(coinInfo);
+
+			break;
+		}
+
+
+		case ObjectType::WATER_LANE: {
+			WaterLane* waterLane = dynamic_cast<WaterLane*>(lane);
+			laneInfo.lanePos = waterLane->id;
+			laneInfo.laneType = LaneType::WATER;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on water lane 
+			ObjectInfo logInfo;
+			Log _log = waterLane->GetLog();
+			logInfo.objType = _log.getObjType();
+			logInfo.speed = _log.logSpeed;
+			logInfo.position = _log.getPosition();
+
+			laneInfo.objectsInfo.push_back(logInfo);
+
+			break;
+		}
+
+		case ObjectType::SNOW_LANE: {
+			SnowLane* snowlane = dynamic_cast<SnowLane*>(lane);
+			laneInfo.lanePos = snowlane->id;
+			laneInfo.laneType = LaneType::SNOW;
+			laneInfo.objectDirection = MovingDirection::NONE;
+
+			// get objects on grass lane 
+			for (auto tree : snowlane->GetTrees()) {
+				ObjectInfo objInfo;
+				objInfo.objType = tree.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = tree.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			for (auto rock : snowlane->GetRocks()) {
+				ObjectInfo objInfo;
+				objInfo.objType = rock.getObjType();
+				objInfo.speed = 0;
+				objInfo.position = rock.getPosition();
+
+				laneInfo.objectsInfo.push_back(objInfo);
+			}
+
+			break;
+		}
+
+		case ObjectType::RAILWAY_LANE: {
+			RailWayLane* railWayLane = dynamic_cast<RailWayLane*>(lane);
+			laneInfo.lanePos = railWayLane->id;
+			laneInfo.laneType = LaneType::RAILWAY;
+			laneInfo.objectDirection = MovingDirection::RIGHT;
+
+			// get train
+			ObjectInfo trainInfo;
+			Vehicle _train = railWayLane->GetVehicle();
+			trainInfo.objType = _train.getObjType();
+			trainInfo.speed = _train.vehicleSpeed;
+			trainInfo.position = _train.getPosition();
+
+			laneInfo.objectsInfo.push_back(trainInfo);
+
+			break;
+		}
+
+		}
+
+		gameInfo.lanesInfo.push_back(laneInfo);
+	}
+
+	return gameInfo;
+}
+
+
+

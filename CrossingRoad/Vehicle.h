@@ -7,16 +7,35 @@
 class Vehicle : public GameObject {
 public:
 	// ----- behaviors -----
-	Vehicle() : GameObject({ 0, 0 }, game) {};
+	Vehicle() : GameObject(nullptr) {};
+	
+	// for creating new random vehicle
 	Vehicle(
-		CrossingRoad* game, 
-		int _id, 
+		CrossingRoad* game,
+		int _id,
 		MovingDirection _direction = MovingDirection::LEFT
+	);
+
+	// for creating a particular vehicle
+	Vehicle(
+		CrossingRoad* game,
+		int _id,
+		MovingDirection _direction,
+		ObjectType _objType
+	);
+
+
+	// for loading from file
+	Vehicle(
+		CrossingRoad* game,
+		int _lanePos,
+		MovingDirection _direction,
+		ObjectInfo _info
 	);
 
 	void SetInitPosition();
 	void Update(float elapsedTime);
-	void Render() {};
+	void Render();
 	void MoveAhead();
 
 	// ----- properties -----
@@ -25,7 +44,6 @@ public:
 	float vehicleSpeed;
 	int lanePos;
 	MovingDirection movingDirection = MovingDirection::NONE;
-	GameSpeed axisSpeed;
-	VehicleType type;
-	float time = 0.0f;	
+	GameSpeed axisSpeed;	// for moving horizontally
+	float time = 0.0f;
 };

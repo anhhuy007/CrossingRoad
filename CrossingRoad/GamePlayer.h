@@ -16,8 +16,6 @@
 
 class GamePlayer : public GameObject {
 	// attributes
-	MovingDirection movingDirection = MovingDirection::UP;
-	std::vector<AnimationSprite> animationSprite;
 	GameSpeed speed;
 	GameSpeed axisSpeed;
 	float totalTime = 0;
@@ -27,11 +25,18 @@ class GamePlayer : public GameObject {
 public:
 	// attributes
 	int lanePos;
+	std::vector<AnimationSprite> animationSprite;
+	MovingDirection movingDirection = MovingDirection::UP;
 	AnimationState animationState = AnimationState::NORMAL;
 
 	// methods
 	GamePlayer(
 		Player player, 
+		CrossingRoad* game
+	);
+
+	GamePlayer(
+		PlayerInfo playerInfo,
 		CrossingRoad* game
 	);
 
@@ -45,7 +50,6 @@ public:
 		float timeSpeed,
 		MovingDirection direction
 	);
-
 	// check collision
 	bool CheckMoveUp();
 	bool CheckMoveDown();
@@ -53,4 +57,5 @@ public:
 	bool CheckMoveRight();
 	bool ValidPosition();
 	int CheckCollision();
+	
 };

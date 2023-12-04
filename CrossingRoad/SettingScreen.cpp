@@ -3,29 +3,30 @@
 
 bool SettingScreen::OnCreate() {
 
+	// S E T I N G
 	std::vector<Graphic::Sprite> textSgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\S.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\S.sprite"),
+	Graphic::Sprite(DrawableRes::settingTitleCharSwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharSwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textEgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\E.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\E.sprite")
+	Graphic::Sprite(DrawableRes::settingTitleCharEwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharEwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textTgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\T.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\T.sprite")
+	Graphic::Sprite(DrawableRes::settingTitleCharTwithShadow),
+	Graphic::Sprite(DrawableRes::settingTitleCharTwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textIgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\I.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\I.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharIwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharIwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textNgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\N.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\N.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharNwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharNwithoutShadow),
 	};
 	std::vector<Graphic::Sprite> textGgif = {
-		Graphic::Sprite("Screen\\settingScreen\\title\\withShadow\\G.sprite"),
-		Graphic::Sprite("Screen\\settingScreen\\title\\withoutShadow\\G.sprite")
+		Graphic::Sprite(DrawableRes::settingTitleCharGwithShadow),
+		Graphic::Sprite(DrawableRes::settingTitleCharGwithoutShadow),
 	};
 
 	// set console color
@@ -63,19 +64,7 @@ bool SettingScreen::OnCreate() {
 			game,
 			"EFFECT MUSIC",
 			[]() {}
-		),
-		Widget::Button(
-			game,
-			"CHANGE CHARACTER",
-			[]() {}
-		),
-		Widget::Button(
-			game,
-			"BACK",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
+		)
 	};
 
 	settingWidget = SettingWidget(
@@ -96,9 +85,6 @@ bool SettingScreen::OnCreate() {
 
 	music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
 	sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
-	character = Widget::Text(game, "CHARACTER", { 102,150 }, 45, 34, TextFont::NORMAL);
-	back = Widget::Text(game, "BACK", { 110,180 }, 20, 34, TextFont::NORMAL);
-
 
 	COLOR::SetConsoleColor(colors);
 
@@ -106,6 +92,11 @@ bool SettingScreen::OnCreate() {
 }
 
 bool SettingScreen::OnUpdate(float elapsedTime) {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	game->RenderSprite(bgImage, { 0,0 });
 
 	S.OnPlay(elapsedTime);
@@ -118,9 +109,9 @@ bool SettingScreen::OnUpdate(float elapsedTime) {
 
 	music.Render();
 	sfx.Render();
-	character.Render();
 	back.Render();
 	settingWidget.Update(elapsedTime);
+
 	return true;
 }
 

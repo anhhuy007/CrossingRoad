@@ -14,17 +14,16 @@ namespace Widget {
 	class Text : public GameObject {
 		TextSequence appearance;
 		TextFont font;
+		short color = 0;	// from 0 to 15
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 		std::string GetNextWord(int index, std::string ptext);
-		int GetWordWidth(std::string word);
 
 	public:
 		std::vector<COORD> textPositions;
 		std::string text;
 
 		Text() : GameObject(nullptr) {};
-		Text(CrossingRoad* game) : GameObject(game) {};
 		Text(
 			CrossingRoad* pgame,
 			std::string ptext,
@@ -33,18 +32,31 @@ namespace Widget {
 			int pheight,
 			TextFont pfont
 		);
+		
+		Text(
+			CrossingRoad* pgame,
+			std::string ptext,
+			COORD pposition,
+			int pwidth,
+			int pheight,
+			TextFont pfont,
+			short pcolor	// from 0 to 15
+		);
 
 		// overried methods
 		void Update(float elapsedTime) {};
 		void Render();
+		void UpdateText(std::string ptext);
 
 		// behaviours
-		void setTextPosition(
+		void SetTextPosition(
 			std::string ptext, 
 			COORD pposition, 
 			int pwidth, 
 			int pheight
 		);
+
+		void SetTextColor(short pcolor);
 	};
 
 	class Button : public GameObject {
@@ -68,7 +80,7 @@ namespace Widget {
 
 		// attributes
 		std::vector<Image> appearance; // 0: normal, 1: chosen, 2: enter
-		Text text = Text(game);
+		Text text;
 		std::function<void()> action = nullptr;	// on clicked action
 		ButtonState state = ButtonState::NORMAL;
 	};
@@ -76,13 +88,20 @@ namespace Widget {
 	class Dialog : public GameObject {
 	public: 
 		Dialog() : GameObject(nullptr) {};
+		
 		Dialog(
 			CrossingRoad* pgame,
 			std::string ptext,
 			std::vector<Widget::Button> &pbuttons,  
-			COORD pposition,
-			int pwidth,
-			int pheight
+			COORD pposition
+		);
+
+		Dialog(
+			CrossingRoad* pgame,
+			Image _pdialog,
+			Image _pmessageImage, 
+			std::vector<Widget::Button>& pbuttons,
+			COORD pposition
 		);
 
 		// overried methods
@@ -91,6 +110,7 @@ namespace Widget {
 
 		// attributes
 		Image dialog;
+		Image dialogMessage;
 		Widget::Text message;
 		std::vector<Widget::Button> buttons;
 		int currentButtonIndex = 0;
@@ -100,5 +120,20 @@ namespace Widget {
 		float totalTime = 0;
 	};
 
-	COORD GetCenterTextPos(std::string text, COORD position, int width, int height);
+	int GetWordWidth(std::string word, int letterWidth);
+
+	COORD GetCenterTextPos(
+		std::string text, 
+		COORD position, 
+		int width, 
+		int height
+	);
+
+	COORD GetMessageImgPos(
+		COORD position,
+		int width,
+		int height, 
+		int imgWidth,
+		int imgHeight
+	);
 };

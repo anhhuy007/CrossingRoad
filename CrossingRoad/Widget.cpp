@@ -8,10 +8,14 @@ Widget::Text::Text(
 	int pheight,
 	TextFont pfont
 ) : GameObject(pgame) {
+	if (ptext == "") return;
+
 	ptext += " ";
 	text = ptext;
 	font = pfont;
 	position = pposition;
+	width = pwidth;
+	height = pheight;
 
 	// set appearance
 	appearance.clear();
@@ -25,7 +29,42 @@ Widget::Text::Text(
 	}
 
 	// set text positions
-	setTextPosition(ptext, pposition, pwidth, pheight);
+	SetTextPosition(ptext, pposition, pwidth, pheight);
+};
+
+Widget::Text::Text(
+	CrossingRoad* pgame,
+	std::string ptext,
+	COORD pposition,
+	int pwidth,
+	int pheight,
+	TextFont pfont,
+	short pcolor
+) : GameObject(pgame) {
+	if (ptext == "") return;
+
+	ptext += " ";
+	text = ptext;
+	font = pfont;
+	color = pcolor;
+	position = pposition;
+	width = pwidth;
+	height = pheight;
+
+	// set appearance
+	appearance.clear();
+	for (auto& ch : ptext) {
+		// get sprite name
+		if (!isalpha(ch) && !isdigit(ch)) continue;
+
+		std::string spriteName = GetLetterSpritePath(ch, font);
+		Image letter = Image(spriteName, Overlapped::TEXT);
+		appearance.push_back(letter);
+	}
+
+	// set text positions
+	SetTextPosition(ptext, pposition, pwidth, pheight);
+	SetTextColor(pcolor);
 };
 
 std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
@@ -56,6 +95,7 @@ std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
 }
 
 
+
 std::string Widget::Text::GetNextWord(int index, std::string ptext) {
 	std::string ans = "";
 	while (ptext[index] != ' ') {
@@ -66,8 +106,8 @@ std::string Widget::Text::GetNextWord(int index, std::string ptext) {
 	return ans;
 }
 
-int Widget::Text::GetWordWidth(std::string word) {
-	return word.size() * appearance[0].getWidth() + LETTER_SPACE; // 2 pixels is space between 2 letters
+int Widget::GetWordWidth(std::string word, int letterWidth) {
+	return word.size() * letterWidth + LETTER_SPACE; // 2 pixels is space between 2 letters
 }
 
 void Widget::Text::Render() {
@@ -76,17 +116,44 @@ void Widget::Text::Render() {
 	}
 }
 
-void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidth, int pheight) {
+void Widget::Text::UpdateText(std::string ptext)
+{
+	if (ptext == text || ptext == "") return;
+	ptext += " ";
+	text = ptext;
+
+	// set appearance
+	appearance.clear();
+	for (auto& ch : ptext) {
+		// get sprite name
+		if (!isalpha(ch) && !isdigit(ch)) continue;
+
+		std::string spriteName = GetLetterSpritePath(ch, font);
+		Image letter = Image(spriteName, Overlapped::TEXT);
+		appearance.push_back(letter);
+	}
+
+	// set text positions
+	SetTextPosition(ptext, position, width, height);
+	SetTextColor(color);
+}
+
+void Widget::Text::SetTextPosition(
+	std::string ptext,
+	COORD pposition,
+	int pwidth,
+	int pheight
+) {
 	textPositions.clear();
 
-	int wordHeight = appearance[0].getHeight();
+	int wordHeight = appearance[0].GetHeight();
 	int maxX = pposition.X + pwidth;
 	int maxY = pposition.Y + pheight;
 	COORD currentPos = pposition;
 	int index = 0;
 	while (index < ptext.size()) {
 		std::string word = GetNextWord(index, ptext);
-		int wordWidth = GetWordWidth(word);
+		int wordWidth = GetWordWidth(word, appearance[0].GetWidth());
 
 		if (currentPos.X + wordWidth > maxX) {
 			// if text box is full then stop writing text
@@ -100,11 +167,24 @@ void Widget::Text::setTextPosition(std::string ptext, COORD pposition, int pwidt
 		// set each character positions
 		for (int i = 0; i < word.size(); i++) {
 			textPositions.push_back(currentPos);
-			currentPos.X += appearance[i].getWidth();
+			currentPos.X += appearance[i].GetWidth();
 		}
 		currentPos.X += 2; // 2 pixels is space between 2 words
 
 		index += word.size() + 1;
+	}
+}
+
+void Widget::Text::SetTextColor(short pcolor)
+{
+	for (auto& letter : appearance) {	
+		for (int i = 0; i < letter.GetHeight(); i++) {
+			for (int j = 0; j < letter.GetWidth(); j++) {
+				if (letter.GetPixel(i, j).color != COLOR::TRANSPARENT_) {
+					letter.SetPixelColor(i, j, pcolor);
+				}
+			}
+		}
 	}
 }
 
@@ -118,8 +198,12 @@ Widget::Button::Button(
 	text = Text(
 		pgame,
 		ptext,
-		GetCenterTextPos(ptext, pposition, 112, 34),
-		112, 34,
+		GetCenterTextPos(
+			ptext,
+			{ short(pposition.X + 43), short(pposition.Y + 18) },
+			90, 22
+		),
+		90, 22,
 		TextFont::NORMAL
 	);
 
@@ -175,36 +259,52 @@ COORD Widget::GetCenterTextPos(
 	int width,
 	int height
 ) {
-	int textWidth = text.size() * 5;
+	int textWidth = GetWordWidth(text, 5);
 	int textHeight = 5;
 
 	int x = position.X + (width - textWidth) / 2;
 	int y = position.Y + (height - textHeight) / 2;
 
-	return { short(x + 20), short(y + 10) };
+	return { short(x), short(y) };
+}
+
+COORD Widget::GetMessageImgPos(
+	COORD position,
+	int width,
+	int height,
+	int imgWidth,
+	int imgHeight
+) {
+	int x = position.X + (width - imgWidth) / 2;
+	int y = position.Y + (height - imgHeight) / 2;
+
+	return { short(x), short(y) };
 }
 
 Widget::Dialog::Dialog(
 	CrossingRoad* pgame, 
 	std::string ptext, 
 	std::vector<Widget::Button>& pbuttons, 
-	COORD pposition, 
-	int pwidth, 
-	int pheight
+	COORD pposition
 ) : GameObject(pgame) {
 	dialog = Image(DrawableRes::Dialog, Overlapped::DIALOG);
+	width = dialog.GetWidth();
+	height = dialog.GetHeight();
+
 	message = Widget::Text(
 		pgame,
 		ptext,
-		Widget::GetCenterTextPos(ptext, pposition, pwidth + 180, pheight - 55),
-		pwidth,
-		pheight,
+		Widget::GetCenterTextPos(
+			ptext, 
+			{ short(pposition.X + 65), short(pposition.Y + 10) }, // {pposition.X + 65, pposition.Y + 15
+			width - 65, height - 50
+		),
+		width - 65,
+		height - 50,
 		TextFont::NORMAL
 	);
 	buttons = pbuttons;
 	position = pposition;
-	width = pwidth;
-	height = pheight;
 
 	// change buttons appearances
 	for (auto& button : buttons) {
@@ -220,11 +320,56 @@ Widget::Dialog::Dialog(
 		button.setPosition(pos);
 
 		// set button text positions
-		button.text.setTextPosition(
+		button.text.SetTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 20, -10),
-			50,
-			15
+			Widget::GetMessageImgPos(
+				pos,
+				57, 13,
+				button.text.text.length() * 5, 5
+			),
+			57, 13
+		);
+
+		pos.X += 60;
+	}
+}
+
+Widget::Dialog::Dialog(
+	CrossingRoad* pgame,
+	Image _pdialog,
+	Image _pmessageImage,
+	std::vector<Widget::Button>& pbuttons,
+	COORD pposition
+) : GameObject(pgame) {
+	dialog = _pdialog;
+	dialogMessage = _pmessageImage;
+	buttons = pbuttons;
+	position = pposition;
+	width = dialog.GetWidth();
+	height = dialog.GetHeight();
+
+	// change buttons appearances
+	for (auto& button : buttons) {
+		button.appearance[0] = Image(DrawableRes::DialogButtonNormal, Overlapped::BUTTON);
+		button.appearance[1] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+		button.appearance[2] = Image(DrawableRes::DialogButtonHover, Overlapped::BUTTON);
+	}
+
+	// set button positions
+	COORD pos = { pposition.X + 72, pposition.Y + 45 };
+	if (buttons.size() == 2) pos.X += 30;
+	for (auto& button : buttons) {
+		button.setPosition(pos);
+
+		// set button text positions
+		button.text.SetTextPosition(
+			button.text.text,
+			Widget::GetMessageImgPos(
+				pos,
+				57, 13,
+				button.text.text.length() * 5, 5
+			),
+			57, 13
 		);
 
 		pos.X += 60;
@@ -287,6 +432,18 @@ void Widget::Dialog::Update(float elapsedTime) {
 
 void Widget::Dialog::Render() {
 	game->RenderSprite(dialog, position);
+
+	int imgWidth = dialogMessage.GetWidth();
+	int imgHeight = dialogMessage.GetHeight();
+	game->RenderSprite(
+		dialogMessage, 
+		GetMessageImgPos(
+			{ short(position.X + 65), position.Y },
+			dialog.GetWidth() - 65, dialog.GetHeight() - 30,
+			imgWidth, imgHeight
+		)
+	);
+
 	message.Render();
 	for (auto& button : buttons) {
 		button.Render();

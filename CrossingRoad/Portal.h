@@ -16,6 +16,7 @@ public:
 	// ---- behaviors ----
 	Portal() : GameObject(nullptr) {};
 	Portal(CrossingRoad* game);
+
 	void Update(float elapsedTime) {};
 	void Render();
 };

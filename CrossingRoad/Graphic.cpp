@@ -7,7 +7,7 @@
 
 using namespace Graphic;
 
-Graphic::Pixel::Pixel(COORD _coordinate, COLOR::COLOR _color) {
+Graphic::Pixel::Pixel(COORD _coordinate, short _color) {
 	coordinate = _coordinate;
 	color = _color;
 	overlapped = 0;
@@ -15,7 +15,7 @@ Graphic::Pixel::Pixel(COORD _coordinate, COLOR::COLOR _color) {
 
 Graphic::Pixel::Pixel() {
 	coordinate = { 0, 0 };
-	color = COLOR::COLOR::TRANSPARENT_;
+	color = COLOR::TRANSPARENT_;
 	overlapped = 0;
 }
 
@@ -44,7 +44,7 @@ Graphic::Sprite::Sprite(const char* filePath) {
 			ifs >> y >> x >> color;
 			
 			// save pixel to pixels array
-			pixels[i * width + j] = Pixel({ (short)x, (short)y }, static_cast<COLOR::COLOR>(color));
+			pixels[i * width + j] = Pixel({ (short)x, (short)y }, color);
 		}
 	}
 
@@ -52,15 +52,15 @@ Graphic::Sprite::Sprite(const char* filePath) {
 }
 
 
-int Graphic::Sprite::getWidth() {
+int Graphic::Sprite::GetWidth() {
 	return width;
 }
 
-int Graphic::Sprite::getHeight() {
+int Graphic::Sprite::GetHeight() {
 	return height;
 }
 
-Graphic::Pixel Graphic::Sprite::getPixel(int i, int j) {
+Graphic::Pixel Graphic::Sprite::GetPixel(int i, int j) {
 	return pixels[i * width + j];
 }
 
@@ -71,11 +71,19 @@ void Graphic::Sprite::setHeight(int _height) {
 void Graphic::Sprite::SetOverlapped(int _overlapped) {
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			if (pixels[i * width + j].color != COLOR::COLOR::TRANSPARENT_) {
+			if (pixels[i * width + j].color != COLOR::TRANSPARENT_) {
 				pixels[i * width + j].overlapped = _overlapped;
 			}
 		}
 	}
+}
+
+void Graphic::Sprite::SetPixelColor(
+	int i, 
+	int j,
+	short color
+) {
+	pixels[i * width + j].color = color;
 }
 
 void Graphic::Sprite::setWidth(int _width) {

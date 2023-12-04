@@ -14,31 +14,33 @@ bool SplashScreen::OnCreate()
 		bubblesGif.push_back(Graphic::Sprite(animationPath + "bubblesGif\\frame" + std::to_string(i) + ".sprite"));
 	}
 
-	//------text nhom11-----
+	// N H O M 1
 	std::vector<Graphic::Sprite> textNgif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadowN.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadowN.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleCharNwithShadow),
+		Graphic::Sprite(DrawableRes::splashTitleCharNwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textHgif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadowH.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadowH.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleCharHwithShadow),
+		Graphic::Sprite(DrawableRes::splashTitleCharHwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textOgif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadowO.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadowO.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleCharOwithShadow),
+		Graphic::Sprite(DrawableRes::splashTitleCharOwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textMgif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadowM.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadowM.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleCharMwithShadow),
+		Graphic::Sprite(DrawableRes::splashTitleCharMwithoutShadow)
 	};
 	std::vector<Graphic::Sprite> textNum1gif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadow1.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadow1.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleChar1withShadow),
+		Graphic::Sprite(DrawableRes::splashTitleChar1withoutShadow)
 	};
 	std::vector<Graphic::Sprite> textAcutegif = {
-	Graphic::Sprite("Screen\\splashScreen\\title\\withShadow\\withShadowACUTE.sprite"),
-	Graphic::Sprite("Screen\\splashScreen\\title\\withoutShadow\\withoutShadowACUTE.sprite")
+		Graphic::Sprite(DrawableRes::splashTitleCharACUTEwithShadow),
+		Graphic::Sprite(DrawableRes::splashTitleCharACUTEwithoutShadow)
 	};
+
+
 
 	//set color
 	std::vector<int> colors = {

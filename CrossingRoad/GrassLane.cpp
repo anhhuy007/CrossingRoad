@@ -29,17 +29,39 @@ GrassLane::GrassLane(
 
 	for (int i = 0; i < 20; i++) {
 		if (objectCoord[i] == 1) {
-			trees.push_back(Tree(game, id, i, TreeType::SMALL_TREE, DrawableRes::SmallTree));
+			trees.push_back(Tree(game, id, i, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
 		}
 		else if (objectCoord[i] == 2) {
-			trees.push_back(Tree(game, id, i, TreeType::BIG_TREE, DrawableRes::BigTree));
+			trees.push_back(Tree(game, id, i, ObjectType::BIG_TREE, DrawableRes::BigTree));
 			i++;
 		}
 		else if (objectCoord[i] == 3) {
-			rocks.push_back(Rock(game, id, i, DrawableRes::Rock));
+			rocks.push_back(Rock(game, id, i, ObjectType::ROCK, DrawableRes::Rock));
 		}
 	}
-};
+}
+GrassLane::GrassLane(
+	int id, 
+	CrossingRoad* game, 
+	Graphic::Sprite _grassSprite,
+	LaneInfo laneInfo
+) : Lane(id, game, _grassSprite, LaneType::GRASS)
+{
+	for (auto obj : laneInfo.objectsInfo) {
+		if (obj.objType == ObjectType::SMALL_TREE) {
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, ObjectType::SMALL_TREE, DrawableRes::SmallTree));
+			trees[trees.size() - 1].setPosition(obj.position);
+		}
+		else if (obj.objType == ObjectType::BIG_TREE) {
+			trees.push_back(Tree(game, laneInfo.lanePos, 0, ObjectType::BIG_TREE, DrawableRes::BigTree));
+			trees[trees.size() - 1].setPosition(obj.position);
+		}
+		else if (obj.objType == ObjectType::ROCK) {
+			rocks.push_back(Rock(game, laneInfo.lanePos, 0, ObjectType::ROCK, DrawableRes::Rock));
+			rocks[rocks.size() - 1].setPosition(obj.position);
+		}
+	}
+}
 
 void GrassLane::Render() {
 	game->RenderSprite(laneSprite, position);
@@ -75,4 +97,14 @@ void GrassLane::ScrollUp() {
 	for (auto& rock : rocks) {
 		rock.MoveDown(rock.lanePos);
 	}
+}
+
+std::vector<Tree> GrassLane::GetTrees()
+{
+	return trees;
+}
+
+std::vector<Rock> GrassLane::GetRocks()
+{
+	return rocks;
 }

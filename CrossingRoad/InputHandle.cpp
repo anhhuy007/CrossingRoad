@@ -44,3 +44,16 @@ InputHandle* InputHandle::GetKeyBoardState() {
 	return inputHandle_;
 }
 
+short InputHandle::GetKeyId(char key)
+{
+	// return alphabet and number key id
+	if (key >= 'A' && key <= 'Z') {
+		return key - 'A' + 65;
+	}
+	else if (key >= '0' && key <= '9') {
+		return key - '0' + 48;
+	}
+	else {
+		return -1;
+	}
+}

@@ -2,6 +2,7 @@
 
 #include <Windows.h>   
 #include <WinUser.h>
+#include <string>
 
 class InputHandle {
 	
@@ -28,4 +29,5 @@ public:
 	void operator=(const InputHandle&) = delete;
 
 	static InputHandle* GetKeyBoardState();
+	static short GetKeyId(char key);
 };

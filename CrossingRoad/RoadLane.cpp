@@ -14,10 +14,24 @@ RoadLane::RoadLane(
 	roadMarkingSprite = _roadMarkingSprite;
 
 	// create random coin
-	if (rand() % 3 == 0) {
+	if (rand() % 3 == 0) { 
 		coin = Coin(game, id);
 	}
 }
+
+RoadLane::RoadLane(
+	int id, 
+	CrossingRoad* game, 
+	Graphic::Sprite roadSprite, 
+	LaneInfo laneInfo,
+	bool _hasRoadMarking
+) : Lane(id, game, roadSprite, LaneType::ROAD) {
+	direction = laneInfo.objectDirection;
+	vehicle = Vehicle(game, id, direction, laneInfo.objectsInfo[0]);
+	hasRoadMarking = _hasRoadMarking;
+	roadMarkingSprite = Graphic::Sprite(DrawableRes::RoadMarking, Overlapped::DECORATOR);
+}
+
 
 void RoadLane::Update(float elapsedTime) {
 	vehicle.Update(elapsedTime);
@@ -31,7 +45,7 @@ void RoadLane::Update(float elapsedTime) {
 
 void RoadLane::Render() {
 	game->RenderSprite(laneSprite, position);
-	game->RenderSprite(vehicle.vehicleSprite, vehicle.getPosition());
+	vehicle.Render();
 	coin.Render();
 
 	// draw road markings
@@ -50,4 +64,9 @@ void RoadLane::ScrollUp() {
 	position.Y += 24;
 	vehicle.MoveDown(vehicle.lanePos);
 	coin.MoveDown(coin.lanePos);
+}
+
+Vehicle RoadLane::GetVehicle()
+{
+	return vehicle;
 }
