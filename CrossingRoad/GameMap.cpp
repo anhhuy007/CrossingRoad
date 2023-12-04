@@ -338,10 +338,11 @@ std::string GameMap::GetSavedGameName()
 	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 	Widget::Text title = Widget::Text(
 		game,
-		"Enter game name",
+		"Enter game name: ",
 		{ 140, 70 },
 		100, 30,
-		TextFont::NORMAL
+		TextFont::NORMAL,
+		6
 	);
 	Widget::Text inputText = Widget::Text(
 		game,
@@ -355,7 +356,8 @@ std::string GameMap::GetSavedGameName()
 		"Game name must be less than 20 characters and contain no special characters",
 		{ 140, 100 },
 		200, 30,
-		TextFont::NORMAL
+		TextFont::NORMAL,
+		15
 	);
 
 	Widget::Text note = Widget::Text(
@@ -363,24 +365,68 @@ std::string GameMap::GetSavedGameName()
 		"Press ENTER to save game or ESC to exit",
 		{ 140, 120 },
 		200, 40,
-		TextFont::NORMAL
+		TextFont::NORMAL,
+		15
 	);
-	
+
+	Widget::Text inputStatus = Widget::Text(
+		game,
+		"Invalid game name!",
+		{ 140, 150 },
+		200, 40,
+		TextFont::NORMAL,
+		10
+	);
+
+	// lambda function to check if game name is valid
+	auto isValidGameName = [](std::string gameName) {
+		if (gameName.size() == 0 || gameName.size() > 20) return false;
+		for (auto c : gameName) {
+			if (c == ' ') continue;
+			if (c < '0' || c > '9') {
+				if (c < 'A' || c > 'Z') {
+					if (c < 'a' || c > 'z') {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+		};
+
+	// check exist game name
+	auto isExistGameName = [](std::string gameName) {
+		std::string path = "SavedGame/" + gameName + ".game";
+		std::ifstream file(path);
+		return file.good();
+		};
+
 	// get game name from player
-	while (true) {
+	bool isValid = false;
+	bool okGameName = false;
+	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
+
 		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-			if (gameName.size() > 0) {
-				return gameName;
+			if (isExistGameName(gameName)) {
+				isValid = false;
+				inputStatus.UpdateText("Game name is exist!");
+			}
+			else if (isValidGameName(gameName)) {
+				okGameName = true;
+				inputStatus.UpdateText("Save game succesfully!");
+				inputStatus.SetTextColor(8);
 			}
 		}
 		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
 			return "";
 		}
-
-		// get input from player
-		for (int i = 0; i < keyNumber; i++) {
+		else for (int i = 0; i < keyNumber; i++) {
 			if (game->inputHandle->keyState_[i].isPressed) {
+				isValid = isValidGameName(gameName);
+				if (!isValid) inputStatus.UpdateText("Invalid game name!");
+				else inputStatus.UpdateText("This name is great!");
+
 				if (i == Keyboard::BACKSPACE_KEY) {
 					if (gameName.size() > 0) {
 						gameName.pop_back();
@@ -406,6 +452,7 @@ std::string GameMap::GetSavedGameName()
 		title.Render();
 		rule.Render();
 		note.Render();
+		inputStatus.Render();
 		game->UpdateConsole();
 	}
 

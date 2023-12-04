@@ -221,7 +221,7 @@ std::string PlayMenuScreen::GetSavedGameName()
 			if (game->inputHandle->keyState_[i].isPressed) {
 				isValid = isValidGameName(gameName);
 				if (!isValid) inputStatus.UpdateText("Invalid game name!");
-				else inputStatus.UpdateText("This name is great!");
+				else inputStatus.UpdateText("Valid name!");
 
 				if (i == Keyboard::BACKSPACE_KEY) {
 					if (gameName.size() > 0) {
