@@ -10,13 +10,15 @@
 
 class Sound {
 private:
-    bool backgroundSound;
-    bool effectSound;
-    bool backgroundPlaying;
-    bool firstTimePlaying;
-    int backgroundVolume;
-    int effectVolume;
-    int currentIndexBackgroundSound;
+    struct SoundSetting {
+        bool backgroundSound;
+        bool effectSound;
+        bool backgroundPlaying;
+        bool firstTimePlaying;
+        int backgroundVolume;
+        int effectVolume;
+        int currentIndexBackgroundSound;
+    };
 
     std::wstring findAlias(std::wstring path);
 
@@ -32,15 +34,16 @@ private:
     static const std::vector<std::wstring> BACKGROUND;
 
     static std::mutex locker;
+    SoundSetting setting;
 protected:
     Sound() {
-         backgroundSound = true;
-         effectSound = true;
-         backgroundPlaying = false;
-         firstTimePlaying = true;
-         backgroundVolume = 100;
-         effectVolume = 100;
-        currentIndexBackgroundSound = 0;
+         setting.backgroundSound = true;
+         setting.effectSound = true;
+         setting.backgroundPlaying = false;
+         setting.firstTimePlaying = true;
+         setting.backgroundVolume = 100;
+         setting.effectVolume = 100;
+         setting.currentIndexBackgroundSound = 0;
     };
     static Sound* instance_;
 
