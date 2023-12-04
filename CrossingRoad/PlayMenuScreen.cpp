@@ -65,7 +65,8 @@ void PlayMenuScreen::InitWidget()
 			game,
 			"LOAD GAME",
 			[&]() {
-				OnLoadGameClicked();
+				CrossingRoad::Navigation::To(new SavedGameScreen(game));
+				//OnLoadGameClicked();
 			}
 		),
 		Widget::Button(

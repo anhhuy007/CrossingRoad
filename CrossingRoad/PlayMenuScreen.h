@@ -4,6 +4,7 @@
 #include "Widget.h"
 #include "MenuWidget.h"
 #include "PlayMenuScreen.h"
+#include "SavedGameScreen.h"
 
 class PlayMenuScreen : public CrossingRoad::GameScreen {
 public:

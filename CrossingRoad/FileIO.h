@@ -11,11 +11,8 @@
 
 class FileIO {
 	const std::string savedGameFolder = "SavedGame\\";
-
-	bool checkFileExisted(std::string filename);
 	
 public: 
 	static bool WriteGameInfo(std::string filename, GameMapInfo gameInfo);
 	static bool LoadGameInfo(std::string filename, GameMapInfo& gameInfo);
 };
-

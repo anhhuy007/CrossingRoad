@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ABOUT_SCREEN_H
-#define ABOUT_SCREEN_H
-
 #include "Animation.h"
 #include "Widget.h"
 #include "MenuWidget.h"
@@ -25,7 +22,4 @@ public:
 
 	MenuWidget aboutMenuWidget;
 };
-
-#endif // !ABOUT_SCREEN_H
-
 
