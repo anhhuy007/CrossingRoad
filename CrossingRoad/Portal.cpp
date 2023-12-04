@@ -2,7 +2,7 @@
 
 Portal::Portal(CrossingRoad* game) : GameObject(game) {
 	portalSprite = Graphic::Sprite(DrawableRes::Portal, Overlapped::DECORATOR);
-	setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PORTAL));
+	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::PORTAL));
 }
 
 void Portal::Render() {

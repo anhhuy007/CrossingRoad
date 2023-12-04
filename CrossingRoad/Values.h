@@ -44,6 +44,13 @@ enum Keyboard : int {
 	SPACE_KEY = VK_SPACE,
 	ENTER_KEY = VK_RETURN,
 	ESCAPE_KEY = VK_ESCAPE,
+	BACKSPACE_KEY = VK_BACK,
+	A_KEY = 65,
+	Z_KEY = 90,
+	a_KEY = 97,
+	z_KEY = 122,
+	NUM_0_KEY = 48,
+	NUM_9_KEY = 57
 };
 
 enum class PlayerState {
@@ -59,14 +66,16 @@ enum Overlapped : int {
 	OBSTACLE = 4,
 	VEHICLE = 4, 
 	PLAYER = 4,
-	DIALOG = 5,
-	BUTTON = 6,
-	TEXT = 7,
+	TRAFFIC_LIGHT = 4,
+	DIALOG = 6,
+	BUTTON = 7,
+	TEXT = 8,
 };
 
 enum class VehicleType {
 	CAR = 1,
-	TRUCK = 2
+	TRUCK = 2,
+	TRAIN = 3
 };
 
 enum class LogType {
@@ -82,13 +91,15 @@ enum class TreeType {
 enum class LaneType {
 	GRASS,
 	WATER,
-	ROAD
+	ROAD,
+	SNOW,
+	RAILWAY
 };
 
 enum class Player {
 	CHICK,
 	DUCKY,
-	DOGGO,
+	PENGUIN,
 	MEOW, 
 	DINO
 };
@@ -117,18 +128,34 @@ enum ObjectCollis : int {
 };
 
 enum class ObjectType {
+	NONE, 
 	PLAYER,
-	CAR,
-	TRUCK,
-	TREE_1, // small tree
-	TREE_2, // big tree
+	RED_CAR,
+	GREEN_CAR,
+	RED_TRUCK,
+	TRAIN,
+	SMALL_TREE,
+	BIG_TREE,
 	ROCK,
+	SNOW_ROCK,
 	WATER,
-	FLOATING_OBJECT_1, // small log
-	FLOATING_OBJECT_2, // big log
+	SMALL_LOG, 
+	BIG_LOG,
 	ITEM,
 	COIN,
-	PORTAL
+	PORTAL,
+	GIFT, 
+	DEER,
+	SNOWMAN, 
+	SMALL_PINETREE,
+	BIG_PINETREE,
+	GRASS_LANE,
+	ROAD_LANE,
+	WATER_LANE,
+	RAILWAY_LANE,
+	SNOW_LANE, 
+	TEXT_WIDGET,
+	BUTTON_WIDGET
 };
 
 enum class MapType {
@@ -172,13 +199,42 @@ struct AnimationSprite {
 	}
 };
 
+struct ObjectInfo {
+	ObjectType objType;
+	float speed;
+	COORD position;
+};
+
+struct PortalInfo {
+	bool visible;
+	int lanePos;
+	COORD position;
+};
+
 struct LaneInfo {
+	int lanePos;
 	LaneType laneType;
-	int laneSpeed;
 	MovingDirection objectDirection;
+	std::vector<ObjectInfo> objectsInfo;
+
+	LaneInfo() {
+		lanePos = 0;
+		laneType = LaneType::GRASS;
+		objectDirection = MovingDirection::NONE;
+	}
+
+	LaneInfo(const LaneInfo& other) {
+		lanePos = other.lanePos;
+		laneType = other.laneType;
+		objectDirection = other.objectDirection;
+		for (auto obj : other.objectsInfo) {
+			objectsInfo.push_back(obj);
+		}
+	}
 };
 
 struct PlayerInfo {
+	Player playerName;
 	MovingDirection moveDirec;
 	AnimationState aniState;
 	int lanePos;
@@ -190,7 +246,31 @@ struct GameMapInfo {
 	GameMode gameMode;
 	std::vector<LaneInfo> lanesInfo;
 	PlayerInfo playerInfo; // some  attributes are not used
+	PortalInfo portalInfo;
+	int endLane; // portal position in lane
 	int level; // optional if game mode is LEVEL_MODE
 	int score;
 	int coin;
+
+	GameMapInfo() {
+		mapType = MapType::CLASSIC;
+		gameMode = GameMode::ENDLESS_MODE;
+		endLane = 0;
+		level = 0;
+		score = 0;
+		coin = 0;
+	}
+
+	GameMapInfo(const GameMapInfo& other) {
+		mapType = other.mapType;
+		gameMode = other.gameMode;
+		for (auto lane : other.lanesInfo) {
+			lanesInfo.push_back(lane);
+		}
+		playerInfo = other.playerInfo;
+		endLane = other.endLane;
+		level = other.level;
+		score = other.score;
+		coin = other.coin;
+	}
 };

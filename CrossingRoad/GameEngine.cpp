@@ -55,7 +55,7 @@ void GameEngine::GameLoop() {
 		
 		// ----- Log text -----
 		Graphic::GotToXY(1, 1);
-		std::cout << logText << std::endl;;
+		std::cout << logText << std::endl;
 
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		ClearConsole();
@@ -77,8 +77,8 @@ void GameEngine::ClearConsole() {
 }
 
 void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
-	for (short i = 0; i < sprite.getHeight(); i++) {
-		for (short j = 0; j < sprite.getWidth(); j++) {
+	for (short i = 0; i < sprite.GetHeight(); i++) {
+		for (short j = 0; j < sprite.GetWidth(); j++) {
 			int screenX = i + position.Y;
 			int screenY = j + position.X;
 			int index = screenX * windowSize.x + screenY;
@@ -90,7 +90,7 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 			CHAR_INFO buffer = screenBuffer[index];
 			
 			// get current pixel
-			Graphic::Pixel pixel = sprite.getPixel(i, j);
+			Graphic::Pixel pixel = sprite.GetPixel(i, j);
 			int color = static_cast<int>(pixel.color);
 			int overlapped = pixel.overlapped;
 

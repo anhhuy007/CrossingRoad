@@ -37,6 +37,11 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 
 		break;
 
+	case Player::PENGUIN:
+		folder = "Penguin\\";
+
+		break;
+
 	default:
 		break;
 	}
@@ -102,7 +107,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		));
 
 		break;
-	case ObjectType::CAR:
+	case ObjectType::RED_CAR:
 		points =  GetPointsOnLine(
 			{ 1, 27 },
 			{ 72, 44 },
@@ -111,7 +116,16 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::TRUCK:
+	case ObjectType::GREEN_CAR:
+		points = GetPointsOnLine(
+			{ 1, 27 },
+			{ 72, 44 },
+			4,
+			true
+		);
+
+		break;
+	case ObjectType::RED_TRUCK:
 		points = GetPointsOnLine(
 			{ 1, 40 },
 			{ 112, 67 },
@@ -120,7 +134,17 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::TREE_1:
+
+	case ObjectType::TRAIN:
+		points = GetPointsOnLine(
+			{ 1, 40 },
+			{ 600, 189 },
+			4,
+			true
+		);
+
+		break;
+	case ObjectType::SMALL_TREE:
 		points = GetPointsOnLine(
 			{ 1, 31 },
 			{ 24, 36 },
@@ -136,7 +160,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		));
 
 		break;
-	case ObjectType::TREE_2:
+	case ObjectType::BIG_TREE:
 		points = GetPointsOnLine(
 			{ 1, 43 },
 			{ 41, 53 },
@@ -177,7 +201,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::FLOATING_OBJECT_1:
+	case ObjectType::SMALL_LOG:
 		points = GetPointsOnLine(
 			{ 11, 8 },
 			{ 94, 28 },
@@ -186,7 +210,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 		);
 
 		break;
-	case ObjectType::FLOATING_OBJECT_2:
+	case ObjectType::BIG_LOG:
 		points = GetPointsOnLine(
 			{ 11, 8 },
 			{ 69, 22 },
@@ -202,7 +226,7 @@ std::vector<CollisionPoint> Factory::GetObjectCollisionPoints(ObjectType objType
 	case ObjectType::COIN:
 		points = GetPointsOnLine(
 			{ 1, 5 },
-			{ 24, 10 },
+			{ 28, 11 },
 			2,
 			true
 		);
@@ -279,4 +303,3 @@ void Factory::sum(
 		a.push_back(point);
 	}
 }
-

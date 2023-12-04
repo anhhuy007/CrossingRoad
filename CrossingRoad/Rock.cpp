@@ -4,8 +4,9 @@ Rock::Rock(
 	CrossingRoad* game,
 	int planePos,
 	int pblockPos,
+	ObjectType ptype,
 	Graphic::Sprite pSprite
-) : GameObject(game)
+) : GameObject(game, ptype)
 {
 	lanePos = planePos;
 	blockPos = pblockPos;

@@ -23,6 +23,7 @@ namespace DrawableRes {
 	const std::string RoadLane = spriteFolder + "RoadLane.sprite";
 	const std::string WaterLane = spriteFolder + "WaterLane.sprite";
 	const std::string SnowLane = spriteFolder + "SnowLane.sprite";
+	const std::string RailWayLane = spriteFolder + "RailWayLane.sprite";
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
 	const std::string LightBlueBG = spriteFolder + "LightBlueBG.sprite";
@@ -36,6 +37,7 @@ namespace DrawableRes {
 	const std::string Car1Right = spriteFolder + "Car1_Right.sprite";
 	const std::string TruckLeft = spriteFolder + "Truck_Left.sprite";
 	const std::string TruckRight = spriteFolder + "Truck_Right.sprite";
+	const std::string Train = spriteFolder + "Train.sprite";
 	const std::string Log1 = spriteFolder + "Log1.sprite";
 	const std::string Log2 = spriteFolder + "Log2.sprite";
 	const std::string Portal = spriteFolder + "Portal.sprite";
@@ -48,6 +50,8 @@ namespace DrawableRes {
 	const std::string Gift = spriteFolder + "Gift.sprite";
 	const std::string Deer = spriteFolder + "Deer.sprite";
 	const std::string Snowman = spriteFolder + "Snowman.sprite";
+	const std::string GreenLight = spriteFolder + "GreenLight.sprite";
+	const std::string RedLight = spriteFolder + "RedLight.sprite";
 
 	// animation sprites
 	const std::string animationSprite1 = "Animation1.sprite";
@@ -61,10 +65,15 @@ namespace DrawableRes {
 	const std::string normalButton = "widgets\\NormalButton.sprite";
 	const std::string onChosenButton = "widgets\\OnHoverButton.sprite";
 	const std::string onEnterButton = "widgets\\OnTriggerButton.sprite";
-	const std::string Dialog = "widgets\\Dialog.sprite";
 	const std::string DialogButtonNormal = "widgets\\Dialog_Button_Normal.sprite";
 	const std::string DialogButtonHover = "widgets\\Dialog_Button_Hover.sprite";
 	const std::string DialogButtonTrigger = "widgets\\Dialog_Button_Trigger.sprite";
+
+	// dialog sprites
+	const std::string Dialog = "widgets\\Dialog.sprite";
+	const std::string GameOverDialog = "widgets\\GameOverDialog.sprite";
+	const std::string GameOver = "widgets\\GameOver.sprite";
+	
 
 
 	// SETTING SCREEN SPRITE

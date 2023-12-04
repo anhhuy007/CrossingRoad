@@ -16,15 +16,17 @@ MenuWidget::MenuWidget(
 		button.setPosition(pos);
 
 		// set button text positions
-		button.text.setTextPosition(
+		button.text.SetTextPosition(
 			button.text.text,
-			Widget::GetCenterTextPos(button.text.text, pos, 138, 34),
-			138,
-			34
+			Widget::GetMessageImgPos(
+				{ short(pos.X + 43), short(pos.Y + 18) },
+				90, 20,
+				button.text.text.length() * 5, 5
+			),
+			90, 20
 		);
 
 		pos.Y += 30;
-
 	}
 }
 
@@ -44,7 +46,8 @@ void MenuWidget::Update(float elapsedTime) {
 		}
 		_game->sound->playEffectSound(int(Sound::Effect::CHANGE));
 		return 1;
-		};
+	};
+
 	// get key pressed events
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 		checkIndex(--currentButtonIndex);
@@ -79,16 +82,20 @@ void MenuWidget::Update(float elapsedTime) {
 	// trigger button action
 	if (enterClicked) {
 		totalTime += elapsedTime;
-		if (totalTime > 400) {
+		if (totalTime > 200) {
 			buttons[currentButtonIndex].action();
 			enterClicked = false;
 			totalTime = 0;
 			// reset button text position
-			buttons[currentButtonIndex].text.setTextPosition(
+			COORD pos = buttons[currentButtonIndex].getPosition();
+			buttons[currentButtonIndex].text.SetTextPosition(
 				buttons[currentButtonIndex].text.text,
-				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 138, 34),
-				138,
-				34
+				Widget::GetCenterTextPos(
+					buttons[currentButtonIndex].text.text,
+					{ short(pos.X + 43), short(pos.Y + 18) },
+					90, 20
+				),
+				90, 20
 			);
 		}
 	}

@@ -10,7 +10,7 @@ public:
 		CrossingRoad* game,
 		int planePos,
 		int pblockPos,
-		TreeType ptreeType,
+		ObjectType pobjType,
 		Graphic::Sprite psprite
 	);
 	
@@ -19,7 +19,6 @@ public:
 
 	// ----- properties -----
 	Graphic::Sprite treeSprite;
-	TreeType treeType;
 	int lanePos;
 	int blockPos;
 };

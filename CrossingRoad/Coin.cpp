@@ -8,7 +8,7 @@ Coin::Coin() : GameObject(nullptr) {
 Coin::Coin(
 	CrossingRoad* game,
 	int planePos
-) : GameObject(game) {
+) : GameObject(game, ObjectType::COIN) {
 	// set sprite and position
 	lanePos = planePos;
 	coinSprite = Graphic::Sprite(DrawableRes::Coin, Overlapped::DECORATOR);
@@ -21,7 +21,7 @@ Coin::Coin(
 		Gravity::CENTRALLY_ALIGNED
 	);
 
-	setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::COIN));
+	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::COIN));
 }
 
 void Coin::Update(float elapsedTime) {

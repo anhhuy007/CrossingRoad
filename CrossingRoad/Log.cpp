@@ -9,11 +9,13 @@ Log::Log(
 
 	if (random) {
 		logSprite = Graphic::Sprite(DrawableRes::Log1);
-		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_1));
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::SMALL_LOG));
+		objType = ObjectType::SMALL_LOG;
 	}
 	else {
 		logSprite = Graphic::Sprite(DrawableRes::Log2);
-		setCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::FLOATING_OBJECT_2));
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::BIG_LOG));
+		objType = ObjectType::BIG_LOG;
 	}
 
 	lanePos = _id;
@@ -21,9 +23,44 @@ Log::Log(
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	logSpeed = float((rand() % 3) + 1) * 0.004;
-	width = logSprite.getWidth();
-	height = logSprite.getHeight();
+	width = logSprite.GetWidth();
+	height = logSprite.GetHeight();
 	logSprite.SetOverlapped(Overlapped::LOG);
+}
+
+Log::Log(
+	CrossingRoad* game, 
+	int _lanePos, 
+	MovingDirection _direction, 
+	ObjectInfo _info
+) : GameObject(game)
+{
+	objType = _info.objType;
+	lanePos = _lanePos;
+	movingDirection = _direction;
+	axisSpeed = GameSpeed(4, 1, -11, 21);
+	logSpeed = _info.speed;
+	position = _info.position;
+
+	switch (objType) {
+	case ObjectType::SMALL_LOG: {
+		logSprite = Graphic::Sprite(DrawableRes::Log1);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::SMALL_LOG));
+		break;
+	}
+
+	case ObjectType::BIG_LOG: {
+		logSprite = Graphic::Sprite(DrawableRes::Log2);
+		SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::BIG_LOG));
+		break;
+	}
+
+	}
+
+	logSprite.SetOverlapped(Overlapped::LOG);
+	width = logSprite.GetWidth();
+	height = logSprite.GetHeight();
+	logSprite.SetOverlapped(Overlapped::OBSTACLE);
 }
 
 void Log::Update(float elapsedTime) {
@@ -56,8 +93,8 @@ void Log::Update(float elapsedTime) {
 
 void Log::SetSprite(Graphic::Sprite _sprite) {
 	// delete old sprite
-	width = _sprite.getWidth();
-	height = _sprite.getHeight();
+	width = _sprite.GetWidth();
+	height = _sprite.GetHeight();
 	logSprite = _sprite;
 }
 

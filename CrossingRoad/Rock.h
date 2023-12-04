@@ -10,6 +10,7 @@ public:
 		CrossingRoad* game, 
 		int planePos,
 		int pblockPos,
+		ObjectType ptype,
 		Graphic::Sprite pSprite
 	);
 

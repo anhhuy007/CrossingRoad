@@ -64,19 +64,7 @@ bool SettingScreen::OnCreate() {
 			game,
 			"EFFECT MUSIC",
 			[]() {}
-		),
-		Widget::Button(
-			game,
-			"CHANGE CHARACTER",
-			[]() {}
-		),
-		Widget::Button(
-			game,
-			"BACK",
-			[&]() {
-				CrossingRoad::Navigation::To(new MenuScreen(game));
-			}
-		),
+		)
 	};
 
 	settingWidget = SettingWidget(
@@ -97,9 +85,6 @@ bool SettingScreen::OnCreate() {
 
 	music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
 	sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
-	character = Widget::Text(game, "CHARACTER", { 102,150 }, 45, 34, TextFont::NORMAL);
-	back = Widget::Text(game, "BACK", { 110,180 }, 20, 34, TextFont::NORMAL);
-
 
 	COLOR::SetConsoleColor(colors);
 
@@ -107,6 +92,11 @@ bool SettingScreen::OnCreate() {
 }
 
 bool SettingScreen::OnUpdate(float elapsedTime) {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	game->RenderSprite(bgImage, { 0,0 });
 
 	S.OnPlay(elapsedTime);
@@ -119,9 +109,9 @@ bool SettingScreen::OnUpdate(float elapsedTime) {
 
 	music.Render();
 	sfx.Render();
-	character.Render();
 	back.Render();
 	settingWidget.Update(elapsedTime);
+
 	return true;
 }
 

@@ -13,11 +13,21 @@ public:
 		int _id,
 		MovingDirection _direction = MovingDirection::LEFT
 	);
-	Log(const Log& other) : GameObject(other.game) {
+
+	Log(
+		CrossingRoad* game,
+		int _lanePos,
+		MovingDirection _direction,
+		ObjectInfo _info
+	);
+
+	/*Log(const Log& other) : GameObject(other.game) {
 		lanePos = other.lanePos;
 		logSpeed = other.logSpeed;
 		movingDirection = other.movingDirection;
-	};
+		logSprite = other.logSprite;
+		position = other.position;
+	};*/
 
 	void SetSprite(Graphic::Sprite _sprite);
 	void SetInitPosition();
@@ -30,9 +40,8 @@ public:
 	bool endOfRoad = false;
 	Graphic::Sprite logSprite;
 	float logSpeed = 0.01f;
-	GameSpeed axisSpeed;
+	GameSpeed axisSpeed;	// for moving horizontally
 	MovingDirection movingDirection = MovingDirection::NONE;
-	LogType logType;
 	float time = 0.0f;
 };
 

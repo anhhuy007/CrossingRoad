@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "Widget.h"
 #include "MenuScreen.h"
+#include "FileIO.h"
 
 // ----- standard libs include -----
 #include <vector>
@@ -17,9 +18,6 @@
 
 class GameMap : public CrossingRoad::GameScreen {
 	// ---- game properties ----
-	int level = 0;
-	int collectedCoins = 0;
-	int index = 0;
 	int maxIndex = 0;
 	float totalTime = 0.0f;
 	bool endlessMode = false;
@@ -30,9 +28,10 @@ class GameMap : public CrossingRoad::GameScreen {
 	Image grid;
 	Widget::Dialog pausegame_dialog;
 	Widget::Dialog gameover_dialog;
+	Widget::Text level;
 
 protected:
-	int score = 0;
+	GameMapInfo gameInfo; // manage game information
 	std::vector<Lane*> lanes;
 	Portal portal;
 		
@@ -40,9 +39,28 @@ protected:
 	Graphic::Sprite snowlane;
 	Graphic::Sprite waterlane;
 	Graphic::Sprite roadlane;
+	Graphic::Sprite railwaylane;
 	Graphic::Sprite roadMarking;
 public: 
 	GameMap(CrossingRoad* game) : GameScreen(game) {};
+	GameMap(CrossingRoad* game, GameMapInfo gameInfo) : GameScreen(game), gameInfo(gameInfo) {};
+
+	void CreateNewGame();
+	void LoadSavedGame();
+	void InitWidget();
+
+	void GetNewEndlessGame();
+	void GetNewGameLevel(int level);
+	void LoadSavedLanes();
+
+	std::string GetSavedGameName();
+	void SaveGame();
+
+	GameMapInfo GetGameMapInfo(
+		GameMapInfo partialInfo,
+		GamePlayer* player,
+		std::vector<Lane*> lanes
+	);
 
 	// overrided functions 
 	bool OnCreate();
