@@ -87,11 +87,15 @@ void MenuWidget::Update(float elapsedTime) {
 			enterClicked = false;
 			totalTime = 0;
 			// reset button text position
+			COORD pos = buttons[currentButtonIndex].getPosition();
 			buttons[currentButtonIndex].text.SetTextPosition(
 				buttons[currentButtonIndex].text.text,
-				Widget::GetCenterTextPos(buttons[currentButtonIndex].text.text, buttons[currentButtonIndex].getPosition(), 138, 34),
-				138,
-				34
+				Widget::GetCenterTextPos(
+					buttons[currentButtonIndex].text.text,
+					{ short(pos.X + 43), short(pos.Y + 18) },
+					90, 20
+				),
+				90, 20
 			);
 		}
 	}

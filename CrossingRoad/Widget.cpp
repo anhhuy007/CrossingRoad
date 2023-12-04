@@ -46,6 +46,7 @@ Widget::Text::Text(
 	ptext += " ";
 	text = ptext;
 	font = pfont;
+	color = pcolor;
 	position = pposition;
 	width = pwidth;
 	height = pheight;
@@ -134,6 +135,7 @@ void Widget::Text::UpdateText(std::string ptext)
 
 	// set text positions
 	SetTextPosition(ptext, position, width, height);
+	SetTextColor(color);
 }
 
 void Widget::Text::SetTextPosition(
@@ -175,7 +177,7 @@ void Widget::Text::SetTextPosition(
 
 void Widget::Text::SetTextColor(short pcolor)
 {
-	for (auto& letter : appearance) {
+	for (auto& letter : appearance) {	
 		for (int i = 0; i < letter.GetHeight(); i++) {
 			for (int j = 0; j < letter.GetWidth(); j++) {
 				if (letter.GetPixel(i, j).color != COLOR::TRANSPARENT_) {

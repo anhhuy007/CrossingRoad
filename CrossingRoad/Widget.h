@@ -14,6 +14,7 @@ namespace Widget {
 	class Text : public GameObject {
 		TextSequence appearance;
 		TextFont font;
+		short color = 0;	// from 0 to 15
 
 		std::string GetLetterSpritePath(char letter, TextFont font);
 		std::string GetNextWord(int index, std::string ptext);
