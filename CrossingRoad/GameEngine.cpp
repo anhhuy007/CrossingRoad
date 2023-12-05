@@ -35,6 +35,7 @@ void GameEngine::GameLoop() {
 		auto duration = time2 - time1;
 		time1 = time2;
 		float elapsedTime = duration.count() / (float) 10000;  // in milliseconds
+		srand(time(NULL));
 
 		// ----- Handle keyboard input -----
 		inputHandle = InputHandle::GetKeyBoardState();

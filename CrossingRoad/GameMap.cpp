@@ -57,6 +57,14 @@ bool GameMap::OnCreate()
 		LoadSavedGame();
 	}
 
+	// play sound
+	if (gameInfo.mapType == MapType::CLASSIC) {
+		game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
+	}
+	else {
+		game->sound->playBackgroundSound(int(Sound::Background::CHRISTMAS));
+	}
+
 	InitWidget();
 
 	return true;
@@ -160,10 +168,15 @@ void GameMap::Render() {
 		TextFont::COIN_NUMBER
 	);
 
+	if (gameInfo.gameMode == GameMode::LEVEL_MODE) {
+		Image textLevel = Image(DrawableRes::LevelText, Overlapped::TEXT);
+		game->RenderSprite(textLevel, { 10, 5 });
+		level.Render();
+	}
+
 	// display score
 	textScore.Render();
 	textCoins.Render();
-	level.Render();
 }
 
 bool GameMap::HandlePlayerCollision(float elapsedTime) {
@@ -217,8 +230,7 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	}
 	else if (collisType == 6) {		
 		// player hit the portal
-		game->sound->turnOffBackgroundSound();
-
+		
 		// update game info for the next level
 		gameInfo.score = 0;
 		gameInfo.coin += 5; // add 5 coins for player
@@ -292,7 +304,18 @@ void GameMap::InitWidget()
 			game,
 			"New game",
 			[&]() {
-				CrossingRoad::Navigation::To(new WinterMap(game));
+				// reset game info
+				gameInfo.score = 0;
+				gameInfo.coin = 0;
+				gameInfo.level = 1;
+				gameInfo.endLane = 20;
+
+				if ((rand() % 2) == 0) {
+					CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+				}
+				else {
+					CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+				}
 			}
 		),
 	};
@@ -309,7 +332,7 @@ void GameMap::InitWidget()
 	level = Widget::Text(
 		game,
 		std::to_string(gameInfo.level),
-		{ 10, 5 },
+		{ 10, 20 },
 		30, 30,
 		TextFont::NUMBER
 	);
@@ -473,6 +496,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 			return { "", "" };
 		}
 		else for (int i = 0; i < keyNumber; i++) {
+			// input information from keyboard
 			if (game->inputHandle->keyState_[i].isPressed) {
 				if (inputIndex == 0) {
 					if (i == Keyboard::BACKSPACE_KEY) {
