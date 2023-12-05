@@ -8,6 +8,7 @@ GamePlayer::GamePlayer(
 	// initial player position
 	lanePos = 14;
 	position = { 31, 217 };
+	playerType = player;
 		
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
@@ -29,7 +30,7 @@ GamePlayer::GamePlayer(
 	animationState = playerInfo.aniState;
 	movingDirection = playerInfo.moveDirec;
 
-	animationSprite = Factory::GetPlayerSprite(playerInfo.playerName);
+	animationSprite = Factory::GetPlayerSprite(playerInfo.playerType);
 	speed = GameSpeed(24, 6, -11, 21);
 	axisSpeed = GameSpeed(4, 1, -1, 2);
 

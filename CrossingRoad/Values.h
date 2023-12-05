@@ -234,7 +234,8 @@ struct LaneInfo {
 };
 
 struct PlayerInfo {
-	Player playerName;
+	char playerName[20];
+	Player playerType;
 	MovingDirection moveDirec;
 	AnimationState aniState;
 	int lanePos;

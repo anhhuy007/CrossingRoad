@@ -110,7 +110,7 @@ std::vector<SavedGameDisplayInfo> SavedGameScreen::GetSavedGameInfo()
 		fileName = fileName.substr(0, fileName.find("."));
 		savedGameList.push_back(SavedGameDisplayInfo(
 			savedGameList.size() + 1,
-			"unknown",
+			gameInfo.playerInfo.playerName,
 			fileName,
 			gameInfo.gameMode,
 			gameInfo.score

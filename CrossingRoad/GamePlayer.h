@@ -24,6 +24,8 @@ class GamePlayer : public GameObject {
 	Graphic::Sprite GetSpriteByAnimation(AnimationState state);
 public:
 	// attributes
+	std::string name = "unknown";
+	Player playerType;
 	int lanePos;
 	std::vector<AnimationSprite> animationSprite;
 	MovingDirection movingDirection = MovingDirection::UP;
