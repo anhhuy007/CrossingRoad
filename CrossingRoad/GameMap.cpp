@@ -184,7 +184,7 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 
 	COORD pos = player->getPosition();
 
-	if (collisType != 5) {
+	if (collisType != 5 || game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed || game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
 		isFirstOnLog = false;
 	}
 	if (collisType == 5) {
@@ -469,6 +469,8 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
 
+
+		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 			inputIndex = max(0, inputIndex - 1);
 		}
@@ -498,36 +500,23 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 		else for (int i = 0; i < keyNumber; i++) {
 			// input information from keyboard
 			if (game->inputHandle->keyState_[i].isPressed) {
-				if (inputIndex == 0) {
-					if (i == Keyboard::BACKSPACE_KEY) {
-						if (playerName.size() > 0) {
-							playerName.pop_back();
-						}
-					}
-					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-						i == Keyboard::SPACE_KEY
-						) {
-						if (playerName.size() < 20) {
-							playerName.push_back(i);
-						}
+				game->sound->playEffectSound(int(Sound::Effect::TYPING));
+				isValid = isValidGameName(gameName);
+				if (!isValid) inputStatus.UpdateText("Invalid game name!");
+				else inputStatus.UpdateText("This name is great!");
+
+				if (i == Keyboard::BACKSPACE_KEY) {
+					if (gameName.size() > 0) {
+						gameName.pop_back();
 					}
 				}
-				else {
-					if (i == Keyboard::BACKSPACE_KEY) {
-						if (gameName.size() > 0) {
-							gameName.pop_back();
-						}
-					}
-					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-						i == Keyboard::SPACE_KEY
-						) {
-						if (gameName.size() < 20) {
-							gameName.push_back(i);
-						}
+				else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+					(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+					(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+					i == Keyboard::SPACE_KEY
+					) {
+					if (gameName.size() < 20) {
+						gameName.push_back(i);
 					}
 				}
 			}
