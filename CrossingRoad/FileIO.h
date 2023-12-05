@@ -16,5 +16,3 @@ public:
 	static bool WriteGameInfo(std::string filename, GameMapInfo gameInfo);
 	static bool LoadGameInfo(std::string filename, GameMapInfo& gameInfo);
 };
-
-#endif // !_FILEIO_H_

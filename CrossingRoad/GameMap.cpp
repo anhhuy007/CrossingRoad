@@ -452,7 +452,8 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 				}
 			}
 		}
-		return true;
+
+		return gameName.length() > 0;
 		};
 
 	// check exist game name
@@ -466,11 +467,9 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	bool validGameName = false;
 	bool validPlayerName = false;
 	bool okGameName = false;
+
 	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
-
-
-		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
 			inputIndex = max(0, inputIndex - 1);
 		}
@@ -499,24 +498,41 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 		}
 		else for (int i = 0; i < keyNumber; i++) {
 			// input information from keyboard
-			if (game->inputHandle->keyState_[i].isPressed) {
-				game->sound->playEffectSound(int(Sound::Effect::TYPING));
-				isValid = isValidGameName(gameName);
-				if (!isValid) inputStatus.UpdateText("Invalid game name!");
-				else inputStatus.UpdateText("This name is great!");
-
-				if (i == Keyboard::BACKSPACE_KEY) {
-					if (gameName.size() > 0) {
-						gameName.pop_back();
+			if (inputIndex == 0) {
+				if (game->inputHandle->keyState_[i].isPressed) {
+					game->sound->playEffectSound(int(Sound::Effect::TYPING));
+					if (i == Keyboard::BACKSPACE_KEY) {
+						if (playerName.size() > 0) {
+							playerName.pop_back();
+						}
+					}
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+						i == Keyboard::SPACE_KEY
+						) {
+						if (playerName.size() < 20) {
+							playerName.push_back(i);
+						}
 					}
 				}
-				else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-					(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-					(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-					i == Keyboard::SPACE_KEY
-					) {
-					if (gameName.size() < 20) {
-						gameName.push_back(i);
+			}
+			else {
+				if (game->inputHandle->keyState_[i].isPressed) {
+					game->sound->playEffectSound(int(Sound::Effect::TYPING));
+					if (i == Keyboard::BACKSPACE_KEY) {
+						if (gameName.size() > 0) {
+							gameName.pop_back();
+						}
+					}
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+						i == Keyboard::SPACE_KEY
+						) {
+						if (gameName.size() < 20) {
+							gameName.push_back(i);
+						}
 					}
 				}
 			}
