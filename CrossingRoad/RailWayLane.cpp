@@ -63,6 +63,7 @@ void RailWayLane::Render()
 			Gravity::BOTTOM_CENTER
 		));
 	}
+	game->sound->playEffectSound(int(Sound::Effect::TRAIN));
 }
 
 void RailWayLane::ScrollUp()

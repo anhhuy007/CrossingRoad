@@ -6,13 +6,14 @@
 #include <vector>
 
 class WaterLane : public Lane {
-	MovingDirection direction;
 
 public:
+	MovingDirection direction;
 	Log log;
 	WaterLane(
 		int id,
 		CrossingRoad* game,
+		MovingDirection pdirection,
 		Graphic::Sprite waterSprite = Graphic::Sprite()
 	);
 

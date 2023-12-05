@@ -29,5 +29,8 @@ public:
 	void ScrollUp();
 	void SetScreenColor();
 
-	Lane* GetNewLane(int laneId, LaneType previousLane); // genarate random lane
+	Lane* GetNewLane(
+		int laneId, 
+		Lane* previousLane
+	); // genarate random lane
 };

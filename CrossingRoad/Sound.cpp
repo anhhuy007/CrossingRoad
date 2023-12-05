@@ -20,11 +20,13 @@ const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\Coin.wav",
 	L"Sound\\Bubble.mp3",
 	L"Sound\\Duck.mp3",
-	L"Sound\\LogJump.wav",
+	L"Sound\\LogJump.mp3",
 	L"Sound\\WaterSplash.wav",
 	L"Sound\\Portal.mp3",
 	L"Sound\\Hit.wav",
 	L"Sound\\EndSoundWinterMap.mp3",
+	L"Sound\\Train.mp3",
+	L"Sound\\Typing.mp3"
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
 	L"Sound\\BackgroundMusic.mp3",
@@ -54,7 +56,7 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"9";
 	else if (path == L"Sound\\Duck.mp3")
 		return L"10";
-	else if (path == L"Sound\\LogJump.wav")
+	else if (path == L"Sound\\LogJump.mp3")
 		return L"11";
 	else if (path == L"Sound\\WaterSplash.wav")
 		return L"12";
@@ -64,6 +66,10 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"14";
 	else if (path == L"Sound\\EndSoundWinterMap.mp3")
 		return L"15";
+	else if (path == L"Sound\\Train.mp3")
+		return L"16";
+	else if (path == L"Sound\\Typing.mp3")
+		return L"17";
 	else
 		return L"";
 }
@@ -102,9 +108,9 @@ void Sound::playSound(std::wstring alias) {
 }
 //--------------Play background and effect sound--------------
 void Sound::playBackgroundSound(int indexSound) {
-	if (indexSound != currentIndexBackgroundSound) {
-		closeSound(findAlias(BACKGROUND[currentIndexBackgroundSound]));
-		firstTimePlaying = true;
+	if (indexSound != setting.currentIndexBackgroundSound) {
+		closeSound(findAlias(BACKGROUND[setting.currentIndexBackgroundSound]));
+		setting.firstTimePlaying = true;
 	}
 	if (indexSound == -1) {
 		return;
@@ -112,24 +118,24 @@ void Sound::playBackgroundSound(int indexSound) {
 	std::wstring path = BACKGROUND[indexSound];
 	std::wstring alias = findAlias(path);
 
-	setAudio(alias, backgroundVolume);
+	setAudio(alias, setting.backgroundVolume);
 
-	if (backgroundSound) {
-		if (firstTimePlaying) {
+	if (setting.backgroundSound) {
+		if (setting.firstTimePlaying) {
 			openSound(path);
 			repeatSound(alias);
-			backgroundPlaying = true;
-			firstTimePlaying = false;
-			currentIndexBackgroundSound = indexSound;
+			setting.backgroundPlaying = true;
+			setting.firstTimePlaying = false;
+			setting.currentIndexBackgroundSound = indexSound;
 		}
 		else {
 			resumeSound(alias);
-			backgroundPlaying = true;
+			setting.backgroundPlaying = true;
 		}
 	}
 	else {
 		pauseSound(alias);
-		backgroundPlaying = false;
+		setting.backgroundPlaying = false;
 	}
 }
 
@@ -137,46 +143,46 @@ void Sound::playEffectSound(int indexSound) {
 	std::wstring path = EFFECT[indexSound];
 	std::wstring alias = findAlias(path);
 
-	if (effectSound) {
+	if (setting.effectSound) {
 		closeSound(alias);
 		openSound(path);
-		setAudio(alias, effectVolume);
+		setAudio(alias, setting.effectVolume);
 		playSound(alias);
 	}
 }
 
 void Sound::turnOffBackgroundSound() {
-	backgroundSound = false;
-	playBackgroundSound(currentIndexBackgroundSound);
+	setting.backgroundSound = false;
+	playBackgroundSound(setting.currentIndexBackgroundSound);
 }
 
 void Sound::turnOnBackgroundSound() {
-	backgroundSound = true;
-	playBackgroundSound(currentIndexBackgroundSound);
+	setting.backgroundSound = true;
+	playBackgroundSound(setting.currentIndexBackgroundSound);
 }
 
 void Sound::turnOffEffectSound() {
-	effectSound = false;
+	setting.effectSound = false;
 }
 
 void Sound::turnOnEffectSound() {
-	effectSound = true;
+	setting.effectSound = true;
 }
 
 
 //--------------Adjust volume--------------
 bool Sound::turnUpBackgroundVolume() {
-	if (backgroundVolume < 100 && backgroundVolume >= 0) {
-		backgroundVolume += 20;
-		playBackgroundSound(currentIndexBackgroundSound);
+	if (setting.backgroundVolume < 100 && setting.backgroundVolume >= 0) {
+		setting.backgroundVolume += 20;
+		playBackgroundSound(setting.currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;
 }
 bool Sound::turnDownBackgroundVolume() {
-	if (backgroundVolume <= 100 && backgroundVolume > 0) {
-		backgroundVolume -= 20;
-		playBackgroundSound(currentIndexBackgroundSound);
+	if (setting.backgroundVolume <= 100 && setting.backgroundVolume > 0) {
+		setting.backgroundVolume -= 20;
+		playBackgroundSound(setting.currentIndexBackgroundSound);
 		return 1;
 	}
 	return 0;
@@ -190,32 +196,32 @@ Sound* Sound::getInstance() {
 	return instance_;
 }
 bool Sound::turnUpEffectVolume() {
-	if (effectVolume < 100 && effectVolume >= 0) {
-		effectVolume += 20;
+	if (setting.effectVolume < 100 && setting.effectVolume >= 0) {
+		setting.effectVolume += 20;
 		return 1;
 	}
 	return 0;
 }
 bool Sound::turnDownEffectVolume() {
-	if (effectVolume <= 100 && effectVolume > 0) {
-		effectVolume -= 20;
+	if (setting.effectVolume <= 100 && setting.effectVolume > 0) {
+		setting.effectVolume -= 20;
 		return 1;
 	}
 	return 0;
 }
 
 bool Sound::isBackgroundSoundOn() {
-	return backgroundSound;
+	return setting.backgroundSound;
 }
 
 bool Sound::isEffectSoundOn() {
-	return effectSound;
+	return setting.effectSound;
 }
 
 int Sound::getBackgroundVolume() {
-	return backgroundVolume;
+	return setting.backgroundVolume;
 }
 
 int Sound::getEffectVolume() {
-	return effectVolume;
+	return setting.effectVolume;
 }

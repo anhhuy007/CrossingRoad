@@ -18,3 +18,5 @@ public:
 	static bool WritePlayerOption(std::string filename, PlayerOption& gameInfo);
 	
 };
+
+#endif // !_FILEIO_H_

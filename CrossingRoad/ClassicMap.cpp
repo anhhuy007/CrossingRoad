@@ -22,7 +22,10 @@ void ClassicMap::SetScreenColor() {
 	COLOR::SetConsoleColor(colors);
 }
 
-Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
+Lane* ClassicMap::GetNewLane(
+	int laneId, 
+	Lane* previousLane
+) {
 	int randomLane = rand() % 10;
 
 	if (randomLane <= 1) {
@@ -35,9 +38,22 @@ Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
 		);
 	}
 	else if (randomLane <= 3) {
+		MovingDirection direct = MovingDirection::LEFT;
+
+		if (previousLane != nullptr) {
+			if (previousLane->laneType == LaneType::WATER) {
+				WaterLane* waterlane = dynamic_cast<WaterLane*>(previousLane);
+
+				if (waterlane->direction == MovingDirection::LEFT) {
+					direct = MovingDirection::RIGHT;
+				}
+			}
+		}
+		
 		return new WaterLane(
 			laneId, 
 			game, 
+			direct,
 			waterlane
 		);
 	}
@@ -49,14 +65,12 @@ Lane* ClassicMap::GetNewLane(int laneId, LaneType previousLane) {
 		);
 	}
 	else if (randomLane >= 5) {
-		bool hasRoadMarking = previousLane == LaneType::ROAD ? true : false;
-
 		return new RoadLane(
 			laneId, 
 			game, 
 			roadlane,
 			roadMarking,
-			hasRoadMarking
+			false	
 		);
 	}
 }
@@ -83,10 +97,18 @@ void ClassicMap::CreateLanes() {
 	/*Lane* lane = new RoadLane(7, game, roadlane, roadMarking, false);
 	lanes.push_back(lane);*/
 
-	for (int i = 0; i < MAXLANE - 2; i++) {
-		lanes.push_back(GetNewLane(i, i == 0 ? LaneType::GRASS : lanes[i - 1]->laneType));
+	for (int i = 0; i < MAXLANE - 3; i++) {
+		lanes.push_back(GetNewLane(i, i == 0 ? nullptr : lanes[i - 1]));
 	}
 
+	for (int i = 0; i < lanes.size() - 1; i++) {
+		if (lanes[i]->laneType == LaneType::ROAD && lanes[i + 1]->laneType == LaneType::ROAD) {
+			RoadLane* roadlane = dynamic_cast<RoadLane*>(lanes[i + 1]);
+			roadlane->hasRoadMarking = true;
+		}
+	}
+
+	lanes.push_back(new GrassLane(MAXLANE - 3, game, grasslane, 0, 0));
 	lanes.push_back(new GrassLane(MAXLANE - 2, game, grasslane, 0, 0));
 	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane, 0, 0));
 
@@ -117,7 +139,7 @@ void ClassicMap::ScrollUp() {
 		lanes.insert(lanes.begin(), new GrassLane(0, game, grasslane, 0, 0));
 	}
 	else {
-		lanes.insert(lanes.begin(), GetNewLane(0, LaneType::GRASS));
+		lanes.insert(lanes.begin(), GetNewLane(0, lanes[0]));
 	}
 	
 	if (lanes[0]->laneType == LaneType::ROAD && lanes[1]->laneType == LaneType::ROAD) {
