@@ -56,6 +56,11 @@ bool AboutScreen::OnCreate() {
 }
 
 bool AboutScreen::OnUpdate(float elapsedTime) {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	// draw background
 	game->RenderSprite(image, { 0, 0 });
 	//Print text

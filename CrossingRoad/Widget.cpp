@@ -1,4 +1,38 @@
 #include "Widget.h"
+#include <map>
+
+const std::map<char, std::string> punctuations = {
+	{'.', "dot"},
+	{',', "comma"},
+	{'!', "exclamation"},
+	{'?', "question"},
+	{'-', "hyphen"},
+	{'_', "underscore"},
+	{'@', "at"},
+	{'#', "hash"},
+	{'$', "dollar"},
+	{'%', "percent"},
+	{'&', "ampersand"},
+	{'*', "asterisk"},
+	{'(', "left_parenthesis"},
+	{')', "right_parenthesis"},
+	{'=', "equal"},
+	{'+', "plus"},
+	{'|', "vertical_bar"},
+	{'{', "left_brace"},
+	{'}', "right_brace"},
+	{'[', "left_bracket"},
+	{']', "right_bracket"},
+	{'<', "less_than"},
+	{'>', "greater_than"},
+	{'~', "tilde"},
+	{'`', "grave_accent"},
+	{':', "colon"},
+	{';', "semicolon"},
+	{'^', "caret"},
+	{'\"', "quotation"},
+	{' ', "space"}
+};
 
 Widget::Text::Text(
 	CrossingRoad* pgame,
@@ -89,6 +123,11 @@ std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
 		letter -= 32;
 	}
 
+	// check if letter is punctuation
+	else if (punctuations.find(letter) != punctuations.end()) {
+		path += punctuations.at(letter);
+	}
+
 	path = path + letter + ".sprite";
 
 	return path;
@@ -136,6 +175,12 @@ void Widget::Text::UpdateText(std::string ptext)
 	// set text positions
 	SetTextPosition(ptext, position, width, height);
 	SetTextColor(color);
+}
+
+void Widget::Text::UpdatePosition(COORD pposition)
+{
+	position = pposition;
+	SetTextPosition(text, position, width, height);
 }
 
 void Widget::Text::SetTextPosition(

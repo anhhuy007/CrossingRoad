@@ -145,6 +145,11 @@ bool SavedGameScreen::OnCreate()
 
 bool SavedGameScreen::OnUpdate(float elapsedTime)
 {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	short top_border = 60, left = 70, space = 28;
 	game->RenderSprite(bg, { 0, 0 });
 	game->RenderSprite(book, { 20,7 });
@@ -157,9 +162,14 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 
 	// render text
-	for (int i = 0; i < savedGameTexts.size(); i++)
+	COORD pos = { 75, 105 };
+	for (int i = itemRange; i < min(itemRange + 4, savedGameTexts.size()); i++)
 	{
+		// update text position
+		savedGameTexts[i].SetYPosition(pos.Y);
 		savedGameTexts[i].Render();
+
+		pos.Y += 30;
 	}
 
 	// render header
@@ -180,15 +190,37 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 
 	// update hover
 	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-		if (hoverIndex > 0) {
-			hoverIndex--;
+		hoverIndex--;
+
+		if (hoverIndex < 0) {
+			hoverIndex = 0;
+			game->sound->playEffectSound(int(Sound::Effect::INVALID));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
 			hoverPos.Y -= 30;
+		}
+
+		if (hoverIndex < itemRange) {
+			itemRange = max(0, itemRange - 1);
+			hoverPos.Y += 30;
 		}
 	}
 	else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-		if (hoverIndex < savedGameTexts.size() - 1) {
-			hoverIndex++;
+		hoverIndex++;
+
+		if (hoverIndex >= savedGameTexts.size()) {
+			hoverIndex = savedGameTexts.size() - 1;
+			game->sound->playEffectSound(int(Sound::Effect::INVALID));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
 			hoverPos.Y += 30;
+		}
+
+		if (hoverIndex >= itemRange + 4) {
+			itemRange = min(itemRange + 1, savedGameTexts.size() - 4);
+			hoverPos.Y -= 30;
 		}
 	}
 
@@ -197,6 +229,9 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 
 	// handle enter key pressed
 	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		if (savedGameList.size() == 0) return true;
+
+		game->sound->playEffectSound(int(Sound::Effect::ENTER));
 		// get saved game info
 		SavedGameDisplayInfo info = savedGameList[hoverIndex];
 
@@ -279,4 +314,15 @@ void SavedGameScreen::SavedGameText::Render()
 	gameName.Render();
 	gameMode.Render();
 	score.Render();
+}
+
+void SavedGameScreen::SavedGameText::SetYPosition(int _position)
+{
+	position.Y = _position;
+	// update text position
+	number.UpdatePosition({number.getPosition().X, position.Y});
+	playerName.UpdatePosition({ playerName.getPosition().X, position.Y });
+	gameName.UpdatePosition({ gameName.getPosition().X, position.Y });
+	gameMode.UpdatePosition({ gameMode.getPosition().X, position.Y });
+	score.UpdatePosition({ score.getPosition().X, position.Y });
 }

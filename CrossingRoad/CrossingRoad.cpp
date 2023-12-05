@@ -17,7 +17,7 @@ bool CrossingRoad::GameCreate() {
 	// ----- Create new game -----
 	srand(time(NULL));
 	GameEngine::BuildConsole();
-	Navigation::To(new SavedGameScreen(this));
+	Navigation::To(new MenuScreen(this));
 
 	return true;
 }

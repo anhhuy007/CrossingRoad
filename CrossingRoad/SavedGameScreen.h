@@ -18,7 +18,7 @@ public:
 	// overrided functions 
 	bool OnCreate() override;
 	bool OnUpdate(float elapsedTime) override;
-	bool OnPause()  override { return false; };	// handle ESC key pressed
+	bool OnPause()  override { return true; };	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
 	//declare
@@ -41,6 +41,7 @@ public:
 	Animation hover;
 	COORD hoverPos = { 70, 95 };
 	int hoverIndex = 0;
+	int itemRange = 0;
 
 	class SavedGameText {
 		CrossingRoad* game;
@@ -57,7 +58,6 @@ public:
 		SavedGameText() {
 			game = nullptr;
 			position = { 0, 0 };
-
 		}
 
 		SavedGameText(
@@ -71,6 +71,7 @@ public:
 		);
 
 		void Render();
+		void SetYPosition(int _position);
 
 	};
 
