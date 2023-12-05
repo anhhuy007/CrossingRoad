@@ -191,7 +191,7 @@ void Widget::Text::SetTextPosition(
 ) {
 	textPositions.clear();
 
-	int wordHeight = appearance[0].GetHeight();
+ 	int wordHeight = appearance[0].GetHeight();
 	int maxX = pposition.X + pwidth;
 	int maxY = pposition.Y + pheight;
 	COORD currentPos = pposition;
