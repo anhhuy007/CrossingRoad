@@ -94,3 +94,20 @@ bool FileIO::LoadGameInfo(std::string filename, GameMapInfo& gameInfo)
 	return 1;
 }
 
+
+bool FileIO::WritePlayerOption(std::string filename, PlayerOption& playerOption)
+{
+	// open file
+	std::string filepath = foldername + filename;
+	std::ofstream ofs(filepath, std::ios::beg | std::ios::binary);
+
+	// error 
+	if (!ofs) return false;
+
+	ofs.write((char*)&playerOption, sizeof(PlayerOption));
+	ofs.close();
+	return true;
+}
+
+
+

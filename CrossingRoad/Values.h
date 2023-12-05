@@ -4,6 +4,8 @@
 #include <string>
 #include "Graphic.h"
 
+#include "Sound.h"
+
 const float FPS = 60;
 const int keyNumber = 256;
 const int characterSize = 16;
@@ -273,4 +275,11 @@ struct GameMapInfo {
 		score = other.score;
 		coin = other.coin;
 	}
+};
+
+
+
+struct PlayerOption {
+	Sound sound;
+	Player player;
 };

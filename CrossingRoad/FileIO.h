@@ -15,4 +15,6 @@ class FileIO {
 public: 
 	static bool WriteGameInfo(std::string filename, GameMapInfo gameInfo);
 	static bool LoadGameInfo(std::string filename, GameMapInfo& gameInfo);
+	static bool WritePlayerOption(std::string filename, PlayerOption& gameInfo);
+	
 };
