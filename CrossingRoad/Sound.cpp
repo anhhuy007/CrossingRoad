@@ -20,11 +20,13 @@ const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\Coin.wav",
 	L"Sound\\Bubble.mp3",
 	L"Sound\\Duck.mp3",
-	L"Sound\\LogJump.wav",
+	L"Sound\\LogJump.mp3",
 	L"Sound\\WaterSplash.wav",
 	L"Sound\\Portal.mp3",
 	L"Sound\\Hit.wav",
 	L"Sound\\EndSoundWinterMap.mp3",
+	L"Sound\\Train.mp3",
+	L"Sound\\Typing.mp3"
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
 	L"Sound\\BackgroundMusic.mp3",
@@ -54,7 +56,7 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"9";
 	else if (path == L"Sound\\Duck.mp3")
 		return L"10";
-	else if (path == L"Sound\\LogJump.wav")
+	else if (path == L"Sound\\LogJump.mp3")
 		return L"11";
 	else if (path == L"Sound\\WaterSplash.wav")
 		return L"12";
@@ -64,6 +66,10 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"14";
 	else if (path == L"Sound\\EndSoundWinterMap.mp3")
 		return L"15";
+	else if (path == L"Sound\\Train.mp3")
+		return L"16";
+	else if (path == L"Sound\\Typing.mp3")
+		return L"17";
 	else
 		return L"";
 }

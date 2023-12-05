@@ -171,7 +171,7 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 
 	COORD pos = player->getPosition();
 
-	if (collisType != 5) {
+	if (collisType != 5 || game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed || game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
 		isFirstOnLog = false;
 	}
 	if (collisType == 5) {
@@ -427,6 +427,7 @@ std::string GameMap::GetSavedGameName()
 	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
 
+
 		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 			if (isExistGameName(gameName)) {
 				isValid = false;
@@ -443,6 +444,7 @@ std::string GameMap::GetSavedGameName()
 		}
 		else for (int i = 0; i < keyNumber; i++) {
 			if (game->inputHandle->keyState_[i].isPressed) {
+				game->sound->playEffectSound(int(Sound::Effect::TYPING));
 				isValid = isValidGameName(gameName);
 				if (!isValid) inputStatus.UpdateText("Invalid game name!");
 				else inputStatus.UpdateText("This name is great!");

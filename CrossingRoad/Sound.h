@@ -70,7 +70,9 @@ public:
        WATER_SPLASH,
        PORTAL,
        HIT,
-       END_WINTER_MAP
+       END_WINTER_MAP,
+       TRAIN,
+       TYPING
     };
 
     static Sound* getInstance();
