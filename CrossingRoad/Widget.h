@@ -47,6 +47,7 @@ namespace Widget {
 		void Update(float elapsedTime) {};
 		void Render();
 		void UpdateText(std::string ptext);
+		void UpdatePosition(COORD pposition); 
 
 		// behaviours
 		void SetTextPosition(

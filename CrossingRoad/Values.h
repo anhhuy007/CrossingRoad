@@ -234,7 +234,8 @@ struct LaneInfo {
 };
 
 struct PlayerInfo {
-	Player playerName;
+	char playerName[20];
+	Player playerType;
 	MovingDirection moveDirec;
 	AnimationState aniState;
 	int lanePos;
@@ -272,5 +273,35 @@ struct GameMapInfo {
 		level = other.level;
 		score = other.score;
 		coin = other.coin;
+	}
+};
+
+struct SavedGameDisplayInfo {
+	int index;
+	std::string playerName;
+	std::string fileName;
+	GameMode gameMode;
+	int score;
+
+	SavedGameDisplayInfo() {
+		index = 0;
+		playerName = "";
+		fileName = "";
+		gameMode = GameMode::ENDLESS_MODE;
+		score = 0;
+	}
+
+	SavedGameDisplayInfo(
+		int _index,
+		std::string _playerName,
+		std::string _fileName,
+		GameMode _gameMode,
+		int _score
+	) {
+		index = _index;
+		playerName = _playerName;
+		fileName = _fileName;
+		gameMode = _gameMode;
+		score = _score;
 	}
 };

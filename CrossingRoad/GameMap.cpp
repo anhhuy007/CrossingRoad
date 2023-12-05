@@ -147,7 +147,7 @@ void GameMap::Render() {
 		game,
 		str_score,
 		{ short(440 - str_score.length() * 13 + 13), 5 },
-		30, 30,
+		50, 30,
 		TextFont::NUMBER
 	);
 
@@ -156,7 +156,7 @@ void GameMap::Render() {
 		game,
 		str_coin,
 		{ short(440 - str_coin.length() * 13 + 13), 22 },
-		30, 30,
+		50, 30,
 		TextFont::COIN_NUMBER
 	);
 
@@ -337,9 +337,11 @@ void GameMap::GetNewGameLevel(int level)
 
 void GameMap::SaveGame()
 {
-	std::string gameName = GetSavedGameName();
+	std::pair<std::string, std::string> gameNameInfo = GetSavedNameInfo();
+	player->name = gameNameInfo.first;
+
 	GameMapInfo finalInfo = GetGameMapInfo(gameInfo, player, lanes);
-	bool status = FileIO::WriteGameInfo(gameName + ".game", finalInfo);
+	bool status = FileIO::WriteGameInfo(gameNameInfo.second + ".game", finalInfo);
 
 	if (status == true) {
 		std::cout << "Game saved successfully" << std::endl;
@@ -351,30 +353,46 @@ void GameMap::SaveGame()
 	system("pause");
 }
 
-std::string GameMap::GetSavedGameName()
+std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 {
 	// display screen to ask player to enter game name
-	std::string gameName;
+	std::string gameName, playerName;
+	int inputIndex = 0;
 	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	Widget::Text title = Widget::Text(
+	Widget::Text title1 = Widget::Text(
 		game,
-		"Enter game name: ",
+		"Enter player name: ",
 		{ 140, 70 },
 		100, 30,
 		TextFont::NORMAL,
 		6
 	);
-	Widget::Text inputText = Widget::Text(
+	Widget::Text title2 = Widget::Text(
+		game,
+		"Enter game name: ",
+		{ 140, 80 },
+		100, 30,
+		TextFont::NORMAL,
+		6
+	);
+	Widget::Text inputText1 = Widget::Text(
 		game,
 		"name",
-		{ 230, 70 },
+		{ 240, 70 },
+		200, 30,
+		TextFont::NORMAL
+	);
+	Widget::Text inputText2 = Widget::Text(
+		game,
+		"name",
+		{ 240, 80 },
 		200, 30,
 		TextFont::NORMAL
 	);
 	Widget::Text rule = Widget::Text(
 		game,
-		"Game name must be less than 20 characters and contain no special characters",
-		{ 140, 100 },
+		"Name must be less than 20 characters and contain no special characters",
+		{ 140, 110 },
 		200, 30,
 		TextFont::NORMAL,
 		15
@@ -383,7 +401,7 @@ std::string GameMap::GetSavedGameName()
 	Widget::Text note = Widget::Text(
 		game,
 		"Press ENTER to save game or ESC to exit",
-		{ 140, 120 },
+		{ 140, 130 },
 		200, 40,
 		TextFont::NORMAL,
 		15
@@ -391,15 +409,15 @@ std::string GameMap::GetSavedGameName()
 
 	Widget::Text inputStatus = Widget::Text(
 		game,
-		"Invalid game name!",
-		{ 140, 150 },
+		"Invalid name!",
+		{ 140, 160 },
 		200, 40,
 		TextFont::NORMAL,
 		10
 	);
 
 	// lambda function to check if game name is valid
-	auto isValidGameName = [](std::string gameName) {
+	auto isValidName = [](std::string gameName) {
 		if (gameName.size() == 0 || gameName.size() > 20) return false;
 		for (auto c : gameName) {
 			if (c == ' ') continue;
@@ -419,28 +437,42 @@ std::string GameMap::GetSavedGameName()
 		std::string path = "SavedGame/" + gameName + ".game";
 		std::ifstream file(path);
 		return file.good();
-		};
+	};
 
 	// get game name from player
-	bool isValid = false;
+	bool validGameName = false;
+	bool validPlayerName = false;
 	bool okGameName = false;
 	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
 
 
 		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+			inputIndex = max(0, inputIndex - 1);
+		}
+		else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+			inputIndex = min(1, inputIndex + 1);
+		}
+		else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 			if (isExistGameName(gameName)) {
-				isValid = false;
+				validGameName = false;
 				inputStatus.UpdateText("Game name is exist!");
 			}
-			else if (isValidGameName(gameName)) {
+			else if (!isValidName(gameName)) {
+				inputStatus.UpdateText("Invalid game name");
+			}
+			else if (!isValidName(playerName)) {
+				inputStatus.UpdateText("Invalid player name");
+			}
+			else {
 				okGameName = true;
 				inputStatus.UpdateText("Save game succesfully!");
 				inputStatus.SetTextColor(8);
 			}
 		}
 		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
-			return "";
+			return { "", "" };
 		}
 		else for (int i = 0; i < keyNumber; i++) {
 			if (game->inputHandle->keyState_[i].isPressed) {
@@ -469,16 +501,19 @@ std::string GameMap::GetSavedGameName()
 		// update input text
 		game->ClearConsole();
 		game->RenderSprite(bg, { 0, 0 });
-		inputText.UpdateText(gameName);
-		inputText.Render();
-		title.Render();
+		inputText1.UpdateText(playerName);
+		inputText2.UpdateText(gameName);
+		inputText1.Render();
+		inputText2.Render();
+		title1.Render();
+		title2.Render();
 		rule.Render();
 		note.Render();
 		inputStatus.Render();
 		game->UpdateConsole();
 	}
 
-	return gameName;
+	return { playerName, gameName };
 }
 
 void GameMap::LoadSavedLanes()
@@ -554,6 +589,10 @@ GameMapInfo GameMap::GetGameMapInfo(
 	GameMapInfo gameInfo = partialInfo;
 
 	// get player informations
+	for (int i = 0; i < player->name.size(); i++) {
+		gameInfo.playerInfo.playerName[i] = player->name[i];
+	}
+	gameInfo.playerInfo.playerType = player->playerType;
 	gameInfo.playerInfo.moveDirec = player->movingDirection;
 	gameInfo.playerInfo.aniState = player->animationState;
 	gameInfo.playerInfo.lanePos = player->lanePos;
@@ -629,7 +668,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 			WaterLane* waterLane = dynamic_cast<WaterLane*>(lane);
 			laneInfo.lanePos = waterLane->id;
 			laneInfo.laneType = LaneType::WATER;
-			laneInfo.objectDirection = MovingDirection::NONE;
+			laneInfo.objectDirection = waterLane->direction;
 
 			// get objects on water lane 
 			ObjectInfo logInfo;
