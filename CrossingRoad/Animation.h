@@ -29,5 +29,7 @@ public:
 	void OnPlay(float elapsedTime);	// join animation to new thread
 	void OnPause();
 	void OnResume();
+
+	void SetPosition(COORD pposition);
 };
 

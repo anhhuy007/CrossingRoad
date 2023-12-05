@@ -39,3 +39,8 @@ void Animation::OnResume() {
 	isPause = false;
 }
 
+void Animation::SetPosition(COORD pposition)
+{
+	position = pposition;
+}
+

@@ -1,6 +1,10 @@
 #include "SavedGameScreen.h"
+#include "CrossingRoad.h"
+#include "Sound.h"
+#include "ClassicMap.h"
+#include "WinterMap.h"
 
-bool SavedGameScreen::OnCreate()
+void SavedGameScreen::InitWidget()
 {
 	//S A V E D G M
 	std::vector<Graphic::Sprite> textSgif = {
@@ -31,7 +35,7 @@ bool SavedGameScreen::OnCreate()
 		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithShadow),
 		Graphic::Sprite(DrawableRes::saveGameTitleCharMwithoutShadow),
 	};
-	
+
 	std::string animationPath = "Screen\\saveGame\\animation\\hoverGif\\";
 	std::vector<Graphic::Sprite> hoverGif;
 	for (int i = 1; i <= 6; i++)
@@ -87,12 +91,65 @@ bool SavedGameScreen::OnCreate()
 	listItem = Image("Screen\\saveGame\\img\\listItem.sprite");
 	book = Image("Screen\\saveGame\\img\\book.sprite");
 	cat = Image("Screen\\saveGame\\img\\cat.sprite");
+}
+
+std::vector<SavedGameDisplayInfo> SavedGameScreen::GetSavedGameInfo()
+{
+	std::string path = "SavedGame\\";
+	for (const auto& entry : std::filesystem::directory_iterator(path))
+	{
+		std::string fileName = entry.path().filename().string();
+		
+		// read file to get saved game info
+		GameMapInfo gameInfo;
+		bool status = FileIO::LoadGameInfo(fileName, gameInfo);
+
+		if (!status) continue;
+
+		// get display info
+		fileName = fileName.substr(0, fileName.find("."));
+		savedGameList.push_back(SavedGameDisplayInfo(
+			savedGameList.size() + 1,
+			gameInfo.playerInfo.playerName,
+			fileName,
+			gameInfo.gameMode,
+			gameInfo.score
+		));
+	}
+
+	return savedGameList;
+}
+
+bool SavedGameScreen::OnCreate()
+{
+	InitWidget();
+	std::vector<SavedGameDisplayInfo> savedGameList = GetSavedGameInfo();
+
+	// display saved game list to table
+	COORD pos = { 75, 95 };
+	for (int i = 0; i < savedGameList.size(); i++)
+	{
+		savedGameTexts.push_back(SavedGameText(
+			game,
+			savedGameList[i],
+			pos,
+			200, 5,
+			TextFont::NORMAL, 0
+		));
+
+		pos.Y += 30;
+	}
 
 	return true;
 }
 
 bool SavedGameScreen::OnUpdate(float elapsedTime)
 {
+	// if player press ESC, then back to menu screen
+	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
 	short top_border = 60, left = 70, space = 28;
 	game->RenderSprite(bg, { 0, 0 });
 	game->RenderSprite(book, { 20,7 });
@@ -103,6 +160,22 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
+
+	// render text
+	COORD pos = { 75, 105 };
+	for (int i = itemRange; i < min(itemRange + 4, savedGameTexts.size()); i++)
+	{
+		// update text position
+		savedGameTexts[i].SetYPosition(pos.Y);
+		savedGameTexts[i].Render();
+
+		pos.Y += 30;
+	}
+
+	// render header
+	for (int i = 0; i < 5; i++) {
+		header[i].Render();
+	}
 
 	S.OnPlay(elapsedTime);
 	A1.OnPlay(elapsedTime);
@@ -115,7 +188,141 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	M.OnPlay(elapsedTime);
 	E2.OnPlay(elapsedTime);
 
+	// update hover
+	if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+		hoverIndex--;
+
+		if (hoverIndex < 0) {
+			hoverIndex = 0;
+			game->sound->playEffectSound(int(Sound::Effect::INVALID));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
+			hoverPos.Y -= 30;
+		}
+
+		if (hoverIndex < itemRange) {
+			itemRange = max(0, itemRange - 1);
+			hoverPos.Y += 30;
+		}
+	}
+	else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+		hoverIndex++;
+
+		if (hoverIndex >= savedGameTexts.size()) {
+			hoverIndex = savedGameTexts.size() - 1;
+			game->sound->playEffectSound(int(Sound::Effect::INVALID));
+		}
+		else {
+			game->sound->playEffectSound(int(Sound::Effect::VALID));
+			hoverPos.Y += 30;
+		}
+
+		if (hoverIndex >= itemRange + 4) {
+			itemRange = min(itemRange + 1, savedGameTexts.size() - 4);
+			hoverPos.Y -= 30;
+		}
+	}
+
+	hover.SetPosition(hoverPos);
 	hover.OnPlay(elapsedTime);
 
+	// handle enter key pressed
+	if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		if (savedGameList.size() == 0) return true;
+
+		game->sound->playEffectSound(int(Sound::Effect::ENTER));
+		// get saved game info
+		SavedGameDisplayInfo info = savedGameList[hoverIndex];
+
+		// load saved game
+		GameMapInfo gameInfo;
+		bool status = FileIO::LoadGameInfo(info.fileName + ".game", gameInfo);
+		
+		if (!status) return false;
+
+		// navigate to game screen
+		if (gameInfo.mapType == MapType::CLASSIC) {
+			CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+		}
+		else if (gameInfo.mapType == MapType::WINTER) {
+			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+		}
+	}
+
 	return true;
+}
+
+SavedGameScreen::SavedGameText::SavedGameText(
+	CrossingRoad* _game,
+	SavedGameDisplayInfo _info,
+	COORD _position,
+	int _width,
+	int _height,
+	TextFont _font,
+	short _color
+) {
+	game = _game;
+	info = _info;
+	position = _position;
+
+	number = Widget::Text(
+		game,
+		std::to_string(info.index),
+		{ short(position.X + 10), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	playerName = Widget::Text(
+		game,
+		info.playerName,
+		{ short(position.X + 35), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	gameName = Widget::Text(
+		game,
+		info.fileName,
+		{ short(position.X + 120), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	gameMode = Widget::Text(
+		game,
+		(info.gameMode == GameMode::ENDLESS_MODE) ? "ENDLESS" : "LEVEL",
+		{ short(position.X + 220), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+
+	score = Widget::Text(
+		game,
+		std::to_string(info.score),
+		{ short(position.X + 280), short(position.Y + 10) },
+		_width, _height,
+		_font, _color
+	);
+}
+
+void SavedGameScreen::SavedGameText::Render()
+{
+	number.Render();
+	playerName.Render();
+	gameName.Render();
+	gameMode.Render();
+	score.Render();
+}
+
+void SavedGameScreen::SavedGameText::SetYPosition(int _position)
+{
+	position.Y = _position;
+	// update text position
+	number.UpdatePosition({number.getPosition().X, position.Y});
+	playerName.UpdatePosition({ playerName.getPosition().X, position.Y });
+	gameName.UpdatePosition({ gameName.getPosition().X, position.Y });
+	gameMode.UpdatePosition({ gameMode.getPosition().X, position.Y });
+	score.UpdatePosition({ score.getPosition().X, position.Y });
 }

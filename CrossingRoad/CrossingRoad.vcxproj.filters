@@ -201,6 +201,9 @@
     <ClCompile Include="RailWayLane.cpp">
       <Filter>Source Files\Objects\Lanes</Filter>
     </ClCompile>
+    <ClCompile Include="ChooseCharScreen.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="RailWayLane.h">
       <Filter>Header Files\Objects\Lanes</Filter>
+    </ClInclude>
+    <ClInclude Include="ChooseCharScreen.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

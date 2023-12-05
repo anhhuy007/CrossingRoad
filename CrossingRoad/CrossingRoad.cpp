@@ -7,7 +7,7 @@
 #include "AboutScreen.h"
 #include "LeaderBoard.h"
 #include "TestScreen.h"
-
+#include "ChooseCharScreen.h"
 
 // ----- Game Maps -----
 #include "ClassicMap.h"

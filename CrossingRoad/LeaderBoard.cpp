@@ -43,25 +43,26 @@ bool LeaderBoard::OnUpdate(float elapsedTime)
 		CrossingRoad::Navigation::To(new MenuScreen(game));
 	}
 
+	short left = 45, top = 90;
 	game->RenderSprite(bg, { 0,0 });
-	game->RenderSprite(title, { 86,10 });
-	game->RenderSprite(text1, { 73,48 });
-	game->RenderSprite(text2, { 310,48 });
+	game->RenderSprite(title, { 86,20});
+	game->RenderSprite(text1, { 73,short(top - 30) });
+	game->RenderSprite(text2, { 310,short(top - 30) });
 
-	game->RenderSprite(medal1, { 10,60 });
-	game->RenderSprite(medal2, { 10,92 });
-	game->RenderSprite(medal3, { 10,124 });
+	game->RenderSprite(medal1, { 15,short(top - 5) });
+	game->RenderSprite(medal2, { 15,short(top +35 ) });
+	game->RenderSprite(medal3, { 15,short(top +75) });
 
-	game->RenderSprite(medal1, { 235,60 });
-	game->RenderSprite(medal2, { 235,92 });
-	game->RenderSprite(medal3, { 235,124 });
+	game->RenderSprite(medal1, { 240,short(top - 5) });
+	game->RenderSprite(medal2, { 240,short(top + 35) });
+	game->RenderSprite(medal3, { 240,short(top + 75) });
 
-	short left = 40, top = 67;
-	for (int i = 0; i < 5; i++)
+
+	for (int i = 0; i < 3; i++)
 	{
 		game->RenderSprite(item, { left,top });
 		game->RenderSprite(item, { short(left+225),top });
-		top += 32;
+		top += 40;
 	}
 	return true;
 }

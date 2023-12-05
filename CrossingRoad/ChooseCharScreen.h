@@ -19,7 +19,15 @@ public:
 	bool OnPause()  override { return false; };	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
+	Image char1;
+	Image char2;
+	Image char3;
 
+	std::vector<int> colors1;
+	std::vector<int> colors2;
+	std::vector<int> colors3;
+
+	int currentChar;
 };
 
 

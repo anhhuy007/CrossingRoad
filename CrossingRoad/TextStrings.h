@@ -187,6 +187,15 @@ namespace DrawableRes {
 	const std::string splashTitleCharACUTEwithoutShadow = splashScreenTitleNoShadow + "ACUTE.Sprite";
 
 
+	//--------------------------------------CHOOSE CHAR SCREEN SPRITE-------------------------------
+	const std::string chooseCharScreenFolder = "Screen\\chooseCharScreen\\img\\";
+	const std::string chooseChar1 = chooseCharScreenFolder + "char1.Sprite";
+	const std::string chooseChar2 = chooseCharScreenFolder + "char2.Sprite";
+	const std::string chooseChar3 = chooseCharScreenFolder + "char3.Sprite";
+
+
+
+
 }
 
 #endif // !_TEXTSTRING_H_
