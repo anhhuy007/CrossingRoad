@@ -3,10 +3,11 @@
 WaterLane::WaterLane(
 	int id, 
 	CrossingRoad* game, 
+	MovingDirection pdirection,
 	Graphic::Sprite waterSprite
 ) : Lane(id, game, waterSprite, LaneType::WATER) {
 	// generate random log
-	direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
+	direction = pdirection;
 	log = Log(game, id, direction);
 	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::WATER));
 }
@@ -17,7 +18,7 @@ WaterLane::WaterLane(
 	LaneInfo laneInfo
 ) : Lane(id, game, waterSprite, LaneType::WATER) {
 	// generate random log
-	direction = (rand() % 2) == 0 ? MovingDirection::LEFT : MovingDirection::RIGHT;
+	direction = laneInfo.objectDirection;
 	log = Log(game, id, direction, laneInfo.objectsInfo[0]);
 	log.logSprite.SetOverlapped(Overlapped::LOG);
 	SetCollisionPoints(Factory::GetObjectCollisionPoints(ObjectType::WATER));

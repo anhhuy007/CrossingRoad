@@ -147,7 +147,7 @@ void GameMap::Render() {
 		game,
 		str_score,
 		{ short(440 - str_score.length() * 13 + 13), 5 },
-		30, 30,
+		50, 30,
 		TextFont::NUMBER
 	);
 
@@ -156,7 +156,7 @@ void GameMap::Render() {
 		game,
 		str_coin,
 		{ short(440 - str_coin.length() * 13 + 13), 22 },
-		30, 30,
+		50, 30,
 		TextFont::COIN_NUMBER
 	);
 
@@ -679,7 +679,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 			WaterLane* waterLane = dynamic_cast<WaterLane*>(lane);
 			laneInfo.lanePos = waterLane->id;
 			laneInfo.laneType = LaneType::WATER;
-			laneInfo.objectDirection = MovingDirection::NONE;
+			laneInfo.objectDirection = waterLane->direction;
 
 			// get objects on water lane 
 			ObjectInfo logInfo;
