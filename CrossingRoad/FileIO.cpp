@@ -8,7 +8,7 @@ bool FileIO::WriteGameInfo(std::string filename, GameMapInfo gameInfo)
 	std::string filepath = foldername + filename;
 	std::ofstream ofs(filepath, std::ios::beg | std::ios::binary);
 
-	// error 
+	// error
 	if (!ofs) return 0;
 
     ofs.write(reinterpret_cast<const char*>(&gameInfo.mapType), sizeof(MapType));

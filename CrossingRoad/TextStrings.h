@@ -73,7 +73,7 @@ namespace DrawableRes {
 	const std::string Dialog = "widgets\\Dialog.sprite";
 	const std::string GameOverDialog = "widgets\\GameOverDialog.sprite";
 	const std::string GameOver = "widgets\\GameOver.sprite";
-	
+	const std::string LevelText = "widgets\\Level.sprite";
 
 
 	// SETTING SCREEN SPRITE

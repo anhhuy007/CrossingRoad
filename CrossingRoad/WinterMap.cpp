@@ -100,7 +100,7 @@ void WinterMap::CreateLanes() {
 		lanes.push_back(GetNewLane(i, i == 0 ? nullptr : lanes[i - 1]));
 	}
 
-	for (int i = 0; i < lanes.size(); i++) {
+	for (int i = 0; i < lanes.size() - 1; i++) {
 		if (lanes[i]->laneType == LaneType::ROAD && lanes[i + 1]->laneType == LaneType::ROAD) {
 			RoadLane* roadlane = dynamic_cast<RoadLane*>(lanes[i + 1]);
 			roadlane->hasRoadMarking = true;
@@ -110,8 +110,6 @@ void WinterMap::CreateLanes() {
 	lanes.push_back(new SnowLane(MAXLANE - 3, game, snowlane, 0, 0));
 	lanes.push_back(new SnowLane(MAXLANE - 2, game, snowlane, 0, 0));
 	lanes.push_back(new SnowLane(MAXLANE - 1, game, snowlane, 0, 0));
-
-	game->sound->playBackgroundSound(int(Sound::Background::CHRISTMAS));
 }
 
 void WinterMap::ScrollUp() {

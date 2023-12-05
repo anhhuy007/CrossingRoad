@@ -48,13 +48,21 @@ void GameMap::LoadSavedGame()
 	LoadSavedLanes();
 }
 
-bool GameMap::OnCreate() 
-{	
+bool GameMap::OnCreate()
+{
 	if (gameInfo.lanesInfo.size() == 0) {
 		CreateNewGame();
 	}
 	else {
 		LoadSavedGame();
+	}
+
+	// play sound
+	if (gameInfo.mapType == MapType::CLASSIC) {
+		game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
+	}
+	else {
+		game->sound->playBackgroundSound(int(Sound::Background::CHRISTMAS));
 	}
 
 	InitWidget();
@@ -105,7 +113,7 @@ bool GameMap::OnUpdate(float elapsedTime) {
 	if (isPaused) {
 		return OnPause();
 	}
-	
+
 	// handle map scrolling up
 	int playerPos = player->lanePos;
 	if (playerPos == 6 && portal.lanePos != 9) {
@@ -160,10 +168,15 @@ void GameMap::Render() {
 		TextFont::COIN_NUMBER
 	);
 
+	if (gameInfo.gameMode == GameMode::LEVEL_MODE) {
+		Image textLevel = Image(DrawableRes::LevelText, Overlapped::TEXT);
+		game->RenderSprite(textLevel, { 10, 5 });
+		level.Render();
+	}
+
 	// display score
 	textScore.Render();
 	textCoins.Render();
-	level.Render();
 }
 
 bool GameMap::HandlePlayerCollision(float elapsedTime) {
@@ -192,8 +205,8 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 		MovingDirection logDirection = log.movingDirection;
 
 		player->MoveHorizontal(
-			elapsedTime, 
-			logSpeed, 
+			elapsedTime,
+			logSpeed,
 			logDirection
 		);
 	}
@@ -215,9 +228,8 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 			}
 		}
 	}
-	else if (collisType == 6) {		
+	else if (collisType == 6) {
 		// player hit the portal
-		game->sound->turnOffBackgroundSound();
 
 		// update game info for the next level
 		gameInfo.score = 0;
@@ -292,7 +304,18 @@ void GameMap::InitWidget()
 			game,
 			"New game",
 			[&]() {
-				CrossingRoad::Navigation::To(new WinterMap(game));
+				// reset game info
+				gameInfo.score = 0;
+				gameInfo.coin = 0;
+				gameInfo.level = 1;
+				gameInfo.endLane = 20;
+
+				if ((rand() % 2) == 0) {
+					CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+				}
+				else {
+					CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+				}
 			}
 		),
 	};
@@ -309,7 +332,7 @@ void GameMap::InitWidget()
 	level = Widget::Text(
 		game,
 		std::to_string(gameInfo.level),
-		{ 10, 5 },
+		{ 10, 20 },
 		30, 30,
 		TextFont::NUMBER
 	);
@@ -429,7 +452,8 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 				}
 			}
 		}
-		return true;
+
+		return gameName.length() > 0;
 		};
 
 	// check exist game name
@@ -443,44 +467,59 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	bool validGameName = false;
 	bool validPlayerName = false;
 	bool okGameName = false;
+
 	while (!okGameName) {
 		game->inputHandle = InputHandle::GetKeyBoardState();
-
-
-		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-			if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-				inputIndex = max(0, inputIndex - 1);
+		if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+			inputIndex = max(0, inputIndex - 1);
+		}
+		else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+			inputIndex = min(1, inputIndex + 1);
+		}
+		else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+			if (isExistGameName(gameName)) {
+				validGameName = false;
+				inputStatus.UpdateText("Game name is exist!");
 			}
-			else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-				inputIndex = min(1, inputIndex + 1);
+			else if (!isValidName(gameName)) {
+				inputStatus.UpdateText("Invalid game name");
 			}
-			else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-				if (isExistGameName(gameName)) {
-					validGameName = false;
-					inputStatus.UpdateText("Game name is exist!");
-				}
-				else if (!isValidName(gameName)) {
-					inputStatus.UpdateText("Invalid game name");
-				}
-				else if (!isValidName(playerName)) {
-					inputStatus.UpdateText("Invalid player name");
-				}
-				else {
-					okGameName = true;
-					inputStatus.UpdateText("Save game succesfully!");
-					inputStatus.SetTextColor(8);
-				}
+			else if (!isValidName(playerName)) {
+				inputStatus.UpdateText("Invalid player name");
 			}
-			else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
-				return { "", "" };
+			else {
+				okGameName = true;
+				inputStatus.UpdateText("Save game succesfully!");
+				inputStatus.SetTextColor(8);
 			}
-			else for (int i = 0; i < keyNumber; i++) {
+		}
+		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+			return { "", "" };
+		}
+		else for (int i = 0; i < keyNumber; i++) {
+			// input information from keyboard
+			if (inputIndex == 0) {
 				if (game->inputHandle->keyState_[i].isPressed) {
 					game->sound->playEffectSound(int(Sound::Effect::TYPING));
-					isValid = isValidName(gameName);
-					if (!isValid) inputStatus.UpdateText("Invalid game name!");
-					else inputStatus.UpdateText("This name is great!");
-
+					if (i == Keyboard::BACKSPACE_KEY) {
+						if (playerName.size() > 0) {
+							playerName.pop_back();
+						}
+					}
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+						i == Keyboard::SPACE_KEY
+						) {
+						if (playerName.size() < 20) {
+							playerName.push_back(i);
+						}
+					}
+				}
+			}
+			else {
+				if (game->inputHandle->keyState_[i].isPressed) {
+					game->sound->playEffectSound(int(Sound::Effect::TYPING));
 					if (i == Keyboard::BACKSPACE_KEY) {
 						if (gameName.size() > 0) {
 							gameName.pop_back();
@@ -497,25 +536,25 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 					}
 				}
 			}
-
-			// update input text
-			game->ClearConsole();
-			game->RenderSprite(bg, { 0, 0 });
-			inputText1.UpdateText(playerName);
-			inputText2.UpdateText(gameName);
-			inputText1.Render();
-			inputText2.Render();
-			title1.Render();
-			title2.Render();
-			rule.Render();
-			note.Render();
-			inputStatus.Render();
-			game->UpdateConsole();
 		}
 
-		return { playerName, gameName };
+		// update input text
+		game->ClearConsole();
+		game->RenderSprite(bg, { 0, 0 });
+		inputText1.UpdateText(playerName);
+		inputText2.UpdateText(gameName);
+		inputText1.Render();
+		inputText2.Render();
+		title1.Render();
+		title2.Render();
+		rule.Render();
+		note.Render();
+		inputStatus.Render();
+		game->UpdateConsole();
 	}
-};
+
+	return { playerName, gameName };
+}
 
 void GameMap::LoadSavedLanes()
 {
@@ -736,6 +775,5 @@ GameMapInfo GameMap::GetGameMapInfo(
 
 	return gameInfo;
 }
-
 
 

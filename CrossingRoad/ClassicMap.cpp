@@ -111,8 +111,6 @@ void ClassicMap::CreateLanes() {
 	lanes.push_back(new GrassLane(MAXLANE - 3, game, grasslane, 0, 0));
 	lanes.push_back(new GrassLane(MAXLANE - 2, game, grasslane, 0, 0));
 	lanes.push_back(new GrassLane(MAXLANE - 1, game, grasslane, 0, 0));
-
-	game->sound->playBackgroundSound(int(Sound::Background::HIGHWAY));
 }
 
 void ClassicMap::ScrollUp() {
