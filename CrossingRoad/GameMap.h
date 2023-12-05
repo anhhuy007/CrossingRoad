@@ -73,6 +73,8 @@ public:
 	virtual void SetScreenColor() = 0;
 	virtual void ScrollUp() = 0;
 
+
+
 	// methods
 	void Render();
 	bool HandlePlayerCollision(float elapsedTime);

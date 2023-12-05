@@ -437,7 +437,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 		std::string path = "SavedGame/" + gameName + ".game";
 		std::ifstream file(path);
 		return file.good();
-	};
+		};
 
 	// get game name from player
 	bool validGameName = false;
@@ -448,73 +448,74 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 
 
 		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-		if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
-			inputIndex = max(0, inputIndex - 1);
-		}
-		else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
-			inputIndex = min(1, inputIndex + 1);
-		}
-		else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-			if (isExistGameName(gameName)) {
-				validGameName = false;
-				inputStatus.UpdateText("Game name is exist!");
+			if (game->inputHandle->keyState_[Keyboard::UP_KEY].isPressed) {
+				inputIndex = max(0, inputIndex - 1);
 			}
-			else if (!isValidName(gameName)) {
-				inputStatus.UpdateText("Invalid game name");
+			else if (game->inputHandle->keyState_[Keyboard::DOWN_KEY].isPressed) {
+				inputIndex = min(1, inputIndex + 1);
 			}
-			else if (!isValidName(playerName)) {
-				inputStatus.UpdateText("Invalid player name");
-			}
-			else {
-				okGameName = true;
-				inputStatus.UpdateText("Save game succesfully!");
-				inputStatus.SetTextColor(8);
-			}
-		}
-		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
-			return { "", "" };
-		}
-		else for (int i = 0; i < keyNumber; i++) {
-			if (game->inputHandle->keyState_[i].isPressed) {
-				game->sound->playEffectSound(int(Sound::Effect::TYPING));
-				isValid = isValidGameName(gameName);
-				if (!isValid) inputStatus.UpdateText("Invalid game name!");
-				else inputStatus.UpdateText("This name is great!");
-
-				if (i == Keyboard::BACKSPACE_KEY) {
-					if (gameName.size() > 0) {
-						gameName.pop_back();
-					}
+			else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+				if (isExistGameName(gameName)) {
+					validGameName = false;
+					inputStatus.UpdateText("Game name is exist!");
 				}
-				else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-					(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-					(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-					i == Keyboard::SPACE_KEY
-					) {
-					if (gameName.size() < 20) {
-						gameName.push_back(i);
-					}
+				else if (!isValidName(gameName)) {
+					inputStatus.UpdateText("Invalid game name");
+				}
+				else if (!isValidName(playerName)) {
+					inputStatus.UpdateText("Invalid player name");
+				}
+				else {
+					okGameName = true;
+					inputStatus.UpdateText("Save game succesfully!");
+					inputStatus.SetTextColor(8);
 				}
 			}
+			else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+				return { "", "" };
+			}
+			else for (int i = 0; i < keyNumber; i++) {
+				if (game->inputHandle->keyState_[i].isPressed) {
+					game->sound->playEffectSound(int(Sound::Effect::TYPING));
+					isValid = isValidName(gameName);
+					if (!isValid) inputStatus.UpdateText("Invalid game name!");
+					else inputStatus.UpdateText("This name is great!");
+
+					if (i == Keyboard::BACKSPACE_KEY) {
+						if (gameName.size() > 0) {
+							gameName.pop_back();
+						}
+					}
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+						i == Keyboard::SPACE_KEY
+						) {
+						if (gameName.size() < 20) {
+							gameName.push_back(i);
+						}
+					}
+				}
+			}
+
+			// update input text
+			game->ClearConsole();
+			game->RenderSprite(bg, { 0, 0 });
+			inputText1.UpdateText(playerName);
+			inputText2.UpdateText(gameName);
+			inputText1.Render();
+			inputText2.Render();
+			title1.Render();
+			title2.Render();
+			rule.Render();
+			note.Render();
+			inputStatus.Render();
+			game->UpdateConsole();
 		}
 
-		// update input text
-		game->ClearConsole();
-		game->RenderSprite(bg, { 0, 0 });
-		inputText1.UpdateText(playerName);
-		inputText2.UpdateText(gameName);
-		inputText1.Render();
-		inputText2.Render();
-		title1.Render();
-		title2.Render();
-		rule.Render();
-		note.Render();
-		inputStatus.Render();
-		game->UpdateConsole();
+		return { playerName, gameName };
 	}
-
-	return { playerName, gameName };
-}
+};
 
 void GameMap::LoadSavedLanes()
 {
