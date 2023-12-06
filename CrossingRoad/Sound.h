@@ -87,9 +87,13 @@ public:
 
     bool turnUpBackgroundVolume();
     bool turnDownBackgroundVolume();
-
     bool turnUpEffectVolume();
     bool turnDownEffectVolume();
+
+    void pauseBackgroundSound();
+    void resumeBackgroundSound();
+    void pauseEffectSound();
+    void resumeEffectSound();
 
     bool isBackgroundSoundOn();
     bool isEffectSoundOn();
