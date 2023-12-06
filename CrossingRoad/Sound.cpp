@@ -210,6 +210,28 @@ bool Sound::turnDownEffectVolume() {
 	return 0;
 }
 
+void Sound::pauseBackgroundSound() {
+	pauseSound(findAlias(BACKGROUND[setting.currentIndexBackgroundSound]));
+	setting.backgroundPlaying = false;
+}
+
+void Sound::resumeBackgroundSound() {
+	resumeSound(findAlias(BACKGROUND[setting.currentIndexBackgroundSound]));
+	setting.backgroundPlaying = true;
+}
+
+void Sound::pauseEffectSound() {
+	for (int i = 0; i < EFFECT.size(); i++) {
+		pauseSound(findAlias(EFFECT[i]));
+	}
+}
+
+void Sound::resumeEffectSound() {
+	for (int i = 0; i < EFFECT.size(); i++) {
+		resumeSound(findAlias(EFFECT[i]));
+	}
+}
+
 bool Sound::isBackgroundSoundOn() {
 	return setting.backgroundSound;
 }
