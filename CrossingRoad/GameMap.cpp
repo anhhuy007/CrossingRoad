@@ -18,7 +18,7 @@ const std::vector<std::pair<MapType, int>> gameLevels = {
 
 void GameMap::CreateNewGame()
 {
-	player = new GamePlayer(Player::DUCKY, game);
+	player = new GamePlayer(game->userOption.player, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
 	maxIndex = 14;

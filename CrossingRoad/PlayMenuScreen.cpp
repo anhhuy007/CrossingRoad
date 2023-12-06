@@ -42,7 +42,7 @@ void PlayMenuScreen::InitWidget()
 		RGB(153,152,154)
 	};
 
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	// declaration
 

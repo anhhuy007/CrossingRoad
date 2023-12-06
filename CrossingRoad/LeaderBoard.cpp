@@ -31,7 +31,7 @@ bool LeaderBoard::OnCreate()
 	medal2 = Image(DrawableRes::silverMedal);
 	medal3 = Image(DrawableRes::bronzeMedal);
 
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
     return true;
 }

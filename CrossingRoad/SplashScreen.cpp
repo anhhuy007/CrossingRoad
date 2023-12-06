@@ -67,7 +67,7 @@ bool SplashScreen::OnCreate()
 			RGB(96, 109, 138),
 			RGB(72, 78, 94),
 	};
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	//declare
 	bg = Image("Screen\\splashScreen\\img\\bgSplashScreen.sprite");

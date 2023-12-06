@@ -5,6 +5,7 @@
 
 #include "Animation.h"
 #include "GamePlayer.h"
+#include "MenuScreen.h"
 
 
 class ChooseCharScreen : public CrossingRoad::GameScreen
@@ -16,7 +17,7 @@ public:
 	// overrided functions 
 	bool OnCreate() override;
 	bool OnUpdate(float elapsedTime) override;
-	bool OnPause()  override { return false; };	// handle ESC key pressed
+	bool OnPause()  override { return true; };	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
 	Image char1;
@@ -28,6 +29,7 @@ public:
 	std::vector<int> colors3;
 
 	int currentChar;
+
 };
 
 
