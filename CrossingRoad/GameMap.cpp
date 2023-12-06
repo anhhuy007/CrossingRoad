@@ -135,6 +135,7 @@ bool GameMap::OnPause() {
 	isPaused = true;
 	pausegame_dialog.Update(30);
 	pausegame_dialog.Render();
+	
 
 	return true;
 }

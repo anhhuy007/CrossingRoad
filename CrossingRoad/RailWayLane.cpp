@@ -55,6 +55,7 @@ void RailWayLane::Render()
 			{ 15, 43 },
 			Gravity::BOTTOM_CENTER
 		));
+		game->sound->playEffectSound(int(Sound::Effect::TRAIN));
 	}
 	else {
 		game->RenderSprite(greenLight, Alignment::GetAlignedPosition(
