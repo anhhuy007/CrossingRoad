@@ -4,33 +4,9 @@
 const std::map<char, std::string> punctuations = {
 	{'.', "dot"},
 	{',', "comma"},
-	{'!', "exclamation"},
-	{'?', "question"},
-	{'-', "hyphen"},
-	{'_', "underscore"},
-	{'@', "at"},
-	{'#', "hash"},
-	{'$', "dollar"},
-	{'%', "percent"},
-	{'&', "ampersand"},
-	{'*', "asterisk"},
-	{'(', "left_parenthesis"},
-	{')', "right_parenthesis"},
-	{'=', "equal"},
-	{'+', "plus"},
-	{'|', "vertical_bar"},
-	{'{', "left_brace"},
-	{'}', "right_brace"},
-	{'[', "left_bracket"},
-	{']', "right_bracket"},
 	{'<', "less_than"},
 	{'>', "greater_than"},
-	{'~', "tilde"},
-	{'`', "grave_accent"},
 	{':', "colon"},
-	{';', "semicolon"},
-	{'^', "caret"},
-	{'\"', "quotation"},
 	{' ', "space"}
 };
 
@@ -55,8 +31,6 @@ Widget::Text::Text(
 	appearance.clear();
 	for (auto& ch : ptext) {
 		// get sprite name
-		if (!isalpha(ch) && !isdigit(ch)) continue;
-
 		std::string spriteName = GetLetterSpritePath(ch, font);
 		Image letter = Image(spriteName, Overlapped::TEXT);
 		appearance.push_back(letter);
@@ -89,8 +63,6 @@ Widget::Text::Text(
 	appearance.clear();
 	for (auto& ch : ptext) {
 		// get sprite name
-		if (!isalpha(ch) && !isdigit(ch)) continue;
-
 		std::string spriteName = GetLetterSpritePath(ch, font);
 		Image letter = Image(spriteName, Overlapped::TEXT);
 		appearance.push_back(letter);
@@ -119,16 +91,23 @@ std::string Widget::Text::GetLetterSpritePath(char letter, TextFont font) {
 	}
 
 	// change to lowercase
-	if (letter >= 'a' && letter <= 'z') {
-		letter -= 32;
+	if ((letter >= 'A' && letter <= 'Z') ||
+		(letter >= '0' && letter <= '9')
+	) {
+		path = path + letter + ".sprite";
 	}
-
+	else if (letter >= 'a' && letter <= 'z') {
+		letter -= 32;
+		path = path + letter + ".sprite";
+	}
 	// check if letter is punctuation
 	else if (punctuations.find(letter) != punctuations.end()) {
-		path += punctuations.at(letter);
+		path = path + punctuations.at(letter) + ".sprite";
+	}
+	else {
+		return "";
 	}
 
-	path = path + letter + ".sprite";
 
 	return path;
 }
@@ -158,6 +137,7 @@ void Widget::Text::Render() {
 void Widget::Text::UpdateText(std::string ptext)
 {
 	if (ptext == text || ptext == "") return;
+
 	ptext += " ";
 	text = ptext;
 
@@ -165,8 +145,6 @@ void Widget::Text::UpdateText(std::string ptext)
 	appearance.clear();
 	for (auto& ch : ptext) {
 		// get sprite name
-		if (!isalpha(ch) && !isdigit(ch)) continue;
-
 		std::string spriteName = GetLetterSpritePath(ch, font);
 		Image letter = Image(spriteName, Overlapped::TEXT);
 		appearance.push_back(letter);
@@ -214,7 +192,9 @@ void Widget::Text::SetTextPosition(
 			textPositions.push_back(currentPos);
 			currentPos.X += appearance[i].GetWidth();
 		}
-		currentPos.X += 2; // 2 pixels is space between 2 words
+		// position for space
+		textPositions.push_back(currentPos);
+		currentPos.X += 3; // 5 pixels is space between 2 words
 
 		index += word.size() + 1;
 	}

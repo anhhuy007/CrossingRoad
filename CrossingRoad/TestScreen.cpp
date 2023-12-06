@@ -23,93 +23,21 @@ bool TestScreen::OnCreate() {
 	game->SetConsoleColor(colors);
 
 	// display screen to ask player to enter game name
-	std::string gameName;
-	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
-	Widget::Text title = Widget::Text(
+	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	text = Widget::Text(
 		game,
-		"Enter game name",
-		{ 140, 70 },
-		100, 30,
-		TextFont::NORMAL,
-		3 // green 
-	);
-	Widget::Text inputText = Widget::Text(
-		game,
-		"firstgame",
-		{ 230, 70 },
-		200, 30,
+		"This is a normal text, with special . character <for testing>: ",
+		{ 50, 100 },
+		200, 50,
 		TextFont::NORMAL
 	);
-	Widget::Text rule = Widget::Text(
-		game,
-		"Game name must be less than 20 characters and contain no special characters",
-		{ 140, 100 },
-		200, 30,
-		TextFont::NORMAL,
-		3 // blue
-	);
-
-	Widget::Text note = Widget::Text(
-		game,
-		"Press ENTER to save game or ESC to exit",
-		{ 140, 120 },
-		200, 40,
-		TextFont::NORMAL,
-		3 // blue
-	);
-
-	// get game name from player
-	while (true) {
-		game->inputHandle = InputHandle::GetKeyBoardState();
-		if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
-			if (gameName.size() > 0) {
-				return true;
-			}
-		}
-		else if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
-			return true;
-		}
-
-		// get input from player
-		for (int i = 0; i < keyNumber; i++) {
-			if (game->inputHandle->keyState_[i].isPressed) {
-				if (i == Keyboard::BACKSPACE_KEY) {
-					if (gameName.size() > 0) {
-						gameName.pop_back();
-					}
-				}
-				else if (i == Keyboard::ENTER_KEY) {
-					if (gameName.size() > 0) {
-						return true;
-					}
-				}
-				else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-						 i == Keyboard::SPACE_KEY
-					) {
-					if (gameName.size() < 20) {
-						gameName.push_back(i);
-					}
-				}
-			}
-		}
-
-		// update input text
-		game->ClearConsole();
-		game->RenderSprite(bg, { 0, 0 });
-		inputText.UpdateText(gameName);
-		inputText.Render();
-		title.Render();
-		rule.Render();
-		note.Render();
-		game->UpdateConsole();
-	}
 
 	return true;
 }
 
 bool TestScreen::OnUpdate(float elapsedTime) {
+	game->RenderSprite(bgImage, { 0, 0 });
+	text.Render();
 
 	return true;
 }

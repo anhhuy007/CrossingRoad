@@ -236,21 +236,20 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 	else if (collisType == 6) {
 		// player hit the portal
 		game->sound->playEffectSound(int(Sound::Effect::PORTAL));
-		// update game info for the next level
-		gameInfo.score = 0;
-		gameInfo.coin += 5; // add 5 coins for player
-		gameInfo.level++;
-		gameInfo.mapType = gameLevels[gameInfo.level - 1].first;
-		gameInfo.endLane = gameLevels[gameInfo.level - 1].second;
+
+		GameMapInfo newGameInfo;
+		newGameInfo.gameMode = gameInfo.gameMode;
+		newGameInfo.coin = gameInfo.coin + 5;
+		newGameInfo.level = gameInfo.level + 1;
+		newGameInfo.mapType = gameLevels[newGameInfo.level].first;
+		newGameInfo.endLane = gameLevels[newGameInfo.level].second;
 
 		if (gameInfo.mapType == MapType::WINTER) {
-			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+			CrossingRoad::Navigation::To(new WinterMap(game, newGameInfo));
 		}
 		else {
-			CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+			CrossingRoad::Navigation::To(new ClassicMap(game, newGameInfo));
 		}
-
-		system("pause");
 	}
 	else if (collisType == 2) {
 		// player hit the coin
@@ -378,7 +377,8 @@ void GameMap::SaveGame()
 		std::cout << "Game saved failed" << std::endl;
 	};
 
-	system("pause");
+	// sleep for 1 seconds
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
@@ -445,9 +445,9 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	);
 
 	// lambda function to check if game name is valid
-	auto isValidName = [](std::string gameName) {
-		if (gameName.size() == 0 || gameName.size() > 20) return false;
-		for (auto c : gameName) {
+	auto isValidName = [](std::string& name) {
+		if (name.size() == 0 || name.size() > 20) return false;
+		for (auto c : name) {
 			if (c == ' ') continue;
 			if (c < '0' || c > '9') {
 				if (c < 'A' || c > 'Z') {
@@ -457,16 +457,25 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 				}
 			}
 		}
+		
+		// trim space
+		while (name[0] == ' ') {
+			name.erase(0, 1);
+		}
 
-		return gameName.length() > 0;
+		while (name[name.size() - 1] == ' ') {
+			name.erase(name.size() - 1, 1);
+		}
+
+		return name.length() > 0;
 		};
 
 	// check exist game name
-	auto isExistGameName = [](std::string gameName) {
-		std::string path = "SavedGame/" + gameName + ".game";
+	auto isExistGameName = [](std::string name) {
+		std::string path = "SavedGame/" + name + ".game";
 		std::ifstream file(path);
 		return file.good();
-		};
+	};
 
 	// get game name from player
 	bool validGameName = false;
@@ -510,12 +519,20 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 						if (playerName.size() > 0) {
 							playerName.pop_back();
 						}
+
+						if (playerName.size() == 0) {
+							playerName = " ";
+						}
 					}
 					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
 						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
 						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
 						i == Keyboard::SPACE_KEY
 						) {
+						if (playerName == " ") {
+							playerName = "";
+						}
+
 						if (playerName.size() < 20) {
 							playerName.push_back(i);
 						}
@@ -529,12 +546,20 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 						if (gameName.size() > 0) {
 							gameName.pop_back();
 						}
+
+						if (gameName.size() == 0) {
+							gameName = " ";
+						}
 					}
 					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
 						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
 						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
 						i == Keyboard::SPACE_KEY
 						) {
+						if (gameName == " ") {
+							gameName = "";
+						}
+
 						if (gameName.size() < 20) {
 							gameName.push_back(i);
 						}
@@ -644,9 +669,11 @@ GameMapInfo GameMap::GetGameMapInfo(
 	gameInfo.playerInfo.position = player->getPosition();
 
 	// get portal informations
-	gameInfo.portalInfo.position = portal.getPosition();
-	gameInfo.portalInfo.visible = portal.visible;
-	gameInfo.portalInfo.lanePos = portal.lanePos;
+	gameInfo.portalInfo = PortalInfo(
+		portal.visible,
+		portal.lanePos,
+		portal.getPosition()
+	);
 
 	// get lane informations
 	for (auto lane : lanes) {

@@ -78,13 +78,8 @@ bool FileIO::LoadGameInfo(std::string filename, GameMapInfo& gameInfo)
 		gameInfo.lanesInfo.push_back(lane);
 	}
 
-	// read portal 
 	ifs.read(reinterpret_cast<char*>(&gameInfo.portalInfo), sizeof(PortalInfo));
-
-	// read player 
 	ifs.read(reinterpret_cast<char*>(&gameInfo.playerInfo), sizeof(PlayerInfo));
-
-	// read game points 
 	ifs.read(reinterpret_cast<char*>(&gameInfo.endLane), sizeof(int));
 	ifs.read(reinterpret_cast<char*>(&gameInfo.level), sizeof(int));
 	ifs.read(reinterpret_cast<char*>(&gameInfo.score), sizeof(int));
