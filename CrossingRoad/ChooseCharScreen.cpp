@@ -62,7 +62,7 @@ bool ChooseCharScreen::OnCreate()
 	RGB(72, 78, 92)
 	};
 
-	currentChar = rand() % 3 +1  ; //add navigation code instead
+	currentChar =  (int)game->userOption.player ; //add navigation code instead
 	return true;
 }
 
@@ -75,24 +75,31 @@ bool ChooseCharScreen::OnUpdate(float elapsedTime)
 	}
 	else if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
 		currentChar--;
-		if (currentChar < 1) currentChar = 3;
+		if (currentChar < 0) currentChar = 2;
 	}
 	else if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
 		currentChar++;
-		if (currentChar > 3) currentChar = 1;
+		if (currentChar > 2) currentChar = 0;
 	}
+	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
+		game->userOption.player = Player { currentChar };
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+		return true;
+	}
+
 	
-	if (currentChar == 1)
+
+	if (currentChar == 0)
 	{
 		game->SetConsoleColor(colors1);
 		game->RenderSprite(char1, { 0,0 });
 	}
-	else if (currentChar == 2)
+	else if (currentChar == 1)
 	{
 		game->SetConsoleColor(colors2);
 		game->RenderSprite(char2, { 0,0 });
 	}
-	else if (currentChar == 3)
+	else if (currentChar == 2)
 	{
 		game->SetConsoleColor(colors3);
 		game->RenderSprite(char3, { 0,0 });

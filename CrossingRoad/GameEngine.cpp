@@ -151,7 +151,7 @@ void GameEngine::UpdateConsole() {
 			CHAR_INFO belowBlock = screenBuffer[(i + 1) * windowSize.x + j];
 
 			int buffColor = belowBlock.Attributes + aboveBlock.Attributes * 16;
-			
+
 			consoleBuffer[(i / 2) * windowSize.x + j] = { 0x2584, (unsigned short)buffColor };
 		}
 	}
@@ -161,13 +161,14 @@ void GameEngine::UpdateConsole() {
 		consoleBuffer,
 		{ short(windowSize.x), short(windowSize.y / 2) },
 		{ 0, 0 },
-		& windowScope
+		&windowScope
 	);
 
 	delete[] consoleBuffer;
-}
+};
 
-GameEngine::GameEngine() {
+GameEngine::GameEngine() 
+{
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleScreenBufferInfoEx(hOut, &info);
 	fontSize = 6;

@@ -90,4 +90,7 @@ public:
 	PAIR windowSize = PAIR(0, 0);
 	PAIR realWindowSize = PAIR(0, 0);
 	std::string logText;
+
+
+	PlayerOption userOption;
  };

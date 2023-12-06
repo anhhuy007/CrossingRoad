@@ -324,7 +324,7 @@
       <Filter>Header Files\Objects\Lanes</Filter>
     </ClInclude>
     <ClInclude Include="ChooseCharScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
