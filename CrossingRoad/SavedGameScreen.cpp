@@ -68,7 +68,7 @@ void SavedGameScreen::InitWidget()
 	//16 / 16
 
 	};
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	short top_border = 10, left = 100, space = 28;
 	S = Animation(game, textSgif, { left, top_border }, 400); left += space;

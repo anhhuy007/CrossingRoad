@@ -27,8 +27,7 @@ bool MenuScreen::OnCreate() {
 
 	// init widget
 	InitWidget();
-	game->BuildConsole();
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	game->sound->playBackgroundSound(int(Sound::Background::BACKGROUND_MUSIC));
 	return true;
@@ -66,6 +65,13 @@ void MenuScreen::InitWidget()
 			"Play",
 			[&]() {
 				CrossingRoad::Navigation::To(new PlayMenuScreen(game));
+			}
+		),
+		Widget::Button(
+			game,
+			"Character",
+			[&]() {
+				CrossingRoad::Navigation::To(new ChooseCharScreen(game));
 			}
 		),
 		Widget::Button(

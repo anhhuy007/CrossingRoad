@@ -86,7 +86,7 @@ bool SettingScreen::OnCreate() {
 	music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
 	sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
 
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	return true;
 }
