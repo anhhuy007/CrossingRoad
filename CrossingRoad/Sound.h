@@ -98,6 +98,7 @@ public:
     bool isBackgroundSoundOn();
     bool isEffectSoundOn();
 
+    void playCharacterSound(int playerType);
     int getBackgroundVolume();
     int getEffectVolume();
 };

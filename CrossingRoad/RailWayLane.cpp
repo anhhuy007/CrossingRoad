@@ -50,12 +50,15 @@ void RailWayLane::Render()
 	game->RenderSprite(laneSprite, position);
 	train.Render();
 	if (isTrain == true) {
+		if (!isFirstTime) {
+			game->sound->playEffectSound(int(Sound::Effect::TRAIN));
+			isFirstTime = true;
+		}
 		game->RenderSprite(redLight, Alignment::GetAlignedPosition(
 			trafficLightPos, 10,
 			{ 15, 43 },
 			Gravity::BOTTOM_CENTER
 		));
-		game->sound->playEffectSound(int(Sound::Effect::TRAIN));
 	}
 	else {
 		game->RenderSprite(greenLight, Alignment::GetAlignedPosition(

@@ -12,6 +12,7 @@ class RailWayLane : public Lane
 	Graphic::Sprite greenLight, redLight;
 	int trafficLightPos;
 	bool isTrain = false;
+	bool isFirstTime = false;
 
 public: 
 	RailWayLane(
