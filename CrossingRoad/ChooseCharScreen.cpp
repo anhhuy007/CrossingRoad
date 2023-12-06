@@ -9,7 +9,7 @@ bool ChooseCharScreen::OnCreate()
 	char3 = Image(DrawableRes::chooseChar3);
 	
 	//-----------------------------COLOR SAVEGAME---------------------------
-	std::vector<int> colors1 = {
+	colors1 = {
 		RGB(255, 255, 255),  // WHITE
 		RGB(235, 219, 229),
 		RGB(0, 0, 0),  // BLACK
@@ -27,7 +27,7 @@ bool ChooseCharScreen::OnCreate()
 		RGB(110, 184, 46),
 		RGB(65, 39, 42)
 	};
-	std::vector<int> colors2 = {
+	colors2 = {
 	RGB(255, 255, 255),    // WHITE
 	RGB(235, 219, 229),
 	RGB(0, 0, 0),          // BLACK
@@ -46,7 +46,7 @@ bool ChooseCharScreen::OnCreate()
 	RGB(72, 78, 92)
 	};
 
-	std::vector<int> colors3 = {
+	colors3 = {
 	RGB(255, 255, 255),    // WHITE
 	RGB(235, 219, 229),
 	RGB(0, 0, 0),          // BLACK
@@ -83,6 +83,7 @@ bool ChooseCharScreen::OnCreate()
 bool ChooseCharScreen::OnUpdate(float elapsedTime)
 {
 	
+
 	if (currentChar == 1)
 		{
 			game->RenderSprite(char1, { 0,0 });
