@@ -142,7 +142,7 @@ Vehicle::Vehicle(
 	movingDirection = _direction;
 	axisSpeed = GameSpeed(4, 1, -11, 21);
 	vehicleSpeed = _info.speed;
-	position = _info.position;
+	endOfRoad = true;
 	width = vehicleSprite.GetWidth();
 	height = vehicleSprite.GetHeight();
 	vehicleSprite.SetOverlapped(Overlapped::OBSTACLE);

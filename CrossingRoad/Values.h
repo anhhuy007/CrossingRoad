@@ -251,6 +251,7 @@ struct LaneInfo {
 		lanePos = other.lanePos;
 		laneType = other.laneType;
 		objectDirection = other.objectDirection;
+		objectsInfo.clear();
 		for (auto obj : other.objectsInfo) {
 			objectsInfo.push_back(obj);
 		}
@@ -289,6 +290,7 @@ struct GameMapInfo {
 	GameMapInfo(const GameMapInfo& other) {
 		mapType = other.mapType;
 		gameMode = other.gameMode;
+		lanesInfo.clear();
 		for (auto lane : other.lanesInfo) {
 			lanesInfo.push_back(lane);
 		}

@@ -387,6 +387,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	std::string gameName, playerName;
 	int inputIndex = 0;
 	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	Image cursor = Image(DrawableRes::cursor, Overlapped::TEXT);
 	Widget::Text title1 = Widget::Text(
 		game,
 		"Enter player name: ",
@@ -446,7 +447,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 
 	// lambda function to check if game name is valid
 	auto isValidName = [](std::string& name) {
-		if (name.size() == 0 || name.size() > 20) return false;
+		if (name.size() == 0 || name.size() > 11) return false;
 		for (auto c : name) {
 			if (c == ' ') continue;
 			if (c < '0' || c > '9') {
@@ -533,7 +534,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 							playerName = "";
 						}
 
-						if (playerName.size() < 20) {
+						if (playerName.size() < 11) {
 							playerName.push_back(i);
 						}
 					}
@@ -560,7 +561,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 							gameName = "";
 						}
 
-						if (gameName.size() < 20) {
+						if (gameName.size() < 11) {
 							gameName.push_back(i);
 						}
 					}
@@ -580,6 +581,8 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 		rule.Render();
 		note.Render();
 		inputStatus.Render();
+		COORD cursorPos = inputIndex == 0 ? COORD(100, 63) : COORD(100, 73);
+		game->RenderSprite(cursor, cursorPos);
 		game->UpdateConsole();
 	}
 
@@ -605,15 +608,8 @@ void GameMap::LoadSavedLanes()
 			break;
 		}
 
-		case LaneType::ROAD: {
-			bool hasRoadMarking = false;
-			if (i > 0) {
-				if (gameInfo.lanesInfo[i - 1].laneType == LaneType::ROAD) {
-					hasRoadMarking = true;
-				}
-			}
-
-			RoadLane* roadLane = new RoadLane(lane.lanePos, game, roadlane, lane, hasRoadMarking);
+		case LaneType::ROAD: {			
+			RoadLane* roadLane = new RoadLane(lane.lanePos, game, roadlane, lane, false);
 			lanes.push_back(roadLane);
 			break;
 		}
@@ -636,6 +632,14 @@ void GameMap::LoadSavedLanes()
 			break;
 		}
 
+		}
+	}
+
+	// set road marking
+	for (int i = 0; i < lanes.size() - 1; i++) {
+		if (lanes[i]->laneType == LaneType::ROAD && lanes[i+1]->laneType == LaneType::ROAD) {
+			RoadLane* roadLane = dynamic_cast<RoadLane*>(lanes[i+1]);
+			roadLane->hasRoadMarking = true;
 		}
 	}
 }
@@ -786,7 +790,7 @@ GameMapInfo GameMap::GetGameMapInfo(
 			RailWayLane* railWayLane = dynamic_cast<RailWayLane*>(lane);
 			laneInfo.lanePos = railWayLane->id;
 			laneInfo.laneType = LaneType::RAILWAY;
-			laneInfo.objectDirection = MovingDirection::RIGHT;
+			laneInfo.objectDirection = MovingDirection::LEFT;
 
 			// get train
 			ObjectInfo trainInfo;
