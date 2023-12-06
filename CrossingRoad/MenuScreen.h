@@ -8,6 +8,7 @@
 #include "MenuWidget.h"
 #include "SettingScreen.h"
 #include "AboutScreen.h"
+#include "ChooseCharScreen.h"
 
 class MenuScreen : public CrossingRoad::GameScreen {
 public:

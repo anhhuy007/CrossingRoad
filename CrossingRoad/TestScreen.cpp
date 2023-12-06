@@ -20,7 +20,7 @@ bool TestScreen::OnCreate() {
 		RGB(176, 40, 49),		// red
 		RGB(77, 18, 30)			// red
 	};
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 
 	// display screen to ask player to enter game name
 	std::string gameName;

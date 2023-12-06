@@ -108,6 +108,23 @@ void GameEngine::RenderSprite(Graphic::Sprite sprite, COORD position) {
 	}
 }
 
+void GameEngine::SetConsoleColor(std::vector<int> colors)
+{
+	info.cbSize = sizeof(info);
+	GetConsoleScreenBufferInfoEx(hOut, &info);
+
+	// set console width and height
+	info.srWindow = { 0, 0, short(realWindowSize.x), short(realWindowSize.y) };
+	info.dwMaximumWindowSize = { short(realWindowSize.x), short(realWindowSize.y) };
+	info.dwSize = { short(realWindowSize.x), short(realWindowSize.y) };
+
+	for (int i = 0; i < colors.size(); i++) {
+		info.ColorTable[i] = colors[i];
+	}
+
+	SetConsoleScreenBufferInfoEx(hOut, &info);
+}
+
 void GameEngine::AddCollisionPoint(COORD point, int type) {
 	if (point.X < 0 || point.X >= windowSize.x || point.Y < 0 || point.Y >= windowSize.y) return;
 
@@ -153,9 +170,11 @@ void GameEngine::UpdateConsole() {
 
 GameEngine::GameEngine() {
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfoEx(hOut, &info);
 	fontSize = 6;
 	windowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM };
 	windowScope = { 0, 0, short(windowSize.x - 1), short(windowSize.y - 1) };
+	realWindowSize = { GameScreenLimit::RIGHT, GameScreenLimit::BOTTOM / 2 };
 	inputHandle = InputHandle::GetKeyBoardState();
 
 	// allocate memory 
@@ -219,6 +238,7 @@ void GameEngine::BuildConsole() {
 
 	// diable selection
 	SetConsoleMode(hOut, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	GetConsoleScreenBufferInfoEx(hOut, &info);
 }
 
 // ----- define static variables -----

@@ -19,7 +19,7 @@ void ClassicMap::SetScreenColor() {
 		RGB(176, 40, 49),
 		RGB(77, 18, 30)
 	};
-	COLOR::SetConsoleColor(colors);
+	game->SetConsoleColor(colors);
 }
 
 Lane* ClassicMap::GetNewLane(

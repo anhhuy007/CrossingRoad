@@ -54,6 +54,7 @@ public:
 	void UpdateConsole();
 	void ClearConsole();
 	void RenderSprite(Graphic::Sprite sprite, COORD position);
+	void SetConsoleColor(std::vector<int> colors);
 
 	// ----- Collision funtions -----
 	void AddCollisionPoint(COORD point, int type);
@@ -83,8 +84,10 @@ private:
 	int* overlappedBuffer = nullptr;
 	int* collisMatrix = nullptr;
 	HANDLE hOut;
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
 public: 
 	static std::atomic<bool> atomActive;  // true if game is running
 	PAIR windowSize = PAIR(0, 0);
+	PAIR realWindowSize = PAIR(0, 0);
 	std::string logText;
  };
