@@ -29,6 +29,7 @@ public:
 	std::vector<int> colors3;
 
 	int currentChar;
+
 };
 
 

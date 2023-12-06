@@ -18,7 +18,7 @@ const std::vector<std::pair<MapType, int>> gameLevels = {
 
 void GameMap::CreateNewGame()
 {
-	player = new GamePlayer(Player::DUCKY, game);
+	player = new GamePlayer(game->userOption.player, game);
 	portal = Portal(game);
 	grid = Graphic::Sprite(DrawableRes::Grid, Overlapped::PLAYER);
 	maxIndex = 14;
@@ -191,13 +191,16 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 		if (player->animationState == AnimationState::DROWN) {
 			if (!isFirstHit) {
 				game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+				game->sound->playEffectSound(int(Sound::Effect::END_WINTER_MAP));
 				isFirstHit = true;
 				return true;
 			}
 		}
 		if (!isFirstOnLog) {
-			game->sound->playEffectSound(int(Sound::Effect::LOG));
-			isFirstOnLog = true;
+			if (player->animationState != AnimationState::DROWN) {
+				game->sound->playEffectSound(int(Sound::Effect::LOG));
+				isFirstOnLog = true;
+			}
 		}
 		// player is on floating object
 		Log log = GetLogByLaneId(player->lanePos + 1);
@@ -216,6 +219,7 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 			player->animationState = AnimationState::DROWN;
 			if (!isFirstHit) {
 				game->sound->playEffectSound(int(Sound::Effect::WATER_SPLASH));
+				game->sound->playEffectSound(int(Sound::Effect::END_WINTER_MAP));
 				isFirstHit = true;
 			}
 		}
@@ -224,13 +228,14 @@ bool GameMap::HandlePlayerCollision(float elapsedTime) {
 			player->animationState = AnimationState::DEAD;
 			if (!isFirstHit) {
 				game->sound->playEffectSound(int(Sound::Effect::HIT));
+				game->sound->playEffectSound(int(Sound::Effect::END_WINTER_MAP));
 				isFirstHit = true;
 			}
 		}
 	}
 	else if (collisType == 6) {
 		// player hit the portal
-
+		game->sound->playEffectSound(int(Sound::Effect::PORTAL));
 		// update game info for the next level
 		gameInfo.score = 0;
 		gameInfo.coin += 5; // add 5 coins for player

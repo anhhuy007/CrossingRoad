@@ -94,12 +94,6 @@ void MenuScreen::InitWidget()
 			[&]() {
 				CrossingRoad::Navigation::To(new AboutScreen(game));
 			}
-		),
-		Widget::Button(
-			game,
-			"Exit",
-			[&]() {
-			}
 		)
 	};
 	menuWidget = MenuWidget(

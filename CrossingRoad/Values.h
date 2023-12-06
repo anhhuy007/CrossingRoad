@@ -99,9 +99,9 @@ enum class LaneType {
 };
 
 enum class Player {
-	CHICK,
 	DUCKY,
-	PENGUIN,
+	CHICK,
+	FROSTY,
 	MEOW, 
 	DINO
 };
@@ -311,6 +311,11 @@ struct SavedGameDisplayInfo {
 
 
 struct PlayerOption {
-	Sound sound;
+
+	Sound *sound;
 	Player player;
+	PlayerOption() {
+		player = Player::CHICK;
+		sound = sound->getInstance();
+	}
 };

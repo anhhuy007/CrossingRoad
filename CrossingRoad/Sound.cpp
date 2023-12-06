@@ -218,6 +218,7 @@ void Sound::pauseBackgroundSound() {
 void Sound::resumeBackgroundSound() {
 	resumeSound(findAlias(BACKGROUND[setting.currentIndexBackgroundSound]));
 	setting.backgroundPlaying = true;
+	
 }
 
 void Sound::pauseEffectSound() {
@@ -246,4 +247,17 @@ int Sound::getBackgroundVolume() {
 
 int Sound::getEffectVolume() {
 	return setting.effectVolume;
+}
+
+void Sound::playCharacterSound(int playerType) {
+	//if(playerType == 0)
+		//playEffectSound((int)Effect::);
+	/*else if (playerType == 1)
+		playEffectSound((int)Effect::DUCK);
+	else if (playerType == 2)
+		playEffectSound((int)Effect::ENTER);
+	else if (playerType == 3)
+		playEffectSound((int)Effect::CHANGE);
+	else if (playerType == 4)
+		playEffectSound((int)Effect::CHANGE);*/
 }

@@ -37,11 +37,11 @@ std::vector<AnimationSprite> Factory::GetPlayerSprite(Player player) {
 
 		break;
 
-	case Player::PENGUIN:
+	case Player::FROSTY:
 		folder = "Penguin\\";
 
 		break;
-
+		
 	default:
 		break;
 	}
