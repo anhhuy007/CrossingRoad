@@ -30,6 +30,7 @@ void LeaderBoard::InitWidget()
 	medal1 = Image(DrawableRes::goldMedal);
 	medal2 = Image(DrawableRes::silverMedal);
 	medal3 = Image(DrawableRes::bronzeMedal);
+	esc = Image(DrawableRes::escText);
 
 	game->SetConsoleColor(colors);
 }
@@ -105,6 +106,7 @@ bool LeaderBoard::OnUpdate(float elapsedTime)
 	game->RenderSprite(medal2, { 240,short(top + 35) });
 	game->RenderSprite(medal3, { 240,short(top + 75) });
 
+	game->RenderSprite(esc, { 132, 211 });
 
 	for (int i = 0; i < 3; i++)
 	{

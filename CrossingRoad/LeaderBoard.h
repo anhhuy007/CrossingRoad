@@ -34,6 +34,7 @@ public:
 	Image medal1;
 	Image medal2;
 	Image medal3;
+	Image esc;
 
 	class LeaderBoardText {
 		CrossingRoad* game;
