@@ -270,6 +270,7 @@ void GameMap::InitWidget()
 			game,
 			"Exit",
 			[&]() {
+				game->sound->pauseEffectSound();
 				CrossingRoad::Navigation::To(new MenuScreen(game));
 			}
 		),
