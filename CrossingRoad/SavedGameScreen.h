@@ -13,7 +13,7 @@ public:
 	SavedGameScreen(CrossingRoad* game) : GameScreen(game) {};
 
 	void InitWidget();
-	std::vector<SavedGameDisplayInfo> GetSavedGameInfo();
+	void GetSavedGameInfo();
 
 	// overrided functions 
 	bool OnCreate() override;

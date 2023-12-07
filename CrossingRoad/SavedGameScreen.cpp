@@ -52,7 +52,6 @@ void SavedGameScreen::InitWidget()
 	RGB(15, 47, 67),  // DARK BLUE
 	RGB(255, 235, 216),  // YELLOW HEADER
 	RGB(43, 122, 120),  // BORDER GREEN
-
 	RGB(226,63,166), //DARK RED
 	//book
 	RGB(237,28,36), //RED
@@ -85,7 +84,6 @@ void SavedGameScreen::InitWidget()
 	hover = Animation(game, hoverGif, { 70, 125 }, 100);
 
 	//-----------------------------DECLARATION---------------------------
-
 	bg = Image("Screen\\saveGame\\img\\bgSaveGame.sprite");
 	headerItem = Image("Screen\\saveGame\\img\\headerItem.sprite");
 	listItem = Image("Screen\\saveGame\\img\\listItem.sprite");
@@ -93,7 +91,7 @@ void SavedGameScreen::InitWidget()
 	cat = Image("Screen\\saveGame\\img\\cat.sprite");
 }
 
-std::vector<SavedGameDisplayInfo> SavedGameScreen::GetSavedGameInfo()
+void SavedGameScreen::GetSavedGameInfo()
 {
 	std::string path = "SavedGame\\";
 	for (const auto& entry : std::filesystem::directory_iterator(path))
@@ -116,14 +114,12 @@ std::vector<SavedGameDisplayInfo> SavedGameScreen::GetSavedGameInfo()
 			gameInfo.score
 		));
 	}
-
-	return savedGameList;
 }
 
 bool SavedGameScreen::OnCreate()
 {
 	InitWidget();
-	std::vector<SavedGameDisplayInfo> savedGameList = GetSavedGameInfo();
+	GetSavedGameInfo();
 
 	// display saved game list to table
 	COORD pos = { 75, 95 };
@@ -153,7 +149,7 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	short top_border = 60, left = 70, space = 28;
 	game->RenderSprite(bg, { 0, 0 });
 	game->RenderSprite(book, { 20,7 });
-	game->RenderSprite(cat, { 390,202 });
+	game->RenderSprite(cat, { 390, 202 });
 
 	game->RenderSprite(headerItem, { left,top_border }); top_border += 35;
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;

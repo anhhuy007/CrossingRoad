@@ -644,7 +644,6 @@ void GameMap::LoadSavedLanes()
 	}
 }
 
-
 Log GameMap::GetLogByLaneId(int laneId) {
 	if (laneId >= 0 && laneId < lanes.size()) {
 		WaterLane* lane = dynamic_cast<WaterLane*>(lanes[laneId]);

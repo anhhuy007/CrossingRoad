@@ -333,6 +333,31 @@ struct SavedGameDisplayInfo {
 	}
 };
 
+struct LeaderBoardInfo {
+	std::string playername;
+	int score;
+	int level;
+	GameMode gameMode;
+
+	LeaderBoardInfo() {
+		playername = "";
+		score = 0;
+		level = 0;
+		gameMode = GameMode::ENDLESS_MODE;
+	}
+
+	LeaderBoardInfo(
+		std::string _playername,
+		int _score,
+		int _level,
+		GameMode _gameMode
+	) {
+		playername = _playername;
+		score = _score;
+		level = _level;
+		gameMode = _gameMode;
+	}
+};
 
 
 struct PlayerOption {
