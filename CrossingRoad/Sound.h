@@ -75,7 +75,8 @@ public:
        TYPING,
        CHICKEN,
        DINOSAUR,
-       CAT
+       CAT,
+       PENGUIN
     };
 
     static Sound* getInstance();
