@@ -21,6 +21,7 @@ public:
 	void OnLevelModeClicked();
 	void OnEndlessModeClicked();
 	void OnLoadGameClicked();
+	void DisplayLoading();
 	std::string GetSavedGameName();
 
 	Image bgImage;

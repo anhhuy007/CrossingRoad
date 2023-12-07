@@ -52,15 +52,15 @@ void PlayMenuScreen::InitWidget()
 			game,
 			"ENDLESS MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new LoadingScreen(game));
-				//OnEndlessModeClicked();
+				DisplayLoading();
+				OnEndlessModeClicked();
 			}
 		),
 		Widget::Button(
 			game,
 			"LEVEL MODE",
 			[&]() {
-				CrossingRoad::Navigation::To(new LoadingScreen(game));
+				DisplayLoading();
 				OnLevelModeClicked();
 			}
 		),
@@ -128,6 +128,65 @@ void PlayMenuScreen::OnLoadGameClicked()
 	}
 	else if (savedGame.mapType == MapType::WINTER) {
 		CrossingRoad::Navigation::To(new WinterMap(game, savedGame));
+	}
+}
+
+void PlayMenuScreen::DisplayLoading()
+{
+	// chick animation
+	std::vector<Image> chickSprites;
+	for (int i = 0; i < 9; i++) {
+		std::string path = DrawableRes::chickLoadingAnimationFolder + "frame" + std::to_string(i) + ".sprite";
+		chickSprites.push_back(Image(path, Overlapped::DECORATOR));
+	}
+
+	// loading animation
+	std::vector<Image> loadingSprites = {
+		Image(DrawableRes::Loading1, Overlapped::DECORATOR),
+		Image(DrawableRes::Loading2, Overlapped::DECORATOR),
+		Image(DrawableRes::Loading3, Overlapped::DECORATOR)
+	};
+
+	Image bgImage = Image(DrawableRes::BlueLoadingBG, Overlapped::BACKGROUND);
+	int randomTip = rand() % 5 + 1;
+	std::string tipPath = "widgets\\Tip" + std::to_string(randomTip) + ".sprite";
+	Image tip = Image(tipPath, Overlapped::DECORATOR);
+
+	Animation chickAnimation = Animation(game, chickSprites, { 87, 75 }, 70);
+	Animation loadingAnimation = Animation(game, loadingSprites, { 179,105 }, 400);
+	// set console colors
+	std::vector<int> colors = {
+		RGB(0, 0, 0),
+		RGB(255, 255, 255),
+		RGB(105, 206, 236),
+		RGB(94, 193, 225),
+		RGB(47, 2, 31),
+		RGB(245, 228, 238),
+		RGB(255, 150, 111),
+		RGB(235, 90, 87),
+		RGB(255, 110, 165),
+		RGB(229, 60, 117),
+		RGB(126, 74, 76),
+		RGB(255, 112, 51),
+		RGB(65, 39, 42),
+		RGB(255, 59, 69),
+		RGB(176, 40, 49),
+		RGB(77, 18, 30)
+	};
+	game->SetConsoleColor(colors);
+
+	float elapsedTime = 0;
+	while (elapsedTime <= 3000) {
+		game->ClearConsole();
+		
+		game->RenderSprite(bgImage, { 0, 0 });
+		game->RenderSprite(tip, { 179, 128 });
+		loadingAnimation.OnPlay(100);
+		chickAnimation.OnPlay(100);
+
+		game->UpdateConsole();
+		elapsedTime += 100;
+		Sleep(100);
 	}
 }
 

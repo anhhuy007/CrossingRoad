@@ -8,7 +8,7 @@ class LoadingScreen : public CrossingRoad::GameScreen
 {
 	Animation loadingAnimation, chickAnimation;
 	Image bgImage, tip;
-	float time;
+	float time = 0;
 	bool doneLoading = false;
 
 public:
