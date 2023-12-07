@@ -13,7 +13,7 @@ bool LoadingScreen::OnUpdate(float elapsedTime)
     if (time > 3000) return false;
 
     game->RenderSprite(bgImage, { 0, 0 });
-    game->RenderSprite(tip, { 179, 128 });
+    game->RenderSprite(tip, { 194, 128 });
     loadingAnimation.OnPlay(elapsedTime);
     chickAnimation.OnPlay(elapsedTime);
 
@@ -41,8 +41,8 @@ void LoadingScreen::InitWidget()
     std::string tipPath = "widgets\\Tip" + std::to_string(randomTip) + ".sprite";
     tip = Image(tipPath, Overlapped::DECORATOR);
 
-    chickAnimation = Animation(game, chickSprites, { 87, 75 }, 70);
-    loadingAnimation = Animation(game, loadingSprites, { 179,105 }, 400);
+    chickAnimation = Animation(game, chickSprites, { 102, 75 }, 70);
+    loadingAnimation = Animation(game, loadingSprites, { 194,105 }, 400);
 
     // set console colors
     std::vector<int> colors = {
