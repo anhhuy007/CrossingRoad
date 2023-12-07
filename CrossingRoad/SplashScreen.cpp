@@ -68,7 +68,7 @@ bool SplashScreen::OnCreate()
 			RGB(72, 78, 94),
 	};
 	game->SetConsoleColor(colors);
-
+	
 	//declare
 	bg = Image("Screen\\splashScreen\\img\\bgSplashScreen.sprite");
 	chicken = Animation(game, chickenGif, { 170, 70 }, 100);
@@ -81,14 +81,17 @@ bool SplashScreen::OnCreate()
 	acute = Animation(game, textAcutegif, { 210 + 7, 17 - 10 }, 400);
 	bubbles = Animation(game, bubblesGif, { 0, 0 }, 200);
 
+	game->sound->playEffectSound(int(Sound::Effect::BUBBLE));
+
 	return true;
 }
 
 bool SplashScreen::OnUpdate(float elapsedTime)
 {
 	time += elapsedTime;
-
+	
 	if (time > 5000) {
+		game->sound->pauseEffectSound();
 		CrossingRoad::Navigation::To(new MenuScreen(game));
 		return true;
 
