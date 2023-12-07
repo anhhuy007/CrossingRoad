@@ -14,7 +14,7 @@ bool PlayMenuScreen::OnUpdate(float elapsedTime) {
 	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
 		CrossingRoad::Navigation::To(new MenuScreen(game));
 	}
-
+	game->SetConsoleColor(colors);
 	game->RenderSprite(bgImage, { 0, 0 });
 	playMenuWidget.Update(elapsedTime);
 
@@ -24,7 +24,7 @@ bool PlayMenuScreen::OnUpdate(float elapsedTime) {
 void PlayMenuScreen::InitWidget()
 {
 	// set console color
-	std::vector<int> colors = {
+	colors = {
 		RGB(0, 0, 0),             // BLACK
 		RGB(255, 255, 255),       // WHITE
 		RGB(168, 201, 205),       // LIGHT GREEN
@@ -70,6 +70,27 @@ void PlayMenuScreen::InitWidget()
 			[&]() {
 				CrossingRoad::Navigation::To(new SavedGameScreen(game));
 				//OnLoadGameClicked();
+			}
+		),
+		Widget::Button(
+			game,
+			"INSTRUCTION",
+			[&]() {
+				Image instructionScreen = Image(DrawableRes::instruction);
+				// set console color
+				std::vector<int> colorInstruction = {
+					RGB(0, 0, 0), RGB(255, 255, 255), RGB(159, 250, 222), RGB(105, 206, 236),
+					RGB(0, 186, 255), RGB(43, 64, 140), RGB(245, 228, 238), RGB(255, 150, 111),
+					RGB(235, 90, 87), RGB(255, 110, 165), RGB(229, 60, 117), RGB(126, 74, 76),
+					RGB(255, 112, 51), RGB(255, 59, 69), RGB(176, 40, 49), RGB(77, 18, 30)
+				};
+				game->SetConsoleColor(colorInstruction);
+				while (!game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
+					game->ClearConsole();
+					game->RenderSprite(instructionScreen, { 0, 0 });
+					game->inputHandle = InputHandle::GetKeyBoardState();
+					game->UpdateConsole();
+				}				
 			}
 		),
 		Widget::Button(

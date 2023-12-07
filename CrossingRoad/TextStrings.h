@@ -192,5 +192,8 @@ namespace DrawableRes {
 	const std::string Loading1 = "animations\\loading\\frame0.sprite";
 	const std::string Loading2 = "animations\\loading\\frame1.sprite";
 	const std::string Loading3 = "animations\\loading\\frame2.sprite";
+
+	// --------------------------------------INSTRUCTION SCREEN SPRITE-------------------------------
+	const std::string instruction = "Screen\\instructionScreen\\instruction.sprite";
 }
 

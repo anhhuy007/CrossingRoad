@@ -26,5 +26,6 @@ public:
 
 	Image bgImage;
 	MenuWidget playMenuWidget;
+	std::vector<int>colors;
 };
 
