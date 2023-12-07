@@ -1,13 +1,7 @@
 #pragma once
 
-#ifndef _TEXTSTRING_H_
-#define _TEXTSTRING_H_
-
-
-
 #include <wchar.h>
 #include <string>
-
 
 namespace StringRes {
 	const std::wstring const GAME_TITLE = L"Crossing Road";
@@ -118,7 +112,6 @@ namespace DrawableRes {
 	const std::string saveGameTitleCharGwithoutShadow = saveGameScreenTitleNoShadow + "G.Sprite";
 	const std::string saveGameTitleCharMwithoutShadow = saveGameScreenTitleNoShadow + "M.Sprite";
 
-
 	//--------------------------------------SETTING SCREEN SPRITE-------------------------------
 
 	const std::string settingScreenTitleNoShadow = settingScreenFolder + "title\\withoutShadow\\";
@@ -193,9 +186,11 @@ namespace DrawableRes {
 	const std::string chooseChar2 = chooseCharScreenFolder + "char2.Sprite";
 	const std::string chooseChar3 = chooseCharScreenFolder + "char3.Sprite";
 
-
-
-
+	// --------------------------------------LOADING SCREEN SPRITE-------------------------------
+	const std::string chickLoadingAnimationFolder = "animations\\chick_loading\\";
+	const std::string BlueLoadingBG = "sprites\\BlueLoadingBG.sprite";
+	const std::string Loading1 = "animations\\loading\\frame0.sprite";
+	const std::string Loading2 = "animations\\loading\\frame1.sprite";
+	const std::string Loading3 = "animations\\loading\\frame2.sprite";
 }
 
-#endif // !_TEXTSTRING_H_

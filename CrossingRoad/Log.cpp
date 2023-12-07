@@ -1,5 +1,6 @@
 #include "Log.h"
 
+// create 
 Log::Log(
 	CrossingRoad* game,
 	int _id,
@@ -28,6 +29,7 @@ Log::Log(
 	logSprite.SetOverlapped(Overlapped::LOG);
 }
 
+// load from file
 Log::Log(
 	CrossingRoad* game, 
 	int _lanePos, 

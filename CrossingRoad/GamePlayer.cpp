@@ -98,7 +98,7 @@ void GamePlayer::Update(float elapsedTime) {
 }
 
 void GamePlayer::OnMove() {
-	game->sound->playCharacterSound(int(playerType));
+	//game->sound->playCharacterSound(int(playerType));
 
 	switch (movingDirection) {
 	case MovingDirection::UP:

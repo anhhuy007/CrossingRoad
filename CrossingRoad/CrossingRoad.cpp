@@ -8,6 +8,7 @@
 #include "LeaderBoard.h"
 #include "TestScreen.h"
 #include "ChooseCharScreen.h"
+#include "LoadingScreen.h"
 
 // ----- Game Maps -----
 #include "ClassicMap.h"

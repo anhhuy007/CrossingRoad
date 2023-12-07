@@ -153,6 +153,7 @@
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="Lane.cpp" />
     <ClCompile Include="LeaderBoard.cpp" />
+    <ClCompile Include="LoadingScreen.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="Lane.h" />
     <ClInclude Include="LeaderBoard.h" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="MenuWidget.h" />

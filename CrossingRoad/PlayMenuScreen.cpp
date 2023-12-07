@@ -2,6 +2,7 @@
 #include "MenuScreen.h"
 #include "ClassicMap.h"
 #include "WinterMap.h"
+#include "LoadingScreen.h"
 
 bool PlayMenuScreen::OnCreate() {
 	InitWidget();
@@ -51,13 +52,15 @@ void PlayMenuScreen::InitWidget()
 			game,
 			"ENDLESS MODE",
 			[&]() {
-				OnEndlessModeClicked();
+				CrossingRoad::Navigation::To(new LoadingScreen(game));
+				//OnEndlessModeClicked();
 			}
 		),
 		Widget::Button(
 			game,
 			"LEVEL MODE",
 			[&]() {
+				CrossingRoad::Navigation::To(new LoadingScreen(game));
 				OnLevelModeClicked();
 			}
 		),

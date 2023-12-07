@@ -76,18 +76,19 @@ bool ChooseCharScreen::OnUpdate(float elapsedTime)
 	else if (game->inputHandle->keyState_[Keyboard::LEFT_KEY].isPressed) {
 		currentChar--;
 		if (currentChar < 0) currentChar = 2;
+		game->sound->playEffectSound(int(Sound::Effect::VALID));
 	}
 	else if (game->inputHandle->keyState_[Keyboard::RIGHT_KEY].isPressed) {
 		currentChar++;
 		if (currentChar > 2) currentChar = 0;
+		game->sound->playEffectSound(int(Sound::Effect::VALID));
 	}
 	else if (game->inputHandle->keyState_[Keyboard::ENTER_KEY].isPressed) {
 		game->userOption.player = Player { currentChar };
+		game->sound->playEffectSound(int(Sound::Effect::ENTER));
 		CrossingRoad::Navigation::To(new MenuScreen(game));
 		return true;
 	}
-
-	
 
 	if (currentChar == 0)
 	{
