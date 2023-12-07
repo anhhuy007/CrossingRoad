@@ -208,9 +208,31 @@ struct ObjectInfo {
 };
 
 struct PortalInfo {
-	bool visible;
+	short visible;
 	int lanePos;
 	COORD position;
+
+	PortalInfo() {
+		visible = 0;
+		lanePos = 0;
+		position = { 0, 0 };
+	}
+
+	PortalInfo(
+		short _visible,
+		int _lanePos,
+		COORD _position
+	) {
+		visible = _visible;
+		lanePos = _lanePos;
+		position = _position;
+	}
+
+	PortalInfo(const PortalInfo& other) {
+		visible = other.visible;
+		lanePos = other.lanePos;
+		position = other.position;
+	}
 };
 
 struct LaneInfo {
@@ -229,6 +251,7 @@ struct LaneInfo {
 		lanePos = other.lanePos;
 		laneType = other.laneType;
 		objectDirection = other.objectDirection;
+		objectsInfo.clear();
 		for (auto obj : other.objectsInfo) {
 			objectsInfo.push_back(obj);
 		}
@@ -267,10 +290,12 @@ struct GameMapInfo {
 	GameMapInfo(const GameMapInfo& other) {
 		mapType = other.mapType;
 		gameMode = other.gameMode;
+		lanesInfo.clear();
 		for (auto lane : other.lanesInfo) {
 			lanesInfo.push_back(lane);
 		}
 		playerInfo = other.playerInfo;
+		portalInfo = other.portalInfo;
 		endLane = other.endLane;
 		level = other.level;
 		score = other.score;

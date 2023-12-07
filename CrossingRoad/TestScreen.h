@@ -12,7 +12,7 @@ public:
 	bool OnUpdate(float elapsedTime);
 	bool OnDestroy() { return false; };
 
-	Widget::Dialog dialog;
+	Widget::Text text;
 	Image bgImage;
 };
 
