@@ -86,6 +86,15 @@ bool SplashScreen::OnCreate()
 
 bool SplashScreen::OnUpdate(float elapsedTime)
 {
+	time += elapsedTime;
+
+	if (time > 5000) {
+		CrossingRoad::Navigation::To(new MenuScreen(game));
+		return true;
+
+		time = 0;
+	}
+
 	game->RenderSprite(bg, { 0, 0 });
 	bubbles.OnPlay(elapsedTime);
 	N.OnPlay(elapsedTime);

@@ -309,16 +309,18 @@ void GameMap::InitWidget()
 			"New game",
 			[&]() {
 				// reset game info
-				gameInfo.score = 0;
-				gameInfo.coin = 0;
-				gameInfo.level = 1;
-				gameInfo.endLane = 20;
+				GameMapInfo newGameInfo;
+				newGameInfo.gameMode = gameInfo.gameMode;
+				newGameInfo.coin = 0;
+				newGameInfo.level = 1;
+				newGameInfo.mapType = gameLevels[newGameInfo.level - 1].first;
+				newGameInfo.endLane = gameLevels[newGameInfo.level - 1].second;
 
 				if ((rand() % 2) == 0) {
-					CrossingRoad::Navigation::To(new ClassicMap(game, gameInfo));
+					CrossingRoad::Navigation::To(new ClassicMap(game, newGameInfo));
 				}
 				else {
-					CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
+					CrossingRoad::Navigation::To(new WinterMap(game, newGameInfo));
 				}
 			}
 		),

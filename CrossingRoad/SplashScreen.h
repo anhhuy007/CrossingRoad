@@ -2,6 +2,8 @@
 
 #include "Animation.h"
 #include "Widget.h"
+#include "CrossingRoad.h"
+#include "MenuScreen.h"
 
 
 class SplashScreen : public CrossingRoad::GameScreen
@@ -28,4 +30,5 @@ public:
 	Image textA1;
 	Image textA2;
 	Image bg;
+	float time = 0;	
 };
