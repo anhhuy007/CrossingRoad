@@ -98,6 +98,8 @@ void GamePlayer::Update(float elapsedTime) {
 }
 
 void GamePlayer::OnMove() {
+	game->sound->playCharacterSound(int(playerType));
+
 	switch (movingDirection) {
 	case MovingDirection::UP:
 		position.X -= speed.X_VERTICAL;

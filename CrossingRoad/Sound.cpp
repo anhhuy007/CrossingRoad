@@ -26,7 +26,10 @@ const std::vector<std::wstring> Sound::EFFECT = {
 	L"Sound\\Hit.wav",
 	L"Sound\\EndSoundWinterMap.mp3",
 	L"Sound\\Train.mp3",
-	L"Sound\\Typing.mp3"
+	L"Sound\\Typing.mp3",
+	L"Sound\\Chicken.mp3",
+	L"Sound\\Dinosaur.mp3",
+	L"Sound\\CatMeow.mp3"
 };
 const std::vector<std::wstring> Sound::BACKGROUND = {
 	L"Sound\\BackgroundMusic.mp3",
@@ -70,8 +73,13 @@ std::wstring Sound::findAlias(std::wstring path) {
 		return L"16";
 	else if (path == L"Sound\\Typing.mp3")
 		return L"17";
-	else
-		return L"";
+	else if (path == L"Sound\\Chicken.mp3")
+		return L"18";
+	else if (path == L"Sound\\Dinosaur.mp3")
+		return L"19";
+	else if (path == L"Sound\\CatMeow.mp3")
+		return L"20";
+	return L"";
 }
 
 //--------------Open and close file--------------
@@ -250,14 +258,14 @@ int Sound::getEffectVolume() {
 }
 
 void Sound::playCharacterSound(int playerType) {
-	//if(playerType == 0)
-		//playEffectSound((int)Effect::);
-	/*else if (playerType == 1)
+	if(playerType == 0)
 		playEffectSound((int)Effect::DUCK);
+	else if (playerType == 1)
+		playEffectSound((int)Effect::CHICKEN);
 	else if (playerType == 2)
 		playEffectSound((int)Effect::ENTER);
 	else if (playerType == 3)
-		playEffectSound((int)Effect::CHANGE);
+		playEffectSound((int)Effect::CAT);
 	else if (playerType == 4)
-		playEffectSound((int)Effect::CHANGE);*/
+		playEffectSound((int)Effect::DINOSAUR);
 }

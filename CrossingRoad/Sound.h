@@ -72,7 +72,10 @@ public:
        HIT,
        END_WINTER_MAP,
        TRAIN,
-       TYPING
+       TYPING,
+       CHICKEN,
+       DINOSAUR,
+       CAT
     };
 
     static Sound* getInstance();
