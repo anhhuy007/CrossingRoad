@@ -13,7 +13,7 @@ GamePlayer::GamePlayer(
 	// get the animation sprites
 	animationSprite = Factory::GetPlayerSprite(player);
 	speed = GameSpeed(24, 6, -11, 21);
-	axisSpeed = GameSpeed(4, 1, -1, 2);
+	axisSpeed = GameSpeed(4, 1, 0, 0);
 	OnMove();
 
 	// set collision points

@@ -4,6 +4,8 @@ const std::string foldername = "SavedGame\\";
 
 bool FileIO::WriteGameInfo(std::string filename, GameMapInfo gameInfo)
 {
+	if (filename == "") return false;
+
 	// open file
 	std::string filepath = foldername + filename;
 	std::ofstream ofs(filepath, std::ios::beg | std::ios::binary);

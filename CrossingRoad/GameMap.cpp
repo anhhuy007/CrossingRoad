@@ -372,13 +372,6 @@ void GameMap::SaveGame()
 	GameMapInfo finalInfo = GetGameMapInfo(gameInfo, player, lanes);
 	bool status = FileIO::WriteGameInfo(gameNameInfo.second + ".game", finalInfo);
 
-	if (status == true) {
-		std::cout << "Game saved successfully" << std::endl;
-	}
-	else {
-		std::cout << "Game saved failed" << std::endl;
-	};
-
 	// sleep for 1 seconds
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }

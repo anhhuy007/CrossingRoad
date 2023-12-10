@@ -10,7 +10,7 @@ bool LoadingScreen::OnUpdate(float elapsedTime)
 {
     time += elapsedTime;
 
-    if (time > 3000) return false;
+    if (time > 4000) return false;
 
     game->RenderSprite(bgImage, { 0, 0 });
     game->RenderSprite(tip, { 194, 128 });
