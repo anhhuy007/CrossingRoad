@@ -18,6 +18,8 @@ public:
 
 	//Image
 	Image bgImage;
+	Image esc;
+
 	SettingWidget settingWidget = SettingWidget(game);
 
 	Animation S;

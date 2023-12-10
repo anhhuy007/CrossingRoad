@@ -73,6 +73,8 @@ bool SettingScreen::OnCreate() {
 	);
 
 	bgImage = Image(DrawableRes::LightBlueBG, Overlapped::BACKGROUND);
+	esc = Image(DrawableRes::escText);
+
 	short top_border = 10, left = 130, space = 28;
 	S = Animation(game, textSgif, { left, top_border }, 400); left += space;
 	E = Animation(game, textEgif, { left, top_border }, 400); left += space;
@@ -97,6 +99,7 @@ bool SettingScreen::OnUpdate(float elapsedTime) {
 	}
 
 	game->RenderSprite(bgImage, { 0,0 });
+	game->RenderSprite(esc, { 132, 200 });
 
 	S.OnPlay(elapsedTime);
 	E.OnPlay(elapsedTime);
