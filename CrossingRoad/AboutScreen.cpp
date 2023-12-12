@@ -89,7 +89,7 @@ bool AboutScreen::OnUpdate(float elapsedTime) {
 	num1b.OnPlay(elapsedTime);
 	acute.OnPlay(elapsedTime);
 
-	game->RenderSprite(esc, { 132, 207 });
+	game->RenderSprite(esc, { 132, 201 });
 
     return true;
 }
