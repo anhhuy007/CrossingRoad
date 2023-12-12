@@ -26,9 +26,6 @@ public:
 
 	Image image, esc;
 
-	//Text
-	Widget::Text design, mssv1, mssv2, mssv3, mssv4, instructor, releasedDate, Version;
-
 	MenuWidget aboutMenuWidget;
 };
 
