@@ -109,8 +109,5 @@ bool SplashScreen::OnUpdate(float elapsedTime)
 	acute.OnPlay(elapsedTime);
 	chicken.OnPlay(elapsedTime);
 
-
-
-
 	return true;
 }

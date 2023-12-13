@@ -15,10 +15,16 @@ public:
 	bool OnPause() { return true; };
 	bool OnDestroy() { return false; };
 
-	Image image;
+	Animation N;
+	Animation H;
+	Animation O;
+	Animation M;
+	Animation num1a;
+	Animation num1b;
+	Animation acute;
+	Animation aboutAnimation;
 
-	//Text
-	Widget::Text design, mssv1, mssv2, mssv3, mssv4, instructor, releasedDate, Version;
+	Image image, esc;
 
 	MenuWidget aboutMenuWidget;
 };

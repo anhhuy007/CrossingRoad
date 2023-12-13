@@ -196,7 +196,15 @@ namespace DrawableRes {
 	// --------------------------------------INSTRUCTION SCREEN SPRITE-------------------------------
 	const std::string instruction = "Screen\\instructionScreen\\instruction.sprite";
 
-	// --------------------------------------INSTRUCTION SCREEN SPRITE-------------------------------
+	// --------------------------------------ESC TEXT SPRITE-------------------------------
 	const std::string escText = "Screen\\esc\\esc.sprite";
+
+	// --------------------------------------ABOUT SCREEN SPRITE-------------------------------
+	const std::string aboutFolder = "Screen\\aboutScreen\\img\\";
+	const std::string about1 = aboutFolder + "frame1.sprite";
+	const std::string about2 = aboutFolder + "frame2.sprite";
+	const std::string about3 = aboutFolder + "frame3.sprite";
+	const std::string about4 = aboutFolder + "frame4.sprite";
+	const std::string about5 = aboutFolder + "frame5.sprite";
 }
 
