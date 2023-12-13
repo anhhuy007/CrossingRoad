@@ -47,6 +47,7 @@ enum Keyboard : int {
 	ENTER_KEY = VK_RETURN,
 	ESCAPE_KEY = VK_ESCAPE,
 	BACKSPACE_KEY = VK_BACK,
+	DELETE_KEY = VK_DELETE,
 	A_KEY = 65,
 	Z_KEY = 90,
 	a_KEY = 97,

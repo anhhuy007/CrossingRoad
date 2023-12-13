@@ -44,30 +44,45 @@ void SavedGameScreen::InitWidget()
 	}
 
 	//-----------------------------COLOR SAVEGAME---------------------------
-	std::vector<int> colors = {
-	RGB(0, 0, 0),  // BLACK
-	RGB(255, 255, 255),  // WHITE
-	RGB(227, 134, 132),  // PINK
-	RGB(168, 208, 230),  // LIGHT BLUE + bg
-	RGB(15, 47, 67),  // DARK BLUE
-	RGB(255, 235, 216),  // YELLOW HEADER
-	RGB(43, 122, 120),  // BORDER GREEN
-	RGB(226,63,166), //DARK RED
-	//book
-	RGB(237,28,36), //RED
-	RGB(143,25,194), //PURPLE
-	RGB(255,242,0), //YELLOW
-	RGB(171,181,193), //DARK GRAY
-	RGB(232,233,235), //LIGHT GRAY
-	//cat
-	RGB(187,213,245), //LIGHT BLUE
-	RGB(118,151,201), //BLUE
-	RGB(246,165,151), //LIGHT PINK
-
-	//16 / 16
-
+	savegame_colors = {
+		RGB(0, 0, 0),  // BLACK
+		RGB(255, 255, 255),  // WHITE
+		RGB(227, 134, 132),  // PINK
+		RGB(168, 208, 230),  // LIGHT BLUE + bg
+		RGB(15, 47, 67),  // DARK BLUE
+		RGB(255, 235, 216),  // YELLOW HEADER
+		RGB(43, 122, 120),  // BORDER GREEN
+		RGB(226,63,166), //DARK RED
+		//book
+		RGB(237,28,36), //RED
+		RGB(143,25,194), //PURPLE
+		RGB(255,242,0), //YELLOW
+		RGB(171,181,193), //DARK GRAY
+		RGB(232,233,235), //LIGHT GRAY
+		//cat
+		RGB(187,213,245), //LIGHT BLUE
+		RGB(118,151,201), //BLUE
+		RGB(246,165,151), //LIGHT PINK
 	};
-	game->SetConsoleColor(colors);
+	dialog_colors = {
+		RGB(0, 0, 0),
+		RGB(255, 255, 255),
+		RGB(174, 222, 102),
+		RGB(159, 204, 92),
+		RGB(110, 184, 46),
+		RGB(12, 67, 57),
+		RGB(127, 137, 173),
+		RGB(96, 109, 138),
+		RGB(72, 78, 94),
+		RGB(113, 215, 255),
+		RGB(126, 74, 76),
+		RGB(255, 112, 51),
+		RGB(65, 39, 42),
+		RGB(255, 59, 69),
+		RGB(176, 40, 49),
+		RGB(77, 18, 30)
+	};
+	game->SetConsoleColor(savegame_colors);
 
 	short top_border = 10, left = 100, space = 28;
 	S = Animation(game, textSgif, { left, top_border }, 400); left += space;
@@ -82,6 +97,30 @@ void SavedGameScreen::InitWidget()
 	E2 = Animation(game, textEgif, { left, top_border }, 400); left += space;
 
 	hover = Animation(game, hoverGif, { 70, 125 }, 100);
+	std::vector<Widget::Button> buttons = {
+		Widget::Button(
+			game,
+			"No",
+			[&] {
+				isPaused = false;
+				game->SetConsoleColor(savegame_colors);
+			}
+		),
+		Widget::Button(
+			game,
+			"Yes",
+			[&] {
+				DeleteGame();
+			}
+		)
+	};
+
+	confirmDialog = Widget::Dialog(
+		game,
+		"Do you want to delete this game?",
+		buttons,
+		{ 100, 50 }
+	);
 
 	//-----------------------------DECLARATION---------------------------
 	bg = Image("Screen\\saveGame\\img\\bgSaveGame.sprite");
@@ -116,6 +155,17 @@ void SavedGameScreen::GetSavedGameInfo()
 	}
 }
 
+void SavedGameScreen::DeleteGame()
+{
+	SavedGameDisplayInfo info = savedGameList[hoverIndex];
+	std::string file_path = "SavedGame\\" + info.fileName + ".game";
+
+	// remove file
+	remove(file_path.c_str());
+
+	CrossingRoad::Navigation::To(new SavedGameScreen(game));
+}
+
 bool SavedGameScreen::OnCreate()
 {
 	InitWidget();
@@ -144,6 +194,10 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	// if player press ESC, then back to menu screen
 	if (game->inputHandle->keyState_[Keyboard::ESCAPE_KEY].isPressed) {
 		CrossingRoad::Navigation::To(new MenuScreen(game));
+	}
+
+	if (isPaused) {
+		return OnPause();
 	}
 
 	short top_border = 60, left = 70, space = 28;
@@ -245,7 +299,23 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 			CrossingRoad::Navigation::To(new WinterMap(game, gameInfo));
 		}
 	}
+	else if (game->inputHandle->keyState_[Keyboard::DELETE_KEY].isPressed) {
+		// delete current game
+		if (savedGameList.size() == 0) return true;
 
+		// play delete sound
+		game->sound->playEffectSound(int(Sound::Effect::ENTER));
+		isPaused = true;
+		game->SetConsoleColor(dialog_colors);
+	}
+
+	return true;
+}
+
+bool SavedGameScreen::OnPause()
+{
+	confirmDialog.Update(30);
+	confirmDialog.Render();
 	return true;
 }
 

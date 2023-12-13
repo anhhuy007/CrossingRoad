@@ -7,7 +7,8 @@ const std::map<char, std::string> punctuations = {
 	{'<', "less_than"},
 	{'>', "greater_than"},
 	{':', "colon"},
-	{' ', "space"}
+	{' ', "space"},
+	{'?', "question_mark"}
 };
 
 Widget::Text::Text(

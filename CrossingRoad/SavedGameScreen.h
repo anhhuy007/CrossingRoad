@@ -5,6 +5,7 @@
 #include "Widget.h"
 #include "FileIO.h"
 
+#include <stdio.h>
 #include <filesystem>
 
 class SavedGameScreen : public CrossingRoad::GameScreen
@@ -14,11 +15,12 @@ public:
 
 	void InitWidget();
 	void GetSavedGameInfo();
+	void DeleteGame();
 
 	// overrided functions 
 	bool OnCreate() override;
 	bool OnUpdate(float elapsedTime) override;
-	bool OnPause()  override { return true; };	// handle ESC key pressed
+	bool OnPause() override;	// handle ESC key pressed
 	bool OnDestroy() override { return false; }
 
 	//declare
@@ -42,6 +44,8 @@ public:
 	COORD hoverPos = { 70, 95 };
 	int hoverIndex = 0;
 	int itemRange = 0;
+	Widget::Dialog confirmDialog;
+	std::vector<int> savegame_colors, dialog_colors;
 
 	class SavedGameText {
 		CrossingRoad* game;
