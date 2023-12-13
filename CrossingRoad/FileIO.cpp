@@ -6,6 +6,19 @@ bool FileIO::WriteGameInfo(std::string filename, GameMapInfo gameInfo)
 {
 	if (filename == "") return false;
 
+	// check if numbers of game > 10 then delete first game
+	std::vector<std::string> files;
+	for (const auto& entry : std::filesystem::directory_iterator(foldername))
+	{
+		std::string file = entry.path().filename().string();
+		files.push_back(file);
+	}
+
+	if (files.size() >= 10) {
+		std::string filepath = foldername + files[0];
+		std::remove(filepath.c_str());
+	}
+
 	// open file
 	std::string filepath = foldername + filename;
 	std::ofstream ofs(filepath, std::ios::beg | std::ios::binary);

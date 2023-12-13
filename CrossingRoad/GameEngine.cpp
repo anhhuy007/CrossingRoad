@@ -15,8 +15,18 @@ void GameEngine::Start() {
 	// ----- Start game -----
 	atomActive = true;
 	std::thread thread1 = std::thread(&GameEngine::GameLoop, this);
+	std::thread thread2 = std::thread(&GameEngine::UpdateInputHandle, this);
 
 	thread1.join();
+	thread2.join();
+}
+
+void GameEngine::UpdateInputHandle()
+{
+	/*while (atomActive) {
+		inputHandle = InputHandle::GetKeyBoardState();
+		std::this_thread::sleep_for(std::chrono::milliseconds(150));
+	}*/
 }
 
 void GameEngine::GameLoop() {
@@ -27,7 +37,6 @@ void GameEngine::GameLoop() {
 	// timer
 	auto time1 = std::chrono::system_clock::now();
 	auto time2 = std::chrono::system_clock::now();
-
 
 	// ----- Game loop -----
 	while (atomActive) {

@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 class FileIO {
 	const std::string savedGameFolder = "SavedGame\\";
