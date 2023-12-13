@@ -23,7 +23,7 @@ bool TestScreen::OnCreate() {
 	game->SetConsoleColor(colors);
 
 	// display screen to ask player to enter game name
-	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::Background, Overlapped::BACKGROUND);
 	text = Widget::Text(
 		game,
 		"This is a normal text, with special . character <for testing>: ",

@@ -21,6 +21,7 @@ namespace DrawableRes {
 	const std::string RoadMarking = spriteFolder + "RoadMarking.sprite";
 	const std::string WhiteBG = spriteFolder + "WhiteBG.sprite";
 	const std::string LightBlueBG = spriteFolder + "LightBlueBG.sprite";
+	const std::string Background = spriteFolder + "Background.sprite";
 	
 	// obstacle sprites
 	const std::string SmallTree = spriteFolder + "Tree1.sprite";
