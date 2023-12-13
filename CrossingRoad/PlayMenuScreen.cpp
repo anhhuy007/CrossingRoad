@@ -37,8 +37,8 @@ void PlayMenuScreen::InitWidget()
 		RGB(118, 151, 201),       // BLUE
 		RGB(246, 135, 151),        // PINK 
 		RGB(72, 78, 94),
-		RGB(255, 59, 69),
-		RGB(176, 40, 49),
+		RGB(127, 137, 173),
+		RGB(113, 215, 255),
 		RGB(159, 204, 92),
 		RGB(65, 39, 42)
 	};
