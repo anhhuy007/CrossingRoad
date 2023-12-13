@@ -86,7 +86,7 @@ bool SettingScreen::OnCreate() {
 
 	music = Widget::Text(game, "MUSIC", { 111,73 }, 25, 34, TextFont::NORMAL);
 	sfx = Widget::Text(game, "SFX", { 115,104 }, 15, 34, TextFont::NORMAL);
-	enter = Widget::Text(game, "Press ENTER to turn ON OFF", { 170,135 }, 150, 5, TextFont::NORMAL, 0);
+	enter = Widget::Text(game, "Press ENTER to turn ON OFF", { 170,135 }, 150, 5, TextFont::NORMAL, 2);
 
 	game->SetConsoleColor(colors);
 

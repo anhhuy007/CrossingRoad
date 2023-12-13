@@ -108,7 +108,7 @@ void PlayMenuScreen::InitWidget()
 		{ 150, 50 }
 	);
 
-	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::Background, Overlapped::BACKGROUND);
 }
 
 void PlayMenuScreen::OnLevelModeClicked()

@@ -49,14 +49,14 @@ bool AboutScreen::OnCreate() {
 	RGB(255, 112, 51)
 	};
 
-	game->SetConsoleColor(colors);
-
 	std::vector<Image> about;
 	for (int i = 1; i <= 5; i++)
 	{
 		std::string path = DrawableRes::aboutFolder + "frame" + std::to_string(i) + ".sprite";
 		about.push_back(Image(path));
 	}
+
+	game->SetConsoleColor(colors);
 
 	esc = Image(DrawableRes::escText);
 

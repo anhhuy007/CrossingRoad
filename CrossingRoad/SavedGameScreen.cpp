@@ -43,7 +43,7 @@ void SavedGameScreen::InitWidget()
 		hoverGif.push_back(Graphic::Sprite(animationPath + "frame" + std::to_string(i) + ".sprite"));
 	}
 	enter = Widget::Text(game, "Press ENTER to turn select game.", { 160,217 }, 170, 5, TextFont::NORMAL, 6);
-	del = Widget::Text(game, "Press DELETE to turn remove game file.", { 145,227 }, 180, 5, TextFont::NORMAL, 6);
+	del = Widget::Text(game, "Press DELETE to remove game file.", { 158,227 }, 180, 5, TextFont::NORMAL, 6);
 
 	//-----------------------------COLOR SAVEGAME---------------------------
 	savegame_colors = {
