@@ -77,6 +77,7 @@ public:
 	Sound* sound = Sound::getInstance();
 
 private:
+	void UpdateInputHandle();
 	void GameLoop();
 	int fontSize;
 	SMALL_RECT windowScope;

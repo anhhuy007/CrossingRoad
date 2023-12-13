@@ -41,6 +41,11 @@ InputHandle* InputHandle::GetKeyBoardState() {
 		inputHandle_->keyOldState_[i] = inputHandle_->keyNewState_[i];
 	}
 
+	/*for (int i = 0; i < 256; i++) {
+		int temp = GetAsyncKeyState(i) & 0x8000;
+		inputHandle_->keyState_[i].isPressed = temp == 1 ? true : false;
+	}*/
+
 	return inputHandle_;
 }
 

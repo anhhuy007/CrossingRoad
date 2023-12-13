@@ -382,7 +382,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	// display screen to ask player to enter game name
 	std::string gameName, playerName;
 	int inputIndex = 0;
-	Image bg = Image(DrawableRes::Background, Overlapped::BACKGROUND);
+	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
 	Image cursor = Image(DrawableRes::cursor, Overlapped::TEXT);
 	Widget::Text title1 = Widget::Text(
 		game,
@@ -521,11 +521,8 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 							playerName = " ";
 						}
 					}
-					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
-						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
-						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
-						i == Keyboard::SPACE_KEY
-						) {
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) || (i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) || (i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) || i == Keyboard::SPACE_KEY) 
+					{
 						if (playerName == " ") {
 							playerName = "";
 						}
