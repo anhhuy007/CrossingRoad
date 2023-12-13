@@ -382,7 +382,7 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 	// display screen to ask player to enter game name
 	std::string gameName, playerName;
 	int inputIndex = 0;
-	Image bg = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	Image bg = Image(DrawableRes::Background, Overlapped::BACKGROUND);
 	Image cursor = Image(DrawableRes::cursor, Overlapped::TEXT);
 	Widget::Text title1 = Widget::Text(
 		game,

@@ -14,15 +14,15 @@ bool MenuScreen::OnCreate() {
 		RGB(128, 177, 177),       // GREEN
 		RGB(15, 47, 67),          // BORDER GREEN
 		RGB(245, 211, 88),        // YELLOW
-		RGB(69, 56, 10),          // DARK YELLOW
+		RGB(126, 74, 76),          // DARK YELLOW
 		RGB(187, 213, 245),       // LIGHT BLUE
 		RGB(118, 151, 201),       // BLUE
 		RGB(246, 135, 151),        // PINK 
-		RGB(10,50,103),
-		RGB(252,137,174),
-		RGB(253,218,133),
-		RGB(101,166,255),
-		RGB(153,152,154)
+		RGB(72, 78, 94), 
+		RGB(255, 59, 69), 
+		RGB(176, 40, 49), 
+		RGB(159, 204, 92),
+		RGB(65, 39, 42)
 	};
 
 	// init widget
@@ -56,7 +56,7 @@ bool MenuScreen::OnUpdate(float elapsedTime) {
 void MenuScreen::InitWidget()
 {
 	// background 
-	bgImage = Image(DrawableRes::WhiteBG, Overlapped::BACKGROUND);
+	bgImage = Image(DrawableRes::Background, Overlapped::BACKGROUND);
 
 	// Menu button function
 	std::vector<Widget::Button> buttons = {
