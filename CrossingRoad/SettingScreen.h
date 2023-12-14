@@ -30,5 +30,5 @@ public:
 	Animation N;
 	Animation G;
 
-	Widget::Text music, sfx, character, back;
+	Widget::Text music, sfx, character, back, enter;
 };

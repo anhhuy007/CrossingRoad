@@ -45,6 +45,7 @@ public:
 	int hoverIndex = 0;
 	int itemRange = 0;
 	Widget::Dialog confirmDialog;
+	Widget::Text enter, del;
 	std::vector<int> savegame_colors, dialog_colors;
 
 	class SavedGameText {

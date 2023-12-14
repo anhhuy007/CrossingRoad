@@ -521,8 +521,11 @@ std::pair<std::string, std::string> GameMap::GetSavedNameInfo()
 							playerName = " ";
 						}
 					}
-					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) || (i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) || (i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) || i == Keyboard::SPACE_KEY) 
-					{
+					else if ((i >= Keyboard::A_KEY && i <= Keyboard::Z_KEY) ||
+						(i >= Keyboard::a_KEY && i <= Keyboard::z_KEY) ||
+						(i >= Keyboard::NUM_0_KEY && i <= Keyboard::NUM_9_KEY) ||
+						i == Keyboard::SPACE_KEY
+						) {
 						if (playerName == " ") {
 							playerName = "";
 						}

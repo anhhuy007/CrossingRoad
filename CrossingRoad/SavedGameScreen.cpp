@@ -42,6 +42,8 @@ void SavedGameScreen::InitWidget()
 	{
 		hoverGif.push_back(Graphic::Sprite(animationPath + "frame" + std::to_string(i) + ".sprite"));
 	}
+	enter = Widget::Text(game, "Press ENTER to turn select game.", { 160,217 }, 170, 5, TextFont::NORMAL, 6);
+	del = Widget::Text(game, "Press DELETE to remove game file.", { 158,227 }, 180, 5, TextFont::NORMAL, 6);
 
 	//-----------------------------COLOR SAVEGAME---------------------------
 	savegame_colors = {
@@ -212,6 +214,8 @@ bool SavedGameScreen::OnUpdate(float elapsedTime)
 	game->RenderSprite(listItem, { left,top_border }); top_border += 30;
 
 	// render text
+	enter.Render();
+	del.Render();
 	COORD pos = { 75, 105 };
 	for (int i = itemRange; i < min(itemRange + 4, savedGameTexts.size()); i++)
 	{
