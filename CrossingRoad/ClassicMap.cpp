@@ -12,7 +12,7 @@ void ClassicMap::SetScreenColor() {
 		RGB(96, 109, 138),
 		RGB(72, 78, 94), 
 		RGB(113, 215, 255), 
-		RGB(126, 74, 76), 
+		RGB(126, 74, 76),	
 		RGB(255, 112, 51),
 		RGB(65, 39, 42),
 		RGB(255, 59, 69),
