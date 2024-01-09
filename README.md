@@ -90,15 +90,19 @@ To play the "Crossing Road" game, you need to control a small character to cross
 <!-- CONTRIBUTORS -->
 ## Contributors
 
-* [Your Name](https://github.com/your_username)
+* [anhhuy007](https://github.com/anhhuy007)
+* [duyzhii](https://github.com/Duyzhii)
+* [akerman0509](https://github.com/Akerman0509)
+* [dazorrus](https://github.com/DaZorrus)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contact
 
-Your Name - [@your_twitter_handle](https://twitter.com/your_twitter_handle) - your.email@email.com
+Anh Huy Huynh - [@anhhuy007](https://twitter.com/anhhuy007) - imanhhuy007@gmail.com
 
-Project Link: [https://github.com/your_username/CrossingRoad-Game](https://github.com/your_username/CrossingRoad-Game)
+Project Link: [https://github.com/anhhuy007/CrossingRoad](https://github.com/anhhuy007/CrossingRoad)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
