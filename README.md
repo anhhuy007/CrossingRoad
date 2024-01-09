@@ -16,11 +16,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -30,14 +25,10 @@
   <p align="center">
     A recreation of the popular "Crossing Road" electronic entertainment game.
     <br />
-    <a href="https://github.com/your_username/CrossingRoad-Game"><strong>Explore the docs »</strong></a>
+    <a href="https://drive.google.com/file/d/1hsECy-NDXAzutL2QaTmrHiq6Y3OZxNEW/view?usp=sharing"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/your_username/CrossingRoad-Game">View Demo</a>
-    ·
-    <a href="https://github.com/your_username/CrossingRoad-Game/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/your_username/CrossingRoad-Game/issues">Request Feature</a>
+    <a href="https://www.youtube.com/watch?v=V-HWCQwGsQs&t=4s">View Demo</a>
   </p>
 </div>
 
@@ -59,7 +50,6 @@
     </li>
     <li><a href="#built-with">Built With</a></li>
     <li><a href="#contributors">Contributors</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -103,14 +93,6 @@ To play the "Crossing Road" game, you need to control a small character to cross
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
 ## Contact
 
 Your Name - [@your_twitter_handle](https://twitter.com/your_twitter_handle) - your.email@email.com
