@@ -82,7 +82,8 @@ To play the "Crossing Road" game, you need to control a small character to cross
 <!-- BUILT WITH -->
 ## Built With
 
-* [![Programming Language][Python]][Python-url]
+* [![C++][C++.js]][C++-url]
+* [![Python][Python.js]][Python-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -110,3 +111,7 @@ Project Link: [https://github.com/your_username/CrossingRoad-Game](https://githu
 [stars-shield]: https://img.shields.io/github/stars/your_username/CrossingRoad-Game.svg?style=for-the-badge
 [stars-url]: https://github.com/your_username/CrossingRoad-Game/stargazers
 [issues-shield]: https://img.shields.io/github/issues/your_username/CrossingRoad-Game.svg?style=for-the
+[C++.js]: https://img.shields.io/badge/C++-0769AD?style=for-the-badge&logo=cplusplus&logoColor=white
+[C++-url]: https://cplusplus.com/
+[Python.js]: https://img.shields.io/badge/python-ffff00?style=for-the-badge&logo=python&logoColor=white
+[Python-url]: https://www.python.org/
