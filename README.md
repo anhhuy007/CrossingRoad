@@ -49,7 +49,6 @@
       </ul>
     </li>
     <li><a href="#built-with">Built With</a></li>
-    <li><a href="#contributors">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -57,16 +56,16 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-"Crossing Road" is a popular electronic entertainment game where players take on the role of a small character needing to cross a busy street. On the road, players must be cautious and control their character to avoid collisions with moving vehicles such as cars and trucks crossing from one side of the road to the other. The main goal of the game is to safely cross the road and collect high scores. The game typically features different levels with increasing difficulty, including faster speeds, wider roads, and the appearance of various obstacles. "Crossing Road" provides an exciting and challenging experience for players who must make quick and calculated decisions to successfully navigate all challenges on the road. With the knowledge acquired and under the guidance of Mr. Truong Toan Thinh, we have been able to recreate the "Crossing Road" game.
+  Crossing Road is a popular electronic entertainment game where players take on the role of a small character needing to cross a busy street. On the road, players must be cautious and control their character to avoid collisions with moving vehicles such as cars and trucks crossing from one side of the road to the other. The main goal of the game is to safely cross the road and collect high scores. The game typically features different levels with increasing difficulty, including faster speeds, wider roads, and the appearance of various obstacles. "Crossing Road" provides an exciting and challenging experience for players who must make quick and calculated decisions to successfully navigate all challenges on the road. With the knowledge acquired and under the guidance of Mr. Truong Toan Thinh, we have been able to recreate the "Crossing Road" game.
 
 ### Reason
 
-Programming the "Crossing Road" game helps us gain a better understanding of object-oriented programming (OOP) concepts. During the development of this game, we will learn how to design and implement object classes to model the game's objects, including characters, moving vehicles, and obstacles. We also need to use the OOP techniques we have learned to manage the game's state and handle events such as collisions and scoring. Additionally, programming the "Crossing Road" game helps us hone programming skills and logical thinking.
+  Programming the "Crossing Road" game helps us gain a better understanding of object-oriented programming (OOP) concepts. During the development of this game, we will learn how to design and implement object classes to model the game's objects, including characters, moving vehicles, and obstacles. We also need to use the OOP techniques we have learned to manage the game's state and handle events such as collisions and scoring. Additionally, programming the "Crossing Road" game helps us hone programming skills and logical thinking.
 
 <!-- HOW TO PLAY -->
 ## How to Play
 
-To play the "Crossing Road" game, you need to control a small character to cross a busy street. Here are detailed instructions:
+  To play the "Crossing Road" game, you need to control a small character to cross a busy street. Here are detailed instructions:
 
 ### Gameplay
 
@@ -88,15 +87,6 @@ To play the "Crossing Road" game, you need to control a small character to cross
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTORS -->
-## Contributors
-
-* [anhhuy007](https://github.com/anhhuy007)
-* [duyzhii](https://github.com/Duyzhii)
-* [akerman0509](https://github.com/Akerman0509)
-* [dazorrus](https://github.com/DaZorrus)
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contact
 
