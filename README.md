@@ -20,7 +20,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="https://drive.google.com/file/d/1vg346JUyEV0O9qHCV-IrGLm57SqXsCb-/view?usp=sharing" alt="Logo" width="80" height="80">
+  <img src="https://github.com/anhhuy007/CrossingRoad/blob/master/CrossingRoad.jpg">
   <h3 align="center">CrossingRoad Game</h3>
 
   <p align="center">
